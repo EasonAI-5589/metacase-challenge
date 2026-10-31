@@ -379,4 +379,34 @@ html[data-theme="dark"] .theme-icon { transform: rotate(180deg); }
 /* homepage base resets (a { color: inherit }) must not recolour the controls */
 .v2-home .btn-primary { color: var(--btn-primary-fg); }
 .v2-home .btn-secondary { color: var(--text-primary); }
+
+/* The shuttle: a portal in the arena opens into its track on the Challenge page. Leaving
+ * (portal-warp.js warp()): an iris of the tunnel's dark grows from the doorway while three rings
+ * rush past. Arriving (theme.js, then portal-warp.js arrive()): the same dark covers the first
+ * frame and clears outward. Only transform and opacity move, so the compositor keeps the motion
+ * smooth while the page loads. */
+:root {
+  --shuttle-dark: #04070f;
+  --shuttle-econ: oklch(80% 0.12 195); --shuttle-fin: oklch(82% 0.14 75); --shuttle-soc: oklch(74% 0.14 290);
+  --shuttle-inout: cubic-bezier(0.77, 0, 0.175, 1);
+}
+[data-shuttle="econ"] { --shuttle-tone: var(--shuttle-econ); }
+[data-shuttle="fin"] { --shuttle-tone: var(--shuttle-fin); }
+[data-shuttle="soc"] { --shuttle-tone: var(--shuttle-soc); }
+.mc-shuttle { position: fixed; inset: 0; z-index: 9999; overflow: hidden; contain: strict; pointer-events: auto; cursor: progress; }
+.mc-shuttle > i { position: absolute; left: calc(var(--shuttle-x) - 80px); top: calc(var(--shuttle-y) - 80px); width: 160px; height: 160px; border-radius: 50%; will-change: transform, opacity; }
+.mc-shuttle-iris { background: radial-gradient(closest-side, color-mix(in oklab, var(--shuttle-tone, var(--shuttle-econ)) 22%, var(--shuttle-dark)), var(--shuttle-dark) 60%); opacity: 0; }
+.mc-shuttle-ring { border: 2px solid color-mix(in oklab, var(--shuttle-tone, var(--shuttle-econ)) 80%, white); opacity: 0; }
+/* arriving: theme.js marks the root before the first paint; the dark sits over everything */
+html[data-shuttle]::before, html[data-shuttle]::after { content: ""; position: fixed; z-index: 2147483000; pointer-events: none; }
+html[data-shuttle]::before { inset: 0; background: radial-gradient(circle at var(--shuttle-x, 50%) var(--shuttle-y, 50%), color-mix(in oklab, var(--shuttle-tone, var(--shuttle-econ)) 22%, var(--shuttle-dark)), var(--shuttle-dark) 72%); }
+html[data-shuttle]::after { left: calc(var(--shuttle-x, 50%) - 80px); top: calc(var(--shuttle-y, 50%) - 80px); width: 160px; height: 160px; border-radius: 50%; opacity: 0;
+  border: 2px solid color-mix(in oklab, var(--shuttle-tone, var(--shuttle-econ)) 80%, white); }
+html.is-shuttle-out::before { animation: shuttle-clear 520ms var(--shuttle-inout) both; }
+html.is-shuttle-out::after { animation: shuttle-ring 460ms linear both; }
+@keyframes shuttle-clear { to { opacity: 0; transform: scale(1.06); } }
+@keyframes shuttle-ring { 0% { opacity: 0; transform: scale(.85); } 15% { opacity: .85; } 100% { opacity: 0; transform: scale(14); } }
+@media (prefers-reduced-motion: reduce) {
+  html[data-shuttle]::before, html[data-shuttle]::after, .mc-shuttle { display: none; }
+}
 [data-theme="light"] .v2-home .btn-primary { color: #F7F6F2; }

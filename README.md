@@ -47,6 +47,7 @@ must not be used to overwrite this version.
 | Content pages: remaps the `styles.css` / `site.css` tokens and restyles the shared components; animated page header | `skin.css`, `v2.js` |
 | Header backdrops (one canvas renderer, one motif per page) | `backdrop.js` |
 | Homepage arena: scroll camera, harness wheel, flying agent and challenge rooms | `arena.css`, `arena.js`, `arena-scene.js`, `arena-models.js`, `arena-motion.js` |
+| Portal shuttle from an arena room into its track on the Challenge page: an iris of dark with rings, plain elements animating only transform and opacity (no WebGL); the track guardians beside each track heading | `portal-warp.js`, `v2.css` (the shuttle), `theme.js` (arrival before first paint) |
 | Layered system scenes (`.v2-stack`, `data-scene`) on Challenge, Harness and Self-evolving: an interactive isometric L1–L3 stack whose tile labels come from each layer's chips | `scene.css`, `scene.js` |
 | Teams: institution logo wall on white plates, profile photos (`assets/people/`, sources in its `ATTRIBUTION.txt`) with monograms for anyone without one, contributor chips | `skin.css` §16 |
 | Theme restore before paint; first visits use the dark theme | `theme.js` |

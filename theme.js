@@ -19,6 +19,23 @@
   };
   apply();
 
+  // Arriving through a portal (portal-warp.js): the tunnel's dark covers the first frame, its glow
+  // where the doorway was, until portal-warp.js clears it. It never outlasts three seconds, and the
+  // site's page transition gives way to it.
+  try {
+    const track = /^#track-(econ|fin|soc)$/.exec(location.hash);
+    if (track && new URLSearchParams(location.search).get("via") === "portal" && !document.prerendering) {
+      root.dataset.shuttle = track[1];
+      const at = JSON.parse(window.sessionStorage.getItem("metacase-shuttle") || "null");
+      window.sessionStorage.removeItem("metacase-shuttle");
+      if (at && Number.isFinite(at.x) && Number.isFinite(at.y)) {
+        root.style.setProperty("--shuttle-x", `${at.x}%`);
+        root.style.setProperty("--shuttle-y", `${at.y}%`);
+      }
+      window.addEventListener("pagereveal", event => { if (root.dataset.shuttle) event.viewTransition?.skipTransition(); }, { once: true });
+      window.setTimeout(() => { if (!root.classList.contains("is-shuttle-out")) delete root.dataset.shuttle; }, 3000);
+    }
+  } catch { /* the page simply opens */ }
   // A Chinese page is not shown until language.js has translated it, so it never
   // flashes in English first; during a page transition the incoming page fades in
   // already translated. The hold lasts at most 600ms from the page's first frame.

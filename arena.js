@@ -444,22 +444,26 @@ if (chapter) {
       if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
       const id = portalOf(link); if (!id) return;
       event.preventDefault();
+      if (state.portalCharge) return; // already on its way through a portal
       const pin = $('.mc-pin').getBoundingClientRect(), p = lastPortals[id], r = link.getBoundingClientRect();
       const at = p && p.centreVisible, x = at ? pin.left + p.cx : r.left + r.width / 2, y = at ? pin.top + p.cy : r.top + r.height / 2;
       state.portalFocus = id; state.portalCharge = true; scene?.update(state);
       const href = link.href;
       const chosenHarness = state.equippedHarness ?? state.harness ?? 0;
       saveLoadout();
-      setTimeout(() => import('./portal-warp.js?v=20261028-cascade').then(m => m.warp({ x, y, track: id, href, model: state.model, variant: state.variant, effort: state.effort, harness: chosenHarness, lang: lang() })).catch(() => { location.href = href; }), scene ? 260 : 0);
+      // the shuttle starts at once (the doorway surges under the opening iris) and the arena stops
+      // drawing as soon as the window is covered
+      const fly = () => import('./portal-warp.js?v=20261101-shuttle').then(m => m.warp({ x, y, track: id, href, model: state.model, variant: state.variant, effort: state.effort, harness: chosenHarness, onCovered: () => { state.paused = true; scene?.update(state); } })).catch(() => { location.href = href; });
+      fly();
     });
   });
-  addEventListener('pageshow', event => { if (event.persisted) { state.portalCharge = false; state.portalFocus = ''; scene?.update(state); } });
+  addEventListener('pageshow', event => { if (event.persisted) { state.portalCharge = false; state.portalFocus = ''; state.paused = reduced.matches; scene?.update(state); } });
   async function load() {
     if(loading)return;loading=true;
     try {
       const {createArenaScene}=await import('./arena-scene.js?v=20261028-cascade');
       scene=createArenaScene($('.mc-canvas'), { onWeaponProject: projectWeapon, onPortalProject: projectPortals }); scene.update(state);
-      import('./portal-warp.js?v=20261028-cascade').catch(() => {}); // the portal flight's 3D kit, warmed before any portal is taken
+      import('./portal-warp.js?v=20261101-shuttle').catch(() => {}); // the shuttle, ready before any portal is taken
       $('.mc-fallback').hidden=true;chapter.dataset.renderer='webgl';
     } catch(error) {
       $('.mc-fallback').hidden=false;chapter.dataset.renderer='fallback';
