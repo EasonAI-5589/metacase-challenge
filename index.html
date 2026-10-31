@@ -87,9 +87,9 @@
 <!-- ================= HERO: the Metacase network (drawn as bookcases) ================= -->
 <header class="mc-hero" id="top">
   <div class="mc-tags" data-tags="hero" aria-hidden="true">
-    <span data-tag="0" style="--tc: var(--track-1)"><b>Economics</b><i>152 records</i></span>
-    <span data-tag="1" style="--tc: var(--track-2)"><b>Finance</b><i>90 records</i></span>
-    <span data-tag="2" style="--tc: var(--mc-violet)"><b>Social science</b><i>43 records</i></span>
+    <span data-tag="0" style="--tc: var(--track-1)"><b>Economics</b><i>184 records</i></span>
+    <span data-tag="1" style="--tc: var(--track-2)"><b>Finance</b><i>132 records</i></span>
+    <span data-tag="2" style="--tc: var(--mc-violet)"><b>Social science</b><i>115 records</i></span>
   </div>
   <div class="wrap mc-hero-inner">
     <p class="mc-eyebrow mono mc-in" style="--d:.05s">Global Metacase Initiative</p>
@@ -183,9 +183,9 @@
   <span class="mc-anchor" id="foundation" aria-hidden="true"></span>
   <div class="mc-scene-pin" data-view="world">
     <div class="mc-tags" data-tags="world" aria-hidden="true">
-      <span data-tag="0" style="--tc: var(--track-1)"><b>Economics</b><i>152 records</i></span>
-      <span data-tag="1" style="--tc: var(--track-2)"><b>Finance</b><i>90 records</i></span>
-      <span data-tag="2" style="--tc: var(--mc-violet)"><b>Social science</b><i>43 records</i></span>
+      <span data-tag="0" style="--tc: var(--track-1)"><b>Economics</b><i>184 records</i></span>
+      <span data-tag="1" style="--tc: var(--track-2)"><b>Finance</b><i>132 records</i></span>
+      <span data-tag="2" style="--tc: var(--mc-violet)"><b>Social science</b><i>115 records</i></span>
     </div>
     <div class="wrap mc-scene-head">
       <p class="mc-label mono"><span>03</span><b>The network</b></p>
@@ -204,20 +204,20 @@
   </div>
 </section>
 
-<!-- ================= 04 THE FIRST FIELDS: three fields, sixteen classes ================= -->
+<!-- ================= 04 THE FIRST FIELDS: three fields, eighteen classes ================= -->
 <section class="mc-section mc-catalogue" id="fields" aria-labelledby="fields-title">
   <div class="wrap">
     <div class="mc-head mc-r">
       <p class="mc-label mono"><span>04</span>The first fields</p>
-      <h2 id="fields-title"><span>Three fields to start,</span> <em>sixteen classes of cases.</em></h2>
+      <h2 id="fields-title"><span>Three fields to start,</span> <em>eighteen classes of cases.</em></h2>
       <p class="mc-sub">Economics, finance and social science come first: each offers public evidence, documented decisions and outputs that can be checked. Open a field's book to see its classes.</p>
     </div>
     <div class="mc-catalogue-meta mc-r">
-      <div><b class="tnum" data-count="285">285</b><span>tasks</span></div>
+      <div><b class="tnum" data-count="431">431</b><span>tasks</span></div>
       <div><b class="tnum" data-count="3">3</b><span>fields</span></div>
-      <div><b class="tnum" data-count="16">16</b><span>classes</span></div>
+      <div><b class="tnum" data-count="18">18</b><span>classes</span></div>
     </div>
-<!-- fields:books:start (written by scripts/build-fields.mjs from metacase-harbor metacase/summary.json, v0.1) -->
+<!-- fields:books:start (written by scripts/build-fields.mjs from metacase-harbor metacase/summary.json, v1.0) -->
 <div class="mc-fieldbooks" data-fieldbooks>
   <div class="mc-bookrow" role="tablist" aria-label="Fields" data-tabs="manual">
     <button class="mc-fbook" type="button" role="tab" id="fb-tab-econ" aria-controls="fb-econ" aria-selected="true" style="--tc: var(--track-1)">
@@ -225,7 +225,7 @@
       <span class="mc-fbook-label">
         <small class="mono">Field 01</small>
         <b class="mc-fbook-title">Economics</b>
-        <span class="mc-fbook-n"><b class="tnum">5</b> <span>classes</span></span>
+        <span class="mc-fbook-n"><b class="tnum">6</b> <span>classes</span></span>
       </span>
     </button>
     <button class="mc-fbook" type="button" role="tab" id="fb-tab-fin" aria-controls="fb-fin" aria-selected="false" style="--tc: var(--track-2)">
@@ -241,7 +241,7 @@
       <span class="mc-fbook-label">
         <small class="mono">Field 03</small>
         <b class="mc-fbook-title">Social science</b>
-        <span class="mc-fbook-n"><b class="tnum">5</b> <span>classes</span></span>
+        <span class="mc-fbook-n"><b class="tnum">6</b> <span>classes</span></span>
       </span>
     </button>
   </div>
@@ -258,6 +258,11 @@
         <h3 class="mc-page-name" id="fb-econ-data-name">Economic &amp; business data engineering</h3>
         <p class="mc-page-desc">SQL and dbt over banking, retail, e-commerce and wholesale supply-chain data.</p>
       </article></li>
+      <li><article class="mc-page" id="fb-econ-publicfinance" aria-labelledby="fb-econ-publicfinance-name">
+        <p class="mc-call mono" data-no-translate>econ.publicfinance</p>
+        <h3 class="mc-page-name" id="fb-econ-publicfinance-name">Public finance &amp; fiscal policy</h3>
+        <p class="mc-page-desc">Analyse federal budget receipts, department outlays, public debt structure, Treasury auctions and intergovernmental transfers.</p>
+      </article></li>
       <li><article class="mc-page" id="fb-econ-markets" aria-labelledby="fb-econ-markets-name">
         <p class="mc-call mono" data-no-translate>econ.markets</p>
         <h3 class="mc-page-name" id="fb-econ-markets-name">Market movement forecasting</h3>
@@ -271,48 +276,42 @@
       <li><article class="mc-page" id="fb-econ-statistics" aria-labelledby="fb-econ-statistics-name">
         <p class="mc-call mono" data-no-translate>econ.statistics</p>
         <h3 class="mc-page-name" id="fb-econ-statistics-name">Official statistics synthesis</h3>
-        <p class="mc-page-desc">Gather and combine figures from statistical offices and international organisations into a structured answer.</p>
-      </article></li>
-      <li><article class="mc-page is-summary" id="fb-econ-class-6" aria-labelledby="fb-econ-class-6-name">
-        <p class="mc-call mono">Field summary</p>
-        <h3 class="mc-page-name tnum" id="fb-econ-class-6-name">152 tasks · 5 classes</h3>
-        <p class="mc-page-desc">Every task is scored against references the agent never sees.</p>
-        <a class="mc-page-go" href="challenge.html#track-econ"><span>Enter the Economics track</span><span aria-hidden="true">→</span></a>
+        <p class="mc-page-desc">Synthesise multi-year series, statistical transformations and distribution metrics from official U.S. Treasury statistical bulletins.</p>
       </article></li>
     </ol>
   </div>
   <div class="mc-flip" id="fb-fin" role="tabpanel" aria-labelledby="fb-tab-fin" data-field="fin" style="--tc: var(--track-2)">
     <p class="mc-flip-head"><small class="mono">Field 02</small> <b>Finance</b></p>
     <ol class="mc-pages">
-      <li><article class="mc-page" id="fb-fin-nlp" aria-labelledby="fb-fin-nlp-name">
-        <p class="mc-call mono" data-no-translate>fin.nlp</p>
-        <h3 class="mc-page-name" id="fb-fin-nlp-name">Financial text understanding</h3>
-        <p class="mc-page-desc">Sentiment, news headlines, entity recognition and ESG issues in financial text.</p>
-      </article></li>
       <li><article class="mc-page" id="fb-fin-accounting" aria-labelledby="fb-fin-accounting-name">
         <p class="mc-call mono" data-no-translate>fin.accounting</p>
         <h3 class="mc-page-name" id="fb-fin-accounting-name">Accounting close &amp; finance deliverables</h3>
-        <p class="mc-page-desc">Month-end close remediation and accounting data pipelines.</p>
+        <p class="mc-page-desc">Month-end close remediation, audit sampling, amortization schedules and accounting data pipelines.</p>
       </article></li>
-      <li><article class="mc-page" id="fb-fin-credit" aria-labelledby="fb-fin-credit-name">
-        <p class="mc-call mono" data-no-translate>fin.credit</p>
-        <h3 class="mc-page-name" id="fb-fin-credit-name">Credit risk &amp; fraud</h3>
-        <p class="mc-page-desc">Credit scoring and fraud detection from tabular borrower and transaction features.</p>
+      <li><article class="mc-page" id="fb-fin-filings" aria-labelledby="fb-fin-filings-name">
+        <p class="mc-call mono" data-no-translate>fin.filings</p>
+        <h3 class="mc-page-name" id="fb-fin-filings-name">Financial research &amp; filings QA</h3>
+        <p class="mc-page-desc">Analyst-style questions and deliverables from SEC filings, company disclosures and investment research materials.</p>
       </article></li>
       <li><article class="mc-page" id="fb-fin-numeric" aria-labelledby="fb-fin-numeric-name">
         <p class="mc-call mono" data-no-translate>fin.numeric</p>
         <h3 class="mc-page-name" id="fb-fin-numeric-name">Financial numerical reasoning</h3>
-        <p class="mc-page-desc">Table and text numeric reasoning over financial reports and CFA-style questions.</p>
+        <p class="mc-page-desc">Table and text numeric reasoning over financial reports, CFA-style questions and financial planning models.</p>
+      </article></li>
+      <li><article class="mc-page" id="fb-fin-nlp" aria-labelledby="fb-fin-nlp-name">
+        <p class="mc-call mono" data-no-translate>fin.nlp</p>
+        <h3 class="mc-page-name" id="fb-fin-nlp-name">Financial text understanding</h3>
+        <p class="mc-page-desc">Sentiment, news headlines, entity recognition and ESG issues in financial text.</p>
       </article></li>
       <li><article class="mc-page" id="fb-fin-payments" aria-labelledby="fb-fin-payments-name">
         <p class="mc-call mono" data-no-translate>fin.payments</p>
         <h3 class="mc-page-name" id="fb-fin-payments-name">Payments &amp; transaction data analysis</h3>
         <p class="mc-page-desc">Multi-step Python analysis over payment records, fee schedules and merchant data.</p>
       </article></li>
-      <li><article class="mc-page" id="fb-fin-filings" aria-labelledby="fb-fin-filings-name">
-        <p class="mc-call mono" data-no-translate>fin.filings</p>
-        <h3 class="mc-page-name" id="fb-fin-filings-name">Financial research &amp; filings QA</h3>
-        <p class="mc-page-desc">Analyst-style questions answered from SEC filings and company disclosures.</p>
+      <li><article class="mc-page" id="fb-fin-credit" aria-labelledby="fb-fin-credit-name">
+        <p class="mc-call mono" data-no-translate>fin.credit</p>
+        <h3 class="mc-page-name" id="fb-fin-credit-name">Lending operations &amp; credit risk</h3>
+        <p class="mc-page-desc">Lending operations, credit risk, fraud detection and portfolio or consumer-protection analysis across borrower, servicing and transaction evidence.</p>
       </article></li>
     </ol>
   </div>
@@ -321,34 +320,33 @@
     <ol class="mc-pages">
       <li><article class="mc-page" id="fb-soc-law" aria-labelledby="fb-soc-law-name">
         <p class="mc-call mono" data-no-translate>soc.law</p>
-        <h3 class="mc-page-name" id="fb-soc-law-name">Law &amp; regulation</h3>
-        <p class="mc-page-desc">Chinese legal knowledge, statute recall and case-outcome prediction.</p>
+        <h3 class="mc-page-name" id="fb-soc-law-name">Law, regulation &amp; compliance</h3>
+        <p class="mc-page-desc">Legal statute recall, case-outcome prediction, regulatory data-lake pipelines and compliance review deliverables.</p>
       </article></li>
       <li><article class="mc-page" id="fb-soc-society" aria-labelledby="fb-soc-society-name">
         <p class="mc-call mono" data-no-translate>soc.society</p>
         <h3 class="mc-page-name" id="fb-soc-society-name">Society, education &amp; survey data</h3>
-        <p class="mc-page-desc">Education, survey and social-media data analysis.</p>
+        <p class="mc-page-desc">Education, campus organisations, survey and social-service data analysis and case reports.</p>
       </article></li>
       <li><article class="mc-page" id="fb-soc-business" aria-labelledby="fb-soc-business-name">
         <p class="mc-call mono" data-no-translate>soc.business</p>
         <h3 class="mc-page-name" id="fb-soc-business-name">Business operations &amp; CRM</h3>
-        <p class="mc-page-desc">Marketing, sales and customer-support data in CRM and support tools.</p>
+        <p class="mc-page-desc">Marketing, sourcing, sales and customer-support analytics across CRM pipelines and operational deliverables.</p>
+      </article></li>
+      <li><article class="mc-page" id="fb-soc-policy" aria-labelledby="fb-soc-policy-name">
+        <p class="mc-call mono" data-no-translate>soc.policy</p>
+        <h3 class="mc-page-name" id="fb-soc-policy-name">Public policy &amp; service governance</h3>
+        <p class="mc-page-desc">Environmental and wildfire public-policy data-lake pipelines, constituent feedback analysis and service remediation deliverables.</p>
       </article></li>
       <li><article class="mc-page" id="fb-soc-hr" aria-labelledby="fb-soc-hr-name">
         <p class="mc-call mono" data-no-translate>soc.hr</p>
         <h3 class="mc-page-name" id="fb-soc-hr-name">HR &amp; organisational analytics</h3>
-        <p class="mc-page-desc">Training effectiveness and procurement review, recruiting and workforce data pipelines.</p>
+        <p class="mc-page-desc">Training effectiveness and procurement review, staffing budgets, recruiting and workforce data pipelines.</p>
       </article></li>
       <li><article class="mc-page" id="fb-soc-psychology" aria-labelledby="fb-soc-psychology-name">
         <p class="mc-call mono" data-no-translate>soc.psychology</p>
         <h3 class="mc-page-name" id="fb-soc-psychology-name">Psychology &amp; cognitive science</h3>
-        <p class="mc-page-desc">Data-driven analysis tasks from psychology and cognitive-science papers.</p>
-      </article></li>
-      <li><article class="mc-page is-summary" id="fb-soc-class-6" aria-labelledby="fb-soc-class-6-name">
-        <p class="mc-call mono">Field summary</p>
-        <h3 class="mc-page-name tnum" id="fb-soc-class-6-name">43 tasks · 5 classes</h3>
-        <p class="mc-page-desc">Every task is scored against references the agent never sees.</p>
-        <a class="mc-page-go" href="challenge.html#track-soc"><span>Enter the Social science track</span><span aria-hidden="true">→</span></a>
+        <p class="mc-page-desc">Deterministic computational analysis of physiological biosignals, behavioural experiments and cognitive-science datasets.</p>
       </article></li>
     </ol>
   </div>
@@ -454,10 +452,10 @@
       <div class="mc-results-head">
         <p class="mc-label mono"><span>07</span>Results so far</p>
         <h2 id="results-title"><span>See how runs</span> <em>have been scored.</em></h2>
-        <p class="mc-results-scope">The Harbor benchmark catalog curates 285 task records across 3 fields and 16 classes. On its 100-task Dev100 econometric replication split, Harbor has evaluated 8 models across 5 agent harnesses (3,999 / 4,000 formal trials scored) and compared 9 harness configurations on GPT-5.6 Sol (900 / 900 trials scored), alongside the 14-model × 4-harness v10 development board.</p>
+        <p class="mc-results-scope">The Harbor benchmark catalog curates 431 task records across 3 fields and 18 classes. On its 100-task Dev100 econometric replication split, Harbor has evaluated 8 models across 5 agent harnesses (3,999 / 4,000 formal trials scored) and compared 9 harness configurations on GPT-5.6 Sol (900 / 900 trials scored), alongside the 14-model × 4-harness v10 development board.</p>
       </div>
       <ul class="mc-results-stats" aria-label="Benchmark snapshot">
-        <li style="--tc: var(--track-1)"><div class="mc-art" data-art="tasks"></div><b class="tnum" data-count="285">285</b><span>Candidate tasks</span><small>3 fields · 16 classes: 100 Dev100 replications, 183 Harbor registry tasks pinned at one commit, 2 local tasks</small></li>
+        <li style="--tc: var(--track-1)"><div class="mc-art" data-art="tasks"></div><b class="tnum" data-count="431">431</b><span>Candidate tasks</span><small>3 fields · 18 classes: 100 Dev100 replications, 297 Harbor registry tasks pinned at commit, 34 workflow deliverable tasks</small></li>
         <li style="--tc: var(--mc-violet)"><div class="mc-art" data-art="models"></div><b class="tnum">8 × 5</b><span>Models × harnesses on Dev100</span><small>3,999 / 4,000 trials scored</small><small data-no-translate>DeepAgents · Terminus-2 · Claude Agent SDK · OpenAI Agents SDK · DeepSeek Harness</small></li>
         <li style="--tc: var(--track-2)"><div class="mc-art" data-art="harnesses"></div><b class="tnum" data-count="9">9</b><span>Harnesses on GPT-5.6 Sol</span><small>900 / 900 Dev100 trials scored</small></li>
       </ul>
