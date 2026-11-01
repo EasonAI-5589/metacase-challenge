@@ -1,0 +1,9 @@
+{
+  "name": "metacase-sff-homepage-video",
+  "private": true,
+  "type": "module",
+  "description": "Deterministic frame capture of the Metacase homepage for the SFF stage video. Not part of the website.",
+  "devDependencies": {
+    "playwright": "^1.64.1"
+  }
+}
