@@ -3,7 +3,7 @@
 import { chromium } from 'playwright';
 
 export const ORIGIN = process.env.SFF_ORIGIN || 'http://127.0.0.1:4199';
-export const FPS = 60;
+export const FPS = Number(process.env.FPS || 60);
 
 // Capture-only CSS. Scrollbars and the cursor go, and the figures that contradict each other on the
 // locked page (handoff §3) stay out of frame until Eason decides which set is right.
@@ -22,7 +22,116 @@ export const SHOOT_CSS = `
   .mc-scroll-cue, .mc-access, .mc-directory-hint, .skip-link { display: none !important; }
 `;
 
-export async function openStage({ width = 1280, height = 720, dsf = 1920 / width, headless = true, language = 'en', extraCss = '', url = `${ORIGIN}/index.html` } = {}) {
+// Big-screen framing, shoot-only: no browser chrome, no long paragraphs nobody can read in ten seconds,
+// and the page's own short labels raised to a size the back of a hall can read.
+// Output is 1.5x these CSS pixels, so 19px here is 28.5px on screen and 48px is 72px.
+export const STAGE_CSS = `
+  :root { --mc-hh: 0px !important; --mc-pin-top: 1px !important; }
+  .site-header, .mc-subnav, .v2-footer { display: none !important; }
+
+  /* hero: title, one line of the page's lead, the hosting line */
+  .mc-hero { min-height: 100svh !important; padding-top: 72px !important; }
+  .mc-lead-more, .mc-cta { display: none !important; }
+  .mc-lead { font-size: 29px !important; line-height: 1.22 !important; max-width: 15em !important; margin-top: 24px !important; color: var(--text-primary) !important; letter-spacing: -.015em; }
+  .mc-lead::first-letter { text-transform: uppercase; }
+  .mc-eyebrow { font-size: 19px !important; }
+  .mc-hosts { display: grid !important; gap: 12px !important; justify-items: start !important; margin-top: 28px !important; }
+  .mc-host { font-size: 21px !important; letter-spacing: 0 !important; text-transform: none !important; font-family: var(--font-sans) !important; color: var(--text-secondary) !important; }
+  [data-tags="hero"] span { font-size: 19px !important; }
+
+  /* chapter heads */
+  .mc-label { font-size: 19px !important; letter-spacing: .02em !important; }
+  .mc-label > span { font-size: 19px !important; height: 30px !important; min-width: 40px !important; }
+  .mc-scene-head .mc-sub, .mc-head .mc-sub, .mc-join-copy .mc-sub, .mc-results-scope { display: none !important; }
+  .mc-scene-head { position: relative; z-index: 3; }
+  .mc-scene-pin::after { content: ""; position: absolute; inset: 0 0 auto 0; height: 36%; z-index: 1; pointer-events: none; background: linear-gradient(180deg, color-mix(in oklab, var(--bg-canvas) 82%, transparent) 30%, transparent); }
+
+  /* captions and rails: the short label stays, the long sentence goes */
+  .mc-captions span, .mc-captions small { display: none !important; }
+  .mc-captions .mc-caption-statement span { display: block !important; }
+  .mc-captions b { font-size: 25px !important; letter-spacing: .01em !important; }
+  .mc-rail { zoom: 1.5; }
+  .mc-scene-foot { bottom: 16px !important; }
+  .mc-captions { bottom: 96px !important; }
+
+  /* chapter 01 stage notes */
+  .mc-notes li { width: 350px !important; padding: 18px 20px !important; }
+  .mc-notes span, .mc-notes em { display: none !important; }
+  .mc-notes b { font-size: 19px !important; }
+  .mc-notes strong { font-size: 25px !important; line-height: 1.15 !important; }
+
+  /* labels riding on the 3D */
+  .mc-tags { z-index: 2 !important; }
+  .mc-tags span { font-size: 19px !important; }
+  .mc-tags i { font-size: 19px !important; letter-spacing: 0 !important; text-transform: none !important; }
+
+  /* chapter 04 */
+  .mc-catalogue-meta { display: none !important; }
+  [data-fieldbooks] { top: 2px !important; }
+  .mc-fields-rail { zoom: 1 !important; }
+  .mc-catalogue .mc-head { margin-bottom: 20px !important; }
+  .mc-book .mc-page-desc { display: none !important; }
+  .mc-book .mc-page-name { font-size: 24px !important; line-height: 1.16 !important; }
+  .mc-book .mc-call { font-size: 19px !important; }
+  .mc-fbook-label small { font-size: 19px !important; }
+  .is-books .mc-fbook:not([data-slot="center"]) .mc-fbook-title { font-size: 20px !important; }
+  .mc-fbook-n { font-size: 19px !important; }
+  .is-books .mc-fbook[data-slot="center"] .mc-fbook-title { font-size: 34px !important; }
+
+  /* chapter 05 */
+  .mc-copy { max-width: none !important; width: auto !important; }
+  .mc-copy h2 { font-size: 48px !important; line-height: 1.04 !important; white-space: nowrap !important; }
+  .mc-chapter:not([data-phase="1"]) .mc-loadout { display: none !important; }
+  .mc-loadout { zoom: 1.3; }
+  .mc-loadout-summary { display: none !important; }
+  .mc-step-label, .mc-loadout-label { font-size: 14.5px !important; }
+  .mc-loadout .mc-chip, .mc-loadout .mc-model-btn { font-size: 14.5px !important; }
+  .mc-model-roster { display: none !important; }
+  .mc-copy p[data-mc-body], .mc-enter, .mc-event, .mc-wheel-label, .mc-phase-index { display: none !important; }
+  .mc-portal { zoom: 1.25; }
+  .mc-domain-directory { display: none !important; }
+  .mc-corner { font-size: 19px !important; }
+
+  /* chapter 07: the numbers are the picture */
+  .mc-results-card { display: block !important; padding: 56px 64px !important; }
+  .mc-results-actions, .mc-submit, .mc-results-stats .mc-art, .mc-results-stats small[data-no-translate] { display: none !important; }
+  .mc-results-head h2 { font-size: 52px !important; }
+  .mc-results-stats { margin-top: 44px !important; gap: 20px !important; align-items: stretch !important; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.12fr) minmax(0, 1fr) !important; }
+  .mc-results-stats li { padding: 32px 28px 30px !important; }
+  .mc-results-stats b { font-size: 116px !important; }
+  .mc-results-stats span { font-size: 25px !important; line-height: 1.2 !important; margin-top: 14px; text-wrap: balance; }
+  .mc-results-stats small { font-size: 19px !important; line-height: 1.3 !important; color: var(--text-secondary) !important; margin-top: 10px; text-wrap: balance; }
+
+  /* chapter 08: host and the two partner labs in one frame */
+  .mc-join { padding: 24px 0 !important; }
+  .mc-join-card { display: block !important; }
+  .mc-join-copy { padding: 40px 56px 0 !important; background: none !important; }
+  .mc-join-copy h2 { font-size: 52px !important; margin-top: 12px !important; }
+  .mc-join-copy .mc-cta, .mc-join-card > .mc-art, .mc-org-note, .mc-team-students, .mc-person span { display: none !important; }
+  .mc-team { display: grid !important; grid-template-columns: minmax(0, 1fr) minmax(0, 2.1fr) !important; gap: 20px !important; padding: 24px 56px 40px !important; margin: 0 !important; border: 0 !important; background: none !important; align-items: stretch !important; }
+  .mc-org-host { grid-column: auto !important; display: flex !important; flex-direction: column !important; gap: 14px !important; justify-content: flex-start !important; padding: 20px !important; }
+  .mc-org-host .mc-person-lead { padding: 14px 0 0 !important; border: 0 !important; background: none !important; box-shadow: none !important; border-top: 1px solid var(--border-hairline) !important; border-radius: 0 !important; }
+  .mc-org-host .mc-person-lead img { width: 64px !important; height: 64px !important; }
+  .mc-team-partners { grid-column: auto !important; }
+  .mc-team-partners .mc-orgs { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 20px !important; }
+  .mc-org h3, .mc-org h3 a, .mc-org-host h3 a { font-size: 30px !important; line-height: 1.1 !important; letter-spacing: -.02em !important; }
+  .mc-org-full { font-size: 19px !important; line-height: 1.3 !important; }
+  .mc-team-kicker { font-size: 19px !important; letter-spacing: 0 !important; text-transform: none !important; }
+  .mc-person a { font-size: 21px !important; }
+  .mc-person b { font-size: 19px !important; }
+`;
+
+// Page text trimmed to an exact substring for the frame. The DOM of the running shoot only, never the files.
+export async function applyStageText(page) {
+  await page.evaluate(() => {
+    const lead = document.querySelector('.mc-lead');
+    if (lead) lead.textContent = 'an open benchmark and research arena built around reusable Metacases';
+    const small = document.querySelector('.mc-results-stats li:first-child small');
+    if (small) small.textContent = '3 fields × 200 tasks · 18 classes';
+  });
+}
+
+export async function openStage({ width = 1280, height = 720, dsf = 1920 / width, headless = true, language = 'en', extraCss = '', url = `${ORIGIN}/index.html`, stageText = true, loadout = null } = {}) {
   const browser = await chromium.launch({
     channel: 'chrome', headless,
     args: ['--enable-gpu', '--use-angle=metal', '--ignore-gpu-blocklist', '--enable-webgl', '--disable-gpu-vsync', '--disable-frame-rate-limit', '--force-color-profile=srgb', '--hide-scrollbars', '--disable-features=PaintHolding'],
@@ -35,18 +144,19 @@ export async function openStage({ width = 1280, height = 720, dsf = 1920 / width
   // Lenis off (v2.js falls back to native scrolling), and no other network: the shoot is the local locked commit.
   await page.route('**/lenis@*/**', r => r.abort());
   await page.route(/^https:\/\//, r => r.abort());
-  await page.addInitScript(([lang, css]) => {
+  await page.addInitScript(([lang, css, saved]) => {
     window.__realRAF = window.requestAnimationFrame.bind(window);
     window.__realPerf = performance.now.bind(performance);
-    try { localStorage.setItem('inferencenet-language', lang); localStorage.removeItem('metacase-loadout'); } catch {}
+    try { localStorage.setItem('inferencenet-language', lang); if (saved) localStorage.setItem('metacase-loadout', saved); else localStorage.removeItem('metacase-loadout'); } catch {}
     const inject = () => { const s = document.createElement('style'); s.dataset.shoot = '1'; s.textContent = css; (document.head || document.documentElement).append(s); };
     if (document.head) inject(); else document.addEventListener('DOMContentLoaded', inject, { once: true });
     // seek every CSS/WAAPI animation to the fake clock; finished ones really finish, so their promises resolve
-    window.__holdUntil = 0;
+    window.__holdUntil = Infinity;
+    window.__release = () => { window.__holdUntil = 0; const now = performance.now(); for (const a of document.getAnimations()) if (a.__seen === Infinity) a.__seen = now; };
     window.__seekAnimations = () => {
       const now = performance.now();
       for (const a of document.getAnimations()) {
-        if (a.__seen === undefined) a.__seen = Math.max(now, window.__holdUntil || 0);
+        if (a.__seen === undefined) a.__seen = window.__holdUntil === Infinity ? Infinity : now;
         const timing = a.effect?.getComputedTiming?.();
         const end = timing?.endTime ?? 0, local = Math.max(0, now - a.__seen);
         try {
@@ -56,16 +166,18 @@ export async function openStage({ width = 1280, height = 720, dsf = 1920 / width
       }
     };
     window.__settle = () => new Promise(done => window.__realRAF(() => window.__realRAF(() => { const c = new MessageChannel(); c.port1.onmessage = () => done(); c.port2.postMessage(0); })));
-  }, [language, SHOOT_CSS + extraCss]);
+  }, [language, SHOOT_CSS + extraCss, loadout ? JSON.stringify(loadout) : null]);
   // Paused before navigation: nothing on the page runs on its own time until a step advances the clock.
   await page.clock.install({ time: 0 });
   await page.clock.pauseAt(1000);
   await page.goto(url, { waitUntil: 'load' });
   await page.evaluate(() => document.fonts.ready);
+  if (stageText) await applyStageText(page);
   return { browser, context, page, errors };
 }
 
 const stepCounter = { i: 0 };
+// During warm-up the clock is stepped at the same size; only captured frames are kept.
 export const frameDt = i => Math.round((i + 1) * 1000 / FPS) - Math.round(i * 1000 / FPS);
 
 // Advance the page by one video frame, with scroll set first so rAF callbacks read the new position.

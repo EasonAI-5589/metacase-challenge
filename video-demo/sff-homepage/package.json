@@ -4,6 +4,9 @@
   "type": "module",
   "description": "Deterministic frame capture of the Metacase homepage for the SFF stage video. Not part of the website.",
   "devDependencies": {
-    "playwright": "^1.64.1"
+    "jsqr": "^1.4.0",
+    "playwright": "^1.64.1",
+    "pngjs": "^7.0.0",
+    "qrcode": "^1.5.4"
   }
 }

@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Metacase Challenge end card</title>
+<meta name="description" content="End card of the Metacase Challenge conference film, rendered frame by frame.">
+<link rel="stylesheet" href="/v2.css">
+<link rel="stylesheet" href="/metacase.css">
+<style>
+/* Hallmark · custom, film end card · stage: 1920x1080 at DPR 1, so one CSS pixel is one output pixel
+   critique: one action on a dark frame; the QR is the only bright object, so the eye lands where the phone must point
+   waive 63: "Hosted by NTU GIFTS · with HKU and SUFE" is the page's own line (index.html:110) and may not be reworded
+   waive 44b, 58: a film frame, no hero and no scrolling
+   waive 2b, 38iii: the accent line is the site's own heading treatment (metacase.css:58), required by the handoff
+   waive 26b: nothing on this frame can be pressed */
+:root {
+  --card-paper: #F1F5FA;
+  --card-sufe: #811c21;
+  --card-ink: var(--bg-canvas);
+  --card-gutter: 144px;
+  --card-rise: 16px;
+  --e: cubic-bezier(0.16, 1, 0.3, 1);
+  --e2: cubic-bezier(0.33, 1, 0.68, 1);
+}
+html, body { margin: 0; overflow-x: clip; background: var(--bg-canvas); }
+.stage { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: var(--bg-canvas); color: var(--text-primary); font-family: var(--font-sans); }
+:focus-visible { outline: 3px solid var(--track-1); outline-offset: 3px; }
+.frame { position: absolute; inset: 168px var(--card-gutter); display: grid; grid-template-columns: minmax(0, 1fr) 600px; grid-template-rows: 1fr auto; column-gap: 96px; row-gap: 24px; }
+.title { grid-area: 1 / 1; align-self: start; margin: -16px 0 0; font-size: 176px; line-height: .98; letter-spacing: -.04em; font-weight: 650; overflow-wrap: break-word; min-width: 0; }
+.title span, .title em { display: block; font-style: normal; }
+.title em { padding-bottom: .12em; margin-bottom: -.12em; background: linear-gradient(100deg, var(--track-1), var(--mc-violet) 50%, var(--track-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hosts { grid-area: 2 / 1; align-self: end; display: grid; gap: 28px; justify-items: start; }
+.crests { display: flex; align-items: center; gap: 36px; padding: 20px 32px; border-radius: 16px; background: var(--card-paper); }
+.crests img, .crests span { display: block; flex: none; }
+.ntu { width: 66px; height: 84px; overflow: hidden; }
+.ntu img { height: 84px; max-width: none; }
+.hku { height: 84px; width: 84px; }
+.sufe { width: 87px; height: 84px; background: var(--card-sufe); -webkit-mask: url("/assets/institutions/sufe-university-transparent-official.png") left center / auto 100% no-repeat; mask: url("/assets/institutions/sufe-university-transparent-official.png") left center / auto 100% no-repeat; }
+.host { margin: 0; font-size: 40px; line-height: 1.2; letter-spacing: -.015em; color: var(--text-secondary); }
+.qr { grid-area: 1 / 2; align-self: start; box-sizing: border-box; width: 600px; height: 600px; padding: 44px; border-radius: 16px; background: var(--card-paper); }
+.qr svg { display: block; width: 100%; height: 100%; }
+.go { grid-area: 2 / 2; display: grid; gap: 8px; }
+.cta { margin: 0; font-size: 52px; line-height: 1.1; letter-spacing: -.02em; font-weight: 650; }
+.url { margin: 0; font-size: 29px; line-height: 1.25; letter-spacing: -.008em; color: var(--text-secondary); white-space: nowrap; }
+.up { animation: rise 1.05s var(--e) both, resolve .8s var(--e2) both; animation-delay: var(--d, 0s); }
+@keyframes rise { from { transform: translateY(var(--card-rise)); } }
+@keyframes resolve { from { opacity: 0; filter: blur(4px); } }
+@media (prefers-reduced-motion: reduce) { .up { animation: none; } }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="frame">
+    <h1 class="title"><span class="up" style="--d:.1s">Metacase</span><em class="up" style="--d:.22s">Challenge</em></h1>
+    <div class="hosts">
+      <div class="crests up" style="--d:.5s">
+        <span class="ntu"><img src="/assets/institutions/ntu-university-official.png" alt="Nanyang Technological University, Singapore"></span>
+        <img class="hku" src="/assets/institutions/hku-university-crest.png" alt="The University of Hong Kong">
+        <span class="sufe" role="img" aria-label="Shanghai University of Finance and Economics"></span>
+      </div>
+      <p class="host up" style="--d:.6s">Hosted by NTU GIFTS · with HKU and SUFE</p>
+    </div>
+    <div class="qr up" style="--d:.8s" data-qr></div>
+    <div class="go up" style="--d:.95s">
+      <p class="cta">Join the Challenge</p>
+      <p class="url">easonai-5589.github.io/metacase-challenge</p>
+    </div>
+  </div>
+</div>
+<script>
+fetch('qr.svg').then(r => r.text()).then(svg => { document.querySelector('[data-qr]').innerHTML = svg; document.documentElement.dataset.ready = '1'; });
+</script>
+</body>
+</html>
