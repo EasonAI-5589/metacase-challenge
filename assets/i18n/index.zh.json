@@ -1341,5 +1341,10 @@
   "131 records": "131 条记录",
   "110 records": "110 条记录",
   "The Harbor benchmark catalog curates 435 hard task records across 3 fields and 18 classes. On its 100-task Dev100 econometric replication split, Harbor has evaluated 8 models across 5 agent harnesses (3,999 / 4,000 formal trials scored) and compared 9 harness configurations on GPT-5.6 Sol (900 / 900 trials scored), alongside the 14-model × 4-harness v10 development board.": "Harbor 基准目录现已冻结覆盖 3 大领域、18 个子类的 435 道高难（Hard-Only）任务记录。在其 100 题 Dev100 计量经济学复现子集上，Harbor 已评测 8 个模型 × 5 款 Agent Harness（完成 3,999 / 4,000 次正式运行评分），并在 GPT-5.6 Sol 上对比了 9 种 Harness 配置（900 / 900 次运行评分），同时包含 14 模型 × 4 Harness 的 v10 开发榜。",
-  "3 fields · 18 classes: 100 Dev100 replications, 299 hard Harbor registry tasks pinned at commit, 36 workflow deliverable tasks": "3 大领域 · 18 个子类：100 道 Dev100 计量复现题、299 道固定 Commit 的高难 Harbor 注册表任务、36 道工作流交付任务"
+  "3 fields · 18 classes: 100 Dev100 replications, 299 hard Harbor registry tasks pinned at commit, 36 workflow deliverable tasks": "3 大领域 · 18 个子类：100 道 Dev100 计量复现题、299 道固定 Commit 的高难 Harbor 注册表任务、36 道工作流交付任务",
+  "208 records": "208 条记录",
+  "209 records": "209 条记录",
+  "187 records": "187 条记录",
+  "The Harbor benchmark catalog curates 604 hard task records across 3 fields and 18 classes. On its 100-task Dev100 econometric replication split, Harbor has evaluated 8 models across 5 agent harnesses (3,999 / 4,000 formal trials scored) and compared 9 harness configurations on GPT-5.6 Sol (900 / 900 trials scored), alongside the 14-model × 4-harness v10 development board.": "Harbor 基准目录现已冻结覆盖 3 大领域、18 个子类的 604 道高难（Hard-Only）任务记录。在其 100 题 Dev100 计量经济学复现子集上，Harbor 已评测 8 个模型 × 5 款 Agent Harness（完成 3,999 / 4,000 次正式运行评分），并在 GPT-5.6 Sol 上对比了 9 种 Harness 配置（900 / 900 次运行评分），同时包含 14 模型 × 4 Harness 的 v10 开发榜。",
+  "3 fields · 18 classes: 40 Dev100 causal replications, 483 hard Harbor registry tasks pinned at commit, 81 workflow deliverable tasks": "3 大领域 · 18 个子类：40 道 Dev100 高难因果推断复现题、483 道固定 Commit 的高难 Harbor 注册表任务、81 道多文件工作流交付任务"
 }
