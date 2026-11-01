@@ -82,10 +82,12 @@ export const STAGE_CSS = `
   .mc-copy { max-width: none !important; width: auto !important; }
   .mc-copy h2 { font-size: 48px !important; line-height: 1.04 !important; white-space: nowrap !important; }
   .mc-chapter:not([data-phase="1"]) .mc-loadout { display: none !important; }
-  .mc-loadout { zoom: 1.3; }
+  .mc-loadout { zoom: 1.3; width: 350px !important; max-width: none !important; bottom: 28px !important; }
   .mc-loadout-summary { display: none !important; }
+  .mc-bottom { transition: opacity .3s var(--ease-standard); }
+  .mc-chapter[data-phase="1"] .mc-bottom { opacity: 0 !important; }
   .mc-step-label, .mc-loadout-label { font-size: 14.5px !important; }
-  .mc-loadout .mc-chip, .mc-loadout .mc-model-btn { font-size: 14.5px !important; }
+  .mc-loadout .mc-chip, .mc-loadout .mc-model-btn { font-size: 12.5px !important; }
   .mc-model-roster { display: none !important; }
   .mc-copy p[data-mc-body], .mc-enter, .mc-event, .mc-wheel-label, .mc-phase-index { display: none !important; }
   .mc-portal { zoom: 1.25; }
