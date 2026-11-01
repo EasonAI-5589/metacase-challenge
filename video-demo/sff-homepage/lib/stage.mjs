@@ -81,7 +81,8 @@ export const STAGE_CSS = `
   /* chapter 05 */
   .mc-copy { max-width: none !important; width: auto !important; }
   .mc-copy h2 { font-size: 48px !important; line-height: 1.04 !important; white-space: nowrap !important; }
-  .mc-chapter:not([data-phase="1"]) .mc-loadout { display: none !important; }
+  .mc-loadout { transition: opacity .35s var(--ease-standard) !important; }
+  .mc-chapter:not([data-phase="1"]) .mc-loadout { opacity: 0 !important; }
   .mc-loadout { zoom: 1.3; width: 350px !important; max-width: none !important; bottom: 28px !important; }
   .mc-loadout-summary { display: none !important; }
   .mc-bottom { transition: opacity .3s var(--ease-standard); }
@@ -133,7 +134,11 @@ export async function applyStageText(page) {
   });
 }
 
+// How many frames this page has been stepped: padded to a fixed count before a shot, so its scenes' clocks start alike.
+export const stepsTaken = () => stepCounter.i;
+
 export async function openStage({ width = 1280, height = 720, dsf = 1920 / width, headless = true, language = 'en', extraCss = '', url = `${ORIGIN}/index.html`, stageText = true, loadout = null } = {}) {
+  stepCounter.i = 0; stepCounter.due = 0;
   const browser = await chromium.launch({
     channel: 'chrome', headless,
     args: ['--enable-gpu', '--use-angle=metal', '--ignore-gpu-blocklist', '--enable-webgl', '--disable-gpu-vsync', '--disable-frame-rate-limit', '--force-color-profile=srgb', '--hide-scrollbars', '--disable-features=PaintHolding'],
@@ -183,12 +188,15 @@ const stepCounter = { i: 0 };
 export const frameDt = i => Math.round((i + 1) * 1000 / FPS) - Math.round(i * 1000 / FPS);
 
 // Advance the page by one video frame, with scroll set first so rAF callbacks read the new position.
-export async function step(page, { y = null, sync = null } = {}) {
-  const dt = frameDt(stepCounter.i++);
+export async function step(page, { y = null, sync = null, rate = 1 } = {}) {
+  // `rate` slows the page's own clock against film time; scroll is keyed to film time and is not affected.
+  stepCounter.due = (stepCounter.due || 0) + frameDt(stepCounter.i++) * rate;
+  const dt = Math.floor(stepCounter.due);
+  stepCounter.due -= dt;
   await page.evaluate(([y]) => {
     if (y !== null) { window.scrollTo({ top: y, behavior: 'instant' }); window.dispatchEvent(new Event('scroll')); }
   }, [y]);
-  await page.clock.runFor(dt);
+  if (dt > 0) await page.clock.runFor(dt);
   await page.evaluate(() => { window.__seekAnimations(); return window.__settle(); });
   if (sync) await sync(page);
 }

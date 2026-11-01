@@ -27,7 +27,7 @@ const shotAt = t => chapters.find(c => t >= c.start && t < c.end)?.id ?? 'end';
 // Flicker: no region may flip between bright and dark more than 3 times in one second (handoff §4).
 const signal = execFileSync('ffmpeg', ['-hide_banner', '-loglevel', 'error', '-i', file, '-vf', 'scale=32:18,format=gray', '-an', '-f', 'rawvideo', '-'], { maxBuffer: 1 << 30 });
 const W = 32, H = 18, N = Math.floor(signal.length / (W * H)), FPS = 60;
-let worstFlips = 0, worstAt = 0;
+const flipWindows = {};
 for (let c = 0; c < W * H; c++) {
   const flips = []; let state = null;
   for (let f = 0; f < N; f++) {
@@ -36,8 +36,12 @@ for (let c = 0; c < W * H; c++) {
     if (state !== null && next !== state) flips.push(f);
     state = next;
   }
-  for (let i = 3; i < flips.length; i++) if (flips[i] - flips[i - 3] <= FPS) { const span = i + 1; if (span > worstFlips) { worstFlips = 4; worstAt = flips[i] / FPS; } }
+  for (let i = 3; i < flips.length; i++) if (flips[i] - flips[i - 3] <= FPS) {
+    const at = (flips[i - 3] / FPS).toFixed(1);
+    (flipWindows[at] ||= new Set()).add(c);
+  }
 }
+const flicker = Object.entries(flipWindows).map(([at, cells]) => ({ at: +at, shot: shotAt(+at), cells: cells.size, screenPercent: +(cells.size / (W * H) * 100).toFixed(2) })).sort((p, q) => p.at - q.at);
 
 const num = s => { const [x, y] = s.split('/').map(Number); return y ? x / y : x; };
 const report = {
@@ -49,7 +53,7 @@ const report = {
   faststart: (() => { const head = fs.readFileSync(file).subarray(0, 4096); return head.includes('moov') && head.indexOf('moov') < head.indexOf('mdat') || !head.includes('mdat'); })(),
   black: black.map(b => ({ ...b, shot: shotAt(b.start) })),
   freezes: freezes.map(f => ({ ...f, seconds: +(f.end - f.start).toFixed(2), shot: shotAt(f.start) })),
-  flicker: worstFlips ? { over3PerSecond: true, at: worstAt } : { over3PerSecond: false },
+  flicker,
 };
 report.checks = {
   duration_75_90: report.video.duration >= 75 && report.video.duration <= 90,
@@ -61,7 +65,8 @@ report.checks = {
   audio_aac_48k_stereo: !!a && a.codec_name === 'aac' && Number(a.sample_rate) === 48000 && a.channels === 2,
   faststart: report.faststart,
   black_only_at_open: black.every(b => b.start < 1),
-  no_flicker: !worstFlips,
+  no_flicker: flicker.length === 0,
+  flicker_under_1pct_of_screen: flicker.every(w => w.screenPercent < 1),
 };
 console.log(JSON.stringify(report, null, 2));
 fs.writeFileSync('out/review/verify-report.json', JSON.stringify(report, null, 2));

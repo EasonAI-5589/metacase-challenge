@@ -1,6 +1,6 @@
 // Captures shots frame by frame. FPS=10 gives the rough cut, the default 60 the master.
 //   node capture.mjs 01-hero,06a-arena     FPS=10 node capture.mjs all
-import { openStage, step, warm, sectionGeometry, pinnedY, STAGE_CSS, FPS, ORIGIN, applyStageText } from './lib/stage.mjs';
+import { openStage, step, warm, stepsTaken, sectionGeometry, pinnedY, STAGE_CSS, FPS, ORIGIN } from './lib/stage.mjs';
 import { SHOTS, CUBIC_IO } from './shots.mjs';
 import { visibleText } from './lib/onscreen.mjs';
 import fs from 'node:fs';
@@ -20,12 +20,24 @@ const io = bezier(CUBIC_IO), e2 = bezier([0.33, 1, 0.68, 1]);
 const track = (keys, t) => {
   if (t <= keys[0][0]) return keys[0][1];
   for (let i = 1; i < keys.length; i++) if (t <= keys[i][0]) {
-    const [a, va] = keys[i - 1], [b, vb] = keys[i];
-    return va + (vb - va) * io((t - a) / (b - a));
+    const [a, va] = keys[i - 1], [b, vb, kind] = keys[i], k = (t - a) / (b - a);
+    return va + (vb - va) * (kind === 'linear' ? k : io(k));
   }
   return keys.at(-1)[1];
 };
 
+// A screenshot can stall when the GPU process hiccups. Retrying never advances the fake clock, so the frame is unchanged.
+const retries = { count: 0 };
+const shoot = async (page, path) => {
+  for (let attempt = 0; ; attempt++) {
+    try { return await page.screenshot({ path, type: 'jpeg', quality: 95, timeout: 20000 }); }
+    catch (error) {
+      if (attempt >= 4 || error.name !== 'TimeoutError') throw error;
+      retries.count++;
+      await new Promise(done => setTimeout(done, 3000));
+    }
+  }
+};
 const stamp = FPS === 60 ? 'frames' : `frames-${FPS}`;
 const pick = process.argv[2] || 'all';
 const list = pick === 'all' ? SHOTS : SHOTS.filter(s => pick.split(',').includes(s.id));
@@ -46,9 +58,11 @@ for (const shot of list) {
   if (shot.card) {
     const { browser, page, errors } = await openStage({ width: 1920, height: 1080, dsf: 1, url: `${ORIGIN}/video-demo/sff-homepage/${shot.card}`, stageText: false });
     await step(page); await page.waitForFunction(() => document.documentElement.dataset.ready === '1');
+    await page.evaluate(() => document.fonts.ready);
     await page.evaluate(() => window.__release());
-    for (let i = 0; i < frames; i++) { await step(page); await note(page, shot.id, i / FPS, 1); await page.screenshot({ path: `${out}/${String(i).padStart(5, '0')}.jpg`, type: 'jpeg', quality: 95 }); }
-    report.push({ id: shot.id, frames, errors, seconds: (Date.now() - t0) / 1000 });
+    for (let i = 0; i < frames; i++) { await step(page); await note(page, shot.id, i / FPS, 1); await shoot(page, `${out}/${String(i).padStart(5, '0')}.jpg`); }
+    report.push({ id: shot.id, frames, errors, seconds: Math.round((Date.now() - t0) / 1000) });
+    console.log(JSON.stringify(report.at(-1)));
     await browser.close();
     continue;
   }
@@ -64,7 +78,7 @@ for (const shot of list) {
   };
   const yAt = t => {
     if (shot.y) return resolve(track(shot.y.map(([a, v]) => [a, v]), 0) ?? 0);
-    const keys = shot.keys.map(([a, v]) => [a, typeof v === 'object' ? resolve(v.y) : pinnedY(g[shot.section], v)]);
+    const keys = shot.keys.map(([a, v, kind]) => [a, typeof v === 'object' ? resolve(v.y) : pinnedY(g[shot.section], v), kind]);
     return track(keys, t);
   };
   const yStart = shot.warmY ? resolve(shot.warmY) : yAt(0);
@@ -72,10 +86,12 @@ for (const shot of list) {
   await warm(page, { y: yStart, timeoutMs: 30000, until: arena
     ? () => { const c = document.querySelector('.mc-chapter'), v = document.querySelector('.mc-canvas'); return c.dataset.renderer === 'webgl' && v.dataset.robotModel === 'mc-kit' && v.dataset.weaponAssets === 'kenney-cc0'; }
     : ready ? new Function(`return !!document.querySelector(${JSON.stringify(ready)})?.dataset.renderer`) : null });
-  // silent settle: the scene has drawn and its textures are in before frame 0
-  for (let k = 0; k < Math.max(6, FPS / 2); k++) await step(page, { y: yStart });
+  // Silent settle to a fixed step count: textures are in, the arena's camera has caught up with its target,
+  // and however long loading took, every run reaches frame 0 at the same fake-clock time.
+  const warmSteps = (arena ? 8 : 4) * FPS;
   await page.waitForTimeout(400);
-  for (let k = 0; k < 3; k++) await step(page, { y: yStart });
+  const overrun = stepsTaken() > warmSteps;
+  while (stepsTaken() < warmSteps) await step(page, { y: yStart });
   const VEILED = 'canvas.mc-stage, [data-tags="hero"]';
   if (shot.veil) await page.evaluate(sel => { for (const c of document.querySelectorAll(sel)) c.style.opacity = '0'; }, VEILED);
   const events = [...(shot.at || []), ...(shot.releaseAt ? [[shot.releaseAt, 'window.__release()']] : [])].sort((a, b) => a[0] - b[0]);
@@ -87,14 +103,14 @@ for (const shot of list) {
       const k = e2(Math.min(1, Math.max(0, (t - shot.veil[0]) / (shot.veil[1] - shot.veil[0]))));
       await page.evaluate(([sel, k]) => { for (const c of document.querySelectorAll(sel)) c.style.opacity = String(k); }, [VEILED, k]);
     }
-    await step(page, { y });
+    await step(page, { y, rate: shot.rate ? shot.rate.findLast(([a]) => a <= t)[1] : 1 });
     const at = await page.evaluate(() => ({ y: scrollY, p: Number(document.querySelector('.mc-chapter')?.dataset.progress) }));
     if (Math.abs(at.y - y) > 1) mismatches.push({ i, want: y, got: at.y });
     await note(page, shot.id, t, 1.5);
-    await page.screenshot({ path: `${out}/${String(i).padStart(5, '0')}.jpg`, type: 'jpeg', quality: 95 });
+    await shoot(page, `${out}/${String(i).padStart(5, '0')}.jpg`);
   }
   const rendererState = await page.evaluate(() => ({ arena: document.querySelector('.mc-chapter').dataset.renderer || null, lenis: !!window.__lenis, fonts: document.fonts.status }));
-  report.push({ id: shot.id, frames, errors, mismatches: mismatches.slice(0, 5), mismatchCount: mismatches.length, rendererState, seconds: Math.round((Date.now() - t0) / 1000) });
+  report.push({ id: shot.id, frames, errors, warmOverrun: overrun, screenshotRetries: retries.count, mismatches: mismatches.slice(0, 5), mismatchCount: mismatches.length, rendererState, seconds: Math.round((Date.now() - t0) / 1000) });
   console.log(JSON.stringify(report.at(-1)));
   await browser.close();
 }

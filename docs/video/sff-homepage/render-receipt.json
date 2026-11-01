@@ -1,0 +1,538 @@
+{
+  "locked_commit": "cefd87bb44155d86528f452ceefb6992bdc9b9fe",
+  "rendered_at": "2026-11-01T19:28:19.156Z",
+  "tools": {
+    "ffmpeg": "ffmpeg version 8.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "node": "v25.4.0",
+    "playwright": "1.64.1",
+    "chrome": "Google Chrome 156.0.8078.76",
+    "webgl_renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3, Unspecified Version)"
+  },
+  "capture": {
+    "viewport": "1280x720",
+    "device_scale_factor": 1.5,
+    "end_card_viewport": "1920x1080",
+    "fps": 60,
+    "method": "page.clock paused before navigation, stepped per frame after a fixed warm-up; CSS and WAAPI animations seeked to the fake clock; JPEG q95",
+    "per_shot": [
+      {
+        "id": "01-hero",
+        "frames": 570,
+        "errors": [],
+        "warmOverrun": false,
+        "mismatches": [],
+        "mismatchCount": 0,
+        "rendererState": {
+          "arena": null,
+          "lenis": false,
+          "fonts": "loaded"
+        },
+        "seconds": 40
+      },
+      {
+        "id": "02-metacase",
+        "frames": 690,
+        "errors": [],
+        "warmOverrun": false,
+        "screenshotRetries": 0,
+        "mismatches": [],
+        "mismatchCount": 0,
+        "rendererState": {
+          "arena": null,
+          "lenis": false,
+          "fonts": "loaded"
+        },
+        "seconds": 45
+      },
+      {
+        "id": "03-retrieval",
+        "frames": 522,
+        "errors": [],
+        "warmOverrun": false,
+        "screenshotRetries": 0,
+        "mismatches": [],
+        "mismatchCount": 0,
+        "rendererState": {
+          "arena": null,
+          "lenis": false,
+          "fonts": "loaded"
+        },
+        "seconds": 37
+      },
+      {
+        "id": "04-network",
+        "frames": 600,
+        "errors": [],
+        "warmOverrun": false,
+        "screenshotRetries": 0,
+        "mismatches": [],
+        "mismatchCount": 0,
+        "rendererState": {
+          "arena": null,
+          "lenis": false,
+          "fonts": "loaded"
+        },
+        "seconds": 59
+      },
+      {
+        "id": "05-fields",
+        "frames": 846,
+        "errors": [],
+        "warmOverrun": false,
+        "screenshotRetries": 0,
+        "mismatches": [],
+        "mismatchCount": 0,
+        "rendererState": {
+          "arena": null,
+          "lenis": false,
+          "fonts": "loaded"
+        },
+        "seconds": 70
+      },
+      {
+        "id": "06a-arena",
+        "frames": 558,
+        "errors": [],
+        "warmOverrun": false,
+        "screenshotRetries": 0,
+        "mismatches": [],
+        "mismatchCount": 0,
+        "rendererState": {
+          "arena": "webgl",
+          "lenis": false,
+          "fonts": "loaded"
+        },
+        "seconds": 66
+      },
+      {
+        "id": "06b-choose",
+        "frames": 228,
+        "errors": [],
+        "warmOverrun": false,
+        "screenshotRetries": 0,
+        "mismatches": [],
+        "mismatchCount": 0,
+        "rendererState": {
+          "arena": "webgl",
+          "lenis": false,
+          "fonts": "loaded"
+        },
+        "seconds": 39
+      },
+      {
+        "id": "07-rules",
+        "frames": 510,
+        "errors": [],
+        "warmOverrun": false,
+        "screenshotRetries": 0,
+        "mismatches": [],
+        "mismatchCount": 0,
+        "rendererState": {
+          "arena": "webgl",
+          "lenis": false,
+          "fonts": "loaded"
+        },
+        "seconds": 47
+      },
+      {
+        "id": "08-results",
+        "frames": 408,
+        "errors": [],
+        "warmOverrun": false,
+        "screenshotRetries": 0,
+        "mismatches": [],
+        "mismatchCount": 0,
+        "rendererState": {
+          "arena": null,
+          "lenis": false,
+          "fonts": "loaded"
+        },
+        "seconds": 31
+      },
+      {
+        "id": "09-team",
+        "frames": 210,
+        "errors": [],
+        "warmOverrun": false,
+        "screenshotRetries": 0,
+        "mismatches": [],
+        "mismatchCount": 0,
+        "rendererState": {
+          "arena": null,
+          "lenis": false,
+          "fonts": "loaded"
+        },
+        "seconds": 21
+      },
+      {
+        "id": "10-end",
+        "frames": 420,
+        "errors": [],
+        "seconds": 22
+      },
+      {
+        "id": "03a-retrieval",
+        "frames": 285,
+        "errors": [],
+        "warmOverrun": false,
+        "screenshotRetries": 0,
+        "mismatches": [],
+        "mismatchCount": 0,
+        "rendererState": {
+          "arena": null,
+          "lenis": false,
+          "fonts": "loaded"
+        },
+        "seconds": 24
+      },
+      {
+        "id": "03b-retrieval",
+        "frames": 255,
+        "errors": [],
+        "warmOverrun": false,
+        "screenshotRetries": 0,
+        "mismatches": [],
+        "mismatchCount": 0,
+        "rendererState": {
+          "arena": null,
+          "lenis": false,
+          "fonts": "loaded"
+        },
+        "seconds": 24
+      }
+    ]
+  },
+  "font_sha256": {
+    "assets/fonts/inter-latin.woff2": "3100e775e8616cd2611beecfa23a4263d7037586789b43f035236a2e6fbd4c62",
+    "assets/fonts/space-mono-latin.woff2": "fb4a81a2d0a893e5c38c394a7e716a1cef0b24610a0af49c96f6d529bd66bf2b"
+  },
+  "frames": 5382,
+  "commands": [
+    "ffmpeg -y -loglevel error -framerate 60 -i out/frames/01-hero/%05d.jpg -vf scale=in_range=full:in_color_matrix=bt601:out_range=tv:out_color_matrix=bt709,format=yuv420p -c:v libx264 -preset medium -crf 10 -colorspace bt709 -color_primaries bt709 -color_trc bt709 -color_range tv out/master/01-hero.mp4",
+    "ffmpeg -y -loglevel error -framerate 60 -i out/frames/02-metacase/%05d.jpg -vf scale=in_range=full:in_color_matrix=bt601:out_range=tv:out_color_matrix=bt709,format=yuv420p -c:v libx264 -preset medium -crf 10 -colorspace bt709 -color_primaries bt709 -color_trc bt709 -color_range tv out/master/02-metacase.mp4",
+    "ffmpeg -y -loglevel error -framerate 60 -i out/frames/03a-retrieval/%05d.jpg -vf scale=in_range=full:in_color_matrix=bt601:out_range=tv:out_color_matrix=bt709,format=yuv420p -c:v libx264 -preset medium -crf 10 -colorspace bt709 -color_primaries bt709 -color_trc bt709 -color_range tv out/master/03a-retrieval.mp4",
+    "ffmpeg -y -loglevel error -framerate 60 -i out/frames/03b-retrieval/%05d.jpg -vf scale=in_range=full:in_color_matrix=bt601:out_range=tv:out_color_matrix=bt709,format=yuv420p -c:v libx264 -preset medium -crf 10 -colorspace bt709 -color_primaries bt709 -color_trc bt709 -color_range tv out/master/03b-retrieval.mp4",
+    "ffmpeg -y -loglevel error -framerate 60 -i out/frames/04-network/%05d.jpg -vf scale=in_range=full:in_color_matrix=bt601:out_range=tv:out_color_matrix=bt709,format=yuv420p -c:v libx264 -preset medium -crf 10 -colorspace bt709 -color_primaries bt709 -color_trc bt709 -color_range tv out/master/04-network.mp4",
+    "ffmpeg -y -loglevel error -framerate 60 -i out/frames/05-fields/%05d.jpg -vf scale=in_range=full:in_color_matrix=bt601:out_range=tv:out_color_matrix=bt709,format=yuv420p -c:v libx264 -preset medium -crf 10 -colorspace bt709 -color_primaries bt709 -color_trc bt709 -color_range tv out/master/05-fields.mp4",
+    "ffmpeg -y -loglevel error -framerate 60 -i out/frames/06a-arena/%05d.jpg -vf scale=in_range=full:in_color_matrix=bt601:out_range=tv:out_color_matrix=bt709,format=yuv420p -c:v libx264 -preset medium -crf 10 -colorspace bt709 -color_primaries bt709 -color_trc bt709 -color_range tv out/master/06a-arena.mp4",
+    "ffmpeg -y -loglevel error -framerate 60 -i out/frames/06b-choose/%05d.jpg -vf scale=in_range=full:in_color_matrix=bt601:out_range=tv:out_color_matrix=bt709,format=yuv420p -c:v libx264 -preset medium -crf 10 -colorspace bt709 -color_primaries bt709 -color_trc bt709 -color_range tv out/master/06b-choose.mp4",
+    "ffmpeg -y -loglevel error -framerate 60 -i out/frames/07-rules/%05d.jpg -vf scale=in_range=full:in_color_matrix=bt601:out_range=tv:out_color_matrix=bt709,format=yuv420p -c:v libx264 -preset medium -crf 10 -colorspace bt709 -color_primaries bt709 -color_trc bt709 -color_range tv out/master/07-rules.mp4",
+    "ffmpeg -y -loglevel error -framerate 60 -i out/frames/08-results/%05d.jpg -vf scale=in_range=full:in_color_matrix=bt601:out_range=tv:out_color_matrix=bt709,format=yuv420p -c:v libx264 -preset medium -crf 10 -colorspace bt709 -color_primaries bt709 -color_trc bt709 -color_range tv out/master/08-results.mp4",
+    "ffmpeg -y -loglevel error -framerate 60 -i out/frames/09-team/%05d.jpg -vf scale=in_range=full:in_color_matrix=bt601:out_range=tv:out_color_matrix=bt709,format=yuv420p -c:v libx264 -preset medium -crf 10 -colorspace bt709 -color_primaries bt709 -color_trc bt709 -color_range tv out/master/09-team.mp4",
+    "ffmpeg -y -loglevel error -framerate 60 -i out/frames/10-end/%05d.jpg -vf scale=in_range=full:in_color_matrix=bt601:out_range=tv:out_color_matrix=bt709,format=yuv420p -c:v libx264 -preset medium -crf 10 -colorspace bt709 -color_primaries bt709 -color_trc bt709 -color_range tv out/master/10-end.mp4",
+    "ffmpeg -y -loglevel error -i out/master/01-hero.mp4 -i out/master/02-metacase.mp4 -i out/master/03a-retrieval.mp4 -i out/master/03b-retrieval.mp4 -i out/master/04-network.mp4 -i out/master/05-fields.mp4 -i out/master/06a-arena.mp4 -i out/master/06b-choose.mp4 -i out/master/07-rules.mp4 -i out/master/08-results.mp4 -i out/master/09-team.mp4 -i out/master/10-end.mp4 -f lavfi -i anullsrc=r=48000:cl=stereo -filter_complex [0:v][1:v]xfade=transition=fade:duration=0.3:offset=9.2000[v0];[v0][2:v]xfade=transition=fade:duration=0.3:offset=20.4000[v1];[v1][3:v]xfade=transition=fade:duration=0.3:offset=24.8500[v2];[v2][4:v]xfade=transition=fade:duration=0.3:offset=28.8000[v3];[v3][5:v]xfade=transition=fade:duration=0.3:offset=38.5000[v4];[v4][6:v]xfade=transition=fade:duration=0.3:offset=52.3000[v5];[v5][7:v]xfade=transition=fade:duration=0.3:offset=61.3000[v6];[v6][8:v]xfade=transition=fade:duration=0.3:offset=64.8000[v7];[v7][9:v]xfade=transition=fade:duration=0.3:offset=73.0000[v8];[v8][10:v]xfade=transition=fadeblack:duration=0.3:offset=79.5000[v9];[v9][11:v]xfade=transition=fade:duration=0.3:offset=82.7000,setparams=colorspace=bt709:color_primaries=bt709:color_trc=bt709:range=tv[out] -map [out] -map 12:a -shortest -c:v libx264 -profile:v high -preset slow -crf 15 -pix_fmt yuv420p -colorspace bt709 -color_primaries bt709 -color_trc bt709 -color_range tv -x264-params colorprim=bt709:transfer=bt709:colormatrix=bt709 -r 60 -c:a aac -b:a 128k -movflags +faststart out/final/metacase-sff-stage-1080p60.mp4",
+    "ffmpeg -y -loglevel error -ss 7.0 -i out/final/metacase-sff-stage-1080p60.mp4 -frames:v 1 -q:v 2 -vf scale=in_range=tv:in_color_matrix=bt709:out_range=full:out_color_matrix=bt601 out/final/metacase-sff-stage-poster.jpg"
+  ],
+  "outputs": {
+    "out/final/metacase-sff-stage-1080p60.mp4": {
+      "bytes": 58858930,
+      "sha256": "b3d9f2ff95edac948bc4f217575740c3f5d7a265cb1b90ac8ec660d0af6fd54d"
+    },
+    "out/final/metacase-sff-stage-poster.jpg": {
+      "bytes": 241546,
+      "sha256": "0f0235f087cdc301e202bf5e6e1df119c514e50c45bbd7283e86581ead1204e7"
+    }
+  },
+  "acceptance": {
+    "checks": {
+      "duration_75_90": true,
+      "size_1920x1080": true,
+      "fps_60": true,
+      "h264_high": true,
+      "yuv420p": true,
+      "bt709": true,
+      "audio_aac_48k_stereo": true,
+      "faststart": true,
+      "black_only_at_open": true,
+      "no_flicker": false,
+      "flicker_under_1pct_of_screen": false
+    },
+    "black": [
+      {
+        "start": 0,
+        "end": 0.466667,
+        "shot": "01-hero"
+      }
+    ],
+    "freezes": [
+      {
+        "start": 39.933333,
+        "end": 42.05,
+        "seconds": 2.12,
+        "shot": "05-fields"
+      },
+      {
+        "start": 74.4,
+        "end": 79.516667,
+        "seconds": 5.12,
+        "shot": "08-results"
+      },
+      {
+        "start": 80.216667,
+        "end": 82.716667,
+        "seconds": 2.5,
+        "shot": "09-team"
+      },
+      {
+        "start": 84.333333,
+        "end": 89.7,
+        "seconds": 5.37,
+        "shot": "10-end"
+      }
+    ],
+    "flicker": [
+      {
+        "at": 12.3,
+        "shot": "02-metacase",
+        "cells": 8,
+        "screenPercent": 1.39
+      },
+      {
+        "at": 14.3,
+        "shot": "02-metacase",
+        "cells": 8,
+        "screenPercent": 1.39
+      },
+      {
+        "at": 16.3,
+        "shot": "02-metacase",
+        "cells": 8,
+        "screenPercent": 1.39
+      },
+      {
+        "at": 16.4,
+        "shot": "02-metacase",
+        "cells": 1,
+        "screenPercent": 0.17
+      },
+      {
+        "at": 18.3,
+        "shot": "02-metacase",
+        "cells": 8,
+        "screenPercent": 1.39
+      },
+      {
+        "at": 18.4,
+        "shot": "02-metacase",
+        "cells": 1,
+        "screenPercent": 0.17
+      },
+      {
+        "at": 33.1,
+        "shot": "04-network",
+        "cells": 1,
+        "screenPercent": 0.17
+      },
+      {
+        "at": 33.2,
+        "shot": "04-network",
+        "cells": 1,
+        "screenPercent": 0.17
+      },
+      {
+        "at": 33.3,
+        "shot": "04-network",
+        "cells": 7,
+        "screenPercent": 1.22
+      },
+      {
+        "at": 33.4,
+        "shot": "04-network",
+        "cells": 6,
+        "screenPercent": 1.04
+      },
+      {
+        "at": 34.5,
+        "shot": "04-network",
+        "cells": 2,
+        "screenPercent": 0.35
+      },
+      {
+        "at": 34.6,
+        "shot": "04-network",
+        "cells": 4,
+        "screenPercent": 0.69
+      },
+      {
+        "at": 34.7,
+        "shot": "04-network",
+        "cells": 2,
+        "screenPercent": 0.35
+      },
+      {
+        "at": 34.8,
+        "shot": "04-network",
+        "cells": 6,
+        "screenPercent": 1.04
+      },
+      {
+        "at": 34.9,
+        "shot": "04-network",
+        "cells": 1,
+        "screenPercent": 0.17
+      }
+    ],
+    "small_text_under_28px": [
+      {
+        "shot": "06b-choose",
+        "text": "01",
+        "px": 23.6
+      },
+      {
+        "shot": "06b-choose",
+        "text": "02",
+        "px": 23.6
+      },
+      {
+        "shot": "06b-choose",
+        "text": "03",
+        "px": 23.6
+      },
+      {
+        "shot": "06b-choose",
+        "text": "04",
+        "px": 23.6
+      },
+      {
+        "shot": "06b-choose",
+        "text": "06",
+        "px": 23.6
+      },
+      {
+        "shot": "06a-arena",
+        "text": "DeepSeek",
+        "px": 24.4
+      },
+      {
+        "shot": "06a-arena",
+        "text": "Harness",
+        "px": 22.5
+      },
+      {
+        "shot": "06a-arena",
+        "text": "Claude",
+        "px": 22.5
+      },
+      {
+        "shot": "06a-arena",
+        "text": "Code",
+        "px": 22.5
+      },
+      {
+        "shot": "06a-arena",
+        "text": "Codex",
+        "px": 22.5
+      },
+      {
+        "shot": "06a-arena",
+        "text": "CLI",
+        "px": 22.5
+      },
+      {
+        "shot": "06a-arena",
+        "text": "Terminus",
+        "px": 22.5
+      },
+      {
+        "shot": "06a-arena",
+        "text": "-2",
+        "px": 22.5
+      },
+      {
+        "shot": "06a-arena",
+        "text": "OpenCode",
+        "px": 22.5
+      },
+      {
+        "shot": "06a-arena",
+        "text": "OpenAI",
+        "px": 24.4
+      },
+      {
+        "shot": "06a-arena",
+        "text": "Anthropic",
+        "px": 24.4
+      },
+      {
+        "shot": "06a-arena",
+        "text": "Google",
+        "px": 24.4
+      },
+      {
+        "shot": "06a-arena",
+        "text": "Kimi",
+        "px": 24.4
+      },
+      {
+        "shot": "06a-arena",
+        "text": "Qwen",
+        "px": 24.4
+      },
+      {
+        "shot": "06a-arena",
+        "text": "GPT-6 Astra",
+        "px": 24.4
+      },
+      {
+        "shot": "06a-arena",
+        "text": "GPT-6.1 Sol",
+        "px": 24.4
+      },
+      {
+        "shot": "06a-arena",
+        "text": "GPT-5.6 Sol",
+        "px": 24.4
+      },
+      {
+        "shot": "06a-arena",
+        "text": "Low",
+        "px": 24.4
+      },
+      {
+        "shot": "06a-arena",
+        "text": "Medium",
+        "px": 24.4
+      },
+      {
+        "shot": "06a-arena",
+        "text": "High",
+        "px": 24.4
+      },
+      {
+        "shot": "06a-arena",
+        "text": "XHigh",
+        "px": 24.4
+      },
+      {
+        "shot": "06a-arena",
+        "text": "Plugin runtime",
+        "px": 21.5
+      },
+      {
+        "shot": "06a-arena",
+        "text": "Equipped ✓",
+        "px": 21.5
+      },
+      {
+        "shot": "06a-arena",
+        "text": "Gemini 4 Argon",
+        "px": 24.4
+      },
+      {
+        "shot": "06a-arena",
+        "text": "Gemini 3.8 Flash",
+        "px": 24.4
+      },
+      {
+        "shot": "06a-arena",
+        "text": "Equip this harness ↗",
+        "px": 21.5
+      },
+      {
+        "shot": "06a-arena",
+        "text": "CLI harness · OpenAI Agents SDK",
+        "px": 21.5
+      }
+    ]
+  }
+}

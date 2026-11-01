@@ -25,14 +25,15 @@ let filter = '', last = '0:v', offset = 0;
 SHOTS.slice(1).forEach((s, i) => {
   offset += SHOTS[i].seconds - XFADE;
   const tag = i === SHOTS.length - 2 ? 'out' : `v${i}`;
-  filter += `[${last}][${i + 1}:v]xfade=transition=fade:duration=${XFADE}:offset=${offset.toFixed(4)}[${tag}];`;
+  // text on text muddies in a dissolve, so such a pair dips through the dark instead
+  filter += `[${last}][${i + 1}:v]xfade=transition=${s.dip ? 'fadeblack' : 'fade'}:duration=${XFADE}:offset=${offset.toFixed(4)}[${tag}];`;
   last = tag;
 });
-filter = filter.replace(/;$/, '');
+filter = filter.replace(/\[out\];$/, ',setparams=colorspace=bt709:color_primaries=bt709:color_trc=bt709:range=tv[out]');
 const finalPath = master ? 'out/final/metacase-sff-stage-1080p60.mp4' : 'out/review/rough.mp4';
 fs.mkdirSync('out/final', { recursive: true });
 run(['-y', '-loglevel', 'error', ...inputs, '-f', 'lavfi', '-i', 'anullsrc=r=48000:cl=stereo', '-filter_complex', filter, '-map', '[out]', '-map', `${SHOTS.length}:a`, '-shortest',
-  '-c:v', 'libx264', '-profile:v', 'high', '-preset', master ? 'slow' : 'veryfast', '-crf', master ? '15' : '24', '-pix_fmt', 'yuv420p', ...COLOR, '-r', String(FPS), '-c:a', 'aac', '-b:a', '128k', '-movflags', '+faststart', finalPath]);
+  '-c:v', 'libx264', '-profile:v', 'high', '-preset', master ? 'slow' : 'veryfast', '-crf', master ? '15' : '24', '-pix_fmt', 'yuv420p', ...COLOR, '-x264-params', 'colorprim=bt709:transfer=bt709:colormatrix=bt709', '-r', String(FPS), '-c:a', 'aac', '-b:a', '128k', '-movflags', '+faststart', finalPath]);
 const duration = SHOTS.reduce((a, s) => a + s.seconds, 0) - XFADE * (SHOTS.length - 1);
 const starts = []; { let t = 0; for (const s of SHOTS) { starts.push({ id: s.id, start: +t.toFixed(3), end: +(t + s.seconds).toFixed(3) }); t += s.seconds - XFADE; } }
 const sha = p => crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex');

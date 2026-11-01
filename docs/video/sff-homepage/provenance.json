@@ -1,0 +1,4525 @@
+{
+  "video": "metacase-sff-stage-1080p60.mp4",
+  "locked_commit": "cefd87bb44155d86528f452ceefb6992bdc9b9fe",
+  "source_page": "index.html at the locked commit, served from 127.0.0.1:4199",
+  "stream": {
+    "codec": "h264",
+    "profile": "High",
+    "width": 1920,
+    "height": 1080,
+    "fps": 60,
+    "pix_fmt": "yuv420p",
+    "color_space": "bt709",
+    "color_primaries": "bt709",
+    "color_transfer": "bt709",
+    "color_range": "tv",
+    "frames": 5382,
+    "duration": 89.7
+  },
+  "audio": {
+    "codec": "aac",
+    "rate": 48000,
+    "channels": 2
+  },
+  "chapters": [
+    {
+      "id": "01-hero",
+      "start": 0,
+      "end": 9.5
+    },
+    {
+      "id": "02-metacase",
+      "start": 9.2,
+      "end": 20.7
+    },
+    {
+      "id": "03a-retrieval",
+      "start": 20.4,
+      "end": 25.15
+    },
+    {
+      "id": "03b-retrieval",
+      "start": 24.85,
+      "end": 29.1
+    },
+    {
+      "id": "04-network",
+      "start": 28.8,
+      "end": 38.8
+    },
+    {
+      "id": "05-fields",
+      "start": 38.5,
+      "end": 52.6
+    },
+    {
+      "id": "06a-arena",
+      "start": 52.3,
+      "end": 61.6
+    },
+    {
+      "id": "06b-choose",
+      "start": 61.3,
+      "end": 65.1
+    },
+    {
+      "id": "07-rules",
+      "start": 64.8,
+      "end": 73.3
+    },
+    {
+      "id": "08-results",
+      "start": 73,
+      "end": 79.8
+    },
+    {
+      "id": "09-team",
+      "start": 79.5,
+      "end": 83
+    },
+    {
+      "id": "10-end",
+      "start": 82.7,
+      "end": 89.7
+    }
+  ],
+  "crossfade_seconds": 0.3,
+  "shots": [
+    {
+      "id": "01-hero",
+      "seconds": 9.5,
+      "keys": [
+        [
+          0,
+          0
+        ],
+        [
+          9.5,
+          0
+        ]
+      ],
+      "clock_rate": null,
+      "page_controls_fired_at": []
+    },
+    {
+      "id": "02-metacase",
+      "seconds": 11.5,
+      "keys": [
+        [
+          0,
+          0.03
+        ],
+        [
+          0.9,
+          0.03
+        ],
+        [
+          2.3,
+          0.197
+        ],
+        [
+          2.8,
+          0.197
+        ],
+        [
+          3.15,
+          0.2452,
+          "linear"
+        ],
+        [
+          3.7,
+          0.264,
+          "linear"
+        ],
+        [
+          4.2,
+          0.331,
+          "linear"
+        ],
+        [
+          4.8,
+          0.331
+        ],
+        [
+          5.15,
+          0.3792,
+          "linear"
+        ],
+        [
+          5.7,
+          0.398,
+          "linear"
+        ],
+        [
+          6.2,
+          0.465,
+          "linear"
+        ],
+        [
+          6.8,
+          0.465
+        ],
+        [
+          7.15,
+          0.5132,
+          "linear"
+        ],
+        [
+          7.7,
+          0.532,
+          "linear"
+        ],
+        [
+          8.2,
+          0.599,
+          "linear"
+        ],
+        [
+          8.8,
+          0.599
+        ],
+        [
+          9.15,
+          0.6472,
+          "linear"
+        ],
+        [
+          9.7,
+          0.666,
+          "linear"
+        ],
+        [
+          10.2,
+          0.733,
+          "linear"
+        ],
+        [
+          11.5,
+          0.733
+        ]
+      ],
+      "clock_rate": null,
+      "page_controls_fired_at": []
+    },
+    {
+      "id": "03a-retrieval",
+      "seconds": 4.75,
+      "keys": [
+        [
+          0,
+          0.1
+        ],
+        [
+          0.7,
+          0.1
+        ],
+        [
+          2,
+          0.28
+        ],
+        [
+          3.6,
+          0.28
+        ],
+        [
+          3.85,
+          0.33,
+          "linear"
+        ],
+        [
+          4.75,
+          0.395,
+          "linear"
+        ]
+      ],
+      "clock_rate": null,
+      "page_controls_fired_at": []
+    },
+    {
+      "id": "03b-retrieval",
+      "seconds": 4.25,
+      "keys": [
+        [
+          0,
+          0.405
+        ],
+        [
+          0.3,
+          0.42,
+          "linear"
+        ],
+        [
+          1.4,
+          0.68
+        ],
+        [
+          4.25,
+          0.68
+        ]
+      ],
+      "clock_rate": null,
+      "page_controls_fired_at": []
+    },
+    {
+      "id": "04-network",
+      "seconds": 10,
+      "keys": [
+        [
+          0,
+          0.07
+        ],
+        [
+          0.3,
+          0.07
+        ],
+        [
+          1.4,
+          0.15
+        ],
+        [
+          1.6,
+          0.15
+        ],
+        [
+          3.2,
+          0.38
+        ],
+        [
+          3.7,
+          0.38
+        ],
+        [
+          5.2,
+          0.63
+        ],
+        [
+          5.6,
+          0.63
+        ],
+        [
+          7,
+          0.84
+        ],
+        [
+          10,
+          0.84
+        ]
+      ],
+      "clock_rate": null,
+      "page_controls_fired_at": []
+    },
+    {
+      "id": "05-fields",
+      "seconds": 14.1,
+      "keys": [
+        [
+          0,
+          {
+            "y": "fields-232"
+          }
+        ],
+        [
+          1.5,
+          {
+            "y": "fields+48"
+          }
+        ],
+        [
+          3.5,
+          {
+            "y": "fields+48"
+          }
+        ],
+        [
+          4.6,
+          0.1
+        ],
+        [
+          5.4,
+          0.1
+        ],
+        [
+          6.2,
+          0.45
+        ],
+        [
+          9.6,
+          0.45
+        ],
+        [
+          10.4,
+          0.8
+        ],
+        [
+          14.1,
+          0.8
+        ]
+      ],
+      "clock_rate": [
+        [
+          0,
+          1
+        ],
+        [
+          5.4,
+          0.55
+        ],
+        [
+          5.7,
+          0.3
+        ],
+        [
+          6.4,
+          0.55
+        ],
+        [
+          8.9,
+          1
+        ],
+        [
+          9.6,
+          0.55
+        ],
+        [
+          9.9,
+          0.3
+        ],
+        [
+          10.6,
+          0.55
+        ],
+        [
+          13.1,
+          1
+        ]
+      ],
+      "page_controls_fired_at": []
+    },
+    {
+      "id": "06a-arena",
+      "seconds": 9.3,
+      "keys": [
+        [
+          0,
+          0.015
+        ],
+        [
+          2.8,
+          0.015
+        ],
+        [
+          4,
+          0.17
+        ],
+        [
+          6.9,
+          0.17
+        ],
+        [
+          8.1,
+          0.29
+        ],
+        [
+          9.3,
+          0.29
+        ]
+      ],
+      "clock_rate": null,
+      "page_controls_fired_at": [
+        4.2,
+        4.9,
+        5.6,
+        6.3,
+        6.75,
+        8.4
+      ]
+    },
+    {
+      "id": "06b-choose",
+      "seconds": 3.8,
+      "keys": [
+        [
+          0,
+          0.955
+        ],
+        [
+          3.8,
+          0.975
+        ]
+      ],
+      "clock_rate": null,
+      "page_controls_fired_at": []
+    },
+    {
+      "id": "07-rules",
+      "seconds": 8.5,
+      "keys": [
+        [
+          0,
+          0.15
+        ],
+        [
+          0.7,
+          0.185
+        ],
+        [
+          1.5,
+          0.185
+        ],
+        [
+          2.4,
+          0.31
+        ],
+        [
+          3.1,
+          0.31
+        ],
+        [
+          3.1001,
+          0.386
+        ],
+        [
+          4.3,
+          0.392
+        ],
+        [
+          4.3001,
+          0.585
+        ],
+        [
+          5.6,
+          0.6
+        ],
+        [
+          6.4,
+          0.7
+        ],
+        [
+          7,
+          0.7
+        ],
+        [
+          7.6,
+          0.78
+        ],
+        [
+          8.5,
+          0.78
+        ]
+      ],
+      "clock_rate": null,
+      "page_controls_fired_at": []
+    },
+    {
+      "id": "08-results",
+      "seconds": 6.8,
+      "keys": [
+        [
+          0,
+          "tracks"
+        ],
+        [
+          6.8,
+          "tracks"
+        ]
+      ],
+      "clock_rate": null,
+      "page_controls_fired_at": []
+    },
+    {
+      "id": "09-team",
+      "seconds": 3.5,
+      "keys": [
+        [
+          0,
+          "team-72"
+        ],
+        [
+          3.5,
+          "team-72"
+        ]
+      ],
+      "clock_rate": null,
+      "page_controls_fired_at": []
+    },
+    {
+      "id": "10-end",
+      "seconds": 7,
+      "keys": null,
+      "clock_rate": null,
+      "page_controls_fired_at": []
+    }
+  ],
+  "arena_loadout_on_screen": {
+    "model": 0,
+    "variant": 2,
+    "effort": 3,
+    "harness": 3
+  },
+  "shoot_only_changes": {
+    "note": "Runtime only. No site file was edited. Full text is in video-demo/sff-homepage/lib/stage.mjs.",
+    "css_sha256": "8901b9c3fe03e39e417fadf2c447f53101bf56c4e95dd74363fb2fb32a5c0121",
+    "text_trims_to_exact_substrings": {
+      ".mc-lead": "an open benchmark and research arena built around reusable Metacases (index.html:97, first letter shown in capitals)",
+      ".mc-results-stats li:first-child small": "3 fields × 200 tasks · 18 classes (index.html:458)"
+    },
+    "hidden_contradictory_figures": [
+      "208 / 209 / 187 records (index.html:90-92, 186-188)",
+      "604 tasks (index.html:216)",
+      "SIXTEEN CASE CATEGORIES and econ/ 5 fin/ 6 soc/ 5 (index.html:370-371, 410)"
+    ]
+  },
+  "on_screen_text": [
+    {
+      "shot": "01-hero",
+      "text": "Global Metacase Initiative",
+      "output_px": 28.5,
+      "seconds": [
+        0.5,
+        9
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 8,
+        "excerpt": "<title>Metacase Challenge — Global Metacase Initiative</title>"
+      }
+    },
+    {
+      "shot": "01-hero",
+      "text": "Metacase",
+      "output_px": 145.9,
+      "seconds": [
+        0.5,
+        9
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 8,
+        "excerpt": "<title>Metacase Challenge — Global Metacase Initiative</title>"
+      }
+    },
+    {
+      "shot": "01-hero",
+      "text": "Challenge",
+      "output_px": 145.9,
+      "seconds": [
+        1,
+        9
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 8,
+        "excerpt": "<title>Metacase Challenge — Global Metacase Initiative</title>"
+      }
+    },
+    {
+      "shot": "01-hero",
+      "text": "an open benchmark and research arena built around reusable Metacases",
+      "output_px": 43.5,
+      "seconds": [
+        1,
+        9
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 97,
+        "excerpt": "<p class=\"mc-lead mc-in\" style=\"--d:.42s\">We present the <b>Metacase Challenge<span class=\"mc-zh-only\" data-no-translate>（Metacase Challenge）</span><span class="
+      }
+    },
+    {
+      "shot": "01-hero",
+      "text": "Economics",
+      "output_px": 28.5,
+      "seconds": [
+        1.5,
+        9
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 90,
+        "excerpt": "<span data-tag=\"0\" style=\"--tc: var(--track-1)\"><b>Economics</b><i>208 records</i></span>"
+      }
+    },
+    {
+      "shot": "01-hero",
+      "text": "Finance",
+      "output_px": 28.5,
+      "seconds": [
+        1.5,
+        9
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 91,
+        "excerpt": "<span data-tag=\"1\" style=\"--tc: var(--track-2)\"><b>Finance</b><i>209 records</i></span>"
+      }
+    },
+    {
+      "shot": "01-hero",
+      "text": "Social science",
+      "output_px": 28.5,
+      "seconds": [
+        1.5,
+        9
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 92,
+        "excerpt": "<span data-tag=\"2\" style=\"--tc: var(--mc-violet)\"><b>Social science</b><i>187 records</i></span>"
+      }
+    },
+    {
+      "shot": "01-hero",
+      "text": "Hosted by NTU GIFTS · with HKU and SUFE",
+      "output_px": 31.5,
+      "seconds": [
+        1.5,
+        9
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 110,
+        "excerpt": "<p class=\"mc-host mono\">Hosted by NTU GIFTS · with HKU and SUFE</p>"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "05",
+      "output_px": 28.5,
+      "seconds": [
+        0,
+        9
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 121,
+        "excerpt": "<a href=\"#arena\" data-spy=\"arena\"><span class=\"n mono\">05</span><span>Challenge</span></a>"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "THE METACASE CHALLENGE",
+      "output_px": 28.5,
+      "seconds": [
+        0,
+        9
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 97,
+        "excerpt": "<p class=\"mc-lead mc-in\" style=\"--d:.42s\">We present the <b>Metacase Challenge<span class=\"mc-zh-only\" data-no-translate>（Metacase Challenge）</span><span class="
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "Three portals.",
+      "output_px": 72,
+      "seconds": [
+        0,
+        3.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 367,
+        "excerpt": "<h2 id=\"system-title\">Three portals.<br><em>Three tracks.</em></h2>"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "Three tracks.",
+      "output_px": 72,
+      "seconds": [
+        0,
+        3.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 367,
+        "excerpt": "<h2 id=\"system-title\">Three portals.<br><em>Three tracks.</em></h2>"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "Economics",
+      "output_px": 28.1,
+      "seconds": [
+        0,
+        3
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 90,
+        "excerpt": "<span data-tag=\"0\" style=\"--tc: var(--track-1)\"><b>Economics</b><i>208 records</i></span>"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "→",
+      "output_px": 31.9,
+      "seconds": [
+        0,
+        3.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 100,
+        "excerpt": "<a class=\"btn btn-primary\" href=\"challenge.html\"><span>Join the Challenge</span><span class=\"arrow\" aria-hidden=\"true\"><i>→</i><i>→</i></span></a>"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "Finance",
+      "output_px": 28.1,
+      "seconds": [
+        0,
+        3
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 91,
+        "excerpt": "<span data-tag=\"1\" style=\"--tc: var(--track-2)\"><b>Finance</b><i>209 records</i></span>"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "Social Science",
+      "output_px": 28.1,
+      "seconds": [
+        0,
+        3
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 92,
+        "excerpt": "<span data-tag=\"2\" style=\"--tc: var(--mc-violet)\"><b>Social science</b><i>187 records</i></span>"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "01",
+      "output_px": 23.6,
+      "seconds": [
+        0,
+        3.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 117,
+        "excerpt": "<a href=\"#metacase\" data-spy=\"metacase\"><span class=\"n mono\">01</span><span>Metacase</span></a>"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "ENTER",
+      "output_px": 28.1,
+      "seconds": [
+        0,
+        3.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 369,
+        "excerpt": "<a class=\"mc-enter\" data-mc-enter href=\"challenge.html?via=portal#track-econ\" hidden>Enter the Economics track →</a>"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "02",
+      "output_px": 23.6,
+      "seconds": [
+        0,
+        3.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 118,
+        "excerpt": "<a href=\"#structure\" data-spy=\"structure\"><span class=\"n mono\">02</span><span>Retrieval</span></a>"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "EQUIP",
+      "output_px": 28.1,
+      "seconds": [
+        0,
+        3.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 374,
+        "excerpt": "<div class=\"mc-wheel\" role=\"group\" aria-hidden=\"true\" inert><svg viewBox=\"0 0 600 600\"></svg><div class=\"mc-wheel-hub-badge\" data-mc-hub-badge><small data-mc-hu"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "03",
+      "output_px": 23.6,
+      "seconds": [
+        0,
+        3.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 119,
+        "excerpt": "<a href=\"#net\" data-spy=\"net\"><span class=\"n mono\">03</span><span>Network</span></a>"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "ECONOMICS",
+      "output_px": 28.1,
+      "seconds": [
+        0,
+        3.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 90,
+        "excerpt": "<span data-tag=\"0\" style=\"--tc: var(--track-1)\"><b>Economics</b><i>208 records</i></span>"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "04",
+      "output_px": 23.6,
+      "seconds": [
+        0,
+        3.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 120,
+        "excerpt": "<a href=\"#fields\" data-spy=\"fields\"><span class=\"n mono\">04</span><span>Fields</span></a>"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "FINANCE",
+      "output_px": 28.1,
+      "seconds": [
+        0,
+        3.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 91,
+        "excerpt": "<span data-tag=\"1\" style=\"--tc: var(--track-2)\"><b>Finance</b><i>209 records</i></span>"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "SOCIAL SCIENCE",
+      "output_px": 28.1,
+      "seconds": [
+        0,
+        3.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 92,
+        "excerpt": "<span data-tag=\"2\" style=\"--tc: var(--mc-violet)\"><b>Social science</b><i>187 records</i></span>"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "06",
+      "output_px": 23.6,
+      "seconds": [
+        0,
+        3.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 122,
+        "excerpt": "<a href=\"#rules\" data-spy=\"rules\"><span class=\"n mono\">06</span><span>Participate</span></a>"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "CHOOSE",
+      "output_px": 28.1,
+      "seconds": [
+        0,
+        3.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 383,
+        "excerpt": "<span class=\"mc-loadout-type\" data-mc-type>Choose a harness at the equipment wheel</span>"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "Portal 1 · Economics",
+      "output_px": 18.8,
+      "seconds": [
+        3.5,
+        3.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 391,
+        "excerpt": "<a class=\"mc-portal\" data-portal=\"econ\" href=\"challenge.html?via=portal#track-econ\" style=\"--pc: var(--track-1)\"><small>Portal 1 · Economics</small><b>Enter the"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "Enter the Economics track",
+      "output_px": 30,
+      "seconds": [
+        3.5,
+        3.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 369,
+        "excerpt": "<a class=\"mc-enter\" data-mc-enter href=\"challenge.html?via=portal#track-econ\" hidden>Enter the Economics track →</a>"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "Portal 2 · Finance",
+      "output_px": 18.8,
+      "seconds": [
+        3.5,
+        3.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 392,
+        "excerpt": "<a class=\"mc-portal\" data-portal=\"fin\" href=\"challenge.html?via=portal#track-fin\" style=\"--pc: var(--track-2)\"><small>Portal 2 · Finance</small><b>Enter the Fin"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "Enter the Finance track",
+      "output_px": 30,
+      "seconds": [
+        3.5,
+        3.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 392,
+        "excerpt": "<a class=\"mc-portal\" data-portal=\"fin\" href=\"challenge.html?via=portal#track-fin\" style=\"--pc: var(--track-2)\"><small>Portal 2 · Finance</small><b>Enter the Fin"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "Portal 3 · Social Science",
+      "output_px": 18.8,
+      "seconds": [
+        3.5,
+        3.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 393,
+        "excerpt": "<a class=\"mc-portal\" data-portal=\"soc\" href=\"challenge.html?via=portal#track-soc\" style=\"--pc: var(--mc-violet)\"><small>Portal 3 · Social Science</small><b>Ente"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "Enter the Social Science track",
+      "output_px": 30,
+      "seconds": [
+        3.5,
+        3.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 393,
+        "excerpt": "<a class=\"mc-portal\" data-portal=\"soc\" href=\"challenge.html?via=portal#track-soc\" style=\"--pc: var(--mc-violet)\"><small>Portal 3 · Social Science</small><b>Ente"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "Model is the character.",
+      "output_px": 72,
+      "seconds": [
+        4,
+        9
+      ],
+      "source": {
+        "file": "arena.js",
+        "line": 50,
+        "excerpt": "{ tag:['02 / CHARACTER & HARNESS WHEEL','02 / 角色与 HARNESS 装备轮'], title:['Model is the character.<br><em>Harness is the weapon.</em>','模型是角色，<br><em>Harness 是武器。"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "Harness is the weapon.",
+      "output_px": 72,
+      "seconds": [
+        4,
+        9
+      ],
+      "source": {
+        "file": "arena.js",
+        "line": 50,
+        "excerpt": "{ tag:['02 / CHARACTER & HARNESS WHEEL','02 / 角色与 HARNESS 装备轮'], title:['Model is the character.<br><em>Harness is the weapon.</em>','模型是角色，<br><em>Harness 是武器。"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "DeepSeek",
+      "output_px": 24.4,
+      "seconds": [
+        4,
+        9
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 388,
+        "excerpt": "<p class=\"mc-loadout-summary\" data-mc-loadout-summary>OpenAI · GPT-6 Astra · XHigh × DeepSeek Harness</p>"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "Harness",
+      "output_px": 22.5,
+      "seconds": [
+        4,
+        9
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 71,
+        "excerpt": "<a href=\"harness.html\">Harness</a>"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "DeepAgents",
+      "output_px": 33.2,
+      "seconds": [
+        4,
+        9
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 459,
+        "excerpt": "<li style=\"--tc: var(--mc-violet)\"><div class=\"mc-art\" data-art=\"models\"></div><b class=\"tnum\">8 × 5</b><span>Models × harnesses on Dev100</span><small>3,999 / "
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "Claude",
+      "output_px": 22.5,
+      "seconds": [
+        4,
+        9
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 459,
+        "excerpt": "<li style=\"--tc: var(--mc-violet)\"><div class=\"mc-art\" data-art=\"models\"></div><b class=\"tnum\">8 × 5</b><span>Models × harnesses on Dev100</span><small>3,999 / "
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "Code",
+      "output_px": 22.5,
+      "seconds": [
+        4,
+        9
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 543,
+        "excerpt": "<li><a href=\"https://github.com/HKU-Business-AI-Center/Econometrics-Agent\" target=\"_blank\" rel=\"noopener\">Econometrics-Agent code</a></li>"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "Codex",
+      "output_px": 22.5,
+      "seconds": [
+        4,
+        9
+      ],
+      "source": {
+        "file": "arena.js",
+        "line": 31,
+        "excerpt": "{ name: 'Codex CLI', lines: ['Codex', 'CLI'], code: 'W-04', type: ['CLI harness · OpenAI Agents SDK', '命令行 Harness · OpenAI Agents SDK'], description: ['Exchang"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "CLI",
+      "output_px": 22.5,
+      "seconds": [
+        4,
+        9
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 374,
+        "excerpt": "<div class=\"mc-wheel\" role=\"group\" aria-hidden=\"true\" inert><svg viewBox=\"0 0 600 600\"></svg><div class=\"mc-wheel-hub-badge\" data-mc-hub-badge><small data-mc-hu"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "Terminus",
+      "output_px": 22.5,
+      "seconds": [
+        4,
+        9
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 459,
+        "excerpt": "<li style=\"--tc: var(--mc-violet)\"><div class=\"mc-art\" data-art=\"models\"></div><b class=\"tnum\">8 × 5</b><span>Models × harnesses on Dev100</span><small>3,999 / "
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "-2",
+      "output_px": 22.5,
+      "seconds": [
+        4,
+        9
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 459,
+        "excerpt": "<li style=\"--tc: var(--mc-violet)\"><div class=\"mc-art\" data-art=\"models\"></div><b class=\"tnum\">8 × 5</b><span>Models × harnesses on Dev100</span><small>3,999 / "
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "OpenCode",
+      "output_px": 22.5,
+      "seconds": [
+        4,
+        9
+      ],
+      "source": {
+        "file": "arena.js",
+        "line": 33,
+        "excerpt": "{ name: 'OpenCode', lines: ['OpenCode'], code: 'W-06', type: ['Server runtime', '服务式运行时'], description: ['Another weapon slot, another way to organize the model"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "1 · PROVIDER",
+      "output_px": 28.3,
+      "seconds": [
+        4,
+        9
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 377,
+        "excerpt": "<li class=\"mc-step\" data-step=\"provider\"><span class=\"mc-step-label\" data-mc-step-label=\"0\">1 · PROVIDER</span><div class=\"mc-model-chips\" data-mc-model-chips r"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "OpenAI",
+      "output_px": 24.4,
+      "seconds": [
+        4,
+        9
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 374,
+        "excerpt": "<div class=\"mc-wheel\" role=\"group\" aria-hidden=\"true\" inert><svg viewBox=\"0 0 600 600\"></svg><div class=\"mc-wheel-hub-badge\" data-mc-hub-badge><small data-mc-hu"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "Anthropic",
+      "output_px": 24.4,
+      "seconds": [
+        4,
+        9
+      ],
+      "source": {
+        "file": "arena-data.js",
+        "line": 29,
+        "excerpt": "id: 'anthropic', provider: 'Anthropic', name: 'Anthropic', short: 'Anthropic', badge: 'ANTHROPIC',"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "Google",
+      "output_px": 24.4,
+      "seconds": [
+        4,
+        9
+      ],
+      "source": {
+        "file": "arena-data.js",
+        "line": 37,
+        "excerpt": "id: 'google', provider: 'Google', name: 'Google', short: 'Google', badge: 'GOOGLE',"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "Kimi",
+      "output_px": 24.4,
+      "seconds": [
+        4,
+        9
+      ],
+      "source": {
+        "file": "arena-data.js",
+        "line": 45,
+        "excerpt": "id: 'kimi', provider: 'Kimi', name: 'Kimi', short: 'Kimi', badge: 'KIMI',"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "Qwen",
+      "output_px": 24.4,
+      "seconds": [
+        4,
+        9
+      ],
+      "source": {
+        "file": "arena-data.js",
+        "line": 17,
+        "excerpt": "* the DeepSeek whale and the Qwen mark come from @lobehub/icons-static-svg (MIT). The marks"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "2 · MODEL",
+      "output_px": 28.3,
+      "seconds": [
+        4,
+        9
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 378,
+        "excerpt": "<li class=\"mc-step\" data-step=\"model\"><span class=\"mc-step-label\" data-mc-step-label=\"1\">2 · MODEL</span><div class=\"mc-variant-chips\" data-mc-variant-chips rol"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "GPT-6 Astra",
+      "output_px": 24.4,
+      "seconds": [
+        4,
+        9
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 374,
+        "excerpt": "<div class=\"mc-wheel\" role=\"group\" aria-hidden=\"true\" inert><svg viewBox=\"0 0 600 600\"></svg><div class=\"mc-wheel-hub-badge\" data-mc-hub-badge><small data-mc-hu"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "GPT-6.1 Sol",
+      "output_px": 24.4,
+      "seconds": [
+        4,
+        9
+      ],
+      "source": {
+        "file": "arena-data.js",
+        "line": 22,
+        "excerpt": "variants: ['GPT-6 Astra', 'GPT-6.1 Sol', 'GPT-5.6 Sol'],"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "GPT-5.6 Sol",
+      "output_px": 24.4,
+      "seconds": [
+        4,
+        9
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 455,
+        "excerpt": "<p class=\"mc-results-scope\">The Harbor benchmark catalog curates 600 hard task records across 3 fields and 18 classes (200 per field). On its 100-task Dev100 ec"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "3 · EFFORT",
+      "output_px": 28.3,
+      "seconds": [
+        4,
+        9
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 379,
+        "excerpt": "<li class=\"mc-step\" data-step=\"effort\"><span class=\"mc-step-label\" data-mc-step-label=\"2\">3 · EFFORT</span><div class=\"mc-effort\"><div class=\"mc-effort-chips\" d"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "Low",
+      "output_px": 24.4,
+      "seconds": [
+        4,
+        9
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 198,
+        "excerpt": "<li data-caption=\"2\"><b class=\"mono\">Transfer</b><span>People and agents follow those links to see how a comparable problem was handled elsewhere, then test whe"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "Medium",
+      "output_px": 24.4,
+      "seconds": [
+        4,
+        9
+      ],
+      "source": {
+        "file": "arena-data.js",
+        "line": 10,
+        "excerpt": "export const EFFORTS = Object.freeze(['Low', 'Medium', 'High', 'XHigh']);"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "High",
+      "output_px": 24.4,
+      "seconds": [
+        4,
+        9
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 138,
+        "excerpt": "<li data-note=\"0\" style=\"--tc: var(--track-1)\"><b class=\"mono\">01</b><strong>Context &amp; Evidence</strong><em class=\"mono\" data-page=\"key\">Goal · Evidence · C"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "XHigh",
+      "output_px": 24.4,
+      "seconds": [
+        4,
+        9
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 388,
+        "excerpt": "<p class=\"mc-loadout-summary\" data-mc-loadout-summary>OpenAI · GPT-6 Astra · XHigh × DeepSeek Harness</p>"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "4 · HARNESS",
+      "output_px": 28.3,
+      "seconds": [
+        4,
+        9
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 381,
+        "excerpt": "<span class=\"mc-loadout-label\" data-mc-loadout-label>4 · HARNESS</span>"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "DeepSeek Harness",
+      "output_px": 33.2,
+      "seconds": [
+        4,
+        7
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 388,
+        "excerpt": "<p class=\"mc-loadout-summary\" data-mc-loadout-summary>OpenAI · GPT-6 Astra · XHigh × DeepSeek Harness</p>"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "Plugin runtime",
+      "output_px": 21.5,
+      "seconds": [
+        4,
+        7
+      ],
+      "source": {
+        "file": "arena.js",
+        "line": 28,
+        "excerpt": "{ name: 'DeepSeek Harness', lines: ['DeepSeek', 'Harness'], code: 'W-01', type: ['Plugin runtime', '插件运行时'], description: ['Swap the runtime weapon. Recompose t"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "Equipped ✓",
+      "output_px": 21.5,
+      "seconds": [
+        4,
+        9
+      ],
+      "source": {
+        "file": "arena.js",
+        "line": 288,
+        "excerpt": "$('.mc-confirm').textContent = state.equippedHarness === state.harness ? (l ? '已装备 ✓' : 'Equipped ✓') : (l ? '确认装备 ↗' : 'Equip this harness ↗');"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "Claude Opus 5.5",
+      "output_px": 24.4,
+      "seconds": [
+        4.5,
+        4.5
+      ],
+      "source": {
+        "file": "arena-data.js",
+        "line": 30,
+        "excerpt": "variants: ['Claude Opus 5.5', 'Claude Fable 5.1', 'Claude Opus 4.8'],"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "Claude Fable 5.1",
+      "output_px": 24.4,
+      "seconds": [
+        4.5,
+        4.5
+      ],
+      "source": {
+        "file": "arena-data.js",
+        "line": 30,
+        "excerpt": "variants: ['Claude Opus 5.5', 'Claude Fable 5.1', 'Claude Opus 4.8'],"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "Claude Opus 4.8",
+      "output_px": 24.4,
+      "seconds": [
+        4.5,
+        4.5
+      ],
+      "source": {
+        "file": "arena-data.js",
+        "line": 30,
+        "excerpt": "variants: ['Claude Opus 5.5', 'Claude Fable 5.1', 'Claude Opus 4.8'],"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "Gemini 4 Argon",
+      "output_px": 24.4,
+      "seconds": [
+        5,
+        5.5
+      ],
+      "source": {
+        "file": "arena-data.js",
+        "line": 38,
+        "excerpt": "variants: ['Gemini 4 Argon', 'Gemini 3.8 Flash', 'Gemini 3.1 Pro'],"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "Gemini 3.8 Flash",
+      "output_px": 24.4,
+      "seconds": [
+        5,
+        5.5
+      ],
+      "source": {
+        "file": "arena-data.js",
+        "line": 38,
+        "excerpt": "variants: ['Gemini 4 Argon', 'Gemini 3.8 Flash', 'Gemini 3.1 Pro'],"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "Gemini 3.1 Pro",
+      "output_px": 24.4,
+      "seconds": [
+        5.5,
+        5.5
+      ],
+      "source": {
+        "file": "arena-data.js",
+        "line": 38,
+        "excerpt": "variants: ['Gemini 4 Argon', 'Gemini 3.8 Flash', 'Gemini 3.1 Pro'],"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "Library harness",
+      "output_px": 21.5,
+      "seconds": [
+        7.5,
+        7.5
+      ],
+      "source": {
+        "file": "arena.js",
+        "line": 29,
+        "excerpt": "{ name: 'DeepAgents', lines: ['DeepAgents'], code: 'W-02', type: ['Library harness', '库式 Harness'], description: ['Equip a planning-oriented harness. Make the w"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "Equip this harness ↗",
+      "output_px": 21.5,
+      "seconds": [
+        7.5,
+        8
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 384,
+        "excerpt": "<button class=\"mc-confirm btn btn-secondary\" type=\"button\" hidden>EQUIP THIS HARNESS ↗</button>"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "Codex CLI",
+      "output_px": 33.2,
+      "seconds": [
+        8,
+        9
+      ],
+      "source": {
+        "file": "arena.js",
+        "line": 31,
+        "excerpt": "{ name: 'Codex CLI', lines: ['Codex', 'CLI'], code: 'W-04', type: ['CLI harness · OpenAI Agents SDK', '命令行 Harness · OpenAI Agents SDK'], description: ['Exchang"
+      }
+    },
+    {
+      "shot": "06a-arena",
+      "text": "CLI harness · OpenAI Agents SDK",
+      "output_px": 21.5,
+      "seconds": [
+        8,
+        9
+      ],
+      "source": {
+        "file": "arena.js",
+        "line": 31,
+        "excerpt": "{ name: 'Codex CLI', lines: ['Codex', 'CLI'], code: 'W-04', type: ['CLI harness · OpenAI Agents SDK', '命令行 Harness · OpenAI Agents SDK'], description: ['Exchang"
+      }
+    },
+    {
+      "shot": "02-metacase",
+      "text": "01",
+      "output_px": 28.5,
+      "seconds": [
+        0,
+        11
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 117,
+        "excerpt": "<a href=\"#metacase\" data-spy=\"metacase\"><span class=\"n mono\">01</span><span>Metacase</span></a>"
+      }
+    },
+    {
+      "shot": "02-metacase",
+      "text": "The Metacase",
+      "output_px": 28.5,
+      "seconds": [
+        0,
+        11
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 97,
+        "excerpt": "<p class=\"mc-lead mc-in\" style=\"--d:.42s\">We present the <b>Metacase Challenge<span class=\"mc-zh-only\" data-no-translate>（Metacase Challenge）</span><span class="
+      }
+    },
+    {
+      "shot": "02-metacase",
+      "text": "A Metacase is one episode,",
+      "output_px": 63.4,
+      "seconds": [
+        0,
+        11
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 134,
+        "excerpt": "<h2 id=\"metacase-title\"><span>A Metacase is one episode,</span> <em>recorded end to end.</em></h2>"
+      }
+    },
+    {
+      "shot": "02-metacase",
+      "text": "recorded end to end.",
+      "output_px": 63.4,
+      "seconds": [
+        0,
+        11
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 134,
+        "excerpt": "<h2 id=\"metacase-title\"><span>A Metacase is one episode,</span> <em>recorded end to end.</em></h2>"
+      }
+    },
+    {
+      "shot": "02-metacase",
+      "text": "Context",
+      "output_px": 28.1,
+      "seconds": [
+        0,
+        11
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 97,
+        "excerpt": "<p class=\"mc-lead mc-in\" style=\"--d:.42s\">We present the <b>Metacase Challenge<span class=\"mc-zh-only\" data-no-translate>（Metacase Challenge）</span><span class="
+      }
+    },
+    {
+      "shot": "02-metacase",
+      "text": "Strategy",
+      "output_px": 28.1,
+      "seconds": [
+        0,
+        11
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 139,
+        "excerpt": "<li data-note=\"1\" style=\"--tc: var(--mc-violet)\"><b class=\"mono\">02</b><strong>Prior Practice &amp; Strategy</strong><em class=\"mono\" data-page=\"key\">Practice ·"
+      }
+    },
+    {
+      "shot": "02-metacase",
+      "text": "Actions",
+      "output_px": 28.1,
+      "seconds": [
+        0,
+        11
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 140,
+        "excerpt": "<li data-note=\"2\" style=\"--tc: var(--mc-blue)\"><b class=\"mono\">03</b><strong>Actions &amp; Execution</strong><em class=\"mono\" data-page=\"key\">Steps · Tools · In"
+      }
+    },
+    {
+      "shot": "02-metacase",
+      "text": "Outcomes",
+      "output_px": 28.1,
+      "seconds": [
+        0,
+        11
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 97,
+        "excerpt": "<p class=\"mc-lead mc-in\" style=\"--d:.42s\">We present the <b>Metacase Challenge<span class=\"mc-zh-only\" data-no-translate>（Metacase Challenge）</span><span class="
+      }
+    },
+    {
+      "shot": "02-metacase",
+      "text": "Reflection",
+      "output_px": 28.1,
+      "seconds": [
+        0,
+        11
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 142,
+        "excerpt": "<li data-note=\"4\" style=\"--tc: var(--mc-green)\"><b class=\"mono\">05</b><strong>Reflection &amp; Reuse</strong><em class=\"mono\" data-page=\"key\">What held · What f"
+      }
+    },
+    {
+      "shot": "02-metacase",
+      "text": "Context & Evidence",
+      "output_px": 37.5,
+      "seconds": [
+        2,
+        3
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 138,
+        "excerpt": "<li data-note=\"0\" style=\"--tc: var(--track-1)\"><b class=\"mono\">01</b><strong>Context &amp; Evidence</strong><em class=\"mono\" data-page=\"key\">Goal · Evidence · C"
+      }
+    },
+    {
+      "shot": "02-metacase",
+      "text": "02",
+      "output_px": 28.5,
+      "seconds": [
+        4,
+        5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 118,
+        "excerpt": "<a href=\"#structure\" data-spy=\"structure\"><span class=\"n mono\">02</span><span>Retrieval</span></a>"
+      }
+    },
+    {
+      "shot": "02-metacase",
+      "text": "Prior Practice & Strategy",
+      "output_px": 37.5,
+      "seconds": [
+        4,
+        5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 139,
+        "excerpt": "<li data-note=\"1\" style=\"--tc: var(--mc-violet)\"><b class=\"mono\">02</b><strong>Prior Practice &amp; Strategy</strong><em class=\"mono\" data-page=\"key\">Practice ·"
+      }
+    },
+    {
+      "shot": "02-metacase",
+      "text": "03",
+      "output_px": 28.5,
+      "seconds": [
+        6,
+        7
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 119,
+        "excerpt": "<a href=\"#net\" data-spy=\"net\"><span class=\"n mono\">03</span><span>Network</span></a>"
+      }
+    },
+    {
+      "shot": "02-metacase",
+      "text": "Actions & Execution",
+      "output_px": 37.5,
+      "seconds": [
+        6,
+        7
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 140,
+        "excerpt": "<li data-note=\"2\" style=\"--tc: var(--mc-blue)\"><b class=\"mono\">03</b><strong>Actions &amp; Execution</strong><em class=\"mono\" data-page=\"key\">Steps · Tools · In"
+      }
+    },
+    {
+      "shot": "02-metacase",
+      "text": "04",
+      "output_px": 28.5,
+      "seconds": [
+        8,
+        9
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 120,
+        "excerpt": "<a href=\"#fields\" data-spy=\"fields\"><span class=\"n mono\">04</span><span>Fields</span></a>"
+      }
+    },
+    {
+      "shot": "02-metacase",
+      "text": "Outcomes & Verification",
+      "output_px": 37.5,
+      "seconds": [
+        8,
+        9
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 141,
+        "excerpt": "<li data-note=\"3\" style=\"--tc: var(--track-2)\"><b class=\"mono\">04</b><strong>Outcomes &amp; Verification</strong><em class=\"mono\" data-page=\"key\">Deliverable · "
+      }
+    },
+    {
+      "shot": "02-metacase",
+      "text": "05",
+      "output_px": 28.5,
+      "seconds": [
+        10,
+        11
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 121,
+        "excerpt": "<a href=\"#arena\" data-spy=\"arena\"><span class=\"n mono\">05</span><span>Challenge</span></a>"
+      }
+    },
+    {
+      "shot": "02-metacase",
+      "text": "Reflection & Reuse",
+      "output_px": 37.5,
+      "seconds": [
+        10,
+        11
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 142,
+        "excerpt": "<li data-note=\"4\" style=\"--tc: var(--mc-green)\"><b class=\"mono\">05</b><strong>Reflection &amp; Reuse</strong><em class=\"mono\" data-page=\"key\">What held · What f"
+      }
+    },
+    {
+      "shot": "04-network",
+      "text": "03",
+      "output_px": 28.5,
+      "seconds": [
+        0,
+        9.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 119,
+        "excerpt": "<a href=\"#net\" data-spy=\"net\"><span class=\"n mono\">03</span><span>Network</span></a>"
+      }
+    },
+    {
+      "shot": "04-network",
+      "text": "The network",
+      "output_px": 28.5,
+      "seconds": [
+        0,
+        9.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 191,
+        "excerpt": "<p class=\"mc-label mono\"><span>03</span><b>The network</b></p>"
+      }
+    },
+    {
+      "shot": "04-network",
+      "text": "A reusable network",
+      "output_px": 63.4,
+      "seconds": [
+        0,
+        9.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 192,
+        "excerpt": "<h2 id=\"net-title\"><span>A reusable network</span> <em>of Metacases.</em></h2>"
+      }
+    },
+    {
+      "shot": "04-network",
+      "text": "of Metacases.",
+      "output_px": 63.4,
+      "seconds": [
+        0,
+        9.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 192,
+        "excerpt": "<h2 id=\"net-title\"><span>A reusable network</span> <em>of Metacases.</em></h2>"
+      }
+    },
+    {
+      "shot": "04-network",
+      "text": "Fields",
+      "output_px": 28.1,
+      "seconds": [
+        0,
+        9.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 98,
+        "excerpt": "<p class=\"mc-lead-more mc-in\" style=\"--d:.5s\">The goal is for both AI systems and researchers to retrieve and reason over similar problem-solving and decision s"
+      }
+    },
+    {
+      "shot": "04-network",
+      "text": "Links",
+      "output_px": 28.1,
+      "seconds": [
+        0,
+        9.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 193,
+        "excerpt": "<p class=\"mc-sub\">Metacases are linked wherever their solution structures correspond, within a field and across fields. Each reviewed case adds a record and its"
+      }
+    },
+    {
+      "shot": "04-network",
+      "text": "Transfer",
+      "output_px": 37.5,
+      "seconds": [
+        0,
+        9.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 198,
+        "excerpt": "<li data-caption=\"2\"><b class=\"mono\">Transfer</b><span>People and agents follow those links to see how a comparable problem was handled elsewhere, then test whe"
+      }
+    },
+    {
+      "shot": "04-network",
+      "text": "Foundation",
+      "output_px": 28.1,
+      "seconds": [
+        0,
+        9.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 98,
+        "excerpt": "<p class=\"mc-lead-more mc-in\" style=\"--d:.5s\">The goal is for both AI systems and researchers to retrieve and reason over similar problem-solving and decision s"
+      }
+    },
+    {
+      "shot": "04-network",
+      "text": "Field by field",
+      "output_px": 37.5,
+      "seconds": [
+        0.5,
+        2.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 196,
+        "excerpt": "<li data-caption=\"0\"><b class=\"mono\">Field by field</b><span>Each field grows from its own cases: economics, finance and social science, each with its own data,"
+      }
+    },
+    {
+      "shot": "04-network",
+      "text": "Economics",
+      "output_px": 28.5,
+      "seconds": [
+        1.5,
+        9.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 90,
+        "excerpt": "<span data-tag=\"0\" style=\"--tc: var(--track-1)\"><b>Economics</b><i>208 records</i></span>"
+      }
+    },
+    {
+      "shot": "04-network",
+      "text": "Finance",
+      "output_px": 28.5,
+      "seconds": [
+        1.5,
+        9.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 91,
+        "excerpt": "<span data-tag=\"1\" style=\"--tc: var(--track-2)\"><b>Finance</b><i>209 records</i></span>"
+      }
+    },
+    {
+      "shot": "04-network",
+      "text": "Social science",
+      "output_px": 28.5,
+      "seconds": [
+        2.5,
+        9.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 92,
+        "excerpt": "<span data-tag=\"2\" style=\"--tc: var(--mc-violet)\"><b>Social science</b><i>187 records</i></span>"
+      }
+    },
+    {
+      "shot": "04-network",
+      "text": "Linked by solution path",
+      "output_px": 37.5,
+      "seconds": [
+        2.5,
+        4.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 197,
+        "excerpt": "<li data-caption=\"1\"><b class=\"mono\">Linked by solution path</b><span>Where cases in different fields were worked through the same way, their signatures corresp"
+      }
+    },
+    {
+      "shot": "04-network",
+      "text": "The foundation",
+      "output_px": 37.5,
+      "seconds": [
+        6.5,
+        9.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 199,
+        "excerpt": "<li data-caption=\"3\" class=\"mc-caption-statement\"><b class=\"mono\">The foundation</b><span>A foundation for experience-based AI.</span><small>That is the aim: as"
+      }
+    },
+    {
+      "shot": "04-network",
+      "text": "A foundation for experience-based AI.",
+      "output_px": 65.3,
+      "seconds": [
+        6.5,
+        9.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 98,
+        "excerpt": "<p class=\"mc-lead-more mc-in\" style=\"--d:.5s\">The goal is for both AI systems and researchers to retrieve and reason over similar problem-solving and decision s"
+      }
+    },
+    {
+      "shot": "05-fields",
+      "text": "6",
+      "output_px": 28.5,
+      "seconds": [
+        0,
+        14
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 122,
+        "excerpt": "<a href=\"#rules\" data-spy=\"rules\"><span class=\"n mono\">06</span><span>Participate</span></a>"
+      }
+    },
+    {
+      "shot": "05-fields",
+      "text": "04",
+      "output_px": 28.5,
+      "seconds": [
+        0,
+        3.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 120,
+        "excerpt": "<a href=\"#fields\" data-spy=\"fields\"><span class=\"n mono\">04</span><span>Fields</span></a>"
+      }
+    },
+    {
+      "shot": "05-fields",
+      "text": "The first fields",
+      "output_px": 28.5,
+      "seconds": [
+        0,
+        3.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 199,
+        "excerpt": "<li data-caption=\"3\" class=\"mc-caption-statement\"><b class=\"mono\">The foundation</b><span>A foundation for experience-based AI.</span><small>That is the aim: as"
+      }
+    },
+    {
+      "shot": "05-fields",
+      "text": "Three fields to start,",
+      "output_px": 88.3,
+      "seconds": [
+        0,
+        4
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 212,
+        "excerpt": "<h2 id=\"fields-title\"><span>Three fields to start,</span> <em>eighteen classes of cases.</em></h2>"
+      }
+    },
+    {
+      "shot": "05-fields",
+      "text": "eighteen classes of cases.",
+      "output_px": 88.3,
+      "seconds": [
+        0,
+        4
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 212,
+        "excerpt": "<h2 id=\"fields-title\"><span>Three fields to start,</span> <em>eighteen classes of cases.</em></h2>"
+      }
+    },
+    {
+      "shot": "05-fields",
+      "text": "Field 01",
+      "output_px": 28.5,
+      "seconds": [
+        0,
+        14
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 226,
+        "excerpt": "<small class=\"mono\">Field 01</small>"
+      }
+    },
+    {
+      "shot": "05-fields",
+      "text": "Economics",
+      "output_px": 51,
+      "seconds": [
+        0,
+        14
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 90,
+        "excerpt": "<span data-tag=\"0\" style=\"--tc: var(--track-1)\"><b>Economics</b><i>208 records</i></span>"
+      }
+    },
+    {
+      "shot": "05-fields",
+      "text": "classes",
+      "output_px": 28.5,
+      "seconds": [
+        0,
+        14
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 212,
+        "excerpt": "<h2 id=\"fields-title\"><span>Three fields to start,</span> <em>eighteen classes of cases.</em></h2>"
+      }
+    },
+    {
+      "shot": "05-fields",
+      "text": "econ.publicfinance",
+      "output_px": 28.5,
+      "seconds": [
+        0,
+        6
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 267,
+        "excerpt": "<p class=\"mc-call mono\" data-no-translate>econ.publicfinance</p>"
+      }
+    },
+    {
+      "shot": "05-fields",
+      "text": "econ.replication",
+      "output_px": 28.5,
+      "seconds": [
+        0,
+        6
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 252,
+        "excerpt": "<p class=\"mc-call mono\" data-no-translate>econ.replication</p>"
+      }
+    },
+    {
+      "shot": "05-fields",
+      "text": "Public finance & fiscal policy",
+      "output_px": 36,
+      "seconds": [
+        0.5,
+        6
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 268,
+        "excerpt": "<h3 class=\"mc-page-name\" id=\"fb-econ-publicfinance-name\">Public finance &amp; fiscal policy</h3>"
+      }
+    },
+    {
+      "shot": "05-fields",
+      "text": "Econometric replication",
+      "output_px": 36,
+      "seconds": [
+        0.5,
+        6
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 253,
+        "excerpt": "<h3 class=\"mc-page-name\" id=\"fb-econ-replication-name\">Econometric replication</h3>"
+      }
+    },
+    {
+      "shot": "05-fields",
+      "text": "econ.monetary",
+      "output_px": 28.5,
+      "seconds": [
+        1,
+        6
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 272,
+        "excerpt": "<p class=\"mc-call mono\" data-no-translate>econ.monetary</p>"
+      }
+    },
+    {
+      "shot": "05-fields",
+      "text": "Monetary policy & central-bank operations",
+      "output_px": 36,
+      "seconds": [
+        1,
+        6
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 273,
+        "excerpt": "<h3 class=\"mc-page-name\" id=\"fb-econ-monetary-name\">Monetary policy &amp; central-bank operations</h3>"
+      }
+    },
+    {
+      "shot": "05-fields",
+      "text": "econ.markets",
+      "output_px": 28.5,
+      "seconds": [
+        1,
+        6
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 257,
+        "excerpt": "<p class=\"mc-call mono\" data-no-translate>econ.markets</p>"
+      }
+    },
+    {
+      "shot": "05-fields",
+      "text": "Capital markets & bond-yield analysis",
+      "output_px": 36,
+      "seconds": [
+        1,
+        6
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 258,
+        "excerpt": "<h3 class=\"mc-page-name\" id=\"fb-econ-markets-name\">Capital markets &amp; bond-yield analysis</h3>"
+      }
+    },
+    {
+      "shot": "05-fields",
+      "text": "Field 02",
+      "output_px": 28.5,
+      "seconds": [
+        1.5,
+        14
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 234,
+        "excerpt": "<small class=\"mono\">Field 02</small>"
+      }
+    },
+    {
+      "shot": "05-fields",
+      "text": "Finance",
+      "output_px": 51,
+      "seconds": [
+        1.5,
+        14
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 91,
+        "excerpt": "<span data-tag=\"1\" style=\"--tc: var(--track-2)\"><b>Finance</b><i>209 records</i></span>"
+      }
+    },
+    {
+      "shot": "05-fields",
+      "text": "Field 03",
+      "output_px": 28.5,
+      "seconds": [
+        1.5,
+        14
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 242,
+        "excerpt": "<small class=\"mono\">Field 03</small>"
+      }
+    },
+    {
+      "shot": "05-fields",
+      "text": "Social science",
+      "output_px": 51,
+      "seconds": [
+        1.5,
+        14
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 92,
+        "excerpt": "<span data-tag=\"2\" style=\"--tc: var(--mc-violet)\"><b>Social science</b><i>187 records</i></span>"
+      }
+    },
+    {
+      "shot": "05-fields",
+      "text": "econ.statistics",
+      "output_px": 28.5,
+      "seconds": [
+        4,
+        6
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 277,
+        "excerpt": "<p class=\"mc-call mono\" data-no-translate>econ.statistics</p>"
+      }
+    },
+    {
+      "shot": "05-fields",
+      "text": "Official statistics synthesis",
+      "output_px": 36,
+      "seconds": [
+        4,
+        6
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 278,
+        "excerpt": "<h3 class=\"mc-page-name\" id=\"fb-econ-statistics-name\">Official statistics synthesis</h3>"
+      }
+    },
+    {
+      "shot": "05-fields",
+      "text": "econ.data",
+      "output_px": 28.5,
+      "seconds": [
+        4,
+        6
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 262,
+        "excerpt": "<p class=\"mc-call mono\" data-no-translate>econ.data</p>"
+      }
+    },
+    {
+      "shot": "05-fields",
+      "text": "Economic & business data engineering",
+      "output_px": 36,
+      "seconds": [
+        4,
+        6
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 263,
+        "excerpt": "<h3 class=\"mc-page-name\" id=\"fb-econ-data-name\">Economic &amp; business data engineering</h3>"
+      }
+    },
+    {
+      "shot": "05-fields",
+      "text": "fin.filings",
+      "output_px": 28.5,
+      "seconds": [
+        7.5,
+        10
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 302,
+        "excerpt": "<p class=\"mc-call mono\" data-no-translate>fin.filings</p>"
+      }
+    },
+    {
+      "shot": "05-fields",
+      "text": "Financial research & filings QA",
+      "output_px": 36,
+      "seconds": [
+        7.5,
+        10
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 303,
+        "excerpt": "<h3 class=\"mc-page-name\" id=\"fb-fin-filings-name\">Financial research &amp; filings QA</h3>"
+      }
+    },
+    {
+      "shot": "05-fields",
+      "text": "fin.credit",
+      "output_px": 28.5,
+      "seconds": [
+        7.5,
+        10
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 307,
+        "excerpt": "<p class=\"mc-call mono\" data-no-translate>fin.credit</p>"
+      }
+    },
+    {
+      "shot": "05-fields",
+      "text": "Lending operations & credit risk",
+      "output_px": 36,
+      "seconds": [
+        7.5,
+        10
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 308,
+        "excerpt": "<h3 class=\"mc-page-name\" id=\"fb-fin-credit-name\">Lending operations &amp; credit risk</h3>"
+      }
+    },
+    {
+      "shot": "05-fields",
+      "text": "fin.nlp",
+      "output_px": 28.5,
+      "seconds": [
+        7.5,
+        10
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 312,
+        "excerpt": "<p class=\"mc-call mono\" data-no-translate>fin.nlp</p>"
+      }
+    },
+    {
+      "shot": "05-fields",
+      "text": "Financial disclosure & structured extraction",
+      "output_px": 36,
+      "seconds": [
+        7.5,
+        10
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 313,
+        "excerpt": "<h3 class=\"mc-page-name\" id=\"fb-fin-nlp-name\">Financial disclosure &amp; structured extraction</h3>"
+      }
+    },
+    {
+      "shot": "05-fields",
+      "text": "fin.accounting",
+      "output_px": 28.5,
+      "seconds": [
+        7.5,
+        10
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 287,
+        "excerpt": "<p class=\"mc-call mono\" data-no-translate>fin.accounting</p>"
+      }
+    },
+    {
+      "shot": "05-fields",
+      "text": "Accounting close & finance deliverables",
+      "output_px": 36,
+      "seconds": [
+        7.5,
+        10
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 288,
+        "excerpt": "<h3 class=\"mc-page-name\" id=\"fb-fin-accounting-name\">Accounting close &amp; finance deliverables</h3>"
+      }
+    },
+    {
+      "shot": "05-fields",
+      "text": "fin.numeric",
+      "output_px": 28.5,
+      "seconds": [
+        7.5,
+        10
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 292,
+        "excerpt": "<p class=\"mc-call mono\" data-no-translate>fin.numeric</p>"
+      }
+    },
+    {
+      "shot": "05-fields",
+      "text": "Financial modeling & spreadsheet engineering",
+      "output_px": 36,
+      "seconds": [
+        7.5,
+        10
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 293,
+        "excerpt": "<h3 class=\"mc-page-name\" id=\"fb-fin-numeric-name\">Financial modeling &amp; spreadsheet engineering</h3>"
+      }
+    },
+    {
+      "shot": "05-fields",
+      "text": "fin.payments",
+      "output_px": 28.5,
+      "seconds": [
+        7.5,
+        10
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 297,
+        "excerpt": "<p class=\"mc-call mono\" data-no-translate>fin.payments</p>"
+      }
+    },
+    {
+      "shot": "05-fields",
+      "text": "Payments & transaction data analysis",
+      "output_px": 36,
+      "seconds": [
+        7.5,
+        10
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 298,
+        "excerpt": "<h3 class=\"mc-page-name\" id=\"fb-fin-payments-name\">Payments &amp; transaction data analysis</h3>"
+      }
+    },
+    {
+      "shot": "05-fields",
+      "text": "soc.society",
+      "output_px": 28.5,
+      "seconds": [
+        11.5,
+        14
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 337,
+        "excerpt": "<p class=\"mc-call mono\" data-no-translate>soc.society</p>"
+      }
+    },
+    {
+      "shot": "05-fields",
+      "text": "Society, education & survey data",
+      "output_px": 36,
+      "seconds": [
+        11.5,
+        14
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 338,
+        "excerpt": "<h3 class=\"mc-page-name\" id=\"fb-soc-society-name\">Society, education &amp; survey data</h3>"
+      }
+    },
+    {
+      "shot": "05-fields",
+      "text": "soc.hr",
+      "output_px": 28.5,
+      "seconds": [
+        11.5,
+        14
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 342,
+        "excerpt": "<p class=\"mc-call mono\" data-no-translate>soc.hr</p>"
+      }
+    },
+    {
+      "shot": "05-fields",
+      "text": "HR & organisational analytics",
+      "output_px": 36,
+      "seconds": [
+        11.5,
+        14
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 343,
+        "excerpt": "<h3 class=\"mc-page-name\" id=\"fb-soc-hr-name\">HR &amp; organisational analytics</h3>"
+      }
+    },
+    {
+      "shot": "05-fields",
+      "text": "soc.psychology",
+      "output_px": 28.5,
+      "seconds": [
+        11.5,
+        14
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 347,
+        "excerpt": "<p class=\"mc-call mono\" data-no-translate>soc.psychology</p>"
+      }
+    },
+    {
+      "shot": "05-fields",
+      "text": "Psychology & cognitive science",
+      "output_px": 36,
+      "seconds": [
+        11.5,
+        14
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 348,
+        "excerpt": "<h3 class=\"mc-page-name\" id=\"fb-soc-psychology-name\">Psychology &amp; cognitive science</h3>"
+      }
+    },
+    {
+      "shot": "05-fields",
+      "text": "soc.law",
+      "output_px": 28.5,
+      "seconds": [
+        11.5,
+        14
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 322,
+        "excerpt": "<p class=\"mc-call mono\" data-no-translate>soc.law</p>"
+      }
+    },
+    {
+      "shot": "05-fields",
+      "text": "Law, regulation & compliance",
+      "output_px": 36,
+      "seconds": [
+        11.5,
+        14
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 323,
+        "excerpt": "<h3 class=\"mc-page-name\" id=\"fb-soc-law-name\">Law, regulation &amp; compliance</h3>"
+      }
+    },
+    {
+      "shot": "05-fields",
+      "text": "soc.business",
+      "output_px": 28.5,
+      "seconds": [
+        11.5,
+        14
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 327,
+        "excerpt": "<p class=\"mc-call mono\" data-no-translate>soc.business</p>"
+      }
+    },
+    {
+      "shot": "05-fields",
+      "text": "Business operations & CRM",
+      "output_px": 36,
+      "seconds": [
+        11.5,
+        14
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 328,
+        "excerpt": "<h3 class=\"mc-page-name\" id=\"fb-soc-business-name\">Business operations &amp; CRM</h3>"
+      }
+    },
+    {
+      "shot": "05-fields",
+      "text": "soc.policy",
+      "output_px": 28.5,
+      "seconds": [
+        11.5,
+        14
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 332,
+        "excerpt": "<p class=\"mc-call mono\" data-no-translate>soc.policy</p>"
+      }
+    },
+    {
+      "shot": "05-fields",
+      "text": "Public policy & service governance",
+      "output_px": 36,
+      "seconds": [
+        11.5,
+        14
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 333,
+        "excerpt": "<h3 class=\"mc-page-name\" id=\"fb-soc-policy-name\">Public policy &amp; service governance</h3>"
+      }
+    },
+    {
+      "shot": "06b-choose",
+      "text": "05",
+      "output_px": 28.5,
+      "seconds": [
+        0,
+        3.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 121,
+        "excerpt": "<a href=\"#arena\" data-spy=\"arena\"><span class=\"n mono\">05</span><span>Challenge</span></a>"
+      }
+    },
+    {
+      "shot": "06b-choose",
+      "text": "THE METACASE CHALLENGE",
+      "output_px": 28.5,
+      "seconds": [
+        0,
+        3.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 97,
+        "excerpt": "<p class=\"mc-lead mc-in\" style=\"--d:.42s\">We present the <b>Metacase Challenge<span class=\"mc-zh-only\" data-no-translate>（Metacase Challenge）</span><span class="
+      }
+    },
+    {
+      "shot": "06b-choose",
+      "text": "Step through.",
+      "output_px": 72,
+      "seconds": [
+        0,
+        3.5
+      ],
+      "source": {
+        "file": "arena.js",
+        "line": 58,
+        "excerpt": "{ tag:['06 / CHOOSE YOUR TRACK','06 / 选择赛道'], title:['Step through.<br><em>Pick your track.</em>','选一扇门，<br><em>进入你的赛道。</em>'], body:['All three portals are ope"
+      }
+    },
+    {
+      "shot": "06b-choose",
+      "text": "Pick your track.",
+      "output_px": 72,
+      "seconds": [
+        0,
+        3.5
+      ],
+      "source": {
+        "file": "arena.js",
+        "line": 58,
+        "excerpt": "{ tag:['06 / CHOOSE YOUR TRACK','06 / 选择赛道'], title:['Step through.<br><em>Pick your track.</em>','选一扇门，<br><em>进入你的赛道。</em>'], body:['All three portals are ope"
+      }
+    },
+    {
+      "shot": "06b-choose",
+      "text": "Economics",
+      "output_px": 28.1,
+      "seconds": [
+        0,
+        3.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 90,
+        "excerpt": "<span data-tag=\"0\" style=\"--tc: var(--track-1)\"><b>Economics</b><i>208 records</i></span>"
+      }
+    },
+    {
+      "shot": "06b-choose",
+      "text": "→",
+      "output_px": 31.9,
+      "seconds": [
+        0,
+        3.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 100,
+        "excerpt": "<a class=\"btn btn-primary\" href=\"challenge.html\"><span>Join the Challenge</span><span class=\"arrow\" aria-hidden=\"true\"><i>→</i><i>→</i></span></a>"
+      }
+    },
+    {
+      "shot": "06b-choose",
+      "text": "Finance",
+      "output_px": 28.1,
+      "seconds": [
+        0,
+        3.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 91,
+        "excerpt": "<span data-tag=\"1\" style=\"--tc: var(--track-2)\"><b>Finance</b><i>209 records</i></span>"
+      }
+    },
+    {
+      "shot": "06b-choose",
+      "text": "Social Science",
+      "output_px": 28.1,
+      "seconds": [
+        0,
+        3.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 92,
+        "excerpt": "<span data-tag=\"2\" style=\"--tc: var(--mc-violet)\"><b>Social science</b><i>187 records</i></span>"
+      }
+    },
+    {
+      "shot": "06b-choose",
+      "text": "01",
+      "output_px": 23.6,
+      "seconds": [
+        0,
+        3.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 117,
+        "excerpt": "<a href=\"#metacase\" data-spy=\"metacase\"><span class=\"n mono\">01</span><span>Metacase</span></a>"
+      }
+    },
+    {
+      "shot": "06b-choose",
+      "text": "ENTER",
+      "output_px": 28.1,
+      "seconds": [
+        0,
+        3.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 369,
+        "excerpt": "<a class=\"mc-enter\" data-mc-enter href=\"challenge.html?via=portal#track-econ\" hidden>Enter the Economics track →</a>"
+      }
+    },
+    {
+      "shot": "06b-choose",
+      "text": "02",
+      "output_px": 23.6,
+      "seconds": [
+        0,
+        3.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 118,
+        "excerpt": "<a href=\"#structure\" data-spy=\"structure\"><span class=\"n mono\">02</span><span>Retrieval</span></a>"
+      }
+    },
+    {
+      "shot": "06b-choose",
+      "text": "EQUIP",
+      "output_px": 28.1,
+      "seconds": [
+        0,
+        3.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 374,
+        "excerpt": "<div class=\"mc-wheel\" role=\"group\" aria-hidden=\"true\" inert><svg viewBox=\"0 0 600 600\"></svg><div class=\"mc-wheel-hub-badge\" data-mc-hub-badge><small data-mc-hu"
+      }
+    },
+    {
+      "shot": "06b-choose",
+      "text": "03",
+      "output_px": 23.6,
+      "seconds": [
+        0,
+        3.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 119,
+        "excerpt": "<a href=\"#net\" data-spy=\"net\"><span class=\"n mono\">03</span><span>Network</span></a>"
+      }
+    },
+    {
+      "shot": "06b-choose",
+      "text": "ECONOMICS",
+      "output_px": 28.1,
+      "seconds": [
+        0,
+        3.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 90,
+        "excerpt": "<span data-tag=\"0\" style=\"--tc: var(--track-1)\"><b>Economics</b><i>208 records</i></span>"
+      }
+    },
+    {
+      "shot": "06b-choose",
+      "text": "04",
+      "output_px": 23.6,
+      "seconds": [
+        0,
+        3.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 120,
+        "excerpt": "<a href=\"#fields\" data-spy=\"fields\"><span class=\"n mono\">04</span><span>Fields</span></a>"
+      }
+    },
+    {
+      "shot": "06b-choose",
+      "text": "FINANCE",
+      "output_px": 28.1,
+      "seconds": [
+        0,
+        3.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 91,
+        "excerpt": "<span data-tag=\"1\" style=\"--tc: var(--track-2)\"><b>Finance</b><i>209 records</i></span>"
+      }
+    },
+    {
+      "shot": "06b-choose",
+      "text": "SOCIAL SCIENCE",
+      "output_px": 28.1,
+      "seconds": [
+        0,
+        3.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 92,
+        "excerpt": "<span data-tag=\"2\" style=\"--tc: var(--mc-violet)\"><b>Social science</b><i>187 records</i></span>"
+      }
+    },
+    {
+      "shot": "06b-choose",
+      "text": "06",
+      "output_px": 23.6,
+      "seconds": [
+        0,
+        3.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 122,
+        "excerpt": "<a href=\"#rules\" data-spy=\"rules\"><span class=\"n mono\">06</span><span>Participate</span></a>"
+      }
+    },
+    {
+      "shot": "06b-choose",
+      "text": "CHOOSE",
+      "output_px": 28.1,
+      "seconds": [
+        0,
+        3.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 383,
+        "excerpt": "<span class=\"mc-loadout-type\" data-mc-type>Choose a harness at the equipment wheel</span>"
+      }
+    },
+    {
+      "shot": "07-rules",
+      "text": "06",
+      "output_px": 28.5,
+      "seconds": [
+        0,
+        8
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 122,
+        "excerpt": "<a href=\"#rules\" data-spy=\"rules\"><span class=\"n mono\">06</span><span>Participate</span></a>"
+      }
+    },
+    {
+      "shot": "07-rules",
+      "text": "Participation workflow",
+      "output_px": 28.5,
+      "seconds": [
+        0,
+        8
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 430,
+        "excerpt": "<p class=\"mc-label mono\"><span>06</span>Participation workflow</p>"
+      }
+    },
+    {
+      "shot": "07-rules",
+      "text": "How to participate",
+      "output_px": 63.4,
+      "seconds": [
+        0,
+        8
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 431,
+        "excerpt": "<h2 id=\"rules-title\"><span>How to participate</span> <em>in the challenge.</em></h2>"
+      }
+    },
+    {
+      "shot": "07-rules",
+      "text": "in the challenge.",
+      "output_px": 63.4,
+      "seconds": [
+        0,
+        8
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 431,
+        "excerpt": "<h2 id=\"rules-title\"><span>How to participate</span> <em>in the challenge.</em></h2>"
+      }
+    },
+    {
+      "shot": "07-rules",
+      "text": "Choose",
+      "output_px": 28.1,
+      "seconds": [
+        0,
+        8
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 383,
+        "excerpt": "<span class=\"mc-loadout-type\" data-mc-type>Choose a harness at the equipment wheel</span>"
+      }
+    },
+    {
+      "shot": "07-rules",
+      "text": "Configure",
+      "output_px": 28.1,
+      "seconds": [
+        0,
+        8
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 438,
+        "excerpt": "<li data-caption=\"1\"><b class=\"mono\">2 · Configure Model + Harness</b><span>They pick a model and the harness that runs it. The model reasons and decides; the h"
+      }
+    },
+    {
+      "shot": "07-rules",
+      "text": "Execute",
+      "output_px": 28.1,
+      "seconds": [
+        0,
+        8
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 140,
+        "excerpt": "<li data-note=\"2\" style=\"--tc: var(--mc-blue)\"><b class=\"mono\">03</b><strong>Actions &amp; Execution</strong><em class=\"mono\" data-page=\"key\">Steps · Tools · In"
+      }
+    },
+    {
+      "shot": "07-rules",
+      "text": "Verify",
+      "output_px": 28.1,
+      "seconds": [
+        0,
+        8
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 440,
+        "excerpt": "<li data-caption=\"3\"><b class=\"mono\">4 · Verify and diagnose</b><span>The deliverable goes to an independent check against reference results and rubrics the age"
+      }
+    },
+    {
+      "shot": "07-rules",
+      "text": "Contribute",
+      "output_px": 28.1,
+      "seconds": [
+        0,
+        8
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 441,
+        "excerpt": "<li data-caption=\"4\"><b class=\"mono\">5 · Contribute</b><span>What the run yields can be contributed in three forms: a Metacase, the structured record of the cas"
+      }
+    },
+    {
+      "shot": "07-rules",
+      "text": "1 · Choose a case",
+      "output_px": 37.5,
+      "seconds": [
+        0.5,
+        1.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 437,
+        "excerpt": "<li data-caption=\"0\"><b class=\"mono\">1 · Choose a case</b><span>The participant takes a case from a track and opens it: the task goal, the evidence available at"
+      }
+    },
+    {
+      "shot": "07-rules",
+      "text": "2 · Configure Model + Harness",
+      "output_px": 37.5,
+      "seconds": [
+        2,
+        4.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 438,
+        "excerpt": "<li data-caption=\"1\"><b class=\"mono\">2 · Configure Model + Harness</b><span>They pick a model and the harness that runs it. The model reasons and decides; the h"
+      }
+    },
+    {
+      "shot": "07-rules",
+      "text": "Model",
+      "output_px": 28.5,
+      "seconds": [
+        2.5,
+        3
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 97,
+        "excerpt": "<p class=\"mc-lead mc-in\" style=\"--d:.42s\">We present the <b>Metacase Challenge<span class=\"mc-zh-only\" data-no-translate>（Metacase Challenge）</span><span class="
+      }
+    },
+    {
+      "shot": "07-rules",
+      "text": "Reasons and decides",
+      "output_px": 28.5,
+      "seconds": [
+        2.5,
+        3
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 420,
+        "excerpt": "<span data-tag=\"1\" style=\"--tc: var(--mc-violet)\"><b>Model</b><i>Reasons and decides</i></span>"
+      }
+    },
+    {
+      "shot": "07-rules",
+      "text": "Harness",
+      "output_px": 28.5,
+      "seconds": [
+        3.5,
+        4
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 71,
+        "excerpt": "<a href=\"harness.html\">Harness</a>"
+      }
+    },
+    {
+      "shot": "07-rules",
+      "text": "Tools · workflow · settings",
+      "output_px": 28.5,
+      "seconds": [
+        3.5,
+        4
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 421,
+        "excerpt": "<span data-tag=\"2\" style=\"--tc: var(--track-2)\"><b>Harness</b><i>Tools · workflow · settings</i></span>"
+      }
+    },
+    {
+      "shot": "07-rules",
+      "text": "Trajectory",
+      "output_px": 28.5,
+      "seconds": [
+        4.5,
+        6
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 422,
+        "excerpt": "<span data-tag=\"3\" style=\"--tc: var(--mc-blue)\"><b>Trajectory</b><i>Every step logged</i></span>"
+      }
+    },
+    {
+      "shot": "07-rules",
+      "text": "Every step logged",
+      "output_px": 28.5,
+      "seconds": [
+        4.5,
+        6
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 422,
+        "excerpt": "<span data-tag=\"3\" style=\"--tc: var(--mc-blue)\"><b>Trajectory</b><i>Every step logged</i></span>"
+      }
+    },
+    {
+      "shot": "07-rules",
+      "text": "3 · Execute and record",
+      "output_px": 37.5,
+      "seconds": [
+        4.5,
+        6
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 439,
+        "excerpt": "<li data-caption=\"2\"><b class=\"mono\">3 · Execute and record</b><span>The agent reads the materials, plans, calls tools and writes files until it delivers end to"
+      }
+    },
+    {
+      "shot": "07-rules",
+      "text": "4 · Verify and diagnose",
+      "output_px": 37.5,
+      "seconds": [
+        6,
+        8
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 440,
+        "excerpt": "<li data-caption=\"3\"><b class=\"mono\">4 · Verify and diagnose</b><span>The deliverable goes to an independent check against reference results and rubrics the age"
+      }
+    },
+    {
+      "shot": "07-rules",
+      "text": "Verifier",
+      "output_px": 28.5,
+      "seconds": [
+        6.5,
+        8
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 423,
+        "excerpt": "<span data-tag=\"4\" style=\"--tc: var(--track-1)\"><b>Verifier</b><i>The only place the reference is used</i></span>"
+      }
+    },
+    {
+      "shot": "07-rules",
+      "text": "The only place the reference is used",
+      "output_px": 28.5,
+      "seconds": [
+        6.5,
+        8
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 423,
+        "excerpt": "<span data-tag=\"4\" style=\"--tc: var(--track-1)\"><b>Verifier</b><i>The only place the reference is used</i></span>"
+      }
+    },
+    {
+      "shot": "07-rules",
+      "text": "Result",
+      "output_px": 28.5,
+      "seconds": [
+        7.5,
+        8
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 123,
+        "excerpt": "<a href=\"#tracks\" data-spy=\"tracks\"><span class=\"n mono\">07</span><span>Results</span></a>"
+      }
+    },
+    {
+      "shot": "07-rules",
+      "text": "Pass · partial · fail",
+      "output_px": 28.5,
+      "seconds": [
+        7.5,
+        8
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 424,
+        "excerpt": "<span data-tag=\"5\" style=\"--tc: var(--track-2)\"><b>Result</b><i>Pass · partial · fail</i></span>"
+      }
+    },
+    {
+      "shot": "08-results",
+      "text": "3",
+      "output_px": 174,
+      "seconds": [
+        0.5,
+        0.5
+      ],
+      "source": {
+        "ticker": "count-up to data-count=\"600\" (index.html:458)"
+      }
+    },
+    {
+      "shot": "08-results",
+      "text": "7",
+      "output_px": 174,
+      "seconds": [
+        1,
+        1
+      ],
+      "source": {
+        "ticker": "count-up to data-count=\"600\" (index.html:458)"
+      }
+    },
+    {
+      "shot": "08-results",
+      "text": "9",
+      "output_px": 174,
+      "seconds": [
+        1.5,
+        6.5
+      ],
+      "source": {
+        "ticker": "count-up to data-count=\"600\" (index.html:458)"
+      }
+    },
+    {
+      "shot": "08-results",
+      "text": "171",
+      "output_px": 174,
+      "seconds": [
+        0.5,
+        0.5
+      ],
+      "source": {
+        "ticker": "count-up to data-count=\"600\" (index.html:458)"
+      }
+    },
+    {
+      "shot": "08-results",
+      "text": "476",
+      "output_px": 174,
+      "seconds": [
+        1,
+        1
+      ],
+      "source": {
+        "ticker": "count-up to data-count=\"600\" (index.html:458)"
+      }
+    },
+    {
+      "shot": "08-results",
+      "text": "600",
+      "output_px": 174,
+      "seconds": [
+        1.5,
+        6.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 455,
+        "excerpt": "<p class=\"mc-results-scope\">The Harbor benchmark catalog curates 600 hard task records across 3 fields and 18 classes (200 per field). On its 100-task Dev100 ec"
+      }
+    },
+    {
+      "shot": "08-results",
+      "text": "07",
+      "output_px": 28.5,
+      "seconds": [
+        0.5,
+        6.5
+      ],
+      "source": {
+        "ticker": "count-up to data-count=\"600\" (index.html:458)"
+      }
+    },
+    {
+      "shot": "08-results",
+      "text": "Results so far",
+      "output_px": 28.5,
+      "seconds": [
+        0.5,
+        6.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 453,
+        "excerpt": "<p class=\"mc-label mono\"><span>07</span>Results so far</p>"
+      }
+    },
+    {
+      "shot": "08-results",
+      "text": "See how runs",
+      "output_px": 78,
+      "seconds": [
+        0.5,
+        6.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 454,
+        "excerpt": "<h2 id=\"results-title\"><span>See how runs</span> <em>have been scored.</em></h2>"
+      }
+    },
+    {
+      "shot": "08-results",
+      "text": "have been scored.",
+      "output_px": 78,
+      "seconds": [
+        0.5,
+        6.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 454,
+        "excerpt": "<h2 id=\"results-title\"><span>See how runs</span> <em>have been scored.</em></h2>"
+      }
+    },
+    {
+      "shot": "08-results",
+      "text": "Candidate tasks",
+      "output_px": 37.5,
+      "seconds": [
+        0.5,
+        6.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 458,
+        "excerpt": "<li style=\"--tc: var(--track-1)\"><div class=\"mc-art\" data-art=\"tasks\"></div><b class=\"tnum\" data-count=\"600\">600</b><span>Candidate tasks</span><small>3 fields "
+      }
+    },
+    {
+      "shot": "08-results",
+      "text": "3 fields × 200 tasks · 18 classes",
+      "output_px": 28.5,
+      "seconds": [
+        0.5,
+        6.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 458,
+        "excerpt": "<li style=\"--tc: var(--track-1)\"><div class=\"mc-art\" data-art=\"tasks\"></div><b class=\"tnum\" data-count=\"600\">600</b><span>Candidate tasks</span><small>3 fields "
+      }
+    },
+    {
+      "shot": "08-results",
+      "text": "8 × 5",
+      "output_px": 174,
+      "seconds": [
+        0.5,
+        6.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 459,
+        "excerpt": "<li style=\"--tc: var(--mc-violet)\"><div class=\"mc-art\" data-art=\"models\"></div><b class=\"tnum\">8 × 5</b><span>Models × harnesses on Dev100</span><small>3,999 / "
+      }
+    },
+    {
+      "shot": "08-results",
+      "text": "Models × harnesses on Dev100",
+      "output_px": 37.5,
+      "seconds": [
+        0.5,
+        6.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 459,
+        "excerpt": "<li style=\"--tc: var(--mc-violet)\"><div class=\"mc-art\" data-art=\"models\"></div><b class=\"tnum\">8 × 5</b><span>Models × harnesses on Dev100</span><small>3,999 / "
+      }
+    },
+    {
+      "shot": "08-results",
+      "text": "3,999 / 4,000 trials scored",
+      "output_px": 28.5,
+      "seconds": [
+        0.5,
+        6.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 459,
+        "excerpt": "<li style=\"--tc: var(--mc-violet)\"><div class=\"mc-art\" data-art=\"models\"></div><b class=\"tnum\">8 × 5</b><span>Models × harnesses on Dev100</span><small>3,999 / "
+      }
+    },
+    {
+      "shot": "08-results",
+      "text": "Harnesses on GPT-5.6 Sol",
+      "output_px": 37.5,
+      "seconds": [
+        0.5,
+        6.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 460,
+        "excerpt": "<li style=\"--tc: var(--track-2)\"><div class=\"mc-art\" data-art=\"harnesses\"></div><b class=\"tnum\" data-count=\"9\">9</b><span>Harnesses on GPT-5.6 Sol</span><small>"
+      }
+    },
+    {
+      "shot": "08-results",
+      "text": "900 / 900 Dev100 trials scored",
+      "output_px": 28.5,
+      "seconds": [
+        0.5,
+        6.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 460,
+        "excerpt": "<li style=\"--tc: var(--track-2)\"><div class=\"mc-art\" data-art=\"harnesses\"></div><b class=\"tnum\" data-count=\"9\">9</b><span>Harnesses on GPT-5.6 Sol</span><small>"
+      }
+    },
+    {
+      "shot": "09-team",
+      "text": "08",
+      "output_px": 28.5,
+      "seconds": [
+        0.5,
+        3
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 90,
+        "excerpt": "<span data-tag=\"0\" style=\"--tc: var(--track-1)\"><b>Economics</b><i>208 records</i></span>"
+      }
+    },
+    {
+      "shot": "09-team",
+      "text": "Team & collaboration",
+      "output_px": 28.5,
+      "seconds": [
+        0.5,
+        3
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 483,
+        "excerpt": "<p class=\"mc-label mono\"><span>08</span>Team &amp; collaboration</p>"
+      }
+    },
+    {
+      "shot": "09-team",
+      "text": "Meet our team &",
+      "output_px": 78,
+      "seconds": [
+        0.5,
+        3
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 484,
+        "excerpt": "<h2 id=\"team-title\"><span>Meet our team &amp;</span> <em>collaborations.</em></h2>"
+      }
+    },
+    {
+      "shot": "09-team",
+      "text": "collaborations.",
+      "output_px": 78,
+      "seconds": [
+        0.5,
+        3
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 484,
+        "excerpt": "<h2 id=\"team-title\"><span>Meet our team &amp;</span> <em>collaborations.</em></h2>"
+      }
+    },
+    {
+      "shot": "09-team",
+      "text": "Host",
+      "output_px": 28.5,
+      "seconds": [
+        0.5,
+        3
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 110,
+        "excerpt": "<p class=\"mc-host mono\">Hosted by NTU GIFTS · with HKU and SUFE</p>"
+      }
+    },
+    {
+      "shot": "09-team",
+      "text": "NTU GIFTS",
+      "output_px": 45,
+      "seconds": [
+        0.5,
+        3
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 110,
+        "excerpt": "<p class=\"mc-host mono\">Hosted by NTU GIFTS · with HKU and SUFE</p>"
+      }
+    },
+    {
+      "shot": "09-team",
+      "text": "Global Institute of Finance, Technology, and Society",
+      "output_px": 28.5,
+      "seconds": [
+        0.5,
+        3
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 485,
+        "excerpt": "<p class=\"mc-sub\">The Global Metacase Initiative is hosted by the Global Institute of Finance, Technology, and Society (GIFTS) at Nanyang Technological Universi"
+      }
+    },
+    {
+      "shot": "09-team",
+      "text": "Lin William Cong",
+      "output_px": 31.5,
+      "seconds": [
+        0.5,
+        3
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 500,
+        "excerpt": "<div class=\"mc-person mc-person-lead\"><img src=\"assets/people/lin-william-cong.jpg\" width=\"240\" height=\"240\" alt=\"\" loading=\"lazy\"><div><a href=\"https://www.lin"
+      }
+    },
+    {
+      "shot": "09-team",
+      "text": "Founding Director",
+      "output_px": 28.5,
+      "seconds": [
+        0.5,
+        3
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 500,
+        "excerpt": "<div class=\"mc-person mc-person-lead\"><img src=\"assets/people/lin-william-cong.jpg\" width=\"240\" height=\"240\" alt=\"\" loading=\"lazy\"><div><a href=\"https://www.lin"
+      }
+    },
+    {
+      "shot": "09-team",
+      "text": "In partnership with",
+      "output_px": 28.5,
+      "seconds": [
+        0.5,
+        3
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 503,
+        "excerpt": "<p class=\"mc-team-kicker mono\">In partnership with</p>"
+      }
+    },
+    {
+      "shot": "09-team",
+      "text": "HKU AI-Agents Lab",
+      "output_px": 45,
+      "seconds": [
+        0.5,
+        3
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 485,
+        "excerpt": "<p class=\"mc-sub\">The Global Metacase Initiative is hosted by the Global Institute of Finance, Technology, and Society (GIFTS) at Nanyang Technological Universi"
+      }
+    },
+    {
+      "shot": "09-team",
+      "text": "The University of Hong Kong · CAMO",
+      "output_px": 28.5,
+      "seconds": [
+        0.5,
+        3
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 507,
+        "excerpt": "<p class=\"mc-org-full\">The University of Hong Kong · CAMO</p>"
+      }
+    },
+    {
+      "shot": "09-team",
+      "text": "Ye Luo",
+      "output_px": 31.5,
+      "seconds": [
+        0.5,
+        3
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 485,
+        "excerpt": "<p class=\"mc-sub\">The Global Metacase Initiative is hosted by the Global Institute of Finance, Technology, and Society (GIFTS) at Nanyang Technological Universi"
+      }
+    },
+    {
+      "shot": "09-team",
+      "text": "Lab Director",
+      "output_px": 28.5,
+      "seconds": [
+        0.5,
+        3
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 508,
+        "excerpt": "<div class=\"mc-person\"><img src=\"assets/people/ye-luo.jpg\" width=\"240\" height=\"240\" alt=\"\" loading=\"lazy\"><div><a href=\"https://www.hkubs.hku.hk/people/ye-luo/\""
+      }
+    },
+    {
+      "shot": "09-team",
+      "text": "SUFE AIFLM Lab",
+      "output_px": 45,
+      "seconds": [
+        0.5,
+        3
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 485,
+        "excerpt": "<p class=\"mc-sub\">The Global Metacase Initiative is hosted by the Global Institute of Finance, Technology, and Society (GIFTS) at Nanyang Technological Universi"
+      }
+    },
+    {
+      "shot": "09-team",
+      "text": "Shanghai University of Finance and Economics",
+      "output_px": 28.5,
+      "seconds": [
+        0.5,
+        3
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 512,
+        "excerpt": "<p class=\"mc-org-full\">Shanghai University of Finance and Economics</p>"
+      }
+    },
+    {
+      "shot": "09-team",
+      "text": "Liwen Zhang",
+      "output_px": 31.5,
+      "seconds": [
+        0.5,
+        3
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 485,
+        "excerpt": "<p class=\"mc-sub\">The Global Metacase Initiative is hosted by the Global Institute of Finance, Technology, and Society (GIFTS) at Nanyang Technological Universi"
+      }
+    },
+    {
+      "shot": "10-end",
+      "text": "Metacase",
+      "output_px": 176,
+      "seconds": [
+        0.5,
+        6.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 8,
+        "excerpt": "<title>Metacase Challenge — Global Metacase Initiative</title>"
+      }
+    },
+    {
+      "shot": "10-end",
+      "text": "Challenge",
+      "output_px": 176,
+      "seconds": [
+        0.5,
+        6.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 8,
+        "excerpt": "<title>Metacase Challenge — Global Metacase Initiative</title>"
+      }
+    },
+    {
+      "shot": "10-end",
+      "text": "Hosted by NTU GIFTS · with HKU and SUFE",
+      "output_px": 40,
+      "seconds": [
+        1,
+        6.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 110,
+        "excerpt": "<p class=\"mc-host mono\">Hosted by NTU GIFTS · with HKU and SUFE</p>"
+      }
+    },
+    {
+      "shot": "10-end",
+      "text": "Join the Challenge",
+      "output_px": 52,
+      "seconds": [
+        1,
+        6.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 100,
+        "excerpt": "<a class=\"btn btn-primary\" href=\"challenge.html\"><span>Join the Challenge</span><span class=\"arrow\" aria-hidden=\"true\"><i>→</i><i>→</i></span></a>"
+      }
+    },
+    {
+      "shot": "10-end",
+      "text": "easonai-5589.github.io/metacase-challenge",
+      "output_px": 29,
+      "seconds": [
+        1,
+        6.5
+      ],
+      "source": {
+        "authored": "handoff §4 end card URL"
+      }
+    },
+    {
+      "shot": "03a-retrieval",
+      "text": "02",
+      "output_px": 28.5,
+      "seconds": [
+        0,
+        4.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 118,
+        "excerpt": "<a href=\"#structure\" data-spy=\"structure\"><span class=\"n mono\">02</span><span>Retrieval</span></a>"
+      }
+    },
+    {
+      "shot": "03a-retrieval",
+      "text": "Retrieval",
+      "output_px": 28.5,
+      "seconds": [
+        0,
+        4.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 118,
+        "excerpt": "<a href=\"#structure\" data-spy=\"structure\"><span class=\"n mono\">02</span><span>Retrieval</span></a>"
+      }
+    },
+    {
+      "shot": "03a-retrieval",
+      "text": "Retrieve experience by",
+      "output_px": 63.4,
+      "seconds": [
+        0,
+        4.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 167,
+        "excerpt": "<h2 id=\"structure-title\"><span>Retrieve experience by</span> <em>how a problem was solved.</em></h2>"
+      }
+    },
+    {
+      "shot": "03a-retrieval",
+      "text": "how a problem was solved.",
+      "output_px": 63.4,
+      "seconds": [
+        0,
+        4.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 167,
+        "excerpt": "<h2 id=\"structure-title\"><span>Retrieve experience by</span> <em>how a problem was solved.</em></h2>"
+      }
+    },
+    {
+      "shot": "03a-retrieval",
+      "text": "Topic match",
+      "output_px": 37.5,
+      "seconds": [
+        0,
+        4.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 171,
+        "excerpt": "<li data-caption=\"0\"><b class=\"mono\">Topic match</b><span>A topic search for this credit decision returns more credit cases. Laid over its signature, their path"
+      }
+    },
+    {
+      "shot": "03a-retrieval",
+      "text": "Solution match",
+      "output_px": 28.1,
+      "seconds": [
+        0,
+        4.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 172,
+        "excerpt": "<li data-caption=\"1\"><b class=\"mono\">Solution match</b><span>A signature search returns cases from economics and social science whose stages correspond: evidenc"
+      }
+    },
+    {
+      "shot": "03a-retrieval",
+      "text": "Reuse",
+      "output_px": 28.1,
+      "seconds": [
+        0,
+        4.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 142,
+        "excerpt": "<li data-note=\"4\" style=\"--tc: var(--mc-green)\"><b class=\"mono\">05</b><strong>Reflection &amp; Reuse</strong><em class=\"mono\" data-page=\"key\">What held · What f"
+      }
+    },
+    {
+      "shot": "03a-retrieval",
+      "text": "This case",
+      "output_px": 28.5,
+      "seconds": [
+        0.5,
+        4.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 143,
+        "excerpt": "<li data-note=\"5\" class=\"mc-note-signature\"><b class=\"mono\">Signature</b><strong>Solution signature</strong><em class=\"mono\">Cross-case structure · retrieval</e"
+      }
+    },
+    {
+      "shot": "03a-retrieval",
+      "text": "Credit decision",
+      "output_px": 28.5,
+      "seconds": [
+        0.5,
+        4.5
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 160,
+        "excerpt": "<span data-tag=\"0\" style=\"--tc: var(--mc-blue)\"><b>This case</b><i>Credit decision</i></span>"
+      }
+    },
+    {
+      "shot": "03a-retrieval",
+      "text": "Different path",
+      "output_px": 28.5,
+      "seconds": [
+        1.5,
+        4
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 161,
+        "excerpt": "<span data-tag=\"1\" style=\"--tc: var(--mc-rose)\"><b>Different path</b><i>Same topic</i></span>"
+      }
+    },
+    {
+      "shot": "03a-retrieval",
+      "text": "Same topic",
+      "output_px": 28.5,
+      "seconds": [
+        1.5,
+        4
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 161,
+        "excerpt": "<span data-tag=\"1\" style=\"--tc: var(--mc-rose)\"><b>Different path</b><i>Same topic</i></span>"
+      }
+    },
+    {
+      "shot": "03b-retrieval",
+      "text": "02",
+      "output_px": 28.5,
+      "seconds": [
+        0,
+        4
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 118,
+        "excerpt": "<a href=\"#structure\" data-spy=\"structure\"><span class=\"n mono\">02</span><span>Retrieval</span></a>"
+      }
+    },
+    {
+      "shot": "03b-retrieval",
+      "text": "Retrieval",
+      "output_px": 28.5,
+      "seconds": [
+        0,
+        4
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 118,
+        "excerpt": "<a href=\"#structure\" data-spy=\"structure\"><span class=\"n mono\">02</span><span>Retrieval</span></a>"
+      }
+    },
+    {
+      "shot": "03b-retrieval",
+      "text": "Retrieve experience by",
+      "output_px": 63.4,
+      "seconds": [
+        0,
+        4
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 167,
+        "excerpt": "<h2 id=\"structure-title\"><span>Retrieve experience by</span> <em>how a problem was solved.</em></h2>"
+      }
+    },
+    {
+      "shot": "03b-retrieval",
+      "text": "how a problem was solved.",
+      "output_px": 63.4,
+      "seconds": [
+        0,
+        4
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 167,
+        "excerpt": "<h2 id=\"structure-title\"><span>Retrieve experience by</span> <em>how a problem was solved.</em></h2>"
+      }
+    },
+    {
+      "shot": "03b-retrieval",
+      "text": "Topic match",
+      "output_px": 28.1,
+      "seconds": [
+        0,
+        4
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 171,
+        "excerpt": "<li data-caption=\"0\"><b class=\"mono\">Topic match</b><span>A topic search for this credit decision returns more credit cases. Laid over its signature, their path"
+      }
+    },
+    {
+      "shot": "03b-retrieval",
+      "text": "Solution match",
+      "output_px": 37.5,
+      "seconds": [
+        0,
+        4
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 172,
+        "excerpt": "<li data-caption=\"1\"><b class=\"mono\">Solution match</b><span>A signature search returns cases from economics and social science whose stages correspond: evidenc"
+      }
+    },
+    {
+      "shot": "03b-retrieval",
+      "text": "Reuse",
+      "output_px": 28.1,
+      "seconds": [
+        0,
+        4
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 142,
+        "excerpt": "<li data-note=\"4\" style=\"--tc: var(--mc-green)\"><b class=\"mono\">05</b><strong>Reflection &amp; Reuse</strong><em class=\"mono\" data-page=\"key\">What held · What f"
+      }
+    },
+    {
+      "shot": "03b-retrieval",
+      "text": "Same path",
+      "output_px": 28.5,
+      "seconds": [
+        1.5,
+        4
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 162,
+        "excerpt": "<span data-tag=\"2\" style=\"--tc: var(--track-1)\"><b>Same path</b><i>Economics</i></span>"
+      }
+    },
+    {
+      "shot": "03b-retrieval",
+      "text": "Economics",
+      "output_px": 28.5,
+      "seconds": [
+        1.5,
+        4
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 90,
+        "excerpt": "<span data-tag=\"0\" style=\"--tc: var(--track-1)\"><b>Economics</b><i>208 records</i></span>"
+      }
+    },
+    {
+      "shot": "03b-retrieval",
+      "text": "Social science",
+      "output_px": 28.5,
+      "seconds": [
+        1.5,
+        4
+      ],
+      "source": {
+        "file": "index.html",
+        "line": 92,
+        "excerpt": "<span data-tag=\"2\" style=\"--tc: var(--mc-violet)\"><b>Social science</b><i>187 records</i></span>"
+      }
+    }
+  ],
+  "numbers": [
+    {
+      "text": "05",
+      "source": {
+        "file": "index.html",
+        "line": 121,
+        "excerpt": "<a href=\"#arena\" data-spy=\"arena\"><span class=\"n mono\">05</span><span>Challenge</span></a>"
+      }
+    },
+    {
+      "text": "01",
+      "source": {
+        "file": "index.html",
+        "line": 117,
+        "excerpt": "<a href=\"#metacase\" data-spy=\"metacase\"><span class=\"n mono\">01</span><span>Metacase</span></a>"
+      }
+    },
+    {
+      "text": "02",
+      "source": {
+        "file": "index.html",
+        "line": 118,
+        "excerpt": "<a href=\"#structure\" data-spy=\"structure\"><span class=\"n mono\">02</span><span>Retrieval</span></a>"
+      }
+    },
+    {
+      "text": "03",
+      "source": {
+        "file": "index.html",
+        "line": 119,
+        "excerpt": "<a href=\"#net\" data-spy=\"net\"><span class=\"n mono\">03</span><span>Network</span></a>"
+      }
+    },
+    {
+      "text": "04",
+      "source": {
+        "file": "index.html",
+        "line": 120,
+        "excerpt": "<a href=\"#fields\" data-spy=\"fields\"><span class=\"n mono\">04</span><span>Fields</span></a>"
+      }
+    },
+    {
+      "text": "06",
+      "source": {
+        "file": "index.html",
+        "line": 122,
+        "excerpt": "<a href=\"#rules\" data-spy=\"rules\"><span class=\"n mono\">06</span><span>Participate</span></a>"
+      }
+    },
+    {
+      "text": "Portal 1 · Economics",
+      "source": {
+        "file": "index.html",
+        "line": 391,
+        "excerpt": "<a class=\"mc-portal\" data-portal=\"econ\" href=\"challenge.html?via=portal#track-econ\" style=\"--pc: var(--track-1)\"><small>Portal 1 · Economics</small><b>Enter the"
+      }
+    },
+    {
+      "text": "Portal 2 · Finance",
+      "source": {
+        "file": "index.html",
+        "line": 392,
+        "excerpt": "<a class=\"mc-portal\" data-portal=\"fin\" href=\"challenge.html?via=portal#track-fin\" style=\"--pc: var(--track-2)\"><small>Portal 2 · Finance</small><b>Enter the Fin"
+      }
+    },
+    {
+      "text": "Portal 3 · Social Science",
+      "source": {
+        "file": "index.html",
+        "line": 393,
+        "excerpt": "<a class=\"mc-portal\" data-portal=\"soc\" href=\"challenge.html?via=portal#track-soc\" style=\"--pc: var(--mc-violet)\"><small>Portal 3 · Social Science</small><b>Ente"
+      }
+    },
+    {
+      "text": "-2",
+      "source": {
+        "file": "index.html",
+        "line": 459,
+        "excerpt": "<li style=\"--tc: var(--mc-violet)\"><div class=\"mc-art\" data-art=\"models\"></div><b class=\"tnum\">8 × 5</b><span>Models × harnesses on Dev100</span><small>3,999 / "
+      }
+    },
+    {
+      "text": "1 · PROVIDER",
+      "source": {
+        "file": "index.html",
+        "line": 377,
+        "excerpt": "<li class=\"mc-step\" data-step=\"provider\"><span class=\"mc-step-label\" data-mc-step-label=\"0\">1 · PROVIDER</span><div class=\"mc-model-chips\" data-mc-model-chips r"
+      }
+    },
+    {
+      "text": "2 · MODEL",
+      "source": {
+        "file": "index.html",
+        "line": 378,
+        "excerpt": "<li class=\"mc-step\" data-step=\"model\"><span class=\"mc-step-label\" data-mc-step-label=\"1\">2 · MODEL</span><div class=\"mc-variant-chips\" data-mc-variant-chips rol"
+      }
+    },
+    {
+      "text": "GPT-6 Astra",
+      "source": {
+        "file": "index.html",
+        "line": 374,
+        "excerpt": "<div class=\"mc-wheel\" role=\"group\" aria-hidden=\"true\" inert><svg viewBox=\"0 0 600 600\"></svg><div class=\"mc-wheel-hub-badge\" data-mc-hub-badge><small data-mc-hu"
+      }
+    },
+    {
+      "text": "GPT-6.1 Sol",
+      "source": {
+        "file": "arena-data.js",
+        "line": 22,
+        "excerpt": "variants: ['GPT-6 Astra', 'GPT-6.1 Sol', 'GPT-5.6 Sol'],"
+      }
+    },
+    {
+      "text": "GPT-5.6 Sol",
+      "source": {
+        "file": "index.html",
+        "line": 455,
+        "excerpt": "<p class=\"mc-results-scope\">The Harbor benchmark catalog curates 600 hard task records across 3 fields and 18 classes (200 per field). On its 100-task Dev100 ec"
+      }
+    },
+    {
+      "text": "3 · EFFORT",
+      "source": {
+        "file": "index.html",
+        "line": 379,
+        "excerpt": "<li class=\"mc-step\" data-step=\"effort\"><span class=\"mc-step-label\" data-mc-step-label=\"2\">3 · EFFORT</span><div class=\"mc-effort\"><div class=\"mc-effort-chips\" d"
+      }
+    },
+    {
+      "text": "4 · HARNESS",
+      "source": {
+        "file": "index.html",
+        "line": 381,
+        "excerpt": "<span class=\"mc-loadout-label\" data-mc-loadout-label>4 · HARNESS</span>"
+      }
+    },
+    {
+      "text": "Claude Opus 5.5",
+      "source": {
+        "file": "arena-data.js",
+        "line": 30,
+        "excerpt": "variants: ['Claude Opus 5.5', 'Claude Fable 5.1', 'Claude Opus 4.8'],"
+      }
+    },
+    {
+      "text": "Claude Fable 5.1",
+      "source": {
+        "file": "arena-data.js",
+        "line": 30,
+        "excerpt": "variants: ['Claude Opus 5.5', 'Claude Fable 5.1', 'Claude Opus 4.8'],"
+      }
+    },
+    {
+      "text": "Claude Opus 4.8",
+      "source": {
+        "file": "arena-data.js",
+        "line": 30,
+        "excerpt": "variants: ['Claude Opus 5.5', 'Claude Fable 5.1', 'Claude Opus 4.8'],"
+      }
+    },
+    {
+      "text": "Gemini 4 Argon",
+      "source": {
+        "file": "arena-data.js",
+        "line": 38,
+        "excerpt": "variants: ['Gemini 4 Argon', 'Gemini 3.8 Flash', 'Gemini 3.1 Pro'],"
+      }
+    },
+    {
+      "text": "Gemini 3.8 Flash",
+      "source": {
+        "file": "arena-data.js",
+        "line": 38,
+        "excerpt": "variants: ['Gemini 4 Argon', 'Gemini 3.8 Flash', 'Gemini 3.1 Pro'],"
+      }
+    },
+    {
+      "text": "Gemini 3.1 Pro",
+      "source": {
+        "file": "arena-data.js",
+        "line": 38,
+        "excerpt": "variants: ['Gemini 4 Argon', 'Gemini 3.8 Flash', 'Gemini 3.1 Pro'],"
+      }
+    },
+    {
+      "text": "6",
+      "source": {
+        "file": "index.html",
+        "line": 122,
+        "excerpt": "<a href=\"#rules\" data-spy=\"rules\"><span class=\"n mono\">06</span><span>Participate</span></a>"
+      }
+    },
+    {
+      "text": "Field 01",
+      "source": {
+        "file": "index.html",
+        "line": 226,
+        "excerpt": "<small class=\"mono\">Field 01</small>"
+      }
+    },
+    {
+      "text": "Field 02",
+      "source": {
+        "file": "index.html",
+        "line": 234,
+        "excerpt": "<small class=\"mono\">Field 02</small>"
+      }
+    },
+    {
+      "text": "Field 03",
+      "source": {
+        "file": "index.html",
+        "line": 242,
+        "excerpt": "<small class=\"mono\">Field 03</small>"
+      }
+    },
+    {
+      "text": "1 · Choose a case",
+      "source": {
+        "file": "index.html",
+        "line": 437,
+        "excerpt": "<li data-caption=\"0\"><b class=\"mono\">1 · Choose a case</b><span>The participant takes a case from a track and opens it: the task goal, the evidence available at"
+      }
+    },
+    {
+      "text": "2 · Configure Model + Harness",
+      "source": {
+        "file": "index.html",
+        "line": 438,
+        "excerpt": "<li data-caption=\"1\"><b class=\"mono\">2 · Configure Model + Harness</b><span>They pick a model and the harness that runs it. The model reasons and decides; the h"
+      }
+    },
+    {
+      "text": "3 · Execute and record",
+      "source": {
+        "file": "index.html",
+        "line": 439,
+        "excerpt": "<li data-caption=\"2\"><b class=\"mono\">3 · Execute and record</b><span>The agent reads the materials, plans, calls tools and writes files until it delivers end to"
+      }
+    },
+    {
+      "text": "4 · Verify and diagnose",
+      "source": {
+        "file": "index.html",
+        "line": 440,
+        "excerpt": "<li data-caption=\"3\"><b class=\"mono\">4 · Verify and diagnose</b><span>The deliverable goes to an independent check against reference results and rubrics the age"
+      }
+    },
+    {
+      "text": "3",
+      "source": {
+        "file": "index.html",
+        "line": 119,
+        "excerpt": "<a href=\"#net\" data-spy=\"net\"><span class=\"n mono\">03</span><span>Network</span></a>"
+      }
+    },
+    {
+      "text": "7",
+      "source": {
+        "file": "index.html",
+        "line": 92,
+        "excerpt": "<span data-tag=\"2\" style=\"--tc: var(--mc-violet)\"><b>Social science</b><i>187 records</i></span>"
+      }
+    },
+    {
+      "text": "9",
+      "source": {
+        "file": "index.html",
+        "line": 91,
+        "excerpt": "<span data-tag=\"1\" style=\"--tc: var(--track-2)\"><b>Finance</b><i>209 records</i></span>"
+      }
+    },
+    {
+      "text": "171",
+      "source": null
+    },
+    {
+      "text": "476",
+      "source": {
+        "file": "arena-data.js",
+        "line": 26,
+        "excerpt": "logo: 'M22.282 9.821a5.985 5.985 0 0 0 -0.516 -4.91 6.046 6.046 0 0 0 -6.51 -2.9A6.065 6.065 0 0 0 4.981 4.18a5.985 5.985 0 0 0 -3.998 2.9 6.046 6.046 0 0 0 0.7"
+      }
+    },
+    {
+      "text": "600",
+      "source": {
+        "file": "index.html",
+        "line": 455,
+        "excerpt": "<p class=\"mc-results-scope\">The Harbor benchmark catalog curates 600 hard task records across 3 fields and 18 classes (200 per field). On its 100-task Dev100 ec"
+      }
+    },
+    {
+      "text": "07",
+      "source": {
+        "file": "index.html",
+        "line": 123,
+        "excerpt": "<a href=\"#tracks\" data-spy=\"tracks\"><span class=\"n mono\">07</span><span>Results</span></a>"
+      }
+    },
+    {
+      "text": "3 fields × 200 tasks · 18 classes",
+      "source": {
+        "file": "index.html",
+        "line": 458,
+        "excerpt": "<li style=\"--tc: var(--track-1)\"><div class=\"mc-art\" data-art=\"tasks\"></div><b class=\"tnum\" data-count=\"600\">600</b><span>Candidate tasks</span><small>3 fields "
+      }
+    },
+    {
+      "text": "8 × 5",
+      "source": {
+        "file": "index.html",
+        "line": 459,
+        "excerpt": "<li style=\"--tc: var(--mc-violet)\"><div class=\"mc-art\" data-art=\"models\"></div><b class=\"tnum\">8 × 5</b><span>Models × harnesses on Dev100</span><small>3,999 / "
+      }
+    },
+    {
+      "text": "Models × harnesses on Dev100",
+      "source": {
+        "file": "index.html",
+        "line": 459,
+        "excerpt": "<li style=\"--tc: var(--mc-violet)\"><div class=\"mc-art\" data-art=\"models\"></div><b class=\"tnum\">8 × 5</b><span>Models × harnesses on Dev100</span><small>3,999 / "
+      }
+    },
+    {
+      "text": "3,999 / 4,000 trials scored",
+      "source": {
+        "file": "index.html",
+        "line": 459,
+        "excerpt": "<li style=\"--tc: var(--mc-violet)\"><div class=\"mc-art\" data-art=\"models\"></div><b class=\"tnum\">8 × 5</b><span>Models × harnesses on Dev100</span><small>3,999 / "
+      }
+    },
+    {
+      "text": "Harnesses on GPT-5.6 Sol",
+      "source": {
+        "file": "index.html",
+        "line": 460,
+        "excerpt": "<li style=\"--tc: var(--track-2)\"><div class=\"mc-art\" data-art=\"harnesses\"></div><b class=\"tnum\" data-count=\"9\">9</b><span>Harnesses on GPT-5.6 Sol</span><small>"
+      }
+    },
+    {
+      "text": "900 / 900 Dev100 trials scored",
+      "source": {
+        "file": "index.html",
+        "line": 460,
+        "excerpt": "<li style=\"--tc: var(--track-2)\"><div class=\"mc-art\" data-art=\"harnesses\"></div><b class=\"tnum\" data-count=\"9\">9</b><span>Harnesses on GPT-5.6 Sol</span><small>"
+      }
+    },
+    {
+      "text": "08",
+      "source": {
+        "file": "index.html",
+        "line": 90,
+        "excerpt": "<span data-tag=\"0\" style=\"--tc: var(--track-1)\"><b>Economics</b><i>208 records</i></span>"
+      }
+    },
+    {
+      "text": "easonai-5589.github.io/metacase-challenge",
+      "source": "handoff §4 end card URL"
+    }
+  ],
+  "checks": {
+    "forbidden_strings_on_screen": [],
+    "strings_without_source": []
+  },
+  "not_covered": "The ledger reads DOM text. Text painted into the WebGL scenes (book pages, METACASE labels) is not read frame by frame; the scene sources were grepped for the contradictory figures instead and contain none as drawn text."
+}
