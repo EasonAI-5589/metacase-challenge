@@ -60,10 +60,13 @@ const receipt = {
   frames: verify.video.frames,
   commands: render.commands,
   outputs: { [verify.file]: { bytes: verify.bytes, sha256: verify.sha256 }, 'out/final/metacase-sff-stage-poster.jpg': { bytes: fs.statSync('out/final/metacase-sff-stage-poster.jpg').size, sha256: sha('out/final/metacase-sff-stage-poster.jpg') } },
-  version: 'v2 (CP3-R1)',
-  supersedes: { file: 'out/final/metacase-sff-stage-1080p60-v1.mp4', sha256: 'b3d9f2ff95edac948bc4f217575740c3f5d7a265cb1b90ac8ec660d0af6fd54d' },
+  version: 'v2.1 (CP3-R2)',
+  supersedes: { file: 'out/final/metacase-sff-stage-1080p60-v2.mp4', sha256: '2199d9671d7a523ea993b2f51447383af203939bc7129c5fba76b494eb5f54bc' },
+  recaptured_for_this_version: ['05-fields'],
+  flash_calibration: read('out/review/flash-calibration.json'),
+  intermediates_sha256: Object.fromEntries(SHOTS.map(x => [x.id, sha(`out/master/${x.id}.mp4`)])),
   reused_frames_from_v1: SHOTS.filter(s => s.reuse).map(s => s.id),
-  acceptance: { checks: verify.checks, black: verify.black, freezes: verify.freezes, flicker: verify.flicker, safe_area_96x54_text_outside: raw.outside, small_text_under_28px: [...new Map(raw.small.map(s => [s.text, s])).values()] },
+  acceptance: { checks: verify.checks, black: verify.black, freezes: verify.freezes, flash: verify.flash, safe_area_96x54_text_outside: raw.outside, safe_area_outside_by_shot: Object.fromEntries(SHOTS.map(x => [x.id, raw.outside.filter(o => o.shot === x.id).reduce((n, o) => n + o.samples, 0)])), small_text_under_28px: [...new Map(raw.small.map(s => [s.text, s])).values()] },
 };
 fs.writeFileSync(`${DOCS}/render-receipt.json`, JSON.stringify(receipt, null, 2) + '\n');
 console.log('written', Object.keys(receipt.outputs));

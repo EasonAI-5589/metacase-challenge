@@ -34,9 +34,16 @@ export const SHOTS = [
     css: `:root { --mc-gutter: 70px !important; }
       .mc-catalogue { padding-top: 300px !important; }
       .mc-catalogue .mc-head { margin-bottom: 460px !important; }
-      [data-fieldbooks] { top: 42px !important; }
+      [data-fieldbooks] { top: 41px !important; }
+      .mc-fields-rail { margin-top: 24px !important; }
       .mc-label, .mc-label > span, .mc-book .mc-call, .mc-fbook-label small, .mc-fbook-n, .is-books .mc-fbook:not([data-slot="center"]) .mc-fbook-title { font-size: 20.5px !important; }`,
-    keys: [[0, { y: 'fields' }], [3.2, { y: 'fields' }], [4.6, .1], [5.7, .1], [6.5, .45], [9.1, .45], [9.9, .8], [14.1, .8]],
+    // The title fades out, the scroll cuts while nothing is showing, and the stage fades in where it will stay,
+    // so no readable text ever crosses the bottom of the safe area on its way in.
+    keys: [[0, { y: 'fields' }], [3.4, { y: 'fields' }], [3.4001, .1], [5.7, .1], [6.5, .45], [9.1, .45], [9.9, .8], [14.1, .8]],
+    fades: [{ sel: '.mc-catalogue .mc-head', at: [3.2, 3.4], from: 1, to: 0 }, { sel: '[data-fieldbooks], canvas.mc-stage', at: [3.4, 3.9], from: 0, to: 1 }],
+    auditEveryFrame: true,
+    // from the first frame after the cut: until then the stage is off screen and fully transparent
+    auditBoxes: { from: 3.41, selectors: ['.mc-fields-rail', '.mc-fields-rail li', '.mc-flip.is-shown .mc-book', '.mc-flip.is-shown .mc-leaf.is-cover', '.mc-fbook .mc-fbook-label'] },
     // the page's 1.4 s book change runs at 0.55x and its bright fade-out at 0.3x: no abrupt brightness jump on a big screen
     rate: [[0, 1], [5.7, .55], [6.0, .3], [6.7, .55], [9.1, .55], [9.3, .3], [10.1, .55], [12.8, 1]] },
   { id: '06a-arena', seconds: 8.8, section: 'arena', ready: '.mc-chapter', arena: true,

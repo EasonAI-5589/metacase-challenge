@@ -1,6 +1,7 @@
 // Acceptance for the stage master (handoff §8). Reads the rendered file back and prints one JSON report.
 //   node verify.mjs [file]
 import { SHOTS, XFADE } from './shots.mjs';
+import { flashAnalysis, readRgb, JOIN_FRAMES } from './lib/flash.mjs';
 import { execFileSync, spawnSync } from 'node:child_process';
 import crypto from 'node:crypto';
 import fs from 'node:fs';
@@ -24,9 +25,14 @@ const freezes = starts.map((start, i) => ({ start, end: ends[i] ?? +probe.format
 const chapters = []; { let t = 0; for (const s of SHOTS) { chapters.push({ id: s.id, start: +t.toFixed(3), end: +(t + s.seconds).toFixed(3) }); t += s.seconds - XFADE; } }
 const shotAt = t => chapters.find(c => t >= c.start && t < c.end)?.id ?? 'end';
 
-// Flicker: no region may flip between bright and dark more than 3 times in one second (handoff §4).
+// Two different questions about brightness changes, reported separately.
+//
+// 1. Handoff §4, strict: no 60×60 px cell flips between bright and dark more than 3 times in a second. A moving edge
+//    trips this as readily as a strobe. The result stands as measured, and each window is checked against the storyboard:
+//    does it overlap a scripted move, or is it unexplained?
+const FPS = 60;
 const signal = execFileSync('ffmpeg', ['-hide_banner', '-loglevel', 'error', '-i', file, '-vf', 'scale=32:18,format=gray', '-an', '-f', 'rawvideo', '-'], { maxBuffer: 1 << 30 });
-const W = 32, H = 18, N = Math.floor(signal.length / (W * H)), FPS = 60;
+const W = 32, H = 18, N = Math.floor(signal.length / (W * H));
 const flipWindows = {};
 for (let c = 0; c < W * H; c++) {
   const flips = []; let state = null;
@@ -41,7 +47,28 @@ for (let c = 0; c < W * H; c++) {
     (flipWindows[at] ||= new Set()).add(c);
   }
 }
-const flicker = Object.entries(flipWindows).map(([at, cells]) => ({ at: +at, shot: shotAt(+at), cells: cells.size, screenPercent: +(cells.size / (W * H) * 100).toFixed(2) })).sort((p, q) => p.at - q.at);
+const movingAt = t => {
+  const c = chapters.find(x => t >= x.start && t < x.end), keys = c && SHOTS.find(s => s.id === c.id)?.keys;
+  if (!keys) return false;
+  const local = t - c.start;
+  for (let i = 1; i < keys.length; i++) if (local >= keys[i - 1][0] && local <= keys[i][0]) return JSON.stringify(keys[i - 1][1]) !== JSON.stringify(keys[i][1]);
+  return false;
+};
+const duringMove = at => Array.from({ length: 21 }, (_, i) => at + i * .05).some(movingAt);
+const cellFlips = Object.entries(flipWindows).map(([at, cells]) => ({ at: +at, shot: shotAt(+at), cells: cells.size, screenPercent: +(cells.size / (W * H) * 100).toFixed(2), duringScriptedMove: duringMove(+at) })).sort((p, q) => p.at - q.at);
+
+// 2. True strobe, after WCAG 2.3.1 general flash: a flash is a pair of opposing relative-luminance changes of at least 0.1
+//    with the darker state under 0.8, and it fails when more than 3 flashes in one second (over 6 transitions) occur
+//    concurrently over more than 25 % of a 10-degree field. That field is a 341×256 rectangle at 1024×768, so 640×480 here.
+//    "Concurrently" is what separates a flash from a moving pattern: cells turning the same way within a few frames.
+//    Two figures come out, because they answer different questions:
+//      true_strobe_flash          windows where the concurrent test fails
+//      fast_pattern_motion_seconds seconds where over 25 % of a rectangle cycles quickly at all, in any phase
+//    An approximation on a 64×36 grid, calibrated by calibrate-flash.mjs. Not a certified PSE test; saturated red is not tested.
+const rgbFrames = readRgb(file);
+const flash = flashAnalysis(rgbFrames);
+// How wide "concurrently" is decides the result near the edge, so every width is reported, not just the chosen one.
+flash.by_concurrency_window = Object.fromEntries(JOIN_FRAMES.map(join => [`${join}_frames`, flashAnalysis(rgbFrames, { join }).true_strobe_flash]));
 
 const num = s => { const [x, y] = s.split('/').map(Number); return y ? x / y : x; };
 const report = {
@@ -53,7 +80,14 @@ const report = {
   faststart: (() => { const head = fs.readFileSync(file).subarray(0, 4096); return head.includes('moov') && head.indexOf('moov') < head.indexOf('mdat') || !head.includes('mdat'); })(),
   black: black.map(b => ({ ...b, shot: shotAt(b.start) })),
   freezes: freezes.map(f => ({ ...f, seconds: +(f.end - f.start).toFixed(2), shot: shotAt(f.start) })),
-  flicker,
+  flash: {
+    ...flash,
+    true_strobe_method: 'After WCAG 2.3.1 general flash, on a 64×36 grid: over 3 concurrent flashes per second over more than 25 % of a 640×480 rectangle. Calibrated by calibrate-flash.mjs. An approximation, not a certified PSE test; saturated red is not tested separately.',
+    page_turn_grid_crossings: cellFlips.length,
+    page_turn_grid_crossings_method: 'Handoff §4 strict limit, on a 32×18 grid: a cell flips bright/dark more than 3 times in a second. Each window is checked against the shot keys.',
+    unexplained_cell_flip_windows: cellFlips.filter(w => !w.duringScriptedMove).length,
+    cell_flip_windows: cellFlips,
+  },
 };
 report.checks = {
   duration_75_90: report.video.duration >= 75 && report.video.duration <= 90,
@@ -65,8 +99,11 @@ report.checks = {
   audio_aac_48k_stereo: !!a && a.codec_name === 'aac' && Number(a.sample_rate) === 48000 && a.channels === 2,
   faststart: report.faststart,
   black_only_at_open: black.every(b => b.start < 1),
-  no_flicker: flicker.length === 0,
-  flicker_under_1pct_of_screen: flicker.every(w => w.screenPercent < 1),
+  no_true_strobe_flash: flash.true_strobe_flash === 0,
+  no_fast_pattern_motion: flash.fast_pattern_motion_seconds === 0,
+  cell_flips_all_during_scripted_moves: cellFlips.every(w => w.duringScriptedMove),
+  // Stays false while any window exists: motion explains these windows, it does not make the handoff's strict limit pass.
+  handoff_strict_cell_flip_limit: cellFlips.length === 0,
 };
 console.log(JSON.stringify(report, null, 2));
 fs.writeFileSync('out/review/verify-report.json', JSON.stringify(report, null, 2));

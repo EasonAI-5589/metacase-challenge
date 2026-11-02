@@ -39,8 +39,8 @@ const list = pick === 'all' ? SHOTS.filter(s => !s.reuse) : SHOTS.filter(s => pi
 const report = [];
 // Every quarter second, the readable text of the frame and its box on the 1080p output go into a ledger, for the provenance and safe-area checks.
 const ledger = {};
-const note = async (page, id, t, scale) => {
-  if (Math.round(t * FPS) % Math.max(1, Math.round(FPS / 4))) return;
+const note = async (page, id, t, scale, everyFrame = false) => {
+  if (!everyFrame && Math.round(t * FPS) % Math.max(1, Math.round(FPS / 4))) return;
   const seen = await page.evaluate(visibleText, scale);
   const shot = ledger[id] ||= {};
   for (const [text, box] of Object.entries(seen)) {
@@ -97,6 +97,7 @@ const captureShot = async (shot, attempt) => {
   while (stepsTaken() < warmSteps) await step(page, { y: yStart });
   const VEILED = 'canvas.mc-stage, [data-tags="hero"]';
   if (shot.veil) await page.evaluate(sel => { for (const c of document.querySelectorAll(sel)) c.style.opacity = '0'; }, VEILED);
+  const boxExtents = {}, boxOutside = [];
   const events = [...(shot.at || []), ...(shot.releaseAt ? [[shot.releaseAt, 'window.__release()']] : [])].sort((a, b) => a[0] - b[0]);
   if (!shot.releaseAt) await page.evaluate(() => window.__release());
   for (let i = 0; i < frames; i++) {
@@ -105,6 +106,10 @@ const captureShot = async (shot, attempt) => {
     if (shot.veil) {
       const k = e2(Math.min(1, Math.max(0, (t - shot.veil[0]) / (shot.veil[1] - shot.veil[0]))));
       await page.evaluate(([sel, k]) => { for (const c of document.querySelectorAll(sel)) c.style.opacity = String(k); }, [VEILED, k]);
+    }
+    for (const f of shot.fades || []) {
+      const [a, b] = f.at, v = t <= a ? f.from : t >= b ? f.to : f.from + (f.to - f.from) * e2((t - a) / (b - a));
+      await page.evaluate(([sel, v]) => { for (const el of document.querySelectorAll(sel)) el.style.filter = v >= 1 ? '' : `opacity(${v})`; }, [f.sel, v]);
     }
     // text layers leave before a crossfade and arrive after it, so two sets of words never stack
     const textOut = shot.textOut ?? true, textIn = shot.textIn ?? true, end = shot.seconds - XFADE;
@@ -118,11 +123,23 @@ const captureShot = async (shot, attempt) => {
     await step(page, { y, rate: shot.rate ? shot.rate.findLast(([a]) => a <= t)[1] : 1 });
     const at = await page.evaluate(() => ({ y: scrollY, p: Number(document.querySelector('.mc-chapter')?.dataset.progress) }));
     if (Math.abs(at.y - y) > 1) mismatches.push({ i, want: y, got: at.y });
-    await note(page, shot.id, t, scale);
+    await note(page, shot.id, t, scale, shot.auditEveryFrame);
+    // Text is not the only thing that can cross the safe area: the graphics that carry it are measured too.
+    if (shot.auditBoxes && t >= shot.auditBoxes.from) {
+      const boxes = await page.evaluate(([selectors, scale]) => Object.fromEntries(selectors.map(sel => {
+        const rects = [...document.querySelectorAll(sel)].map(el => el.getBoundingClientRect()).filter(r => r.width && r.height);
+        return [sel, rects.length ? [Math.min(...rects.map(r => r.left)), Math.min(...rects.map(r => r.top)), Math.max(...rects.map(r => r.right)), Math.max(...rects.map(r => r.bottom))].map(v => Math.round(v * scale)) : null];
+      })), [shot.auditBoxes.selectors, scale]);
+      for (const [sel, box] of Object.entries(boxes)) if (box) {
+        const seen = boxExtents[sel] ||= [...box];
+        seen[0] = Math.min(seen[0], box[0]); seen[1] = Math.min(seen[1], box[1]); seen[2] = Math.max(seen[2], box[2]); seen[3] = Math.max(seen[3], box[3]);
+        if (box[0] < 96 || box[1] < 54 || box[2] > 1824 || box[3] > 1026) boxOutside.push([t, sel, box]);
+      }
+    }
     await shoot(page, `${out}/${String(i).padStart(5, '0')}.jpg`);
   }
   const rendererState = await page.evaluate(() => ({ arena: document.querySelector('.mc-chapter').dataset.renderer || null, lenis: !!window.__lenis, fonts: document.fonts.status }));
-  report.push({ id: shot.id, frames, errors, attempt, warmOverrun: overrun, mismatches: mismatches.slice(0, 5), mismatchCount: mismatches.length, rendererState, seconds: Math.round((Date.now() - t0) / 1000) });
+  report.push({ id: shot.id, frames, errors, attempt, warmOverrun: overrun, ...(shot.auditBoxes ? { boxExtents, boxOutsideFrames: boxOutside.length, boxOutsideFirst: boxOutside.slice(0, 3) } : {}), mismatches: mismatches.slice(0, 5), mismatchCount: mismatches.length, rendererState, seconds: Math.round((Date.now() - t0) / 1000) });
   console.log(JSON.stringify(report.at(-1)));
   await browser.close();
 };

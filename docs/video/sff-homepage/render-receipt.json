@@ -1,6 +1,6 @@
 {
   "locked_commit": "cefd87bb44155d86528f452ceefb6992bdc9b9fe",
-  "rendered_at": "2026-11-02T05:49:52.296Z",
+  "rendered_at": "2026-11-02T06:22:02.797Z",
   "tools": {
     "ffmpeg": "ffmpeg version 8.1 Copyright (c) 2000-2026 the FFmpeg developers",
     "node": "v25.4.0",
@@ -66,6 +66,40 @@
         "errors": [],
         "attempt": 1,
         "warmOverrun": false,
+        "boxExtents": {
+          ".mc-fields-rail": [
+            689,
+            952,
+            1231,
+            1023
+          ],
+          ".mc-fields-rail li": [
+            703,
+            961,
+            1217,
+            1022
+          ],
+          ".mc-flip.is-shown .mc-book": [
+            128,
+            232,
+            1514,
+            919
+          ],
+          ".mc-flip.is-shown .mc-leaf.is-cover": [
+            263,
+            155,
+            1380,
+            996
+          ],
+          ".mc-fbook .mc-fbook-label": [
+            97,
+            57,
+            1823,
+            919
+          ]
+        },
+        "boxOutsideFrames": 0,
+        "boxOutsideFirst": [],
         "mismatches": [],
         "mismatchCount": 0,
         "rendererState": {
@@ -73,7 +107,7 @@
           "lenis": false,
           "fonts": "loaded"
         },
-        "seconds": 61
+        "seconds": 68
       },
       {
         "id": "06a-arena",
@@ -199,30 +233,176 @@
     "ffmpeg -y -loglevel error -framerate 60 -i out/frames/03a-retrieval/%05d.jpg -vf scale=in_range=full:in_color_matrix=bt601:out_range=tv:out_color_matrix=bt709,format=yuv420p -c:v libx264 -preset medium -crf 10 -colorspace bt709 -color_primaries bt709 -color_trc bt709 -color_range tv out/master/03a-retrieval.mp4",
     "ffmpeg -y -loglevel error -framerate 60 -i out/frames/03b-retrieval/%05d.jpg -vf scale=in_range=full:in_color_matrix=bt601:out_range=tv:out_color_matrix=bt709,format=yuv420p -c:v libx264 -preset medium -crf 10 -colorspace bt709 -color_primaries bt709 -color_trc bt709 -color_range tv out/master/03b-retrieval.mp4",
     "ffmpeg -y -loglevel error -framerate 60 -i out/frames/04-network/%05d.jpg -vf scale=in_range=full:in_color_matrix=bt601:out_range=tv:out_color_matrix=bt709,format=yuv420p -c:v libx264 -preset medium -crf 10 -colorspace bt709 -color_primaries bt709 -color_trc bt709 -color_range tv out/master/04-network.mp4",
-    "ffmpeg -y -loglevel error -framerate 60 -i out/frames/05-fields/%05d.jpg -vf scale=in_range=full:in_color_matrix=bt601:out_range=tv:out_color_matrix=bt709,format=yuv420p -c:v libx264 -preset medium -crf 10 -colorspace bt709 -color_primaries bt709 -color_trc bt709 -color_range tv out/master/05-fields.mp4",
     "ffmpeg -y -loglevel error -framerate 60 -i out/frames/06a-arena/%05d.jpg -vf scale=in_range=full:in_color_matrix=bt601:out_range=tv:out_color_matrix=bt709,format=yuv420p -c:v libx264 -preset medium -crf 10 -colorspace bt709 -color_primaries bt709 -color_trc bt709 -color_range tv out/master/06a-arena.mp4",
     "ffmpeg -y -loglevel error -framerate 60 -i out/frames/06b-choose/%05d.jpg -vf scale=in_range=full:in_color_matrix=bt601:out_range=tv:out_color_matrix=bt709,format=yuv420p -c:v libx264 -preset medium -crf 10 -colorspace bt709 -color_primaries bt709 -color_trc bt709 -color_range tv out/master/06b-choose.mp4",
     "ffmpeg -y -loglevel error -framerate 60 -i out/frames/07-rules/%05d.jpg -vf scale=in_range=full:in_color_matrix=bt601:out_range=tv:out_color_matrix=bt709,format=yuv420p -c:v libx264 -preset medium -crf 10 -colorspace bt709 -color_primaries bt709 -color_trc bt709 -color_range tv out/master/07-rules.mp4",
     "ffmpeg -y -loglevel error -framerate 60 -i out/frames/08-results/%05d.jpg -vf scale=in_range=full:in_color_matrix=bt601:out_range=tv:out_color_matrix=bt709,format=yuv420p -c:v libx264 -preset medium -crf 10 -colorspace bt709 -color_primaries bt709 -color_trc bt709 -color_range tv out/master/08-results.mp4",
     "ffmpeg -y -loglevel error -framerate 60 -i out/frames/09-team/%05d.jpg -vf scale=in_range=full:in_color_matrix=bt601:out_range=tv:out_color_matrix=bt709,format=yuv420p -c:v libx264 -preset medium -crf 10 -colorspace bt709 -color_primaries bt709 -color_trc bt709 -color_range tv out/master/09-team.mp4",
     "ffmpeg -y -loglevel error -framerate 60 -i out/frames/10-end/%05d.jpg -vf scale=in_range=full:in_color_matrix=bt601:out_range=tv:out_color_matrix=bt709,format=yuv420p -c:v libx264 -preset medium -crf 10 -colorspace bt709 -color_primaries bt709 -color_trc bt709 -color_range tv out/master/10-end.mp4",
+    "ffmpeg -y -loglevel error -framerate 60 -i out/frames/05-fields/%05d.jpg -vf scale=in_range=full:in_color_matrix=bt601:out_range=tv:out_color_matrix=bt709,format=yuv420p -c:v libx264 -preset medium -crf 10 -colorspace bt709 -color_primaries bt709 -color_trc bt709 -color_range tv out/master/05-fields.mp4",
     "ffmpeg -y -loglevel error -i out/master/01-hero.mp4 -i out/master/02-metacase.mp4 -i out/master/03a-retrieval.mp4 -i out/master/03b-retrieval.mp4 -i out/master/04-network.mp4 -i out/master/05-fields.mp4 -i out/master/06a-arena.mp4 -i out/master/06b-choose.mp4 -i out/master/07-rules.mp4 -i out/master/08-results.mp4 -i out/master/09-team.mp4 -i out/master/10-end.mp4 -f lavfi -i anullsrc=r=48000:cl=stereo -filter_complex [0:v][1:v]xfade=transition=fade:duration=0.3:offset=8.7000[v0];[v0][2:v]xfade=transition=fade:duration=0.3:offset=19.9000[v1];[v1][3:v]xfade=transition=fade:duration=0.3:offset=24.3500[v2];[v2][4:v]xfade=transition=fade:duration=0.3:offset=28.3000[v3];[v3][5:v]xfade=transition=fade:duration=0.3:offset=38.0000[v4];[v4][6:v]xfade=transition=fade:duration=0.3:offset=51.8000[v5];[v5][7:v]xfade=transition=fade:duration=0.3:offset=60.3000[v6];[v6][8:v]xfade=transition=fade:duration=0.3:offset=63.8000[v7];[v7][9:v]xfade=transition=fade:duration=0.3:offset=72.0000[v8];[v8][10:v]xfade=transition=fadeblack:duration=0.3:offset=78.5000[v9];[v9][11:v]xfade=transition=fade:duration=0.3:offset=82.7000,setparams=colorspace=bt709:color_primaries=bt709:color_trc=bt709:range=tv[out] -map [out] -map 12:a -shortest -c:v libx264 -profile:v high -preset slow -crf 15 -pix_fmt yuv420p -colorspace bt709 -color_primaries bt709 -color_trc bt709 -color_range tv -x264-params colorprim=bt709:transfer=bt709:colormatrix=bt709 -r 60 -c:a aac -b:a 128k -movflags +faststart out/final/metacase-sff-stage-1080p60.mp4",
     "ffmpeg -y -loglevel error -ss 7.0 -i out/final/metacase-sff-stage-1080p60.mp4 -frames:v 1 -q:v 2 -vf scale=in_range=tv:in_color_matrix=bt709:out_range=full:out_color_matrix=bt601 out/final/metacase-sff-stage-poster.jpg"
   ],
   "outputs": {
     "out/final/metacase-sff-stage-1080p60.mp4": {
-      "bytes": 57287819,
-      "sha256": "2199d9671d7a523ea993b2f51447383af203939bc7129c5fba76b494eb5f54bc"
+      "bytes": 57008461,
+      "sha256": "9debd036903366d1528b58cd497f1a12e54d1f4f26dbc94c074c9673fc9cdf66"
     },
     "out/final/metacase-sff-stage-poster.jpg": {
       "bytes": 240824,
       "sha256": "022fe9a241bfd6df684804c46d36a5a74032c6def77a37290233ad72bc4f5aa5"
     }
   },
-  "version": "v2 (CP3-R1)",
+  "version": "v2.1 (CP3-R2)",
   "supersedes": {
-    "file": "out/final/metacase-sff-stage-1080p60-v1.mp4",
-    "sha256": "b3d9f2ff95edac948bc4f217575740c3f5d7a265cb1b90ac8ec660d0af6fd54d"
+    "file": "out/final/metacase-sff-stage-1080p60-v2.mp4",
+    "sha256": "2199d9671d7a523ea993b2f51447383af203939bc7129c5fba76b494eb5f54bc"
+  },
+  "recaptured_for_this_version": [
+    "05-fields"
+  ],
+  "flash_calibration": {
+    "rows": [
+      {
+        "clip": "full screen 2 Hz",
+        "expected": "not strobe",
+        "strobe_seconds_by_join": {
+          "2": 0,
+          "3": 0,
+          "6": 0
+        },
+        "correct_by_join": {
+          "2": true,
+          "3": true,
+          "6": true
+        },
+        "fast_pattern_seconds": 0
+      },
+      {
+        "clip": "full screen 3 Hz (the limit)",
+        "expected": "not strobe",
+        "strobe_seconds_by_join": {
+          "2": 0,
+          "3": 0,
+          "6": 0
+        },
+        "correct_by_join": {
+          "2": true,
+          "3": true,
+          "6": true
+        },
+        "fast_pattern_seconds": 0
+      },
+      {
+        "clip": "full screen 5 Hz",
+        "expected": "strobe",
+        "strobe_seconds_by_join": {
+          "2": 3,
+          "3": 3,
+          "6": 3
+        },
+        "correct_by_join": {
+          "2": true,
+          "3": true,
+          "6": true
+        },
+        "fast_pattern_seconds": 3
+      },
+      {
+        "clip": "full screen 10 Hz",
+        "expected": "strobe",
+        "strobe_seconds_by_join": {
+          "2": 3,
+          "3": 3,
+          "6": 3
+        },
+        "correct_by_join": {
+          "2": true,
+          "3": true,
+          "6": true
+        },
+        "fast_pattern_seconds": 3
+      },
+      {
+        "clip": "full screen 5 Hz, soft sine",
+        "expected": "strobe",
+        "strobe_seconds_by_join": {
+          "2": 3,
+          "3": 3,
+          "6": 3
+        },
+        "correct_by_join": {
+          "2": true,
+          "3": true,
+          "6": true
+        },
+        "fast_pattern_seconds": 3
+      },
+      {
+        "clip": "large patch 5 Hz, 800x600",
+        "expected": "strobe",
+        "strobe_seconds_by_join": {
+          "2": 3,
+          "3": 3,
+          "6": 3
+        },
+        "correct_by_join": {
+          "2": true,
+          "3": true,
+          "6": true
+        },
+        "fast_pattern_seconds": 3
+      },
+      {
+        "clip": "small patch 5 Hz, 240x200",
+        "expected": "not strobe",
+        "strobe_seconds_by_join": {
+          "2": 0,
+          "3": 0,
+          "6": 0
+        },
+        "correct_by_join": {
+          "2": true,
+          "3": true,
+          "6": true
+        },
+        "fast_pattern_seconds": 0
+      },
+      {
+        "clip": "moving bars 5 Hz per spot",
+        "expected": "not strobe",
+        "strobe_seconds_by_join": {
+          "2": 3,
+          "3": 3,
+          "6": 3
+        },
+        "correct_by_join": {
+          "2": false,
+          "3": false,
+          "6": false
+        },
+        "fast_pattern_seconds": 3
+      }
+    ],
+    "correct": {
+      "2": 7,
+      "3": 7,
+      "6": 7
+    }
+  },
+  "intermediates_sha256": {
+    "01-hero": "78422c4c725d6f78e501246cb37e3af3ecd04fd7398d6744ff1959a3589164ce",
+    "02-metacase": "4ca477536f5b4b6bad43e2e0b5982436e77e753863757ae02f5063eceb8c136e",
+    "03a-retrieval": "3d7cfdbbe1e4a74a99ca2fe3c904b7220aa6a228cdfb693526126dd2e46fb4b4",
+    "03b-retrieval": "4c594af7e088b585e3ef87aa22a70d2d99e86a3691f28328be044a372dd1f742",
+    "04-network": "b9195243855d924a58dea56cefbb145d1f9e81bc20cb11aeac8fa8cd0724951e",
+    "05-fields": "a843e95f94f4c6538cac97ea4db04bdaf68eb50e43210e2ef51a4a8a2bebd822",
+    "06a-arena": "2837c89a3c6c69068180fce5c6c80c362bd5a3a35a343c86b3d7f83edc302b88",
+    "06b-choose": "e7cda4bb88dd5c1755683f4e9d266c9310c758ab8665aa7df9046339ba2cdf80",
+    "07-rules": "c2d0315d7c295c4ea6e17f15a30301405e28695d7d9aec3e38e59ab50b553c6f",
+    "08-results": "778029fc6e84011d431491ac95b511c9d0377373511ad114a17a3784c3e08c62",
+    "09-team": "84491400e49756632c1326c011392f0f076dd135eca93932b4b8d11133745482",
+    "10-end": "338dae1b0bc13dd1f3c71f855e1da4d1bbcecb765a013057829bd59aa404ef33"
   },
   "reused_frames_from_v1": [
     "08-results",
@@ -239,8 +419,10 @@
       "audio_aac_48k_stereo": true,
       "faststart": true,
       "black_only_at_open": true,
-      "no_flicker": false,
-      "flicker_under_1pct_of_screen": false
+      "no_true_strobe_flash": false,
+      "no_fast_pattern_motion": false,
+      "cell_flips_all_during_scripted_moves": true,
+      "handoff_strict_cell_flip_limit": false
     },
     "black": [
       {
@@ -252,8 +434,8 @@
     "freezes": [
       {
         "start": 39.083333,
-        "end": 41.25,
-        "seconds": 2.17,
+        "end": 41.216667,
+        "seconds": 2.13,
         "shot": "05-fields"
       },
       {
@@ -275,86 +457,142 @@
         "shot": "10-end"
       }
     ],
-    "flicker": [
-      {
-        "at": 11.8,
-        "shot": "02-metacase",
-        "cells": 7,
-        "screenPercent": 1.22
+    "flash": {
+      "true_strobe_flash": 3,
+      "strobe_seconds": [
+        32,
+        33,
+        34
+      ],
+      "concurrent_full_area_transitions": 40,
+      "fast_pattern_motion_seconds": 3,
+      "fast_pattern_motion": [
+        {
+          "second": 32,
+          "cellsCycling": 155,
+          "densestInRect": 110
+        },
+        {
+          "second": 33,
+          "cellsCycling": 565,
+          "densestInRect": 253
+        },
+        {
+          "second": 34,
+          "cellsCycling": 575,
+          "densestInRect": 231
+        }
+      ],
+      "area_limit_cells": 84,
+      "max_luminance_transitions_per_second_any_cell": 41,
+      "worst_cell": {
+        "second": 73.18,
+        "x": 300,
+        "y": 600
       },
-      {
-        "at": 13.8,
-        "shot": "02-metacase",
-        "cells": 7,
-        "screenPercent": 1.22
+      "by_concurrency_window": {
+        "2_frames": 3,
+        "3_frames": 3,
+        "6_frames": 3
       },
-      {
-        "at": 15.8,
-        "shot": "02-metacase",
-        "cells": 9,
-        "screenPercent": 1.56
-      },
-      {
-        "at": 17.8,
-        "shot": "02-metacase",
-        "cells": 9,
-        "screenPercent": 1.56
-      },
-      {
-        "at": 32.6,
-        "shot": "04-network",
-        "cells": 1,
-        "screenPercent": 0.17
-      },
-      {
-        "at": 32.7,
-        "shot": "04-network",
-        "cells": 1,
-        "screenPercent": 0.17
-      },
-      {
-        "at": 32.8,
-        "shot": "04-network",
-        "cells": 7,
-        "screenPercent": 1.22
-      },
-      {
-        "at": 32.9,
-        "shot": "04-network",
-        "cells": 6,
-        "screenPercent": 1.04
-      },
-      {
-        "at": 34,
-        "shot": "04-network",
-        "cells": 2,
-        "screenPercent": 0.35
-      },
-      {
-        "at": 34.1,
-        "shot": "04-network",
-        "cells": 4,
-        "screenPercent": 0.69
-      },
-      {
-        "at": 34.2,
-        "shot": "04-network",
-        "cells": 2,
-        "screenPercent": 0.35
-      },
-      {
-        "at": 34.3,
-        "shot": "04-network",
-        "cells": 6,
-        "screenPercent": 1.04
-      },
-      {
-        "at": 34.4,
-        "shot": "04-network",
-        "cells": 1,
-        "screenPercent": 0.17
-      }
-    ],
+      "true_strobe_method": "After WCAG 2.3.1 general flash, on a 64×36 grid: over 3 concurrent flashes per second over more than 25 % of a 640×480 rectangle. Calibrated by calibrate-flash.mjs. An approximation, not a certified PSE test; saturated red is not tested separately.",
+      "page_turn_grid_crossings": 13,
+      "page_turn_grid_crossings_method": "Handoff §4 strict limit, on a 32×18 grid: a cell flips bright/dark more than 3 times in a second. Each window is checked against the shot keys.",
+      "unexplained_cell_flip_windows": 0,
+      "cell_flip_windows": [
+        {
+          "at": 11.8,
+          "shot": "02-metacase",
+          "cells": 7,
+          "screenPercent": 1.22,
+          "duringScriptedMove": true
+        },
+        {
+          "at": 13.8,
+          "shot": "02-metacase",
+          "cells": 7,
+          "screenPercent": 1.22,
+          "duringScriptedMove": true
+        },
+        {
+          "at": 15.8,
+          "shot": "02-metacase",
+          "cells": 9,
+          "screenPercent": 1.56,
+          "duringScriptedMove": true
+        },
+        {
+          "at": 17.8,
+          "shot": "02-metacase",
+          "cells": 9,
+          "screenPercent": 1.56,
+          "duringScriptedMove": true
+        },
+        {
+          "at": 32.6,
+          "shot": "04-network",
+          "cells": 1,
+          "screenPercent": 0.17,
+          "duringScriptedMove": true
+        },
+        {
+          "at": 32.7,
+          "shot": "04-network",
+          "cells": 1,
+          "screenPercent": 0.17,
+          "duringScriptedMove": true
+        },
+        {
+          "at": 32.8,
+          "shot": "04-network",
+          "cells": 7,
+          "screenPercent": 1.22,
+          "duringScriptedMove": true
+        },
+        {
+          "at": 32.9,
+          "shot": "04-network",
+          "cells": 6,
+          "screenPercent": 1.04,
+          "duringScriptedMove": true
+        },
+        {
+          "at": 34,
+          "shot": "04-network",
+          "cells": 2,
+          "screenPercent": 0.35,
+          "duringScriptedMove": true
+        },
+        {
+          "at": 34.1,
+          "shot": "04-network",
+          "cells": 4,
+          "screenPercent": 0.69,
+          "duringScriptedMove": true
+        },
+        {
+          "at": 34.2,
+          "shot": "04-network",
+          "cells": 2,
+          "screenPercent": 0.35,
+          "duringScriptedMove": true
+        },
+        {
+          "at": 34.3,
+          "shot": "04-network",
+          "cells": 6,
+          "screenPercent": 1.04,
+          "duringScriptedMove": true
+        },
+        {
+          "at": 34.4,
+          "shot": "04-network",
+          "cells": 1,
+          "screenPercent": 0.17,
+          "duringScriptedMove": true
+        }
+      ]
+    },
     "safe_area_96x54_text_outside": [
       {
         "shot": "04-network",
@@ -394,73 +632,22 @@
           4.5,
           "right 1953"
         ]
-      },
-      {
-        "shot": "05-fields",
-        "text": "6",
-        "samples": 1,
-        "first": [
-          3.75,
-          "bottom 1097"
-        ],
-        "last": [
-          3.75,
-          "bottom 1097"
-        ]
-      },
-      {
-        "shot": "05-fields",
-        "text": "Economics",
-        "samples": 1,
-        "first": [
-          3.75,
-          "bottom 1056"
-        ],
-        "last": [
-          3.75,
-          "bottom 1056"
-        ]
-      },
-      {
-        "shot": "05-fields",
-        "text": "classes",
-        "samples": 1,
-        "first": [
-          3.75,
-          "bottom 1097"
-        ],
-        "last": [
-          3.75,
-          "bottom 1097"
-        ]
-      },
-      {
-        "shot": "05-fields",
-        "text": "Official statistics synthesis",
-        "samples": 1,
-        "first": [
-          4,
-          "bottom 1060"
-        ],
-        "last": [
-          4,
-          "bottom 1060"
-        ]
-      },
-      {
-        "shot": "05-fields",
-        "text": "Economic & business data engineering",
-        "samples": 1,
-        "first": [
-          4,
-          "bottom 1114"
-        ],
-        "last": [
-          4,
-          "bottom 1114"
-        ]
       }
     ],
+    "safe_area_outside_by_shot": {
+      "01-hero": 0,
+      "02-metacase": 0,
+      "03a-retrieval": 0,
+      "03b-retrieval": 0,
+      "04-network": 3,
+      "05-fields": 0,
+      "06a-arena": 0,
+      "06b-choose": 0,
+      "07-rules": 0,
+      "08-results": 0,
+      "09-team": 0,
+      "10-end": 0
+    },
     "small_text_under_28px": [
       {
         "shot": "06b-choose",

@@ -14,6 +14,8 @@ export const visibleText = (scale) => {
       const c = getComputedStyle(e);
       if (c.display === 'none' || c.visibility === 'hidden') { hidden = true; break; }
       opacity *= parseFloat(c.opacity);
+      const faded = /opacity\(([\d.]+)\)/.exec(c.filter);
+      if (faded) opacity *= parseFloat(faded[1]);
       zoom *= parseFloat(c.zoom) || 1;
     }
     if (hidden || opacity < .2) continue;

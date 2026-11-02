@@ -319,13 +319,13 @@
           }
         ],
         [
-          3.2,
+          3.4,
           {
             "y": "fields"
           }
         ],
         [
-          4.6,
+          3.4001,
           0.1
         ],
         [
@@ -2006,8 +2006,8 @@
       "text": "6",
       "output_px": 28.3,
       "seconds": [
-        3.75,
-        14
+        3.45,
+        13.766666666666667
       ],
       "source": {
         "file": "index.html",
@@ -2020,8 +2020,8 @@
       "text": "04",
       "output_px": 28.3,
       "seconds": [
-        0.25,
-        3.75
+        0.2,
+        3.283333333333333
       ],
       "source": {
         "file": "index.html",
@@ -2034,8 +2034,8 @@
       "text": "The first fields",
       "output_px": 28.3,
       "seconds": [
-        0.25,
-        3.75
+        0.2,
+        3.283333333333333
       ],
       "source": {
         "file": "index.html",
@@ -2048,8 +2048,8 @@
       "text": "Three fields to start,",
       "output_px": 88.3,
       "seconds": [
-        0.25,
-        3.75
+        0.2,
+        3.283333333333333
       ],
       "source": {
         "file": "index.html",
@@ -2062,8 +2062,8 @@
       "text": "eighteen classes of cases.",
       "output_px": 88.3,
       "seconds": [
-        0.25,
-        3.75
+        0.2,
+        3.283333333333333
       ],
       "source": {
         "file": "index.html",
@@ -2076,8 +2076,8 @@
       "text": "Field 01",
       "output_px": 28.3,
       "seconds": [
-        3.75,
-        14
+        3.45,
+        13.766666666666667
       ],
       "source": {
         "file": "index.html",
@@ -2090,8 +2090,8 @@
       "text": "Economics",
       "output_px": 46.9,
       "seconds": [
-        3.75,
-        14
+        3.45,
+        13.766666666666667
       ],
       "source": {
         "file": "index.html",
@@ -2104,8 +2104,8 @@
       "text": "classes",
       "output_px": 28.3,
       "seconds": [
-        3.75,
-        14
+        3.45,
+        13.766666666666667
       ],
       "source": {
         "file": "index.html",
@@ -2118,8 +2118,8 @@
       "text": "Field 02",
       "output_px": 28.3,
       "seconds": [
-        4,
-        14
+        3.45,
+        13.766666666666667
       ],
       "source": {
         "file": "index.html",
@@ -2132,8 +2132,8 @@
       "text": "Finance",
       "output_px": 46.9,
       "seconds": [
-        4,
-        14
+        3.45,
+        13.766666666666667
       ],
       "source": {
         "file": "index.html",
@@ -2146,8 +2146,8 @@
       "text": "Field 03",
       "output_px": 28.3,
       "seconds": [
-        4,
-        14
+        3.45,
+        13.766666666666667
       ],
       "source": {
         "file": "index.html",
@@ -2160,8 +2160,8 @@
       "text": "Social science",
       "output_px": 46.9,
       "seconds": [
-        4,
-        14
+        3.45,
+        13.766666666666667
       ],
       "source": {
         "file": "index.html",
@@ -2174,8 +2174,8 @@
       "text": "econ.publicfinance",
       "output_px": 28.3,
       "seconds": [
-        4,
-        6.25
+        3.45,
+        6.416666666666667
       ],
       "source": {
         "file": "index.html",
@@ -2188,8 +2188,8 @@
       "text": "Public finance & fiscal policy",
       "output_px": 33.1,
       "seconds": [
-        4,
-        6.25
+        3.45,
+        6.416666666666667
       ],
       "source": {
         "file": "index.html",
@@ -2202,8 +2202,8 @@
       "text": "econ.monetary",
       "output_px": 28.3,
       "seconds": [
-        4,
-        6.25
+        3.45,
+        6.416666666666667
       ],
       "source": {
         "file": "index.html",
@@ -2216,8 +2216,8 @@
       "text": "Monetary policy & central-bank operations",
       "output_px": 33.1,
       "seconds": [
-        4,
-        6.25
+        3.45,
+        6.416666666666667
       ],
       "source": {
         "file": "index.html",
@@ -2230,8 +2230,8 @@
       "text": "econ.statistics",
       "output_px": 28.3,
       "seconds": [
-        4,
-        6.25
+        3.45,
+        6.416666666666667
       ],
       "source": {
         "file": "index.html",
@@ -2244,8 +2244,8 @@
       "text": "Official statistics synthesis",
       "output_px": 33.1,
       "seconds": [
-        4,
-        6.25
+        3.45,
+        6.416666666666667
       ],
       "source": {
         "file": "index.html",
@@ -2258,8 +2258,8 @@
       "text": "econ.replication",
       "output_px": 28.3,
       "seconds": [
-        4,
-        6.25
+        3.45,
+        6.416666666666667
       ],
       "source": {
         "file": "index.html",
@@ -2272,8 +2272,8 @@
       "text": "Econometric replication",
       "output_px": 33.1,
       "seconds": [
-        4,
-        6.25
+        3.45,
+        6.416666666666667
       ],
       "source": {
         "file": "index.html",
@@ -2286,8 +2286,8 @@
       "text": "econ.markets",
       "output_px": 28.3,
       "seconds": [
-        4,
-        6.25
+        3.45,
+        6.416666666666667
       ],
       "source": {
         "file": "index.html",
@@ -2300,8 +2300,8 @@
       "text": "Capital markets & bond-yield analysis",
       "output_px": 33.1,
       "seconds": [
-        4,
-        6.25
+        3.45,
+        6.416666666666667
       ],
       "source": {
         "file": "index.html",
@@ -2314,8 +2314,8 @@
       "text": "econ.data",
       "output_px": 28.3,
       "seconds": [
-        4,
-        6.25
+        3.45,
+        6.416666666666667
       ],
       "source": {
         "file": "index.html",
@@ -2328,8 +2328,8 @@
       "text": "Economic & business data engineering",
       "output_px": 33.1,
       "seconds": [
-        4,
-        6.25
+        3.45,
+        6.416666666666667
       ],
       "source": {
         "file": "index.html",
@@ -2342,8 +2342,8 @@
       "text": "fin.filings",
       "output_px": 28.3,
       "seconds": [
-        7.75,
-        9.75
+        7.533333333333333,
+        9.816666666666666
       ],
       "source": {
         "file": "index.html",
@@ -2356,8 +2356,8 @@
       "text": "Financial research & filings QA",
       "output_px": 33.1,
       "seconds": [
-        7.75,
-        9.75
+        7.533333333333333,
+        9.816666666666666
       ],
       "source": {
         "file": "index.html",
@@ -2370,8 +2370,8 @@
       "text": "fin.credit",
       "output_px": 28.3,
       "seconds": [
-        7.75,
-        9.75
+        7.533333333333333,
+        9.816666666666666
       ],
       "source": {
         "file": "index.html",
@@ -2384,8 +2384,8 @@
       "text": "Lending operations & credit risk",
       "output_px": 33.1,
       "seconds": [
-        7.75,
-        9.75
+        7.533333333333333,
+        9.816666666666666
       ],
       "source": {
         "file": "index.html",
@@ -2398,8 +2398,8 @@
       "text": "fin.nlp",
       "output_px": 28.3,
       "seconds": [
-        7.75,
-        9.75
+        7.533333333333333,
+        9.816666666666666
       ],
       "source": {
         "file": "index.html",
@@ -2412,8 +2412,8 @@
       "text": "Financial disclosure & structured extraction",
       "output_px": 33.1,
       "seconds": [
-        7.75,
-        9.75
+        7.533333333333333,
+        9.816666666666666
       ],
       "source": {
         "file": "index.html",
@@ -2426,8 +2426,8 @@
       "text": "fin.accounting",
       "output_px": 28.3,
       "seconds": [
-        7.75,
-        9.75
+        7.533333333333333,
+        9.816666666666666
       ],
       "source": {
         "file": "index.html",
@@ -2440,8 +2440,8 @@
       "text": "Accounting close & finance deliverables",
       "output_px": 33.1,
       "seconds": [
-        7.75,
-        9.75
+        7.533333333333333,
+        9.816666666666666
       ],
       "source": {
         "file": "index.html",
@@ -2454,8 +2454,8 @@
       "text": "fin.numeric",
       "output_px": 28.3,
       "seconds": [
-        7.75,
-        9.75
+        7.533333333333333,
+        9.816666666666666
       ],
       "source": {
         "file": "index.html",
@@ -2468,8 +2468,8 @@
       "text": "Financial modeling & spreadsheet engineering",
       "output_px": 33.1,
       "seconds": [
-        7.75,
-        9.75
+        7.533333333333333,
+        9.816666666666666
       ],
       "source": {
         "file": "index.html",
@@ -2482,8 +2482,8 @@
       "text": "fin.payments",
       "output_px": 28.3,
       "seconds": [
-        7.75,
-        9.75
+        7.533333333333333,
+        9.816666666666666
       ],
       "source": {
         "file": "index.html",
@@ -2496,8 +2496,8 @@
       "text": "Payments & transaction data analysis",
       "output_px": 33.1,
       "seconds": [
-        7.75,
-        9.75
+        7.533333333333333,
+        9.816666666666666
       ],
       "source": {
         "file": "index.html",
@@ -2510,8 +2510,8 @@
       "text": "soc.society",
       "output_px": 28.3,
       "seconds": [
-        11,
-        14
+        10.933333333333334,
+        13.766666666666667
       ],
       "source": {
         "file": "index.html",
@@ -2524,8 +2524,8 @@
       "text": "Society, education & survey data",
       "output_px": 33.1,
       "seconds": [
-        11,
-        14
+        10.933333333333334,
+        13.766666666666667
       ],
       "source": {
         "file": "index.html",
@@ -2538,8 +2538,8 @@
       "text": "soc.hr",
       "output_px": 28.3,
       "seconds": [
-        11,
-        14
+        10.933333333333334,
+        13.766666666666667
       ],
       "source": {
         "file": "index.html",
@@ -2552,8 +2552,8 @@
       "text": "HR & organisational analytics",
       "output_px": 33.1,
       "seconds": [
-        11,
-        14
+        10.933333333333334,
+        13.766666666666667
       ],
       "source": {
         "file": "index.html",
@@ -2566,8 +2566,8 @@
       "text": "soc.psychology",
       "output_px": 28.3,
       "seconds": [
-        11,
-        14
+        10.933333333333334,
+        13.766666666666667
       ],
       "source": {
         "file": "index.html",
@@ -2580,8 +2580,8 @@
       "text": "Psychology & cognitive science",
       "output_px": 33.1,
       "seconds": [
-        11,
-        14
+        10.933333333333334,
+        13.766666666666667
       ],
       "source": {
         "file": "index.html",
@@ -2594,8 +2594,8 @@
       "text": "soc.law",
       "output_px": 28.3,
       "seconds": [
-        11,
-        14
+        10.933333333333334,
+        13.766666666666667
       ],
       "source": {
         "file": "index.html",
@@ -2608,8 +2608,8 @@
       "text": "Law, regulation & compliance",
       "output_px": 33.1,
       "seconds": [
-        11,
-        14
+        10.933333333333334,
+        13.766666666666667
       ],
       "source": {
         "file": "index.html",
@@ -2622,8 +2622,8 @@
       "text": "soc.business",
       "output_px": 28.3,
       "seconds": [
-        11,
-        14
+        10.933333333333334,
+        13.766666666666667
       ],
       "source": {
         "file": "index.html",
@@ -2636,8 +2636,8 @@
       "text": "Business operations & CRM",
       "output_px": 33.1,
       "seconds": [
-        11,
-        14
+        10.933333333333334,
+        13.766666666666667
       ],
       "source": {
         "file": "index.html",
@@ -2650,8 +2650,8 @@
       "text": "soc.policy",
       "output_px": 28.3,
       "seconds": [
-        11,
-        14
+        10.933333333333334,
+        13.766666666666667
       ],
       "source": {
         "file": "index.html",
@@ -2664,8 +2664,8 @@
       "text": "Public policy & service governance",
       "output_px": 33.1,
       "seconds": [
-        11,
-        14
+        10.933333333333334,
+        13.766666666666667
       ],
       "source": {
         "file": "index.html",

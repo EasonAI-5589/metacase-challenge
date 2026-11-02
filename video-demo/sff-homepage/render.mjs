@@ -9,7 +9,9 @@ import fs from 'node:fs';
 const FPS = Number(process.env.FPS || 60), master = FPS === 60;
 const frameDir = master ? 'out/frames' : `out/frames-${FPS}`, midDir = master ? 'out/master' : `out/review/mid-${FPS}`;
 fs.mkdirSync(midDir, { recursive: true });
-const commands = [];
+// With an explicit shot list the other intermediates are reused, so their original encode commands stay in the record.
+const earlier = process.argv[2] && fs.existsSync('out/review/render-commands.json') ? JSON.parse(fs.readFileSync('out/review/render-commands.json', 'utf8')).commands : [];
+const commands = earlier.filter(c => SHOTS.some(s => !process.argv[2].split(',').includes(s.id) && c.includes(`${midDir}/${s.id}.mp4`) && !c.includes('xfade')));
 const run = args => { commands.push(['ffmpeg', ...args].join(' ')); execFileSync('ffmpeg', args, { stdio: ['ignore', 'ignore', 'pipe'] }); };
 const COLOR = ['-colorspace', 'bt709', '-color_primaries', 'bt709', '-color_trc', 'bt709', '-color_range', 'tv'];
 const only = process.argv[2]?.split(',');

@@ -11,7 +11,7 @@ The film tells one argument in the order the page does: what it is → what one 
 | 02 Metacase | 11.5 s | `#metacase` | The book opens, then one stage at a time | A Metacase is one episode, recorded end to end.; the five stage names |
 | 03a, 03b Retrieval | 8.7 s | `#structure` | Topic match, paths split; solution match, paths align. Split at p = .4 so the page's own camera jump falls inside the crossfade | Retrieve experience by how a problem was solved.; Topic match; Solution match; Different path / Same topic; Same path |
 | 04 Network | 10 s | `#net` | Field by field, linked by solution path, then the aim | A reusable network of Metacases.; Field by field; Linked by solution path; The foundation; A foundation for experience-based AI. |
-| 05 Fields | 14.1 s | `#fields` | Three books open in turn; the page's book change runs at 0.55x, its fade-out at 0.3x | Three fields to start, eighteen classes of cases.; Economics; Finance; Social science; the class names |
+| 05 Fields | 14.1 s | `#fields` | The title alone, then the stage fades in where it will stay; three books open in turn. The page's book change runs at 0.55x, its fade-out at 0.3x | Three fields to start, eighteen classes of cases.; Economics; Finance; Social science; the class names |
 | 06a Arena | 9.3 s | `#arena` | Three portals, the agent lifts off, the wheel: provider, model, effort, harness | Three portals. Three tracks.; Model is the character. Harness is the weapon.; the loadout chips |
 | 06b Choose | 3.8 s | `#arena` | All portals open | Step through. Pick your track. |
 | 07 Participate | 8.5 s | `#rules` | Case → Model → Harness → Trajectory → Verifier → Result, with two hard cuts to skip the flashes | How to participate in the challenge.; the flow labels |
