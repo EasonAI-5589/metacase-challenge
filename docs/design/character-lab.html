@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Character lab</title>
+<style>
+  html, body { margin: 0; background: #070b14; color: #a8b3c7; font: 13px/1.4 Inter, system-ui, sans-serif; }
+  canvas { display: block; width: 100vw; height: 100vh; }
+  #note { position: fixed; left: 16px; top: 12px; letter-spacing: .08em; text-transform: uppercase; font-size: 11px; }
+</style>
+</head>
+<body>
+<div id="note">mc-kit characters · person(seed) and robot() · lit as the homepage chapters</div>
+<canvas id="lab"></canvas>
+<script type="module">
+import * as THREE from '../../assets/vendor/three/three.module.js';
+import { person, robot, lights, PALETTE, block } from '../../mc-kit.js';
+import { createPost } from '../../mc-toon.js';
+
+const q = new URLSearchParams(location.search);
+const canvas = document.getElementById('lab');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x1a1420);
+lights(scene, { span: 8 });
+const floor = block(scene, 20, .1, 8, 0x5a4636, 0, -.1, 0, .02);
+floor.receiveShadow = true;
+
+const cast = [];
+const view = q.get('view') || 'all';
+if (view === 'all' || view === 'people') {
+  for (let s = 0; s < 12; s++) {
+    const p = person(s, { hardHat: s === 10, carry: s === 11 ? PALETTE.violet : 0 });
+    p.root.position.set(-5.5 + (s % 6) * 2.2, 0, s < 6 ? -1.2 : 1.2);
+    p.root.scale.setScalar(1.4);
+    scene.add(p.root); cast.push(p);
+  }
+}
+if (view === 'all' || view === 'robots') {
+  [[0xf7f5f0, 0x8ff6ff], [PALETTE.cream, 0xffd666], [PALETTE.teal, 0xc4a7ff]].forEach(([c, e], k) => {
+    const r = robot(c, e);
+    r.root.position.set(-2.4 + k * 2.4, 0, view === 'robots' ? 0 : 3.4);
+    r.root.scale.setScalar(view === 'robots' ? 2.2 : 1.5);
+    scene.add(r.root); cast.push(r);
+  });
+}
+const angle = +(q.get('yaw') || 0);
+cast.forEach(c => { c.root.rotation.y = angle; });
+
+const camera = new THREE.PerspectiveCamera(view === 'all' ? 34 : 28, 1, .1, 100);
+camera.position.set(0, view === 'all' ? 5.2 : 2.6, view === 'all' ? 13.5 : 8.6);
+camera.lookAt(0, view === 'all' ? .9 : 1.1, view === 'all' ? .6 : 0);
+const post = createPost(renderer, { bloom: .22, threshold: .9, vignette: .2 });
+function size() {
+  const w = innerWidth, h = innerHeight;
+  renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix();
+  post.setSize(w, h);
+}
+addEventListener('resize', size); size();
+const fixed = q.has('t') ? +q.get('t') : null;
+function frame(ms) {
+  const t = fixed ?? ms / 1000;
+  cast.forEach((c, k) => c.update(t + k * .7, 0));
+  post.render ? post.render(scene, camera) : renderer.render(scene, camera);
+  if (fixed === null) requestAnimationFrame(frame); else document.body.dataset.ready = '1';
+}
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>

@@ -27,15 +27,19 @@ export const glowMat = (color, intensity = 1.4) => mat(color, { emissive: color,
 export function rbox(w, h, d, r = .06) {
   const key = `rb:${w}:${h}:${d}:${r}`;
   if (!geometries.has(key)) {
-    const g = new THREE.BoxGeometry(w, h, d, 3, 3, 3), a = g.attributes.position, p = new THREE.Vector3(), c = new THREE.Vector3();
+    const seg = r > .07 ? 7 : 3, g = new THREE.BoxGeometry(w, h, d, seg, seg, seg), a = g.attributes.position, p = new THREE.Vector3(), c = new THREE.Vector3();
     r = Math.min(r, w / 2, h / 2, d / 2);
+    const n = g.attributes.normal;
     for (let i = 0; i < a.count; i++) {
       p.fromBufferAttribute(a, i);
       c.set(THREE.MathUtils.clamp(p.x, -w / 2 + r, w / 2 - r), THREE.MathUtils.clamp(p.y, -h / 2 + r, h / 2 - r), THREE.MathUtils.clamp(p.z, -d / 2 + r, d / 2 - r));
-      p.sub(c); if (p.lengthSq() > 0) p.normalize().multiplyScalar(r); p.add(c);
+      p.sub(c);
+      // the surface normal is the direction out of the inner core, so it is shared across face seams
+      if (p.lengthSq() > 0) { p.normalize(); if (r > 0) n.setXYZ(i, p.x, p.y, p.z); p.multiplyScalar(r); }
+      p.add(c);
       a.setXYZ(i, p.x, p.y, p.z);
     }
-    g.computeVertexNormals();
+    if (r <= 0) g.computeVertexNormals();
     geometries.set(key, g);
   }
   return geometries.get(key);
@@ -63,21 +67,86 @@ function windows(parent, w, h, rows, cols, z, y0 = .3, color = PALETTE.window) {
   }
 }
 
-/* ---- people: Kenney-style minis — big head, boxy body, stubby legs ---- */
+/* ---- faces: shared by people and robots ---- */
+const FACE = { white: 0xffffff, blush: 0xff8a8a, shoe: [0x2a2f3b, 0x6b4a33, 0xf1f2f4, 0x3a4a6b], jacket: [0x2f3a56, 0xf6efe0, 0x3a3f4b, 0x5b4a3a] };
+// A blink that closes about every 3.7 s; deterministic in t, so scroll-driven scenes and the film agree.
+function blink(t, seed) {
+  const phase = ((t + seed * 1.37) % 3.7 + 3.7) % 3.7;
+  return phase < .14 ? 1 - Math.sin(phase / .14 * Math.PI) * .9 : 1;
+}
+const flat = (parent, geo, material, x, y, z) => { const m = add(parent, geo, material, x, y, z, false); m.receiveShadow = false; return m; };
+const smileGeo = (r, tube) => cached(`smile:${r}:${tube}`, () => new THREE.TorusGeometry(r, tube, 6, 16, Math.PI));
+const discGeo = r => cached(`disc:${r}`, () => new THREE.CircleGeometry(r, 18));
+
+/* ---- people: chibi minis — a big round head with a face, six haircuts, layered clothes ---- */
 export function person(seed = 0, { hardHat = false, carry = 0 } = {}) {
   const P = PALETTE, pick = (list, k) => list[(seed * k + k) % list.length];
   const root = new THREE.Group(), body = new THREE.Group(); root.add(body);
-  const legs = [-1, 1].map(s => { const g = new THREE.Group(); g.position.set(s * .09, .3, 0); body.add(g); block(g, .15, .3, .17, pick(P.pants, 3), 0, -.3, 0, .05); return g; });
-  block(body, .42, .38, .3, pick(P.shirts, 5), 0, .28, 0, .09);
-  const arms = [-1, 1].map(s => { const g = new THREE.Group(); g.position.set(s * .26, .6, 0); body.add(g); block(g, .11, .3, .13, pick(P.shirts, 5), 0, -.3, 0, .05); ball(g, .065, pick(P.skins, 7), 0, -.33, 0, 10); return g; });
+  const shirt = pick(P.shirts, 5), skin = pick(P.skins, 7), hair = pick(P.hair, 11), shoe = pick(FACE.shoe, 13);
+  const legs = [-1, 1].map(s => {
+    const g = new THREE.Group(); g.position.set(s * .09, .3, 0); body.add(g);
+    block(g, .15, .24, .17, pick(P.pants, 3), 0, -.24, 0, .065);
+    block(g, .17, .09, .23, shoe, 0, -.3, .025, .045);
+    return g;
+  });
+  block(body, .42, .38, .3, shirt, 0, .28, 0, .13);
+  const style = seed % 3; // 0 open jacket, 1 plain, 2 lanyard badge
+  if (style === 0) {
+    const jacket = pick(FACE.jacket, 17);
+    [-1, 1].forEach(s => block(body, .17, .36, .32, jacket, s * .13, .29, 0, .08));
+  }
+  block(body, .24, .04, .2, style === 0 ? shirt : P.cream, 0, .63, .02, .02); // collar
+  if (style === 2) { block(body, .085, .1, .02, P.cream, .1, .4, .155, .02).castShadow = false; block(body, .05, .02, .021, P.teal, .1, .43, .156, .006).castShadow = false; }
+  const arms = [-1, 1].map(s => {
+    const g = new THREE.Group(); g.position.set(s * .26, .6, 0); body.add(g);
+    block(g, .12, .29, .14, style === 0 ? pick(FACE.jacket, 17) : shirt, 0, -.29, 0, .055);
+    ball(g, .068, skin, 0, -.33, 0, 12);
+    return g;
+  });
   const head = new THREE.Group(); head.position.y = .66; body.add(head);
-  const skin = pick(P.skins, 7);
-  block(head, .44, .4, .4, skin, 0, 0, 0, .12);
-  const hair = pick(P.hair, 11);
-  if (hardHat) { add(head, cached('hat', () => new THREE.SphereGeometry(.27, 16, 8, 0, Math.PI * 2, 0, Math.PI / 2)), mat(P.amber), 0, .3, 0); block(head, .58, .04, .5, P.amber, 0, .28, .04, .02); }
-  else if (seed % 4 === 1) { block(head, .47, .1, .43, hair, 0, .34, 0, .05); block(head, .2, .05, .14, hair, 0, .36, .22, .02); } // cap
-  else { block(head, .46, .16, .42, hair, 0, .29, -.01, .08); block(head, .46, .22, .1, hair, 0, .14, -.17, .05); }
-  [-1, 1].forEach(s => block(head, .05, .07, .02, P.ink, s * .09, .17, .2, .02));
+  block(head, .46, .42, .42, skin, 0, 0, 0, .18);
+  [-1, 1].forEach(s => { const ear = ball(head, .055, skin, s * .232, .19, -.01, 12); ear.scale.set(.7, 1, .8); });
+  ball(head, .024, skin, 0, .145, .212, 10).castShadow = false; // nose
+  // eyes: glossy ovals with a highlight, grouped so they can blink
+  const eyes = [-1, 1].map(s => {
+    const g = new THREE.Group(); g.position.set(s * .095, .19, .2); head.add(g);
+    flat(g, rbox(.064, .088, .03, .03), mat(P.ink, { rough: .25 }), 0, 0, 0);
+    flat(g, cached('glint', () => new THREE.SphereGeometry(.014, 8, 6)), mat(FACE.white, { emissive: FACE.white, intensity: .9 }), s * .012 + .008, .02, .016);
+    return g;
+  });
+  [-1, 1].forEach(s => { const brow = flat(head, rbox(.085, .022, .02, .01), mat(hair), s * .095, .275, .208); brow.rotation.z = -s * (.08 + (seed % 3) * .06); });
+  [-1, 1].forEach(s => flat(head, discGeo(.036), mat(FACE.blush, { opacity: .5 }), s * .15, .125, .2105));
+  const mouth = flat(head, smileGeo(.032, .008), mat(P.ink), 0, .105, .211); mouth.rotation.z = Math.PI;
+  // hair
+  const H = (w, h, d, x, y, z, r = .06) => block(head, w, h, d, hair, x, y, z, r);
+  const cut = seed % 6;
+  // the back of the head: a dome facing -z that meets the crown and stops at the nape
+  const nape = (y = .225, tall = .74, wide = .97) => { const d = add(head, cached('haircrown', () => new THREE.SphereGeometry(.265, 24, 12, 0, Math.PI * 2, 0, Math.PI / 2)), mat(hair), 0, y, -.02); d.rotation.x = -Math.PI / 2; d.scale.set(wide, .82, tall); };
+  if (hardHat) {
+    const dome = add(head, cached('hat', () => new THREE.SphereGeometry(.27, 20, 10, 0, Math.PI * 2, 0, Math.PI / 2)), mat(P.amber, { rough: .45 }), 0, .32, 0); dome.scale.y = .85;
+    block(head, .56, .035, .5, P.amber, 0, .315, .04, .017); block(head, .06, .1, .5, mat(0xffd27a, { rough: .45 }), 0, .32, 0, .03);
+    nape();
+  } else if (cut === 1) { // cap
+    const cap = pick(P.shirts, 19) === shirt ? P.ink : pick(P.shirts, 19);
+    const dome = add(head, cached('capdome', () => new THREE.SphereGeometry(.25, 20, 10, 0, Math.PI * 2, 0, Math.PI / 2)), mat(cap), 0, .33, -.01); dome.scale.set(1, .62, 1);
+    block(head, .26, .03, .17, cap, 0, .345, .23, .015); ball(head, .025, cap, 0, .48, -.01, 8);
+    nape();
+  } else if (cut === 4) { // curls
+    [[0, .46, 0, .12], [-.14, .43, .07, .1], [.14, .43, .07, .1], [-.16, .42, -.1, .1], [.16, .42, -.1, .1], [0, .44, -.15, .11], [-.2, .3, -.08, .09], [.2, .3, -.08, .09], [-.09, .4, .16, .08], [.09, .4, .16, .08], [0, .26, -.2, .11]]
+      .forEach(([x, y, z, r]) => ball(head, r, hair, x, y, z, 12));
+  } else {
+    const crown = add(head, cached('haircrown', () => new THREE.SphereGeometry(.265, 24, 12, 0, Math.PI * 2, 0, Math.PI / 2)), mat(hair), 0, .3, -.012); crown.scale.set(.98, .72, .9);
+    if (cut !== 5) nape();
+    if (cut === 0) { const f = H(.36, .075, .08, -.02, .325, .19, .035); f.rotation.z = .1; }
+    if (cut === 2) { const sw = ball(head, .15, hair, .06, .43, .1, 16); sw.scale.set(1.25, .5, .9); sw.rotation.z = -.2; }
+    if (cut === 3) { ball(head, .115, hair, 0, .56, -.07, 14); H(.36, .06, .07, 0, .335, .195, .03); }
+    if (cut === 5) { nape(.17, 1, 1.04); [-1, 1].forEach(s => H(.08, .32, .3, s * .232, .06, -.04, .04)); H(.34, .075, .08, .03, .325, .19, .035); }
+  }
+  if (seed % 5 === 2 && !hardHat) { // round glasses
+    const frame = mat(P.ink, { rough: .35 }), ring = cached('lens', () => new THREE.TorusGeometry(.05, .009, 6, 20));
+    [-1, 1].forEach(s => flat(head, ring, frame, s * .095, .19, .228));
+    flat(head, rbox(.05, .012, .012, .005), frame, 0, .2, .228);
+  }
   let load = null;
   if (carry) { load = tile({ sig: (seed % SIGNATURES.length), edge: carry, size: .26 }); load.position.set(0, .52, .26); load.rotation.x = -1.2; body.add(load); }
   return {
@@ -86,8 +155,11 @@ export function person(seed = 0, { hardHat = false, carry = 0 } = {}) {
       const swing = Math.sin(t * 7 + seed) * .55 * walking;
       legs[0].rotation.x = swing; legs[1].rotation.x = -swing;
       if (load) { arms[0].rotation.x = arms[1].rotation.x = -1.1; } else { arms[0].rotation.x = -swing * .8; arms[1].rotation.x = swing * .8; }
-      body.position.y = Math.abs(Math.sin(t * 7 + seed)) * .035 * walking;
+      arms[0].rotation.z = -.06 - (1 - walking) * Math.sin(t * 1.3 + seed) * .03; arms[1].rotation.z = -arms[0].rotation.z;
+      body.position.y = Math.abs(Math.sin(t * 7 + seed)) * .035 * walking + (1 - walking) * (Math.sin(t * 1.6 + seed) + 1) * .004;
       head.rotation.y = Math.sin(t * .9 + seed) * .25 * (1 - walking);
+      head.rotation.z = Math.sin(t * .7 + seed * 2) * .05 * (1 - walking);
+      const open = blink(t, seed); eyes[0].scale.y = eyes[1].scale.y = open;
     },
   };
 }
@@ -250,19 +322,42 @@ export function cloud(scale = 1) {
   return g;
 }
 // A small robot: the agent of the Challenge, in the same toy style as the people.
+// Scenes reach into the robot: body.children[0] is the hull, [1] a foot; head.children are
+// [shell, visor, eye, eye, aerial, aerial tip] before any detail; hull, ink and eye colours
+// are matched by value to re-skin it. Keep that order and those colours.
 export function robot(color = 0xf7f5f0, eye = 0x8ff6ff) {
   const root = new THREE.Group(), body = new THREE.Group(); root.add(body);
-  block(body, .5, .48, .38, color, 0, .12, 0, .13);
-  [-1, 1].forEach(s => block(body, .12, .14, .16, PALETTE.ink, s * .14, 0, 0, .04));
+  block(body, .5, .48, .38, color, 0, .12, 0, .17);
+  [-1, 1].forEach(s => block(body, .14, .13, .2, PALETTE.ink, s * .14, 0, .02, .06));
   const head = new THREE.Group(); head.position.y = .62; body.add(head);
-  block(head, .52, .4, .4, color, 0, 0, 0, .12);
-  block(head, .42, .2, .04, PALETTE.ink, 0, .1, .2, .05);
+  block(head, .52, .4, .4, color, 0, 0, 0, .16);
+  block(head, .44, .25, .04, mat(PALETTE.ink, { rough: .22 }), 0, .075, .19, .09);
   const eyeMat = mat(eye, { emissive: eye, intensity: 2.2 });
-  [-1, 1].forEach(s => block(head, .07, .1, .03, eyeMat, s * .1, .15, .225, .02));
+  const eyes = [-1, 1].map(s => block(head, .085, .115, .03, eyeMat, s * .1, .135, .222, .04));
   cyl(head, .015, .015, .2, PALETTE.ink, 0, .4, 0, 6); ball(head, .05, mat(PALETTE.amber, { emissive: PALETTE.amber, intensity: 1.6 }), 0, .62, 0, 10);
+  // detail, after the indexed parts: a glowing smile, cheeks, ear pods, a visor glint and arms
+  const smile = flat(head, smileGeo(.04, .011), eyeMat, 0, .118, .224); smile.rotation.z = Math.PI;
+  [-1, 1].forEach(s => flat(head, discGeo(.026), mat(FACE.blush, { emissive: FACE.blush, intensity: .5, opacity: .55 }), s * .165, .105, .2125));
+  [-1, 1].forEach(s => {
+    const pod = cyl(head, .085, .085, .06, color, s * .27, .17, 0, 20); pod.rotation.z = Math.PI / 2; pod.position.y = .2;
+    const glow = cyl(head, .05, .05, .065, eyeMat, s * .275, .17, 0, 16); glow.rotation.z = Math.PI / 2; glow.position.y = .2; glow.castShadow = false;
+  });
+  flat(head, rbox(.1, .018, .006, .008), mat(FACE.white, { opacity: .28 }), -.13, .292, .212);
+  const arms = [-1, 1].map(s => {
+    const g = new THREE.Group(); g.position.set(s * .29, .44, 0); body.add(g);
+    ball(g, .045, PALETTE.ink, 0, 0, 0, 10);
+    block(g, .1, .17, .12, color, s * .015, -.2, 0, .05);
+    return g;
+  });
   return {
     root, head,
-    update(t, walking = 0) { body.position.y = Math.abs(Math.sin(t * 7)) * .035 * walking + (Math.sin(t * 2) + 1) * .005; head.rotation.y = Math.sin(t * .8) * .3 * (1 - walking); },
+    update(t, walking = 0) {
+      body.position.y = Math.abs(Math.sin(t * 7)) * .035 * walking + (Math.sin(t * 2) + 1) * .005;
+      head.rotation.y = Math.sin(t * .8) * .3 * (1 - walking);
+      head.rotation.z = Math.sin(t * .6 + 1) * .04 * (1 - walking);
+      arms.forEach((a, k) => { a.rotation.x = Math.sin(t * 7 + k * Math.PI) * .5 * walking + Math.sin(t * 1.4 + k) * .06; a.rotation.z = (k ? 1 : -1) * (.1 + Math.sin(t * 2 + k) * .03); });
+      const open = blink(t, 7); eyes[0].scale.y = eyes[1].scale.y = open;
+    },
   };
 }
 export function crane(color = PALETTE.amber) {
