@@ -39,8 +39,9 @@ const VERTEX = 'varying vec2 vUv;void main(){vUv=uv;gl_Position=vec4(position.xy
 /* Scene → HDR target with depth → bright pass and blur at a third of the size →
  * composite: base + bloom, depth-edge ink lines, vignette, tone mapping. `feather`
  * ([top, bottom] in CSS pixels) fades the picture out at its upper and lower edges, so a
- * view drawn into part of a transparent canvas dissolves into the page behind it. */
-export function createPost(renderer, { bloom = 0.3, threshold = .9, ink = 0x0a0f1f, inkStrength = 0, inkWidth = 1, vignette = 0.28, feather = [0, 0] } = {}) {
+ * view drawn into part of a transparent canvas dissolves into the page behind it. `alpha`
+ * keeps the scene's own transparency, so a picture with a clear background sits over the page. */
+export function createPost(renderer, { bloom = 0.3, threshold = .9, ink = 0x0a0f1f, inkStrength = 0, inkWidth = 1, vignette = 0.28, feather = [0, 0], alpha = false } = {}) {
   const depthTexture = new THREE.DepthTexture(1, 1);
   depthTexture.type = THREE.UnsignedIntType;
   const sceneTarget = new THREE.WebGLRenderTarget(1, 1, { type: THREE.HalfFloatType, minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, depthTexture, samples: 4 });
@@ -63,27 +64,29 @@ export function createPost(renderer, { bloom = 0.3, threshold = .9, ink = 0x0a0f
       base: { value: sceneTarget.texture }, depth: { value: depthTexture }, glow: { value: blurB.texture },
       texel: { value: new THREE.Vector2() }, near: { value: .1 }, far: { value: 100 },
       bloom: { value: bloom }, ink: { value: new THREE.Color(ink) }, inkStrength: { value: inkStrength }, vignette: { value: vignette },
-      feather: { value: new THREE.Vector2() },
+      feather: { value: new THREE.Vector2() }, keepAlpha: { value: alpha ? 1 : 0 },
     },
     vertexShader: VERTEX,
     fragmentShader: `varying vec2 vUv;uniform sampler2D base;uniform sampler2D depth;uniform sampler2D glow;uniform vec2 texel;
-      uniform float near;uniform float far;uniform float bloom;uniform vec3 ink;uniform float inkStrength;uniform float vignette;uniform vec2 feather;
+      uniform float near;uniform float far;uniform float bloom;uniform vec3 ink;uniform float inkStrength;uniform float vignette;uniform vec2 feather;uniform float keepAlpha;
       float lin(vec2 uv){float z=texture2D(depth,uv).x*2.-1.;return 2.*near*far/(far+near-z*(far-near));}
       void main(){
-        vec3 c=texture2D(base,vUv).rgb;
+        vec4 src=texture2D(base,vUv);vec3 c=src.rgb;
         float d=lin(vUv);
         float dx=abs(lin(vUv+vec2(texel.x,0.))-d)+abs(lin(vUv-vec2(texel.x,0.))-d);
         float dy=abs(lin(vUv+vec2(0.,texel.y))-d)+abs(lin(vUv-vec2(0.,texel.y))-d);
         float edge=smoothstep(.035,.09,(dx+dy)/max(d,.001));
         edge*=1.-smoothstep(far*.45,far*.9,d);
         c=mix(c,ink,edge*inkStrength);
-        c+=texture2D(glow,vUv).rgb*bloom;
+        vec3 g=texture2D(glow,vUv).rgb*bloom;c+=g;
         c*=1.-vignette*pow(length((vUv-.5)*vec2(1.1,1.)),1.6);
         gl_FragColor=vec4(c,1.);
         #include <tonemapping_fragment>
         #include <colorspace_fragment>
         float a=smoothstep(0.,feather.y+1e-4,vUv.y)*smoothstep(0.,feather.x+1e-4,1.-vUv.y);
-        gl_FragColor=vec4(gl_FragColor.rgb*a,a);
+        // alpha: keep the scene's own coverage (its clear is transparent), plus its glow, premultiplied
+        float cover=mix(1.,clamp(max(src.a,max(g.r,max(g.g,g.b))),0.,1.),keepAlpha);
+        gl_FragColor=vec4(gl_FragColor.rgb*a,a*cover);
       }`,
     depthTest: false, depthWrite: false,
   });

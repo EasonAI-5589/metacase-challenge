@@ -33,6 +33,38 @@ const ART = {
 };
 const FALLBACK = blk(40, 26, 80, 68, 'a', 12) + blk(52, 38, 56, 44, 'w', 6);
 
+/* ---- section pictures for the other pages' chapter headings, in the same toy hand ---- */
+const door = (x, c) => blk(x - 15, 30, 30, 62, 'k', 15) + `<rect class="${c}" x="${x - 11}" y="36" width="22" height="54" rx="11"/>` + `<rect class="hl" x="${x - 7}" y="40" width="6" height="30" rx="3"/>`;
+const SPOT = {
+  tracks: door(48, 'a') + door(80, 'y') + door(112, 'v') + '<rect class="w" x="30" y="92" width="100" height="8" rx="4"/>',
+  systems: [0, 1, 2].map(k => `<path class="${['a', 'b', 'v'][k]}" d="M80 ${30 + k * 20}l40 14-40 14-40-14z"/><path class="hl" d="M80 ${32 + k * 20}l30 10-30 4-30-4z"/>`).reverse().join(''),
+  timeline: '<rect class="k" x="26" y="58" width="108" height="5" rx="2.5" opacity=".35"/>' + [36, 62, 88, 114].map((x, k) => `<circle class="${k < 2 ? 'a' : 'w'}" cx="${x}" cy="60" r="${k === 1 ? 10 : 7}"/>`).join('') + blk(50, 24, 26, 22, 'w', 6) + '<rect class="r" x="50" y="24" width="26" height="7" rx="3"/>' + blk(84, 74, 30, 20, 'b', 6),
+  awards: '<path class="y" d="M56 24h48v18c0 16-10 26-24 26s-24-10-24-26z"/><path class="yl" d="M60 28h40v8H60z" opacity=".7"/><path class="y ln" d="M56 32H44c0 12 6 18 14 18M104 32h12c0 12-6 18-14 18"/>' + blk(72, 68, 16, 12, 'y', 3) + blk(58, 80, 44, 14, 'a', 5) + '<circle class="w" cx="80" cy="44" r="6"/>',
+  join: person(56, 42, 'a') + person(104, 42, 'b') + '<path class="y" d="M68 66q12-10 24 0l-4 8q-8-6-16 0z"/>' + '<circle class="r" cx="80" cy="30" r="6"/><path class="r" d="M74 30l6 10 6-10z"/>',
+  harness: blk(32, 46, 96, 50, 'a', 10) + '<path class="k" d="M62 46v-8a6 6 0 0 1 6-6h24a6 6 0 0 1 6 6v8h-7v-6H69v6z"/>' + blk(44, 58, 20, 26, 'w', 4) + blk(70, 58, 20, 26, 'y', 4) + blk(96, 58, 20, 26, 'b', 4),
+  link: '<rect class="a" x="34" y="44" width="52" height="30" rx="15"/><rect class="bg2" x="44" y="52" width="32" height="14" rx="7"/><rect class="b" x="74" y="44" width="52" height="30" rx="15"/><rect class="bg2" x="84" y="52" width="32" height="14" rx="7"/><rect class="a" x="70" y="54" width="20" height="10" rx="5"/>',
+  loop: '<path class="a ln th" d="M50 70a32 32 0 1 1 26 18"/><path class="a" d="M64 82 82 92 72 74z"/>' + blk(66, 46, 28, 24, 'w', 6) + '<circle class="y" cx="80" cy="58" r="6"/>',
+  map: blk(30, 26, 100, 70, 'w', 10) + '<path class="b" d="M30 50q30-14 50 4t50-6v24q-26 12-50-4T30 74z" opacity=".8"/>' + [[52, 46], [82, 62], [108, 44]].map(([x, y], k) => `<circle class="${['a', 'y', 'r'][k]}" cx="${x}" cy="${y}" r="7"/>`).join('') + '<path class="k ln sl" d="M52 46 82 62 108 44" opacity=".5"/>',
+  partners: blk(30, 44, 42, 52, 'a', 6) + blk(88, 34, 42, 62, 'b', 6) + [0, 1, 2].map(k => `<rect class="w" x="40" y="${54 + k * 12}" width="22" height="6" rx="2"/><rect class="w" x="98" y="${46 + k * 14}" width="22" height="7" rx="2"/>`).join('') + '<path class="y ln" d="M72 60q8-8 16 0"/>',
+  contact: blk(30, 34, 100, 60, 'w', 10) + '<path class="a ln" d="M34 40 80 70l46-30"/>' + '<circle class="r" cx="122" cy="36" r="10"/><text x="122" y="41" class="tx">1</text>',
+  workflow: [[36, 'a'], [70, 'y'], [104, 'v']].map(([x, c]) => blk(x, 44, 26, 30, c, 8)).join('') + '<path class="k ln sl" d="M62 59h8M96 59h8" opacity=".5"/>' + '<circle class="g" cx="130" cy="42" r="9"/><path class="w ln sl" d="M126 42l3 3 6-6"/>',
+  pilot: '<path class="w" d="M80 18c16 10 22 28 18 48H62c-4-20 2-38 18-48z"/><circle class="a" cx="80" cy="42" r="8"/><path class="r" d="M62 60 48 76l16-2zM98 60l14 16-16-2z"/><path class="y" d="M68 68h24l-12 24z"/>',
+  video: blk(28, 30, 104, 62, 'k', 12) + '<rect class="a" x="34" y="36" width="92" height="46" rx="8" opacity=".85"/><path class="w" d="M72 48v22l20-11z"/>' + '<rect class="b" x="34" y="86" width="60" height="4" rx="2"/>',
+};
+const SECTION = {
+  tracks: 'tracks', system: 'systems', timeline: 'timeline', awards: 'awards', 'take-part': 'join',
+  'challenge-harnesses': 'harness', definition: 'filings', development: 'timeline', landscape: 'map', breakdowns: 'systems', compare: 'law', 'self-evolution': 'loop', provenance: 'link',
+  'improvement-directions': 'pilot', concept: 'psychology', 'research-map': 'map', cycle: 'loop', methods: 'numeric', 'rsi-versions': 'statistics',
+  'leaderboard-dev100': 'awards', research: 'psychology',
+  institutions: 'publicfinance', team: 'society', 'student-leaders': 'join', partners: 'partners', contact: 'contact',
+  demo: 'video', workflow: 'workflow', cases: 'filings', review: 'accounting', pilot: 'pilot', scope: 'replication', explore: 'map',
+};
+export function sectionArt(id) {
+  const key = SECTION[id];
+  if (!key) return '';
+  return `<svg viewBox="0 0 160 120" focusable="false">${ground}${blob}${SPOT[key] || ART[key] || FALLBACK}</svg>`;
+}
+
 export function classArt(id) {
   return `<svg viewBox="0 0 160 120" focusable="false">${ground}${blob}${ART[id] || FALLBACK}</svg>`;
 }
