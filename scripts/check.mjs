@@ -12,10 +12,10 @@ const redirects = { 'data.html': 'challenge.html#replication-data', 'agent.html'
 export const publicFiles = [
   ...pages, ...Object.keys(redirects),
   'styles.css', 'site.css', 'language.css', 'mountain.css', 'index.css', 'challenge.css', 'data.css', 'agent.css', 'evolution.css', 'harness.css', 'leaderboard.css', 'teams.css', 'professional-tasks.css',
-  'v2.css', 'home.css', 'skin.css', 'scene.css', 'arena.css', 'metacase.css',
+  'v2.css', 'home.css', 'skin.css', 'scene.css', 'arena.css', 'metacase.css', 'subpage-toy.css',
   'theme.js', 'site.js', 'language.js', 'charts.js', 'mountain.js', 'leaderboard.js', 'leaderboard-data.js', 'leaderboard-board.js', 'leaderboard-dev100.js', 'leaderboard-dev100-data.js', 'evolution.js',
   'v2.js', 'home.js', 'backdrop.js', 'scene.js', 'arena.js', 'arena-scene.js', 'arena-motion.js', 'arena-models.js', 'arena-data.js', 'arena-campus.js', 'arena-subtracks.js',
-  'metacase.js', 'metacase-world.js', 'metacase-library.js', 'metacase-courier.js', 'metacase-anatomy.js', 'metacase-archive.js', 'metacase-run.js', 'metacase-cards.js', 'mc-stage.js', 'mc-toon.js', 'mc-kit.js', 'mc-rail.js', 'portal-warp.js',
+  'metacase.js', 'metacase-world.js', 'metacase-library.js', 'metacase-courier.js', 'metacase-anatomy.js', 'metacase-archive.js', 'metacase-run.js', 'metacase-cards.js', 'mc-stage.js', 'mc-toon.js', 'mc-kit.js', 'mc-rail.js', 'mc-classart.js', 'portal-warp.js', 'subpage-toy.js', 'subpage-toy-scenes.js',
   '.nojekyll',
 ];
 for (const file of publicFiles) {
