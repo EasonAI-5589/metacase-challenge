@@ -1549,12 +1549,15 @@ export function createArenaScene(canvas, { onWeaponProject, onPortalProject } = 
       ),
     );
     cameraLook.set(...a.look).lerp(vec(...b.look), f);
-    heroPos.set(...a.hero).lerp(vec(...b.hero), f);
+    // On the way back to the three-portal view the robot reaches the centre in the first half of the
+    // move, so it is not crossing in front of the Finance doorway while the camera pulls back.
+    const heroF = b.p === 1 ? smooth(a.p, a.p + (b.p - a.p) * 0.55, p) : f;
+    heroPos.set(...a.hero).lerp(vec(...b.hero), heroF);
     return {
-      heading: mix(a.heading, b.heading, f),
+      heading: mix(a.heading, b.heading, heroF),
       fov: mix(a.fov, b.fov, f),
       moving: Math.hypot(a.hero[0] - b.hero[0], a.hero[2] - b.hero[2]) > 1,
-      f,
+      f: heroF,
     };
   }
   function draw(dt) {
@@ -1627,15 +1630,25 @@ export function createArenaScene(canvas, { onWeaponProject, onPortalProject } = 
     const descent = 1 - smooth(0, 1, arrival);
     const travel = shot.moving ? Math.sin(Math.PI * shot.f) : 0;
     const descentHeight = 8.5 * descent * (1 - takeoff);
-    const hover = descentHeight + takeoff * (1.10 + travel * 0.64 +
-      (ambient ? Math.sin(time * 1.65) * 0.045 : 0));
+    const inTrackTunnel = smooth(0.37, 0.41, p) * (1 - smooth(0.92, 0.96, p));
+    // In a track room the robot settles onto the doorway's glyph ring and only lifts to fly between
+    // rooms, so it stands in front of the portal instead of covering it; at the closing view of the
+    // three portals it comes down to the floor, clear of the middle doorway.
+    const settle = smooth(0.94, 0.965, p);
+    const cruise = mix(mix(1.10, 0.27, inTrackTunnel), 0.06, settle);
+    const hover = descentHeight + takeoff * (cruise + travel * 0.64 +
+      (ambient ? Math.sin(time * 1.65) * 0.045 * (1 - settle) : 0));
     const impact = smooth(0.89, 0.95, arrival) * (1 - smooth(0.95, 1, arrival)) * (1 - takeoff);
     const airborne = smooth(0.035, 0.40, hover);
     const braking = smooth(0.25, 0.72, arrival) * (1 - smooth(0.90, 1, arrival));
     const enginePower = (1 - takeoff) * airborne * (0.45 + braking * 0.75) +
       takeoff * (1.05 + travel * 0.25);
-    const inTrackTunnel = smooth(0.37, 0.41, p) * (1 - smooth(0.92, 0.96, p));
-    toyRobot.root.scale.setScalar(mix(mix(2.85, 2.32, inventoryAmount), 2.15, inTrackTunnel));
+    // Sized against the doorways (veil 5.3 × 6.2, frame 6.5 high): smaller in the wide views and
+    // in front of a portal, larger only at the wheel, where the loadout is the subject.
+    const robotScale = mix(mix(2.0, 2.32, inventoryAmount), 1.6, inTrackTunnel);
+    toyRobot.root.scale.setScalar(robotScale);
+    // the thrusters were built for the robot at 2.85: they stay under its feet and in proportion
+    jetMounts.forEach((mount, index) => { mount.position.x = (index ? 1 : -1) * 0.14 * robotScale; mount.scale.setScalar(robotScale / 2.85); });
     agent.position.y += hover;
     body.position.y = 0;
     body.scale.set(1 + impact * 0.018, 1 - impact * 0.045, 1 + impact * 0.018);
@@ -1673,7 +1686,7 @@ export function createArenaScene(canvas, { onWeaponProject, onPortalProject } = 
     });
     agentGround.position.set(heroPos.x, 0.07, heroPos.z);
     agentGround.material = weaponLights[activeWeaponIdx] || dim;
-    agentHalo.position.set(heroPos.x, 2 + hover, heroPos.z);
+    agentHalo.position.set(heroPos.x, 2 * robotScale / 2.85 + hover, heroPos.z);
     const frontLightMix = Math.max(inTrackTunnel, inventoryAmount);
     heroLight.position.copy(agent.position).add(vec(mix(-1.6, 1.1, frontLightMix), 2.8, mix(2, 3.4, frontLightMix)));
     // bright enough to show off the loadout at the wheel; soft inside a track tunnel
@@ -1689,15 +1702,16 @@ export function createArenaScene(canvas, { onWeaponProject, onPortalProject } = 
     backRotation.slerp(showcaseRotation, inventoryAmount);
     cameraRight.set(1, 0, 0).applyQuaternion(camera.quaternion);
     cameraRight.y = 0; cameraRight.normalize();
-    hoverPosition.copy(agent.position).addScaledVector(cameraRight, 2.05);
-    hoverPosition.y += 1.65 + (ambient ? Math.sin(time * 1.7 + 0.7) * 0.07 : 0);
+    // the carried weapon keeps the same place beside the smaller robot in a track room
+    hoverPosition.copy(agent.position).addScaledVector(cameraRight, mix(2.05, 1.55, inTrackTunnel));
+    hoverPosition.y += mix(1.65, 1.25, inTrackTunnel) + (ambient ? Math.sin(time * 1.7 + 0.7) * 0.07 : 0);
     weaponMount.position.copy(backPosition).lerp(hoverPosition, deployment);
     aimMatrix.lookAt(roomTargets[activeRoom], weaponMount.position, up);
     aimRotation.setFromRotationMatrix(aimMatrix);
     weaponMount.quaternion.copy(backRotation).slerp(aimRotation, deployment);
     // at the wheel the six bays already show every weapon, so the carried one shrinks away and
     // leaves the chest plate and the bottom bay clear; it returns as the wheel closes
-    const carriedScale = mix(1.55 * (1 - inventoryAmount), 2.1, deployment);
+    const carriedScale = mix(1.55 * (1 - inventoryAmount), mix(2.1, 1.6, inTrackTunnel), deployment);
     weapons.forEach(w => w.scale.setScalar(Math.max(0.001, carriedScale)));
     weaponMount.visible = carriedScale > 0.02;
     weaponMount.updateMatrixWorld(true);
