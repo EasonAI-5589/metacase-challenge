@@ -1,7 +1,7 @@
 // Captures shots frame by frame. FPS=10 gives the rough cut, the default 60 the master.
 //   node capture.mjs 01-hero,06a-arena     FPS=10 node capture.mjs all
 import { openStage, step, warm, stepsTaken, sectionGeometry, pinnedY, STAGE_CSS, FPS, ORIGIN } from './lib/stage.mjs';
-import { SHOTS, CUBIC_IO, XFADE } from './shots.mjs';
+import { SHOTS, CUBIC_IO, SCENE_LAYER } from './shots.mjs';
 import { visibleText } from './lib/onscreen.mjs';
 import fs from 'node:fs';
 
@@ -17,11 +17,20 @@ const bezier = ([x1, y1, x2, y2]) => t => {
   return 3 * (1 - u) ** 2 * u * y1 + 3 * (1 - u) * u ** 2 * y2 + u ** 3;
 };
 const io = bezier(CUBIC_IO), e2 = bezier([0.33, 1, 0.68, 1]);
+// A run of 'glide' keys is a monotone cubic: speed is continuous through its keys and zero where the run starts and ends.
 const track = (keys, t) => {
   if (t <= keys[0][0]) return keys[0][1];
+  const slope = j => (keys[j][1] - keys[j - 1][1]) / (keys[j][0] - keys[j - 1][0]);
+  const tangent = j => {
+    if (keys[j][2] !== 'glide' || keys[j + 1]?.[2] !== 'glide') return 0;
+    const a = slope(j), b = slope(j + 1);
+    return a * b <= 0 ? 0 : 2 * a * b / (a + b);
+  };
   for (let i = 1; i < keys.length; i++) if (t <= keys[i][0]) {
-    const [a, va] = keys[i - 1], [b, vb, kind] = keys[i], k = (t - a) / (b - a);
-    return va + (vb - va) * (kind === 'linear' ? k : io(k));
+    const [a, va] = keys[i - 1], [b, vb, kind] = keys[i], h = b - a, k = (t - a) / h;
+    if (kind !== 'glide') return va + (vb - va) * io(k);
+    const m0 = tangent(i - 1), m1 = tangent(i), k2 = k * k, k3 = k2 * k;
+    return (2 * k3 - 3 * k2 + 1) * va + (k3 - 2 * k2 + k) * h * m0 + (3 * k2 - 2 * k3) * vb + (k3 - k2) * h * m1;
   }
   return keys.at(-1)[1];
 };
@@ -38,7 +47,8 @@ const pick = process.argv[2] || 'all';
 const list = pick === 'all' ? SHOTS.filter(s => !s.reuse) : SHOTS.filter(s => pick.split(',').includes(s.id));
 const report = [];
 // Every quarter second, the readable text of the frame and its box on the 1080p output go into a ledger, for the provenance and safe-area checks.
-const ledger = {};
+const ledger = {}, painted = {};
+const SHUTTLE_FILE = `out/review/shuttle-at-${FPS}fps.json`;
 const note = async (page, id, t, scale, everyFrame = false) => {
   if (!everyFrame && Math.round(t * FPS) % Math.max(1, Math.round(FPS / 4))) return;
   const seen = await page.evaluate(visibleText, scale);
@@ -69,22 +79,27 @@ const captureShot = async (shot, attempt) => {
     return;
   }
   const [width, height] = shot.viewport || [1280, 720], scale = 1920 / width;
-  const { browser, page, errors } = active = await openStage({ width, height, extraCss: STAGE_CSS + (shot.css || ''), loadout: shot.loadout || null });
-  await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
+  const shuttleAt = shot.shuttleFrom ? JSON.parse(fs.readFileSync(SHUTTLE_FILE, 'utf8')) : null;
+  const { browser, page, errors } = active = await openStage({ width, height, extraCss: STAGE_CSS + (shot.css || ''), loadout: shot.loadout || null, holdNavigation: !!shot.holdNavigation, shuttleAt, pageDpr: shot.pageDpr || null, stageText: !shot.url, ...(shot.url ? { url: `${ORIGIN}/${shot.url}` } : {}) });
+  const scrolled = !shot.url;
+  if (scrolled) await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
   await step(page);
   await page.waitForTimeout(200);
-  const g = await page.evaluate(sectionGeometry);
+  const g = scrolled ? await page.evaluate(sectionGeometry) : {};
   const resolve = v => {
     if (typeof v === 'number') return v;
     const m = /^(\w+)([+-]\d+)?$/.exec(v);
     return g[m[1]].top + Number(m[2] || 0);
   };
   const yAt = t => {
+    if (!scrolled) return null;
     if (shot.y) return resolve(track(shot.y.map(([a, v]) => [a, v]), 0) ?? 0);
     const keys = shot.keys.map(([a, v, kind]) => [a, typeof v === 'object' ? resolve(v.y) : pinnedY(g[shot.section], v), kind]);
     return track(keys, t);
   };
   const yStart = shot.warmY ? resolve(shot.warmY) : yAt(0);
+  // the arriving page: its guardian's modules and models load on real time once the fake clock has passed the page's delay
+  if (shot.url) { for (let i = 0; i < 90; i++) await step(page); await page.waitForLoadState('networkidle'); await page.waitForTimeout(500); }
   const ready = shot.ready, arena = !!shot.arena;
   await warm(page, { y: yStart, timeoutMs: 30000, until: arena
     ? () => { const c = document.querySelector('.mc-chapter'), v = document.querySelector('.mc-canvas'); return c.dataset.renderer === 'webgl' && v.dataset.robotModel === 'mc-kit' && v.dataset.weaponAssets === 'kenney-cc0'; }
@@ -96,8 +111,11 @@ const captureShot = async (shot, attempt) => {
   const overrun = stepsTaken() > warmSteps;
   while (stepsTaken() < warmSteps) await step(page, { y: yStart });
   const VEILED = 'canvas.mc-stage, [data-tags="hero"]';
+  // the same dark as the last frame of the warp, doorway glow where it was, ready for the replayed arrival
+  if (shot.shuttleFrom) await page.evaluate(({ x, y }) => { const r = document.documentElement; r.classList.remove('is-shuttle-out'); r.dataset.shuttle = 'econ'; r.style.setProperty('--shuttle-x', `${x}%`); r.style.setProperty('--shuttle-y', `${y}%`); window.scrollTo({ top: document.getElementById('track-econ').getBoundingClientRect().top + scrollY - 36, behavior: 'instant' }); }, shuttleAt);
   if (shot.veil) await page.evaluate(sel => { for (const c of document.querySelectorAll(sel)) c.style.opacity = '0'; }, VEILED);
   const boxExtents = {}, boxOutside = [];
+  const swapAt = (shot.swaps || []).map(p => { for (let f = 0; ; f++) if (track(shot.keys, f / FPS) >= p) return f / FPS; });
   const events = [...(shot.at || []), ...(shot.releaseAt ? [[shot.releaseAt, 'window.__release()']] : [])].sort((a, b) => a[0] - b[0]);
   if (!shot.releaseAt) await page.evaluate(() => window.__release());
   for (let i = 0; i < frames; i++) {
@@ -111,18 +129,17 @@ const captureShot = async (shot, attempt) => {
       const [a, b] = f.at, v = t <= a ? f.from : t >= b ? f.to : f.from + (f.to - f.from) * e2((t - a) / (b - a));
       await page.evaluate(([sel, v]) => { for (const el of document.querySelectorAll(sel)) el.style.filter = v >= 1 ? '' : `opacity(${v})`; }, [f.sel, v]);
     }
-    // text layers leave before a crossfade and arrive after it, so two sets of words never stack
-    const textOut = shot.textOut ?? true, textIn = shot.textIn ?? true, end = shot.seconds - XFADE;
-    const leaving = textOut ? e2(Math.min(1, Math.max(0, (end - t) / .25))) : 1;
-    const arriving = textIn ? e2(Math.min(1, Math.max(0, (t - XFADE) / .25))) : 1;
-    const k = Math.min(leaving, arriving), mode = k < 1 ? ((leaving < 1 ? textOut : textIn) === 'band' ? 'band' : 'all') : null;
-    await page.evaluate(([k, mode]) => {
-      const root = document.documentElement;
-      if (mode) { root.dataset.textFade = mode; root.style.setProperty('--shoot-text', k); } else delete root.dataset.textFade;
-    }, [k, mode]);
+    if (swapAt.length) {
+      const level = swapAt.reduce((v, at) => v * (t < at - .22 || t >= at + .3 ? 1 : t < at ? 1 - io((t - at + .22) / .22) : e2((t - at) / .3)), 1);
+      await page.evaluate(v => { document.querySelector('.mc-copy').style.filter = v >= 1 ? '' : `opacity(${v})`; }, level);
+    }
+    if (shot.dips) {
+      const dark = 1 / 30, level = shot.dips.reduce((v, [a, b, c]) => v * (t < a || t >= c ? 1 : t < b ? 1 - io((t - a) / (b - a)) : t < b + dark ? 0 : e2((t - b - dark) / (c - b - dark))), 1);
+      await page.evaluate(([sel, v]) => { for (const el of document.querySelectorAll(sel)) el.style.filter = v >= 1 ? '' : `opacity(${v})`; }, [SCENE_LAYER, level]);
+    }
     await step(page, { y, rate: shot.rate ? shot.rate.findLast(([a]) => a <= t)[1] : 1 });
     const at = await page.evaluate(() => ({ y: scrollY, p: Number(document.querySelector('.mc-chapter')?.dataset.progress) }));
-    if (Math.abs(at.y - y) > 1) mismatches.push({ i, want: y, got: at.y });
+    if (scrolled && Math.abs(at.y - y) > 1) mismatches.push({ i, want: y, got: at.y });
     await note(page, shot.id, t, scale, shot.auditEveryFrame);
     // Text is not the only thing that can cross the safe area: the graphics that carry it are measured too.
     if (shot.auditBoxes && t >= shot.auditBoxes.from) {
@@ -138,13 +155,15 @@ const captureShot = async (shot, attempt) => {
     }
     await shoot(page, `${out}/${String(i).padStart(5, '0')}.jpg`);
   }
-  const rendererState = await page.evaluate(() => ({ arena: document.querySelector('.mc-chapter').dataset.renderer || null, lenis: !!window.__lenis, fonts: document.fonts.status }));
+  if (shot.holdNavigation) fs.writeFileSync(SHUTTLE_FILE, await page.evaluate(() => sessionStorage.getItem('metacase-shuttle')));
+  painted[shot.id] = await page.evaluate(() => [...window.__painted]);
+  const rendererState = await page.evaluate(() => ({ arena: document.querySelector('.mc-chapter')?.dataset.renderer || null, lenis: !!window.__lenis, fonts: document.fonts.status }));
   report.push({ id: shot.id, frames, errors, attempt, warmOverrun: overrun, ...(shot.auditBoxes ? { boxExtents, boxOutsideFrames: boxOutside.length, boxOutsideFirst: boxOutside.slice(0, 3) } : {}), mismatches: mismatches.slice(0, 5), mismatchCount: mismatches.length, rendererState, seconds: Math.round((Date.now() - t0) / 1000) });
   console.log(JSON.stringify(report.at(-1)));
   await browser.close();
 };
 
-const ledgerPath = `out/review/onscreen-${FPS}fps.json`;
+const ledgerPath = `out/review/onscreen-${FPS}fps.json`, paintedPath = `out/review/painted-${FPS}fps.json`;
 for (const shot of list) {
   for (let attempt = 1; ; attempt++) {
     try { await captureShot(shot, attempt); break; }
@@ -159,5 +178,7 @@ for (const shot of list) {
   if (written !== wanted) throw new Error(`${shot.id}: ${written} frames on disk, expected ${wanted}`);
   const previous = fs.existsSync(ledgerPath) ? JSON.parse(fs.readFileSync(ledgerPath, 'utf8')) : {};
   fs.writeFileSync(ledgerPath, JSON.stringify({ ...previous, [shot.id]: ledger[shot.id] }, null, 2));
+  const paintedBefore = fs.existsSync(paintedPath) ? JSON.parse(fs.readFileSync(paintedPath, 'utf8')) : {};
+  fs.writeFileSync(paintedPath, JSON.stringify({ ...paintedBefore, [shot.id]: painted[shot.id] }, null, 2));
 }
 fs.writeFileSync(`out/review/capture-report-${FPS}fps.json`, JSON.stringify(report, null, 2));

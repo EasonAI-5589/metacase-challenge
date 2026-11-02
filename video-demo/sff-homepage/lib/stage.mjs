@@ -18,9 +18,6 @@ export const SHOOT_CSS = `
   .mc-catalogue-meta { visibility: hidden !important; }
   /* §3: sixteen categories and the per-domain counts in chapter 05 */
   [data-mc-code], [data-mc-overview], .mc-endnote, [data-mc-directory-title] { display: none !important; }
-  /* Text layers can be faded on their own, so two chapters' words never stack during a crossfade */
-  html[data-text-fade] :is(.mc-hero-inner, .mc-tags, .mc-scene-head, .mc-captions, .mc-scene-foot, .mc-notes, .mc-copy, .mc-corner, .mc-loadout, .mc-bottom, .mc-portals, .mc-floating-harness, .mc-catalogue .mc-head, [data-fieldbooks], .mc-join-copy, .mc-team) { filter: opacity(var(--shoot-text, 1)); }
-  html[data-text-fade="band"] :is(.mc-hero-inner, .mc-scene-head, .mc-notes, .mc-copy, .mc-corner, .mc-loadout, .mc-bottom, .mc-portals, .mc-floating-harness, .mc-catalogue .mc-head, [data-fieldbooks], .mc-join-copy, .mc-team) { filter: none; }
   /* Interaction hints that mean nothing on a stage */
   .mc-scroll-cue, .mc-access, .mc-directory-hint, .skip-link { display: none !important; }
 `;
@@ -109,6 +106,11 @@ export const STAGE_CSS = `
   /* type only: zoom would scale the inline translate too and pull the labels out of their doorways */
   .mc-portal.is-compact em { font-size: 19px !important; }
   .mc-portal.is-compact i { width: 32px !important; height: 32px !important; }
+  /* the link on a room's threshold and the weapon's tag, on the way through the tunnels */
+  .mc-portal.is-active small { font-size: 19px !important; }
+  .mc-portal.is-active b { font-size: 22px !important; }
+  .mc-floating-harness small { display: none !important; }
+  .mc-floating-harness strong { font-size: 19px !important; }
   .mc-domain-directory { display: none !important; }
   .mc-corner { font-size: 19px !important; }
 
@@ -154,10 +156,13 @@ export async function applyStageText(page) {
   });
 }
 
+// Banners painted in the tunnels that state the per-field record counts handoff §3 keeps out of frame.
+export const PAINT_HIDDEN = 'candidate records';
+
 // How many frames this page has been stepped: padded to a fixed count before a shot, so its scenes' clocks start alike.
 export const stepsTaken = () => stepCounter.i;
 
-export async function openStage({ width = 1280, height = 720, dsf = 1920 / width, headless = true, language = 'en', extraCss = '', url = `${ORIGIN}/index.html`, stageText = true, loadout = null } = {}) {
+export async function openStage({ width = 1280, height = 720, dsf = 1920 / width, headless = true, language = 'en', extraCss = '', url = `${ORIGIN}/index.html`, stageText = true, loadout = null, shuttleAt = null, pageDpr = null, holdNavigation = false } = {}) {
   stepCounter.i = 0; stepCounter.due = 0;
   const browser = await chromium.launch({
     channel: 'chrome', headless,
@@ -171,7 +176,26 @@ export async function openStage({ width = 1280, height = 720, dsf = 1920 / width
   // Lenis off (v2.js falls back to native scrolling), and no other network: the shoot is the local locked commit.
   await page.route('**/lenis@*/**', r => r.abort());
   await page.route(/^https:\/\//, r => r.abort());
-  await page.addInitScript(([lang, css, saved]) => {
+  // The portal's warp ends by leaving for the Challenge page, which is its own shot: the iris finishes here instead.
+  if (holdNavigation) await page.route('**/challenge.html*', r => r.abort('aborted'));
+  await page.addInitScript(([lang, css, saved, at, dpr, hidden]) => {
+    if (dpr) Object.defineProperty(window, 'devicePixelRatio', { get: () => dpr });
+    try { if (at) sessionStorage.setItem('metacase-shuttle', JSON.stringify(at)); } catch {}
+    // Text painted into canvases is logged for the provenance check. The tunnels' banners carry the contradictory per-field
+    // records (handoff §3, arena-data.js danmaku): such a banner is cleared to nothing, so it never reaches the scene.
+    // The open book's 200 ms fade uses a strong ease-out that drops it in 6 frames, the biggest single jump in the film: linear here.
+    const animate = Element.prototype.animate;
+    Element.prototype.animate = function (frames, options) {
+      const fadesOut = this.classList?.contains('mc-book') && Array.isArray(frames) && frames.at(-1)?.opacity === 0;
+      return animate.call(this, frames, fadesOut ? { ...options, easing: 'linear' } : options);
+    };
+    window.__painted = new Set();
+    const paint = CanvasRenderingContext2D.prototype.fillText, banned = new RegExp(hidden, 'i');
+    CanvasRenderingContext2D.prototype.fillText = function (text, ...rest) {
+      window.__painted.add(String(text));
+      if (banned.test(text)) { this.clearRect(0, 0, this.canvas.width, this.canvas.height); return; }
+      return paint.call(this, text, ...rest);
+    };
     window.__realRAF = window.requestAnimationFrame.bind(window);
     window.__realPerf = performance.now.bind(performance);
     try { localStorage.setItem('inferencenet-language', lang); if (saved) localStorage.setItem('metacase-loadout', saved); else localStorage.removeItem('metacase-loadout'); } catch {}
@@ -193,7 +217,7 @@ export async function openStage({ width = 1280, height = 720, dsf = 1920 / width
       }
     };
     window.__settle = () => new Promise(done => window.__realRAF(() => window.__realRAF(() => { const c = new MessageChannel(); c.port1.onmessage = () => done(); c.port2.postMessage(0); })));
-  }, [language, SHOOT_CSS + extraCss, loadout ? JSON.stringify(loadout) : null]);
+  }, [language, SHOOT_CSS + extraCss, loadout ? JSON.stringify(loadout) : null, shuttleAt, pageDpr, PAINT_HIDDEN]);
   // Paused before navigation: nothing on the page runs on its own time until a step advances the clock.
   await page.clock.install({ time: 0 });
   await page.clock.pauseAt(1000);

@@ -1,5 +1,5 @@
 // Writes docs/video/sff-homepage/{provenance,render-receipt}.json from what the run actually produced.
-import { SHOTS, XFADE, LOADOUT } from './shots.mjs';
+import { SHOTS, DIP, LOADOUT } from './shots.mjs';
 import { SHOOT_CSS, STAGE_CSS } from './lib/stage.mjs';
 import { execFileSync } from 'node:child_process';
 import crypto from 'node:crypto';
@@ -15,7 +15,7 @@ const raw = read('out/review/provenance-raw.json');
 const verify = read('out/review/verify-report.json');
 const render = read('out/review/render-commands.json');
 // Some shots were recaptured; the last log line of each is the one in the master.
-const capture = Object.values(Object.fromEntries(['master-final', 'master-v2'].flatMap(name => fs.readFileSync(`out/review/${name}.log`, 'utf8').split('\n').filter(l => l.startsWith('{')).map(l => JSON.parse(l))).map(r => [r.id, r]))).filter(r => SHOTS.some(s => s.id === r.id));
+const capture = Object.values(Object.fromEntries(['master-final', 'master-v2', 'master-v3'].flatMap(name => fs.readFileSync(`out/review/${name}.log`, 'utf8').split('\n').filter(l => l.startsWith('{')).map(l => JSON.parse(l))).map(r => [r.id, r]))).filter(r => SHOTS.some(s => s.id === r.id));
 const LOCK = raw.lock;
 
 const fontPaths = ['assets/fonts/inter-latin.woff2', 'assets/fonts/space-mono-latin.woff2'];
@@ -26,7 +26,7 @@ const provenance = {
   stream: verify.video,
   audio: verify.audio,
   chapters: render.chapters,
-  crossfade_seconds: XFADE,
+  chapter_change: { dims_to_dark_seconds: DIP.out, dark_frames: DIP.darkFrames, rises_seconds: DIP.in, double_exposure: 'none: the master is a concat, with no crossfade between shots' },
   shots: SHOTS.map(s => ({ id: s.id, seconds: s.seconds, keys: s.keys || s.y || null, clock_rate: s.rate || null, page_controls_fired_at: (s.at || []).map(a => a[0]) })),
   arena_loadout_on_screen: LOADOUT,
   shoot_only_changes: {
@@ -41,7 +41,8 @@ const provenance = {
   on_screen_text: raw.rows.map(r => ({ shot: r.shot, text: r.text, output_px: r.px, seconds: [r.from, r.to], source: r.source })),
   numbers: raw.numbers,
   checks: { forbidden_strings_on_screen: raw.forbidden, strings_without_source: raw.unsourced },
-  not_covered: 'The ledger reads DOM text. Text painted into the WebGL scenes (book pages, METACASE labels) is not read frame by frame; the scene sources were grepped for the contradictory figures instead and contain none as drawn text.',
+  painted_text: raw.painted, painted_forbidden_drawn: raw.paintedForbidden,
+  not_covered: 'The ledger reads DOM text. Text painted into canvases is logged per run for the shots captured with that log (02 to 06c); on the reused shots (01, 07, 08, 09, end card) the scene sources were grepped for the contradictory figures instead.',
 };
 fs.writeFileSync(`${DOCS}/provenance.json`, JSON.stringify(provenance, null, 2) + '\n');
 
@@ -60,12 +61,12 @@ const receipt = {
   frames: verify.video.frames,
   commands: render.commands,
   outputs: { [verify.file]: { bytes: verify.bytes, sha256: verify.sha256 }, 'out/final/metacase-sff-stage-poster.jpg': { bytes: fs.statSync('out/final/metacase-sff-stage-poster.jpg').size, sha256: sha('out/final/metacase-sff-stage-poster.jpg') } },
-  version: 'v2.1 (CP3-R2)',
-  supersedes: { file: 'out/final/metacase-sff-stage-1080p60-v2.mp4', sha256: '2199d9671d7a523ea993b2f51447383af203939bc7129c5fba76b494eb5f54bc' },
-  recaptured_for_this_version: ['05-fields'],
+  version: 'v3 (CP3-R3): selection and shuttle redone',
+  supersedes: { file: 'out/final/metacase-sff-stage-1080p60-v2.1.mp4', sha256: '9debd036903366d1528b58cd497f1a12e54d1f4f26dbc94c074c9673fc9cdf66' },
+  recaptured_for_this_version: SHOTS.filter(s => !s.reuse).map(s => s.id),
   flash_calibration: read('out/review/flash-calibration.json'),
   intermediates_sha256: Object.fromEntries(SHOTS.map(x => [x.id, sha(`out/master/${x.id}.mp4`)])),
-  reused_frames_from_v1: SHOTS.filter(s => s.reuse).map(s => s.id),
+  reused_frames: SHOTS.filter(s => s.reuse).map(s => s.id),
   acceptance: { checks: verify.checks, black: verify.black, freezes: verify.freezes, flash: verify.flash, safe_area_96x54_text_outside: raw.outside, safe_area_outside_by_shot: Object.fromEntries(SHOTS.map(x => [x.id, raw.outside.filter(o => o.shot === x.id).reduce((n, o) => n + o.samples, 0)])), small_text_under_28px: [...new Map(raw.small.map(s => [s.text, s])).values()] },
 };
 fs.writeFileSync(`${DOCS}/render-receipt.json`, JSON.stringify(receipt, null, 2) + '\n');

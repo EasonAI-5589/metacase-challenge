@@ -1,6 +1,6 @@
 // Acceptance for the stage master (handoff §8). Reads the rendered file back and prints one JSON report.
 //   node verify.mjs [file]
-import { SHOTS, XFADE } from './shots.mjs';
+import { SHOTS, DIP, timeline } from './shots.mjs';
 import { flashAnalysis, readRgb, JOIN_FRAMES } from './lib/flash.mjs';
 import { execFileSync, spawnSync } from 'node:child_process';
 import crypto from 'node:crypto';
@@ -11,7 +11,7 @@ const probe = JSON.parse(execFileSync('ffprobe', ['-v', 'error', '-show_streams'
 const v = probe.streams.find(s => s.codec_type === 'video'), a = probe.streams.find(s => s.codec_type === 'audio');
 const ffmpegLog = args => spawnSync('ffmpeg', args, { encoding: 'utf8', maxBuffer: 1 << 28 }).stderr;
 
-// A frame is black only below 3 % luma for 0.1 s or more; the film may open dark, nowhere else.
+// A frame is black only below 3 % luma for 0.1 s or more; the film may open dark, and each chapter change is a planned dip.
 const black = [...ffmpegLog(['-hide_banner', '-i', file, '-vf', 'blackdetect=d=0.1:pix_th=0.03', '-an', '-f', 'null', '-'])
   .matchAll(/black_start:([\d.]+) black_end:([\d.]+)/g)].map(m => ({ start: +m[1], end: +m[2] }));
 
@@ -22,7 +22,7 @@ const ends = [...freezeLog.matchAll(/freeze_end: ([\d.]+)/g)].map(m => +m[1]);
 const freezes = starts.map((start, i) => ({ start, end: ends[i] ?? +probe.format.duration }));
 
 // Which shot each moment falls in, so a freeze can be judged against the storyboard's holds.
-const chapters = []; { let t = 0; for (const s of SHOTS) { chapters.push({ id: s.id, start: +t.toFixed(3), end: +(t + s.seconds).toFixed(3) }); t += s.seconds - XFADE; } }
+const chapters = timeline();
 const shotAt = t => chapters.find(c => t >= c.start && t < c.end)?.id ?? 'end';
 
 // Two different questions about brightness changes, reported separately.
@@ -47,10 +47,21 @@ for (let c = 0; c < W * H; c++) {
     (flipWindows[at] ||= new Set()).add(c);
   }
 }
+// Every chapter change must pass through the dark: the darkest frame between two shots proves no double exposure.
+const meanLuma = f => { let sum = 0; for (let i = 0; i < W * H; i++) sum += signal[f * W * H + i]; return sum / (W * H); };
+const dips = chapters.slice(0, -1).map((c, i) => {
+  const from = Math.round((c.end - DIP.out) * FPS), to = Math.round((c.end + DIP.darkFrames / FPS + DIP.in) * FPS);
+  let darkest = 255; for (let f = from; f <= to && f < N; f++) darkest = Math.min(darkest, meanLuma(f));
+  return { from: c.id, to: chapters[i + 1].id, at: +c.end.toFixed(3), darkest_mean_luma: +darkest.toFixed(1) };
+});
+const inPlannedDip = b => b.end - b.start <= 1 && chapters.slice(0, -1).some(c => b.start >= c.end - DIP.out - .1 && b.end <= c.end + DIP.darkFrames / FPS + DIP.in + .4);
 const movingAt = t => {
-  const c = chapters.find(x => t >= x.start && t < x.end), keys = c && SHOTS.find(s => s.id === c.id)?.keys;
-  if (!keys) return false;
+  const c = chapters.find(x => t >= x.start && t < x.end), shot = c && SHOTS.find(s => s.id === c.id), keys = shot?.keys;
+  if (!shot) return false;
   const local = t - c.start;
+  // moves on the page's own clock: the book change, the warp and the arrival after it
+  if ((shot.pageMotion || []).some(([a, b]) => local >= a && local <= b) || shot.id === '06c-challenge-arrive' && local <= 2.4) return true;
+  if (!keys) return false;
   for (let i = 1; i < keys.length; i++) if (local >= keys[i - 1][0] && local <= keys[i][0]) return JSON.stringify(keys[i - 1][1]) !== JSON.stringify(keys[i][1]);
   return false;
 };
@@ -80,6 +91,7 @@ const report = {
   faststart: (() => { const head = fs.readFileSync(file).subarray(0, 4096); return head.includes('moov') && head.indexOf('moov') < head.indexOf('mdat') || !head.includes('mdat'); })(),
   black: black.map(b => ({ ...b, shot: shotAt(b.start) })),
   freezes: freezes.map(f => ({ ...f, seconds: +(f.end - f.start).toFixed(2), shot: shotAt(f.start) })),
+  chapter_dips: dips,
   flash: {
     ...flash,
     true_strobe_method: 'After WCAG 2.3.1 general flash, on a 64×36 grid: over 3 concurrent flashes per second over more than 25 % of a 640×480 rectangle. Calibrated by calibrate-flash.mjs. An approximation, not a certified PSE test; saturated red is not tested separately.',
@@ -90,7 +102,7 @@ const report = {
   },
 };
 report.checks = {
-  duration_75_90: report.video.duration >= 75 && report.video.duration <= 90,
+  duration_105_135: report.video.duration >= 105 && report.video.duration <= 135,
   size_1920x1080: v.width === 1920 && v.height === 1080,
   fps_60: Math.abs(report.video.fps - 60) < 0.01,
   h264_high: v.codec_name === 'h264' && v.profile === 'High',
@@ -98,7 +110,8 @@ report.checks = {
   bt709: v.color_space === 'bt709' && v.color_primaries === 'bt709' && v.color_transfer === 'bt709',
   audio_aac_48k_stereo: !!a && a.codec_name === 'aac' && Number(a.sample_rate) === 48000 && a.channels === 2,
   faststart: report.faststart,
-  black_only_at_open: black.every(b => b.start < 1),
+  black_only_at_open_or_planned_dips: black.every(b => b.start < 1 || inPlannedDip(b)),
+  every_chapter_change_through_dark: dips.every(d => d.darkest_mean_luma <= 30),
   no_true_strobe_flash: flash.true_strobe_flash === 0,
   no_fast_pattern_motion: flash.fast_pattern_motion_seconds === 0,
   cell_flips_all_during_scripted_moves: cellFlips.every(w => w.duringScriptedMove),
