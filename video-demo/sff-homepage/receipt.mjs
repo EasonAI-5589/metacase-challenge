@@ -15,7 +15,7 @@ const raw = read('out/review/provenance-raw.json');
 const verify = read('out/review/verify-report.json');
 const render = read('out/review/render-commands.json');
 // Some shots were recaptured; the last log line of each is the one in the master.
-const capture = Object.values(Object.fromEntries(['master-final', 'master-v2'].flatMap(name => fs.readFileSync(`out/review/${name}.log`, 'utf8').split('\n').filter(l => l.startsWith('{')).map(l => JSON.parse(l))).map(r => [r.id, r])));
+const capture = Object.values(Object.fromEntries(['master-final', 'master-v2'].flatMap(name => fs.readFileSync(`out/review/${name}.log`, 'utf8').split('\n').filter(l => l.startsWith('{')).map(l => JSON.parse(l))).map(r => [r.id, r]))).filter(r => SHOTS.some(s => s.id === r.id));
 const LOCK = raw.lock;
 
 const fontPaths = ['assets/fonts/inter-latin.woff2', 'assets/fonts/space-mono-latin.woff2'];

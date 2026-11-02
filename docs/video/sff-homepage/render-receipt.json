@@ -1,6 +1,6 @@
 {
   "locked_commit": "cefd87bb44155d86528f452ceefb6992bdc9b9fe",
-  "rendered_at": "2026-11-02T05:47:56.730Z",
+  "rendered_at": "2026-11-02T05:49:52.296Z",
   "tools": {
     "ffmpeg": "ffmpeg version 8.1 Copyright (c) 2000-2026 the FFmpeg developers",
     "node": "v25.4.0",
@@ -44,21 +44,6 @@
           "fonts": "loaded"
         },
         "seconds": 60
-      },
-      {
-        "id": "03-retrieval",
-        "frames": 522,
-        "errors": [],
-        "warmOverrun": false,
-        "screenshotRetries": 0,
-        "mismatches": [],
-        "mismatchCount": 0,
-        "rendererState": {
-          "arena": null,
-          "lenis": false,
-          "fonts": "loaded"
-        },
-        "seconds": 37
       },
       {
         "id": "04-network",
