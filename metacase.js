@@ -4,6 +4,7 @@
  * with scrolling, and handles reveals, counters and the section nav. Visible text stays
  * in the page so language.js translates it. */
 import { createSignatureRail } from './mc-rail.js?v=20261027-eason8c';
+import { classArt } from './mc-classart.js?v=20261102-toybook';
 
 const root = document.documentElement;
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -11,7 +12,7 @@ const $ = (selector, scope = document) => scope.querySelector(selector);
 const $$ = (selector, scope = document) => [...scope.querySelectorAll(selector)];
 const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
 const ease = x => { const p = clamp(x); return p * p * (3 - 2 * p); };
-const V = '?v=20261029-flip';
+const V = '?v=20261102-toybook';
 
 /* ---- layout helpers ---- */
 const siteHeader = $('.site-header'), subnav = $('.mc-subnav');
@@ -292,15 +293,16 @@ if (fieldbooks) {
   const row = $('.mc-bookrow', fieldbooks), tabs = $$('[role="tab"]', row);
   const panels = tabs.map(tab => $('#' + tab.getAttribute('aria-controls')));
   const N = tabs.length, HALF = 3;
-  const MOVE = 520, EASE = 'cubic-bezier(0.05, 0.7, 0.1, 1)', STD = 'cubic-bezier(0.2, 0, 0, 1)'; // --duration-emphasized, --ease-*
+  const MOVE = 520, STD = 'cubic-bezier(0.2, 0, 0, 1)'; // --duration-emphasized, --ease-standard
   const SHIFT = 'cubic-bezier(0.65, 0.05, 0.36, 1)'; // books trading places move on screen: ease in and out
-  const CLOSE = 200, ARRIVE = 240, TURN = 520; // the book closing and fading; growing out of its picture; the cover opening
+  const CLOSE = 260, ARRIVE = 420, TURN = 620; // the book sliding away; springing out of its picture; a leaf turning
+  const SPRING = 'cubic-bezier(0.34, 1.32, 0.5, 1)'; // a small overshoot, as the toy scenes settle
   const wideMQ = matchMedia('(min-width: 900px)');
   let wide = wideMQ.matches, chosen = Math.max(0, tabs.findIndex(tab => tab.getAttribute('aria-selected') === 'true'));
   let gen = 0, flights = [], seen = reduce, wanted = chosen;
   // scrolling: where the stage sticks, how far through the track the reader is, and a field the
   // page is being scrolled to after a click (scroll positions on the way there do not choose)
-  let stickTop = 0, lockField = -1, lockUntil = 0;
+  let stickTop = 0, lockField = -1, lockUntil = 0, lockSpread = 0;
   const wait = ms => new Promise(done => setTimeout(done, ms));
   const make = (cls, ...kids) => { const el = document.createElement('div'); el.className = cls; el.append(...kids.filter(Boolean)); return el; };
   // The stage sticks in view while the reader scrolls through a taller track; each third of the
@@ -359,7 +361,12 @@ if (fieldbooks) {
     $('.mc-pages', panel).after(b.book);
     panel.tabIndex = 0;
     bind(b);
-    b.book.addEventListener('click', () => { if (!b.s) turnTo(b, 1); });
+    // a click on the closed cover opens it; on an open book, the right-hand page turns on, the left back
+    b.book.addEventListener('click', event => {
+      if (!b.s) { turnTo(b, 1); return; }
+      const r = b.book.getBoundingClientRect();
+      selectSpread(b, b.s + (event.clientX > r.left + r.width / 2 ? 1 : -1));
+    });
     panel.addEventListener('keydown', event => {
       const dir = { ArrowLeft: -1, ArrowRight: 1 }[event.key];
       if (!dir || event.altKey || event.ctrlKey || event.metaKey) return;
@@ -371,23 +378,52 @@ if (fieldbooks) {
     return b;
   });
 
-  // The two-page spread of a book. Wide: the cover leaf holds the closed cover on its front and
-  // the left-hand page (classes 1–3) on its back; the base holds the right-hand page (classes 4–6).
-  // Narrow: the cover leaf sits over the two pages stacked one above the other.
+  // Each class gets a toy picture and its page number (added here, so the generated list stays text).
+  books.forEach(b => b.pages.forEach((article, i) => {
+    if (article.querySelector('.mc-page-art')) return;
+    const id = (article.querySelector('.mc-call')?.textContent || '').trim().split('.').pop();
+    const art = document.createElement('span');
+    art.className = 'mc-page-art'; art.setAttribute('aria-hidden', 'true'); art.dataset.noTranslate = '';
+    art.innerHTML = classArt(id);
+    const folio = document.createElement('span');
+    folio.className = 'mc-page-folio mono'; folio.setAttribute('aria-hidden', 'true'); folio.dataset.noTranslate = '';
+    folio.textContent = `${String(i + 1).padStart(2, '0')} / ${String(b.pages.length).padStart(2, '0')}`;
+    article.prepend(art); article.append(folio);
+  }));
+
+  // The book's pages. Wide: one class to a page, so a field reads as three spreads; the cover leaf
+  // holds the closed cover and page 1, each inner leaf a right-hand page on its front and the next
+  // left-hand page on its back, and the base the last page. Narrow: the cover leaf sits over all
+  // the pages stacked one above the other.
   function bind(b, open = 0) {
     b.pages.forEach((article, i) => b.slots[i].append(article));
     b.book.replaceChildren();
     const cover = make('mc-face is-front mc-cover', make('mc-cover-label', b.head, emblem(b.field)));
-    const left = make('mc-sheet is-left', ...b.pages.slice(0, HALF));
-    const right = make('mc-sheet is-right', ...b.pages.slice(HALF));
-    const plan = wide ? [[cover, make('mc-face is-back mc-board-page', left)]] : [[cover]];
-    b.book.append(make('mc-case'), make('mc-ribbon'), make('mc-leaf is-base', make('mc-face is-front', ...(wide ? [right] : [left, right]))));
-    b.leaves = plan.map(([front, back]) => { const leaf = make('mc-leaf is-cover', front, back); b.book.append(leaf); return leaf; });
-    b.s = open ? 1 : 0;
+    const sheet = (side, k) => { const s = make(`mc-sheet is-${side}`, b.pages[k]); s.dataset.page = k; return s; };
+    let plan, base;
+    if (wide) {
+      const n = b.pages.length;
+      plan = [['is-cover', cover, make('mc-face is-back mc-board-page', sheet('left', 0))]];
+      for (let k = 1; k < n - 1; k += 2) plan.push(['is-page', make('mc-face is-front', sheet('right', k)), make('mc-face is-back', sheet('left', k + 1))]);
+      base = [sheet('right', n - 1)];
+    } else {
+      plan = [['is-cover', cover]];
+      base = [make('mc-sheet is-left', ...b.pages.slice(0, HALF)), make('mc-sheet is-right', ...b.pages.slice(HALF))];
+    }
+    b.book.append(make('mc-case'), make('mc-ribbon'), make('mc-leaf is-base', make('mc-face is-front', ...base)));
+    b.leaves = plan.map(([kind, front, back]) => { const leaf = make(`mc-leaf ${kind}`, front, back); b.book.append(leaf); return leaf; });
+    b.s = Math.min(open, b.leaves.length);
     lay(b);
   }
+  // the pages on view at position s, for the entrance of their contents after a turn
+  const onView = (b, s) => $$('.mc-sheet', b.book).filter(el => { const k = Number(el.dataset.page); return k === 2 * s - 2 || k === 2 * s - 1; });
+  function freshen(b, s, after = 0) {
+    if (reduce || !wide) return;
+    clearTimeout(b.fresh);
+    b.fresh = setTimeout(() => onView(b, s).forEach(el => { el.classList.remove('is-fresh'); void el.offsetWidth; el.classList.add('is-fresh'); }), after);
+  }
 
-  // the stack at rest: position 0 is closed cover, position 1 is open spread
+  // the stack at rest: position 0 is the closed cover, position s the s-th spread
   function lay(b) {
     clearTimeout(b.settle); b.z = 0; b.next = 0;
     b.book.dataset.s = b.s; b.book.style.removeProperty('--dur');
@@ -400,7 +436,7 @@ if (fieldbooks) {
     });
   }
 
-  // Turn the cover to position s (0 = closed, 1 = open).
+  // Turn the leaves to position s (0 = closed, 1 = the first spread, and so on).
   function turnTo(b, s, { together = false, dur = TURN } = {}) {
     s = Math.max(0, Math.min(b.leaves.length, s));
     const from = b.s;
@@ -427,6 +463,7 @@ if (fieldbooks) {
     });
     clearTimeout(b.settle);
     b.settle = setTimeout(() => lay(b), last - now + dur + 80);
+    if (s > 0) freshen(b, s, last - now + dur * .45);
   }
 
   /* -- the stage -- */
@@ -490,13 +527,13 @@ if (fieldbooks) {
 
   const reading = (b, on) => { b.tab.classList.toggle('is-reading', on); stage?.request(); };
   const stop = b => { b.anims.forEach(anim => anim.cancel()); b.anims = []; };
-  // the open book closes and fades; its 3D picture shows again underneath
-  async function putAway(b, my) {
+  // the open book closes and slides off the way the books are turning, tipping as it goes
+  async function putAway(b, my, dir = 1) {
     reading(b, false);
     const o = Number(getComputedStyle(b.book).opacity);
     stop(b);
     turnTo(b, 0, { together: true, dur: CLOSE });
-    b.anims = [b.book.animate([{ opacity: o }, { opacity: 0 }], { duration: CLOSE, easing: STD, fill: 'forwards' })];
+    b.anims = [b.book.animate([{ opacity: o, transform: 'none' }, { opacity: 0, transform: `translateX(${-dir * 96}px) rotate(${-dir * 4}deg) scale(.94)` }], { duration: CLOSE, easing: STD, fill: 'forwards' })];
     await wait(CLOSE);
     if (my !== gen) { hide(b); return false; }
     hide(b);
@@ -513,14 +550,14 @@ if (fieldbooks) {
     const dx = a.width ? a.left + a.width / 2 - (c.left + c.width / 2) : 0, dy = a.width ? a.top + a.height / 2 - (c.top + c.height / 2) : 0;
     stop(b);
     b.anims = [
-      b.book.animate([{ transform: `translate(${dx}px, ${dy}px) scale(${k})`, opacity: 0 }, { transform: 'none', opacity: 1 }], { duration: ARRIVE, easing: EASE }),
+      b.book.animate([{ transform: `translate(${dx}px, ${dy}px) scale(${k}) rotate(-3deg)`, opacity: 0 }, { opacity: 1, offset: .35 }, { transform: 'none', opacity: 1 }], { duration: ARRIVE, easing: SPRING }),
     ];
     await wait(ARRIVE * .4);
     if (my !== gen) { hide(b); return; }
     reading(b, true);
     await wait(ARRIVE * .6);
     if (my !== gen) { hide(b); return; }
-    if (seen) turnTo(b, 1);
+    if (seen) turnTo(b, spreadNow(b));
   }
 
   async function choose(next, { animate = true } = {}) {
@@ -533,17 +570,17 @@ if (fieldbooks) {
       rotate(next, false);
       target.panel.classList.add('is-shown');
       stop(target); reading(target, true); place();
-      target.s = seen ? 1 : 0; lay(target);
+      target.s = seen ? spreadNow(target) : 0; lay(target);
       return;
     }
     const out = books.filter(b => b.panel.classList.contains('is-shown'));
     if (out.length === 1 && out[0] === target && chosen === next) { // already open or mid-close here
       stop(target);
       reading(target, true);
-      turnTo(target, 1);
+      turnTo(target, spreadNow(target));
       return;
     }
-    for (const b of out) if (!(await putAway(b, my))) return;
+    for (const b of out) if (!(await putAway(b, my, Math.sign(next - books.indexOf(b)) || 1))) return;
     if (chosen !== next) {
       rotate(next, true);
       await wait(MOVE * .8);
@@ -569,6 +606,26 @@ if (fieldbooks) {
     const range = track.offsetHeight - fieldbooks.offsetHeight;
     return range > 0 ? clamp((stickTop - track.getBoundingClientRect().top) / range) : 0;
   };
+  // Pinned, the field's third of the track is shared by its spreads: the book turns a leaf as the
+  // reader scrolls on, a little past each boundary so resting on one never flickers.
+  const spreadAt = (b, p, from = 0) => {
+    const n = b.leaves.length, local = clamp(p * N - books.indexOf(b)) * n;
+    if (from && local > from - 1 - .12 && local < from + .12) return from;
+    return Math.max(1, Math.min(n, 1 + Math.floor(local)));
+  };
+  const spreadNow = b => (pinned() && wide ? spreadAt(b, trackProgress()) : Math.max(1, b.s));
+  // a click on a page: pinned, scroll to that spread's place in the track (the scroll turns the leaf); otherwise turn it
+  function selectSpread(b, s) {
+    s = Math.max(1, Math.min(b.leaves.length, s));
+    if (s === b.s) return;
+    if (!pinned() || !wide) { turnTo(b, s); return; }
+    const r = track.getBoundingClientRect(), range = track.offsetHeight - fieldbooks.offsetHeight, f = books.indexOf(b);
+    if (range <= 0) { turnTo(b, s); return; }
+    const y = scrollY + r.top - stickTop + (f + (s - .5) / b.leaves.length) / N * range;
+    turnTo(b, s); lockSpread = performance.now() + 1000;
+    if (window.__lenis) window.__lenis.scrollTo(y, { duration: .7 });
+    else window.scrollTo({ top: y, behavior: 'smooth' });
+  }
   // A click (a side book, a rail tab, the arrow keys, a link) opens that field at once and scrolls the
   // page to the middle of its third of the track; positions passed on the way do not choose.
   function selectField(next) {
@@ -629,6 +686,13 @@ if (fieldbooks) {
       else next = wanted;
     }
     if (next !== wanted) choose(next, { animate: near });
+    else if (wide && performance.now() > lockSpread) {
+      const b = books[wanted];
+      if (b.s >= 1 && b.tab.classList.contains('is-reading')) {
+        const s = spreadAt(b, p, b.s);
+        if (s !== b.s) near ? turnTo(b, s) : (b.s = s, lay(b));
+      }
+    }
     paintRail(p);
   };
   // two pages side by side or stacked: the books are bound again when the window crosses the line

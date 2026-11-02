@@ -4,7 +4,7 @@
  * are islands under construction. Used twice: the hero (ambient) and the network
  * chapter (scroll-driven: own cases → bridges → crossing → new fields). */
 import * as THREE from './assets/vendor/three/three.module.js';
-import { PALETTE, mat, add, block, cyl, person, robot, buildings, tree, island, cloud, tile, crane, scaffold, lights, STAGE_COLORS } from './mc-kit.js';
+import { PALETTE, mat, add, block, cyl, person, robot, buildings, tree, island, cloud, tile, crane, scaffold, lights, STAGE_COLORS } from './mc-kit.js?v=20261102-toy';
 import { clamp, smooth, ramp, lerp, pageBackground, fitCamera, toView, glowSprite } from './mc-stage.js';
 
 export const FIELDS = [
