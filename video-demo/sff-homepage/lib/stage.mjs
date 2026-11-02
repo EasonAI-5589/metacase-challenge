@@ -22,21 +22,17 @@ export const SHOOT_CSS = `
   .mc-scroll-cue, .mc-access, .mc-directory-hint, .skip-link { display: none !important; }
 `;
 
-// Big-screen framing, shoot-only: no browser chrome, no long paragraphs nobody can read in ten seconds,
-// and the page's own short labels raised to a size the back of a hall can read.
+// Big-screen framing, shoot-only: the page as a visitor sees it (its header, section nav, chapter subtitles and body copy
+// all stay), with the page's own short labels raised to a size the back of a hall can read.
 // Output is 1.5x these CSS pixels, so 19px here is 28.5px on screen and 48px is 72px.
 export const STAGE_CSS = `
   /* Stage safe area: 96 px left and right, 54 px top and bottom on the 1080p output. The page's .wrap ignores
      --mc-gutter (only chapter 05 reads it), so every container that starts a text edge is set here. */
-  :root { --mc-hh: 0px !important; --mc-pin-top: 1px !important; --mc-gutter: 64px !important; }
-  .site-header, .mc-subnav, .v2-footer { display: none !important; }
+  :root { --mc-gutter: 64px !important; }
+  .v2-footer { display: none !important; }
   .mc-home .wrap { max-width: none !important; padding: 0 var(--mc-gutter) !important; margin: 0 !important; }
 
-  /* hero: title, one line of the page's lead, the hosting line */
-  .mc-hero { min-height: 100svh !important; padding-top: 72px !important; }
-  .mc-lead-more, .mc-cta { display: none !important; }
-  .mc-lead { font-size: 29px !important; line-height: 1.22 !important; max-width: 15em !important; margin-top: 24px !important; color: var(--text-primary) !important; letter-spacing: -.015em; }
-  .mc-lead::first-letter { text-transform: uppercase; }
+  /* hero: the page's own lead and buttons, the hosting line */
   .mc-eyebrow { font-size: 19px !important; }
   .mc-hosts { display: grid !important; gap: 12px !important; justify-items: start !important; margin-top: 28px !important; }
   .mc-host { font-size: 21px !important; letter-spacing: 0 !important; text-transform: none !important; font-family: var(--font-sans) !important; color: var(--text-secondary) !important; }
@@ -45,7 +41,6 @@ export const STAGE_CSS = `
   /* chapter heads */
   .mc-label { font-size: 19px !important; letter-spacing: .02em !important; }
   .mc-label > span { font-size: 19px !important; height: 30px !important; min-width: 40px !important; }
-  .mc-scene-head .mc-sub, .mc-head .mc-sub, .mc-join-copy .mc-sub, .mc-results-scope { display: none !important; }
   .mc-scene-head { position: relative; z-index: 3; }
   .mc-scene-pin::after { content: ""; position: absolute; inset: 0 0 auto 0; height: 36%; z-index: 1; pointer-events: none; background: linear-gradient(180deg, color-mix(in oklab, var(--bg-canvas) 82%, transparent) 30%, transparent); }
 
@@ -89,7 +84,7 @@ export const STAGE_CSS = `
   /* chapter 05 */
   .mc-copy { max-width: none !important; width: auto !important; }
   .mc-copy h2 { font-size: 48px !important; line-height: 1.04 !important; white-space: nowrap !important; }
-  .mc-copy p[data-mc-body], .mc-enter, .mc-event, .mc-wheel-label, .mc-phase-index { display: none !important; }
+  .mc-enter, .mc-wheel-label, .mc-phase-index { display: none !important; }
   .mc-loadout { zoom: 1.3; left: calc(var(--mc-gutter) / 1.3) !important; width: 360px !important; max-width: none !important; bottom: 28px !important; padding: 14px 16px !important; transition: opacity .35s var(--ease-standard) !important; }
   .mc-chapter:not([data-phase="1"]) .mc-loadout { opacity: 0 !important; }
   .mc-loadout-summary, .mc-loadout-type, .mc-carried, .mc-model-roster { display: none !important; }
@@ -116,7 +111,7 @@ export const STAGE_CSS = `
 
   /* chapter 07: the numbers are the picture */
   .mc-results-card { display: block !important; padding: 56px 64px !important; }
-  .mc-results-actions, .mc-submit, .mc-results-stats .mc-art, .mc-results-stats small[data-no-translate] { display: none !important; }
+  .mc-results-actions, .mc-submit, .mc-results-stats small[data-no-translate] { display: none !important; }
   .mc-results-head h2 { font-size: 52px !important; }
   .mc-results-stats { margin-top: 44px !important; gap: 20px !important; align-items: stretch !important; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.12fr) minmax(0, 1fr) !important; }
   .mc-results-stats li { padding: 32px 28px 30px !important; }
@@ -149,8 +144,6 @@ export async function applyStageText(page) {
     // fixed line break for the page's sentence, so "experience-based" is never split at its hyphen
     const statement = document.querySelector('#net .mc-caption-statement span');
     if (statement) statement.innerHTML = 'A foundation for<br>experience-based AI.';
-    const lead = document.querySelector('.mc-lead');
-    if (lead) lead.textContent = 'an open benchmark and research arena built around reusable Metacases';
     const small = document.querySelector('.mc-results-stats li:first-child small');
     if (small) small.textContent = '3 fields × 200 tasks · 18 classes';
   });

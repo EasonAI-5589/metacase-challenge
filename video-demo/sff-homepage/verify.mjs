@@ -47,14 +47,17 @@ for (let c = 0; c < W * H; c++) {
     (flipWindows[at] ||= new Set()).add(c);
   }
 }
-// Every chapter change must pass through the dark: the darkest frame between two shots proves no double exposure.
+// Where the film leaves the page it must pass through the dark: the darkest frame between two shots proves no double exposure.
+// A joined shot is the same scroll carried on, so its seam has no dip.
 const meanLuma = f => { let sum = 0; for (let i = 0; i < W * H; i++) sum += signal[f * W * H + i]; return sum / (W * H); };
-const dips = chapters.slice(0, -1).map((c, i) => {
+const cutsAway = chapters.slice(0, -1).filter((_, i) => !SHOTS[i + 1].joined);
+const dips = chapters.slice(0, -1).flatMap((c, i) => {
+  if (SHOTS[i + 1].joined) return [];
   const from = Math.round((c.end - DIP.out) * FPS), to = Math.round((c.end + DIP.darkFrames / FPS + DIP.in) * FPS);
   let darkest = 255; for (let f = from; f <= to && f < N; f++) darkest = Math.min(darkest, meanLuma(f));
-  return { from: c.id, to: chapters[i + 1].id, at: +c.end.toFixed(3), darkest_mean_luma: +darkest.toFixed(1) };
+  return [{ from: c.id, to: chapters[i + 1].id, at: +c.end.toFixed(3), darkest_mean_luma: +darkest.toFixed(1) }];
 });
-const inPlannedDip = b => b.end - b.start <= 1 && chapters.slice(0, -1).some(c => b.start >= c.end - DIP.out - .1 && b.end <= c.end + DIP.darkFrames / FPS + DIP.in + .4);
+const inPlannedDip = b => b.end - b.start <= 1 && cutsAway.some(c => b.start >= c.end - DIP.out - .1 && b.end <= c.end + DIP.darkFrames / FPS + DIP.in + .4);
 const movingAt = t => {
   const c = chapters.find(x => t >= x.start && t < x.end), shot = c && SHOTS.find(s => s.id === c.id), keys = shot?.keys;
   if (!shot) return false;
@@ -111,7 +114,7 @@ report.checks = {
   audio_aac_48k_stereo: !!a && a.codec_name === 'aac' && Number(a.sample_rate) === 48000 && a.channels === 2,
   faststart: report.faststart,
   black_only_at_open_or_planned_dips: black.every(b => b.start < 1 || inPlannedDip(b)),
-  every_chapter_change_through_dark: dips.every(d => d.darkest_mean_luma <= 30),
+  every_page_change_through_dark: dips.every(d => d.darkest_mean_luma <= 30),
   no_true_strobe_flash: flash.true_strobe_flash === 0,
   no_fast_pattern_motion: flash.fast_pattern_motion_seconds === 0,
   cell_flips_all_during_scripted_moves: cellFlips.every(w => w.duringScriptedMove),
