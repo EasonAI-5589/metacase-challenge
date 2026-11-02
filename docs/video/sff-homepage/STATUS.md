@@ -186,3 +186,9 @@ Eason 看片并定上面几项；认可后做 P1（展台循环版、网页版�
 ### 过程记录
 - 4199 服务已停，重启命令：在 worktree 根目录运行 `python3 -m http.server 4199 --bind 127.0.0.1`。
 - `verify.mjs` 的 `no_flicker`、`flicker_under_1pct_of_screen` 已换成上表字段；回执在 `acceptance.flash`，校准结果在 `flash_calibration`。
+
+## 2026-11-02 · 书架俯冲：先大屏看再定
+- Eason 决定：先在大屏上连续看，再决定这段改不改。v2.1 主片不动（`9debd036…`），跳过俯冲的方案暂不做。
+- 判定前 `true_strobe_flash` 仍是 3，频闪项仍未关闭。
+- 看片重点：30–36 s（书架俯冲）；同时可顺带看 11–19 s（翻页）、38–43 s（第 04 章入场）、52–60 s（赛场面板）。
+- 下一步：等 Eason 看片结果。要改就只重抓 `04-network`，其余复用。
