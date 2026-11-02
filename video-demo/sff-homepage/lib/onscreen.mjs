@@ -18,7 +18,12 @@ export const visibleText = (scale) => {
     }
     if (hidden || opacity < .2) continue;
     const px = Math.round(parseFloat(getComputedStyle(el).fontSize) * zoom * scale * 10) / 10;
-    out[s] = Math.max(out[s] || 0, px);
+    const range = document.createRange(); range.selectNodeContents(n);
+    const box = range.getBoundingClientRect();
+    const e = out[s] ||= { px: 0, l: Infinity, t: Infinity, r: -Infinity, b: -Infinity };
+    e.px = Math.max(e.px, px);
+    e.l = Math.min(e.l, Math.round(box.left * scale)); e.t = Math.min(e.t, Math.round(box.top * scale));
+    e.r = Math.max(e.r, Math.round(box.right * scale)); e.b = Math.max(e.b, Math.round(box.bottom * scale));
   }
   return out;
 };

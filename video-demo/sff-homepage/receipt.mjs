@@ -15,7 +15,7 @@ const raw = read('out/review/provenance-raw.json');
 const verify = read('out/review/verify-report.json');
 const render = read('out/review/render-commands.json');
 // Some shots were recaptured; the last log line of each is the one in the master.
-const capture = Object.values(Object.fromEntries(fs.readFileSync('out/review/master-final.log', 'utf8').split('\n').filter(l => l.startsWith('{')).map(l => JSON.parse(l)).map(r => [r.id, r])));
+const capture = Object.values(Object.fromEntries(['master-final', 'master-v2'].flatMap(name => fs.readFileSync(`out/review/${name}.log`, 'utf8').split('\n').filter(l => l.startsWith('{')).map(l => JSON.parse(l))).map(r => [r.id, r])));
 const LOCK = raw.lock;
 
 const fontPaths = ['assets/fonts/inter-latin.woff2', 'assets/fonts/space-mono-latin.woff2'];
@@ -60,7 +60,10 @@ const receipt = {
   frames: verify.video.frames,
   commands: render.commands,
   outputs: { [verify.file]: { bytes: verify.bytes, sha256: verify.sha256 }, 'out/final/metacase-sff-stage-poster.jpg': { bytes: fs.statSync('out/final/metacase-sff-stage-poster.jpg').size, sha256: sha('out/final/metacase-sff-stage-poster.jpg') } },
-  acceptance: { checks: verify.checks, black: verify.black, freezes: verify.freezes, flicker: verify.flicker, small_text_under_28px: [...new Map(raw.small.map(s => [s.text, s])).values()] },
+  version: 'v2 (CP3-R1)',
+  supersedes: { file: 'out/final/metacase-sff-stage-1080p60-v1.mp4', sha256: 'b3d9f2ff95edac948bc4f217575740c3f5d7a265cb1b90ac8ec660d0af6fd54d' },
+  reused_frames_from_v1: SHOTS.filter(s => s.reuse).map(s => s.id),
+  acceptance: { checks: verify.checks, black: verify.black, freezes: verify.freezes, flicker: verify.flicker, safe_area_96x54_text_outside: raw.outside, small_text_under_28px: [...new Map(raw.small.map(s => [s.text, s])).values()] },
 };
 fs.writeFileSync(`${DOCS}/render-receipt.json`, JSON.stringify(receipt, null, 2) + '\n');
 console.log('written', Object.keys(receipt.outputs));

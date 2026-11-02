@@ -1,7 +1,7 @@
 // Captures shots frame by frame. FPS=10 gives the rough cut, the default 60 the master.
 //   node capture.mjs 01-hero,06a-arena     FPS=10 node capture.mjs all
 import { openStage, step, warm, stepsTaken, sectionGeometry, pinnedY, STAGE_CSS, FPS, ORIGIN } from './lib/stage.mjs';
-import { SHOTS, CUBIC_IO } from './shots.mjs';
+import { SHOTS, CUBIC_IO, XFADE } from './shots.mjs';
 import { visibleText } from './lib/onscreen.mjs';
 import fs from 'node:fs';
 
@@ -26,47 +26,50 @@ const track = (keys, t) => {
   return keys.at(-1)[1];
 };
 
-// A screenshot can stall when the GPU process hiccups. Retrying never advances the fake clock, so the frame is unchanged.
-const retries = { count: 0 };
+// A screenshot occasionally never returns. Playwright queues screenshots, so a retry on the same page waits behind
+// the stuck one and can never succeed: the whole shot is captured again in a fresh browser instead.
 const shoot = async (page, path) => {
-  for (let attempt = 0; ; attempt++) {
-    try { return await page.screenshot({ path, type: 'jpeg', quality: 95, timeout: 20000 }); }
-    catch (error) {
-      if (attempt >= 4 || error.name !== 'TimeoutError') throw error;
-      retries.count++;
-      await new Promise(done => setTimeout(done, 3000));
-    }
-  }
+  if (!path.startsWith('out/')) throw new Error(`frame path outside out/: ${path}`);
+  return page.screenshot({ path, type: 'jpeg', quality: 95, timeout: 15000 });
 };
 const stamp = FPS === 60 ? 'frames' : `frames-${FPS}`;
 const pick = process.argv[2] || 'all';
-const list = pick === 'all' ? SHOTS : SHOTS.filter(s => pick.split(',').includes(s.id));
+// `all` skips shots marked reuse: their frames stay as they are.
+const list = pick === 'all' ? SHOTS.filter(s => !s.reuse) : SHOTS.filter(s => pick.split(',').includes(s.id));
 const report = [];
-// Every half second, the readable text of the frame goes into a ledger for the provenance check.
+// Every quarter second, the readable text of the frame and its box on the 1080p output go into a ledger, for the provenance and safe-area checks.
 const ledger = {};
 const note = async (page, id, t, scale) => {
-  if (Math.round(t * FPS) % Math.max(1, Math.round(FPS / 2))) return;
+  if (Math.round(t * FPS) % Math.max(1, Math.round(FPS / 4))) return;
   const seen = await page.evaluate(visibleText, scale);
   const shot = ledger[id] ||= {};
-  for (const [text, px] of Object.entries(seen)) { const e = shot[text] ||= { px, from: t, to: t }; e.px = Math.max(e.px, px); e.to = t; }
+  for (const [text, box] of Object.entries(seen)) {
+    const e = shot[text] ||= { px: box.px, from: t, to: t, outside: [] };
+    e.px = Math.max(e.px, box.px); e.to = t;
+    const bad = [box.l < 96 && `left ${box.l}`, box.r > 1824 && `right ${box.r}`, box.t < 54 && `top ${box.t}`, box.b > 1026 && `bottom ${box.b}`].filter(Boolean);
+    if (bad.length) e.outside.push([t, ...bad]);
+  }
 };
 
-for (const shot of list) {
+let active = null;
+const captureShot = async (shot, attempt) => {
   const t0 = Date.now(), out = `out/${stamp}/${shot.id}`;
+  delete ledger[shot.id];
   fs.rmSync(out, { recursive: true, force: true }); fs.mkdirSync(out, { recursive: true });
   const frames = Math.round(shot.seconds * FPS), mismatches = [];
   if (shot.card) {
-    const { browser, page, errors } = await openStage({ width: 1920, height: 1080, dsf: 1, url: `${ORIGIN}/video-demo/sff-homepage/${shot.card}`, stageText: false });
+    const { browser, page, errors } = active = await openStage({ width: 1920, height: 1080, dsf: 1, url: `${ORIGIN}/video-demo/sff-homepage/${shot.card}`, stageText: false });
     await step(page); await page.waitForFunction(() => document.documentElement.dataset.ready === '1');
     await page.evaluate(() => document.fonts.ready);
     await page.evaluate(() => window.__release());
     for (let i = 0; i < frames; i++) { await step(page); await note(page, shot.id, i / FPS, 1); await shoot(page, `${out}/${String(i).padStart(5, '0')}.jpg`); }
-    report.push({ id: shot.id, frames, errors, seconds: Math.round((Date.now() - t0) / 1000) });
+    report.push({ id: shot.id, frames, errors, attempt, seconds: Math.round((Date.now() - t0) / 1000) });
     console.log(JSON.stringify(report.at(-1)));
     await browser.close();
-    continue;
+    return;
   }
-  const { browser, page, errors } = await openStage({ extraCss: STAGE_CSS + (shot.css || ''), loadout: shot.loadout || null });
+  const [width, height] = shot.viewport || [1280, 720], scale = 1920 / width;
+  const { browser, page, errors } = active = await openStage({ width, height, extraCss: STAGE_CSS + (shot.css || ''), loadout: shot.loadout || null });
   await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
   await step(page);
   await page.waitForTimeout(200);
@@ -103,18 +106,41 @@ for (const shot of list) {
       const k = e2(Math.min(1, Math.max(0, (t - shot.veil[0]) / (shot.veil[1] - shot.veil[0]))));
       await page.evaluate(([sel, k]) => { for (const c of document.querySelectorAll(sel)) c.style.opacity = String(k); }, [VEILED, k]);
     }
+    // text layers leave before a crossfade and arrive after it, so two sets of words never stack
+    const textOut = shot.textOut ?? true, textIn = shot.textIn ?? true, end = shot.seconds - XFADE;
+    const leaving = textOut ? e2(Math.min(1, Math.max(0, (end - t) / .25))) : 1;
+    const arriving = textIn ? e2(Math.min(1, Math.max(0, (t - XFADE) / .25))) : 1;
+    const k = Math.min(leaving, arriving), mode = k < 1 ? ((leaving < 1 ? textOut : textIn) === 'band' ? 'band' : 'all') : null;
+    await page.evaluate(([k, mode]) => {
+      const root = document.documentElement;
+      if (mode) { root.dataset.textFade = mode; root.style.setProperty('--shoot-text', k); } else delete root.dataset.textFade;
+    }, [k, mode]);
     await step(page, { y, rate: shot.rate ? shot.rate.findLast(([a]) => a <= t)[1] : 1 });
     const at = await page.evaluate(() => ({ y: scrollY, p: Number(document.querySelector('.mc-chapter')?.dataset.progress) }));
     if (Math.abs(at.y - y) > 1) mismatches.push({ i, want: y, got: at.y });
-    await note(page, shot.id, t, 1.5);
+    await note(page, shot.id, t, scale);
     await shoot(page, `${out}/${String(i).padStart(5, '0')}.jpg`);
   }
   const rendererState = await page.evaluate(() => ({ arena: document.querySelector('.mc-chapter').dataset.renderer || null, lenis: !!window.__lenis, fonts: document.fonts.status }));
-  report.push({ id: shot.id, frames, errors, warmOverrun: overrun, screenshotRetries: retries.count, mismatches: mismatches.slice(0, 5), mismatchCount: mismatches.length, rendererState, seconds: Math.round((Date.now() - t0) / 1000) });
+  report.push({ id: shot.id, frames, errors, attempt, warmOverrun: overrun, mismatches: mismatches.slice(0, 5), mismatchCount: mismatches.length, rendererState, seconds: Math.round((Date.now() - t0) / 1000) });
   console.log(JSON.stringify(report.at(-1)));
   await browser.close();
+};
+
+const ledgerPath = `out/review/onscreen-${FPS}fps.json`;
+for (const shot of list) {
+  for (let attempt = 1; ; attempt++) {
+    try { await captureShot(shot, attempt); break; }
+    catch (error) {
+      await active?.browser.close().catch(() => {});
+      if (attempt >= 4 || error.name !== 'TimeoutError') throw error;
+      console.error(`${shot.id}: attempt ${attempt} stalled, capturing the shot again`);
+    }
+  }
+  // Written after every shot and checked here, so a later crash can never leave stale results looking fresh.
+  const written = fs.readdirSync(`out/${stamp}/${shot.id}`).filter(f => f.endsWith('.jpg')).length, wanted = Math.round(shot.seconds * FPS);
+  if (written !== wanted) throw new Error(`${shot.id}: ${written} frames on disk, expected ${wanted}`);
+  const previous = fs.existsSync(ledgerPath) ? JSON.parse(fs.readFileSync(ledgerPath, 'utf8')) : {};
+  fs.writeFileSync(ledgerPath, JSON.stringify({ ...previous, [shot.id]: ledger[shot.id] }, null, 2));
 }
 fs.writeFileSync(`out/review/capture-report-${FPS}fps.json`, JSON.stringify(report, null, 2));
-const ledgerPath = `out/review/onscreen-${FPS}fps.json`;
-const previous = fs.existsSync(ledgerPath) ? JSON.parse(fs.readFileSync(ledgerPath, 'utf8')) : {};
-fs.writeFileSync(ledgerPath, JSON.stringify({ ...previous, ...ledger }, null, 2));

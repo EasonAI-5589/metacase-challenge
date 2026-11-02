@@ -18,6 +18,9 @@ export const SHOOT_CSS = `
   .mc-catalogue-meta { visibility: hidden !important; }
   /* §3: sixteen categories and the per-domain counts in chapter 05 */
   [data-mc-code], [data-mc-overview], .mc-endnote, [data-mc-directory-title] { display: none !important; }
+  /* Text layers can be faded on their own, so two chapters' words never stack during a crossfade */
+  html[data-text-fade] :is(.mc-hero-inner, .mc-tags, .mc-scene-head, .mc-captions, .mc-scene-foot, .mc-notes, .mc-copy, .mc-corner, .mc-loadout, .mc-bottom, .mc-portals, .mc-floating-harness, .mc-catalogue .mc-head, [data-fieldbooks], .mc-join-copy, .mc-team) { filter: opacity(var(--shoot-text, 1)); }
+  html[data-text-fade="band"] :is(.mc-hero-inner, .mc-scene-head, .mc-notes, .mc-copy, .mc-corner, .mc-loadout, .mc-bottom, .mc-portals, .mc-floating-harness, .mc-catalogue .mc-head, [data-fieldbooks], .mc-join-copy, .mc-team) { filter: none; }
   /* Interaction hints that mean nothing on a stage */
   .mc-scroll-cue, .mc-access, .mc-directory-hint, .skip-link { display: none !important; }
 `;
@@ -26,8 +29,11 @@ export const SHOOT_CSS = `
 // and the page's own short labels raised to a size the back of a hall can read.
 // Output is 1.5x these CSS pixels, so 19px here is 28.5px on screen and 48px is 72px.
 export const STAGE_CSS = `
-  :root { --mc-hh: 0px !important; --mc-pin-top: 1px !important; }
+  /* Stage safe area: 96 px left and right, 54 px top and bottom on the 1080p output. The page's .wrap ignores
+     --mc-gutter (only chapter 05 reads it), so every container that starts a text edge is set here. */
+  :root { --mc-hh: 0px !important; --mc-pin-top: 1px !important; --mc-gutter: 64px !important; }
   .site-header, .mc-subnav, .v2-footer { display: none !important; }
+  .mc-home .wrap { max-width: none !important; padding: 0 var(--mc-gutter) !important; margin: 0 !important; }
 
   /* hero: title, one line of the page's lead, the hosting line */
   .mc-hero { min-height: 100svh !important; padding-top: 72px !important; }
@@ -48,14 +54,21 @@ export const STAGE_CSS = `
 
   /* captions and rails: the short label stays, the long sentence goes */
   .mc-captions span, .mc-captions small { display: none !important; }
-  .mc-captions .mc-caption-statement span { display: block !important; }
+  .mc-captions .mc-caption-statement span { display: block !important; white-space: nowrap !important; }
+  .mc-captions .mc-caption-statement { max-width: none !important; }
   .mc-captions b { font-size: 25px !important; letter-spacing: .01em !important; }
   .mc-rail { zoom: 1.5; }
-  .mc-scene-foot { bottom: 16px !important; }
-  .mc-captions { bottom: 96px !important; }
+  .mc-scene-foot, .mc-bottom { bottom: 36px !important; }
+  .mc-captions { bottom: 104px !important; padding: 0 !important; }
+  .mc-captions li { left: var(--mc-gutter) !important; }
+  /* a caption leaves before the next one arrives, so two never stack in the same spot */
+  .mc-captions li { transition-duration: .25s !important; transition-delay: 0s !important; }
+  .mc-captions li.current { transition-delay: .25s !important; }
 
   /* chapter 01 stage notes */
-  .mc-notes li { width: 350px !important; padding: 18px 20px !important; }
+  .mc-notes li { width: 350px !important; padding: 18px 20px !important; translate: -6px -50% !important; }
+  .mc-notes li::before { width: calc(var(--lead, 0px) - 6px) !important; }
+  .mc-notes li::after { right: calc(100% - 9px + var(--lead, 0px)) !important; }
   .mc-notes span, .mc-notes em { display: none !important; }
   .mc-notes b { font-size: 19px !important; }
   .mc-notes strong { font-size: 25px !important; line-height: 1.15 !important; }
@@ -67,9 +80,7 @@ export const STAGE_CSS = `
 
   /* chapter 04 */
   .mc-catalogue-meta { display: none !important; }
-  [data-fieldbooks] { top: 2px !important; }
   .mc-fields-rail { zoom: 1 !important; }
-  .mc-catalogue .mc-head { margin-bottom: 20px !important; }
   .mc-book .mc-page-desc { display: none !important; }
   .mc-book .mc-page-name { font-size: 24px !important; line-height: 1.16 !important; }
   .mc-book .mc-call { font-size: 19px !important; }
@@ -81,17 +92,23 @@ export const STAGE_CSS = `
   /* chapter 05 */
   .mc-copy { max-width: none !important; width: auto !important; }
   .mc-copy h2 { font-size: 48px !important; line-height: 1.04 !important; white-space: nowrap !important; }
-  .mc-loadout { transition: opacity .35s var(--ease-standard) !important; }
+  .mc-copy p[data-mc-body], .mc-enter, .mc-event, .mc-wheel-label, .mc-phase-index { display: none !important; }
+  .mc-loadout { zoom: 1.3; left: calc(var(--mc-gutter) / 1.3) !important; width: 360px !important; max-width: none !important; bottom: 28px !important; padding: 14px 16px !important; transition: opacity .35s var(--ease-standard) !important; }
   .mc-chapter:not([data-phase="1"]) .mc-loadout { opacity: 0 !important; }
-  .mc-loadout { zoom: 1.3; width: 350px !important; max-width: none !important; bottom: 28px !important; }
-  .mc-loadout-summary { display: none !important; }
+  .mc-loadout-summary, .mc-loadout-type, .mc-carried, .mc-model-roster { display: none !important; }
   .mc-bottom { transition: opacity .3s var(--ease-standard); }
   .mc-chapter[data-phase="1"] .mc-bottom { opacity: 0 !important; }
   .mc-step-label, .mc-loadout-label { font-size: 14.5px !important; }
-  .mc-loadout .mc-chip, .mc-loadout .mc-model-btn { font-size: 12.5px !important; }
-  .mc-model-roster { display: none !important; }
-  .mc-copy p[data-mc-body], .mc-enter, .mc-event, .mc-wheel-label, .mc-phase-index { display: none !important; }
-  .mc-portal { zoom: 1.25; }
+  /* a media query on the page sets these to nowrap and clips the third model name */
+  .mc-chapter[data-phase="1"] .mc-variant-chips { flex-wrap: wrap !important; overflow: visible !important; }
+  .mc-loadout .mc-chip, .mc-loadout .mc-model-btn, .mc-loadout .mc-effort-btn, .mc-loadout .mc-confirm { font-size: 14px !important; }
+  .mc-loadout .mc-confirm { padding: 8px 12px !important; }
+  [data-mc-equipped] { font-size: 21px !important; }
+  /* the wheel stands clear of the wider panel */
+  .mc-wheel { translate: 60px 0 !important; }
+  /* type only: zoom would scale the inline translate too and pull the labels out of their doorways */
+  .mc-portal.is-compact em { font-size: 19px !important; }
+  .mc-portal.is-compact i { width: 32px !important; height: 32px !important; }
   .mc-domain-directory { display: none !important; }
   .mc-corner { font-size: 19px !important; }
 
@@ -127,6 +144,9 @@ export const STAGE_CSS = `
 // Page text trimmed to an exact substring for the frame. The DOM of the running shoot only, never the files.
 export async function applyStageText(page) {
   await page.evaluate(() => {
+    // fixed line break for the page's sentence, so "experience-based" is never split at its hyphen
+    const statement = document.querySelector('#net .mc-caption-statement span');
+    if (statement) statement.innerHTML = 'A foundation for<br>experience-based AI.';
     const lead = document.querySelector('.mc-lead');
     if (lead) lead.textContent = 'an open benchmark and research arena built around reusable Metacases';
     const small = document.querySelector('.mc-results-stats li:first-child small');

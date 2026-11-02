@@ -15,7 +15,7 @@ const find = text => {
 const FORBIDDEN = [/\b604\b/, /\b208\b/, /\b209\b/, /\b187\b/, /\d\s*records?\b/i, /\bsixteen\b/i, /\b16\b/, /econ\/\s*\d/i, /fin\/\s*\d/i, /soc\/\s*\d/i, /\b285\b/, /\b152\b/];
 const AUTHORED = { 'easonai-5589.github.io/metacase-challenge': 'handoff §4 end card URL' };
 const ledger = JSON.parse(fs.readFileSync(`out/review/onscreen-${FPS}fps.json`, 'utf8'));
-const rows = [], forbidden = [], unsourced = [], small = [];
+const rows = [], forbidden = [], unsourced = [], small = [], outside = [];
 for (const [shot, seen] of Object.entries(ledger)) for (const [text, e] of Object.entries(seen)) {
   // the page's own number ticker passes through every integer on its way to data-count
   const ticker = shot === '08-results' && /^\d+$/.test(text) && Number(text) < 600;
@@ -24,9 +24,11 @@ for (const [shot, seen] of Object.entries(ledger)) for (const [text, e] of Objec
   if (FORBIDDEN.some(r => r.test(text))) forbidden.push({ shot, text });
   if (!src) unsourced.push({ shot, text });
   if (e.px < 28 && e.to - e.from >= 0.5) small.push({ shot, text, px: e.px });
+  if (e.outside?.length) outside.push({ shot, text, samples: e.outside.length, first: e.outside[0], last: e.outside.at(-1) });
 }
 const numbers = [...new Set(rows.map(r => r.text).filter(t => /\d/.test(t)))].map(t => ({ text: t, source: find(t) || AUTHORED[t] || null }));
 fs.mkdirSync('../../docs/video/sff-homepage', { recursive: true });
-fs.writeFileSync('out/review/provenance-raw.json', JSON.stringify({ lock: LOCK, rows, numbers, forbidden, unsourced, small }, null, 2));
+fs.writeFileSync('out/review/provenance-raw.json', JSON.stringify({ lock: LOCK, rows, numbers, forbidden, unsourced, small, outside }, null, 2));
 console.log(JSON.stringify({ strings: rows.length, numbers: numbers.length, forbidden, unsourced: unsourced.slice(0, 40), smallCount: small.length }, null, 1));
+console.log('outside safe area', outside.length, JSON.stringify(outside.map(o => `${o.shot} [${o.samples}x ${o.first[0]}-${o.last[0]}s ${o.first.slice(1).join(',')}] ${o.text.slice(0, 40)}`)));
 console.log('small', JSON.stringify([...new Map(small.map(s => [s.text, s])).values()].slice(0, 50).map(s => `${s.px}px ${s.text}`)));
