@@ -611,7 +611,7 @@ def create_app(config=None):
 
     @app.get("/")
     def root():
-        return redirect("/submit/benchmark/")
+        return redirect("/submit/harness/")
 
     @app.get("/healthz")
     def health():

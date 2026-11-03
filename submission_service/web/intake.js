@@ -1,6 +1,6 @@
 import { hashFile } from "./sha256.js?v=20261022-intake";
 const $ = (id) => document.getElementById(id);
-const route = location.pathname.split("/")[2] || "benchmark";
+const route = location.pathname.split("/")[2] || "harness";
 const kind = route.replace("failure-case", "failure_case");
 let language = "en",
   user = null,
@@ -16,6 +16,21 @@ try {
   language =
     localStorage.getItem("inferencenet-language") === "zh" ? "zh" : "en";
 } catch {}
+// The main site is on another domain, so its links pass the visitor's language along.
+const query = new URLSearchParams(location.search);
+if (["en", "zh"].includes(query.get("lang"))) {
+  language = query.get("lang");
+  try {
+    localStorage.setItem("inferencenet-language", language);
+  } catch {}
+  query.delete("lang");
+  const rest = query.toString();
+  history.replaceState(
+    history.state,
+    "",
+    location.pathname + (rest ? "?" + rest : "") + location.hash,
+  );
+}
 const t = (en, zh) => (language === "zh" ? zh : en);
 const definitions = {
   benchmark: {
@@ -192,7 +207,7 @@ function renderAccount() {
 }
 function renderAuth() {
   $("auth-title").textContent = registering
-    ? t("Join the initiative.", "加入共建。")
+    ? t("Join the Challenge.", "加入挑战赛。")
     : t("Welcome back.", "欢迎回来。");
   $("auth-description").textContent = registering
     ? t(

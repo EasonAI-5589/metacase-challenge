@@ -7,6 +7,29 @@
 * {
   box-sizing: border-box;
 }
+/* Each submission type wears the colour of its card on the main site; theme.js sets data-kind. */
+:root,
+[data-theme="dark"] {
+  --rose: oklch(74% 0.14 15);
+  --rose-soft: oklch(74% 0.14 15 / 14%);
+}
+[data-theme="light"] {
+  --rose: oklch(56% 0.16 15);
+  --rose-soft: oklch(56% 0.16 15 / 12%);
+}
+:root {
+  --accent: var(--track-1);
+  --accent-soft: var(--track-1-soft);
+  --gutter: 40px;
+}
+[data-kind="benchmark"] {
+  --accent: var(--track-2);
+  --accent-soft: var(--track-2-soft);
+}
+[data-kind="failure-case"] {
+  --accent: var(--rose);
+  --accent-soft: var(--rose-soft);
+}
 body {
   margin: 0;
   background: var(--bg-canvas);
@@ -114,7 +137,7 @@ button[hidden],
 }
 .wrap {
   max-width: 1280px;
-  padding: 0 40px;
+  padding: 0 var(--gutter);
 }
 .hero {
   position: relative;
@@ -136,13 +159,16 @@ button[hidden],
   gap: 14px;
   padding: 12px 0 12px 22px;
 }
-.hero-facts .mono {
-  font-size: 11px;
-  color: var(--track-1);
-  padding-top: 3px;
-}
-.hero-facts li:nth-child(2) .mono {
-  color: var(--track-2);
+.fact-icon {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  margin-top: 3px;
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 .hero-facts strong {
   display: block;
@@ -156,31 +182,38 @@ button[hidden],
   line-height: 1.6;
   color: var(--text-secondary);
 }
+/* The glow fills the page column, gutters included, so it never widens a phone screen. */
 .hero:before {
   content: "";
   position: absolute;
-  inset: 0 -40px;
+  inset: 0 calc(-1 * var(--gutter));
   z-index: -1;
   background: radial-gradient(
     ellipse at 86% 30%,
-    var(--track-1-soft),
+    var(--accent-soft),
     transparent 58%
   );
   pointer-events: none;
+}
+/* Past 1280px the column stops short of the window, so fade the glow out instead of cutting it. */
+@media (min-width: 1281px) {
+  .hero:before {
+    mask-image: linear-gradient(90deg, #000 calc(100% - 160px), transparent);
+  }
 }
 .eyebrow {
   display: flex;
   align-items: center;
   gap: 10px;
-  color: var(--track-1);
+  color: var(--accent);
   font-size: 11px;
 }
 .live-dot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--track-1);
-  box-shadow: 0 0 15px var(--track-1);
+  background: var(--accent);
+  box-shadow: 0 0 15px var(--accent);
 }
 h1 {
   font-size: clamp(40px, 4.5vw, 62px);
@@ -190,7 +223,7 @@ h1 {
   margin: 20px 0 18px;
 }
 .accent {
-  color: var(--track-1);
+  color: var(--accent);
 }
 .lede {
   font-size: 17px;
@@ -207,7 +240,7 @@ h1 {
   margin-top: 22px;
 }
 .hero-note > span:first-child {
-  color: var(--track-2);
+  color: var(--accent);
 }
 .track-nav {
   display: flex;
@@ -228,18 +261,33 @@ h1 {
   font-size: 14px;
   text-decoration: none;
 }
-.track-nav a .mono {
-  font-size: 10px;
-  opacity: 0.55;
+.track-nav [data-kind="harness"] {
+  --tc: var(--track-1);
+}
+.track-nav [data-kind="benchmark"] {
+  --tc: var(--track-2);
+}
+.track-nav [data-kind="failure_case"] {
+  --tc: var(--rose);
+}
+.kind-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--tc);
+  opacity: 0.6;
+}
+.track-nav a:hover {
+  color: var(--text-primary);
 }
 .track-nav a.active {
   color: var(--text-primary);
-  background: var(--surface-2);
-  border-color: var(--border-hairline);
+  background: color-mix(in oklab, var(--tc) 9%, var(--surface-2));
+  border-color: color-mix(in oklab, var(--tc) 35%, var(--border-hairline));
 }
-.track-nav a.active .mono {
-  color: var(--track-1);
+.track-nav a.active .kind-dot {
   opacity: 1;
+  box-shadow: 0 0 10px var(--tc);
 }
 .track-nav .mine-link {
   margin-left: auto;
@@ -274,7 +322,7 @@ h1 {
   flex: 1;
 }
 .steps .current {
-  color: var(--track-1);
+  color: var(--accent);
 }
 .panel {
   background: var(--card-bg);
@@ -496,13 +544,43 @@ select:focus {
 }
 .guide-card {
   background: var(--surface-1);
-  border: 1px solid var(--border-hairline);
+  border: 1px solid
+    color-mix(in oklab, var(--accent) 22%, var(--border-hairline));
   border-radius: 16px;
   padding: 25px;
+  overflow: hidden;
+}
+/* The same scene as this type's card on the main site, rendered once to a still. */
+.guide-scene {
+  aspect-ratio: 16 / 7;
+  margin: -25px -25px 22px;
+  border-bottom: 1px solid
+    color-mix(in oklab, var(--accent) 22%, var(--border-hairline));
+  background: radial-gradient(
+      60% 80% at 50% 60%,
+      var(--accent-soft),
+      transparent 70%
+    )
+    no-repeat;
+}
+.guide-scene:after {
+  content: "";
+  display: block;
+  height: 100%;
+  background: center / contain no-repeat;
+}
+[data-kind="harness"] .guide-scene:after {
+  background-image: url("scenes/harness.webp");
+}
+[data-kind="benchmark"] .guide-scene:after {
+  background-image: url("scenes/benchmark.webp");
+}
+[data-kind="failure-case"] .guide-scene:after {
+  background-image: url("scenes/failure-case.webp");
 }
 .guide-label {
   font-size: 10px;
-  color: var(--track-2);
+  color: var(--accent);
   margin-bottom: 18px;
 }
 .guide h2 {
@@ -531,7 +609,7 @@ select:focus {
   content: "✓";
   position: absolute;
   left: 0;
-  color: var(--track-1);
+  color: var(--accent);
   font-size: 11px;
 }
 .folder-tree {
@@ -813,8 +891,8 @@ dialog .text-button {
   .back-link {
     display: none;
   }
-  .wrap {
-    padding: 0 24px;
+  :root {
+    --gutter: 24px;
   }
   .layout {
     grid-template-columns: minmax(0, 1fr) 290px;
@@ -845,6 +923,9 @@ dialog .text-button {
   }
   .guide-card {
     padding: 20px;
+  }
+  .guide-scene {
+    margin: -20px -20px 18px;
   }
   .hero {
     padding: 40px 0 30px;

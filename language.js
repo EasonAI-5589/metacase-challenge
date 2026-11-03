@@ -115,6 +115,15 @@
     attributes: true, attributeFilter: attributes,
   });
 
+  // The submission site lives on another domain and cannot read this choice, so its links carry it.
+  function markSubmitLinks() {
+    document.querySelectorAll('a[href^="https://submit.inferencenet.cn/"]').forEach(link => {
+      const url = new URL(link.href);
+      url.searchParams.set('lang', language);
+      link.href = url.href;
+    });
+  }
+
   function apply() {
     observer.disconnect();
     document.documentElement.lang = language === 'zh' ? 'zh-CN' : 'en';
@@ -122,6 +131,7 @@
     controls.querySelectorAll('button').forEach(button => {
       button.setAttribute('aria-pressed', String(button.dataset.language === language));
     });
+    markSubmitLinks();
     observe();
     // Let existing chart/layout components measure the translated labels.
     window.dispatchEvent(new Event('resize'));
@@ -250,7 +260,7 @@
     observe();
     const alignTrack = prepareInitialTrackAlignment();
     if (requested === 'zh') void setLanguage('zh').then(alignTrack);
-    else void alignTrack();
+    else { markSubmitLinks(); void alignTrack(); }
     // A page prerendered in the background (site.js) follows a language chosen meanwhile.
     if (document.prerendering) {
       document.addEventListener('prerenderingchange', () => {
