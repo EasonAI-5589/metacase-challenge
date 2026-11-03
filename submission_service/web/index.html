@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="/shared/v2.css?v=20261022-intake" />
     <link rel="stylesheet" href="/submit-assets/intake.css?v=20261103-brand" />
     <script
-      src="/submit-assets/intake.js?v=20261103-brand"
+      src="/submit-assets/intake.js?v=20261103-copy"
       type="module"
     ></script>
   </head>
@@ -125,13 +125,13 @@
               <path d="m6 9.2 1.5 1.5L10.2 8" />
             </svg>
             <div>
-              <strong data-en="Checked file by file" data-zh="逐个文件校验"
-                >Checked file by file</strong
+              <strong data-en="Arrives intact" data-zh="完整送达"
+                >Arrives intact</strong
               ><span
-                data-en="Each file is hashed in your browser and verified again on arrival."
-                data-zh="每个文件先在浏览器计算哈希，到达服务器后再次核对。"
-                >Each file is hashed in your browser and verified again on
-                arrival.</span
+                data-en="We check that every file reaches us exactly as you sent it."
+                data-zh="我们会核对每个文件，确保收到的和你发出的完全一致。"
+                >We check that every file reaches us exactly as you sent
+                it.</span
               >
             </div>
           </li>
@@ -141,13 +141,13 @@
               <path d="M6.6 6v4M9.4 6v4" />
             </svg>
             <div>
-              <strong data-en="Nothing runs on upload" data-zh="上传不运行代码"
-                >Nothing runs on upload</strong
+              <strong data-en="Reviewed before evaluation" data-zh="先审核，再评测"
+                >Reviewed before evaluation</strong
               ><span
-                data-en="Submitting stores and validates. Evaluation is a separate, reviewed step."
-                data-zh="提交只做保存和格式校验，评测是单独的审核步骤。"
-                >Submitting stores and validates. Evaluation is a separate,
-                reviewed step.</span
+                data-en="Submitting stores your work. The project team reviews it before anything is run or scored."
+                data-zh="提交只是保存你的材料。在运行或评分之前，项目团队会先审核。"
+                >Submitting stores your work. The project team reviews it before
+                anything is run or scored.</span
               >
             </div>
           </li>
@@ -280,11 +280,11 @@
                   Add your submission folder
                 </h2>
                 <p
-                  data-en="Keep the folder structure. We check the file inventory before uploading."
-                  data-zh="保留目录结构，上传前会检查文件清单。"
+                  data-en="Keep the folder as it is. You’ll see the list of files before anything uploads."
+                  data-zh="保持文件夹原有结构。上传之前，你会先看到其中的文件清单。"
                 >
-                  Keep the folder structure. We check the file inventory before
-                  uploading.
+                  Keep the folder as it is. You’ll see the list of files before
+                  anything uploads.
                 </p>
               </div>
             </div>
@@ -367,11 +367,11 @@
               id="manifest-note"
               class="hint"
               hidden
-              data-en="The service generates submission.json using your account and the verified file inventory."
-              data-zh="服务端会根据你的账号和已校验的文件清单生成 submission.json。"
+              data-en="You don’t need to write submission.json; we create it from your account and the files above."
+              data-zh="无需自己编写 submission.json，我们会根据你的账号和上面的文件自动生成。"
             >
-              The service generates submission.json using your account and the
-              verified file inventory.
+              You don’t need to write submission.json; we create it from your
+              account and the files above.
             </p>
           </section>
           <section class="panel submit-bar">
@@ -382,10 +382,11 @@
                   Confirm and submit
                 </h2>
                 <p
-                  data-en="We check every file before anything is stored."
-                  data-zh="保存之前，会先逐个核对文件。"
+                  data-en="Confirm the details and submit. You’ll get a receipt straight away."
+                  data-zh="确认信息后提交，你会立即收到一份回执。"
                 >
-                  We check every file before anything is stored.
+                  Confirm the details and submit. You’ll get a receipt straight
+                  away.
                 </p>
               </div>
             </div>
@@ -408,10 +409,10 @@
               <span
                 id="upload-note"
                 class="hint"
-                data-en="Files are stored privately. Submitting does not start an evaluation."
-                data-zh="材料私下保存。完成提交不会自动启动评测。"
-                >Files are stored privately. Submitting does not start an
-                evaluation.</span
+                data-en="Only you and the review team can see your files. Evaluation starts after review."
+                data-zh="只有你和审核团队能看到你的材料。审核之后才会开始评测。"
+                >Only you and the review team can see your files. Evaluation
+                starts after review.</span
               ><button
                 id="submit"
                 class="btn btn-primary"
@@ -500,11 +501,12 @@
               >AFTER YOU SUBMIT</span
             >
             <p
-              data-en="We preserve your files and their hashes. A receipt confirms intake, not benchmark approval or a reproduced result."
-              data-zh="我们保留原始文件与哈希。回执确认材料已受理，不代表任务已接纳或失败已复现。"
+              data-en="We keep your files exactly as received. The receipt confirms we have them; it is not an acceptance decision or a score. You can add a new version at any time."
+              data-zh="我们会原样保存你的文件。回执只确认已经收到，不代表已被接纳，也不是评分。你随时可以补交新版本。"
             >
-              We preserve your files and their hashes. A receipt confirms
-              intake, not benchmark approval or a reproduced result.
+              We keep your files exactly as received. The receipt confirms we
+              have them; it is not an acceptance decision or a score. You can
+              add a new version at any time.
             </p>
           </div>
         </aside>
