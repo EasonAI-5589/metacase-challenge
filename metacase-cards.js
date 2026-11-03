@@ -3,7 +3,7 @@
  * the first fields and the benchmark snapshot. Each is a looping vignette drawn by the shared
  * stage. */
 import * as THREE from './assets/vendor/three/three.module.js';
-import { PALETTE, BOOK, mat, add, block, cyl, ball, tile, volume, robot, person, buildings, tree, island, crane, scaffold, bookStack, lights, STAGE_COLORS, rbox, labelPlane, blaster, terminal } from './mc-kit.js?v=20261102-toy';
+import { PALETTE, BOOK, mat, add, block, cyl, ball, tile, volume, robot, person, buildings, tree, island, crane, scaffold, bookStack, lights, STAGE_COLORS, rbox, labelPlane, blaster, terminal, lens } from './mc-kit.js?v=20261102-toy';
 import { clamp, smooth, ramp, lerp, fitCamera, glowSprite } from './mc-stage.js';
 
 const loopPhase = (t, period, offset = 0) => ((t + offset) % period) / period;
@@ -84,6 +84,7 @@ const BUILDERS = {
   tasks(g) {
     for (let k = 0; k < 14; k++) { const v = volume({ color: [PALETTE.teal, 0x3c9d98, 0x57c2bd][k % 3], sig: k % 5 }); v.scale.setScalar(1.4); v.position.set(-1.25 + k * .2, 0, 0); v.rotation.y = -Math.PI / 2; g.add(v); }
     const stack = bookStack(4, 1); stack.position.set(1.95, 0, .2); stack.scale.setScalar(1.3); g.add(stack);
+    g.children.forEach(o => { o.position.x -= .35; }); // the row and the stack, centred together
     return t => { g.rotation.y = -.2 + Math.sin(t * .3) * .08; };
   },
   // the models: a row of agents, each a different model
@@ -258,11 +259,72 @@ const BUILDERS = {
     };
   },
 };
+// The three ways to submit, each a small scene on a plinth: an agent with its harness packed to
+// run again, a new task joining the stack, and a failed run under the lens.
+Object.assign(BUILDERS, {
+  'submit-harness'(g) {
+    plinth(g, 0, 1.3);
+    const bot = robot(PALETTE.teal); bot.root.scale.setScalar(1.1); bot.root.position.set(-.5, .3, .05); bot.root.rotation.y = .55; g.add(bot.root);
+    const crate = new THREE.Group(); crate.position.set(.6, .3, .15); g.add(crate);
+    block(crate, .78, .44, .58, 0xb07f55, 0, 0, 0, .05);
+    [-1, 1].forEach(s => block(crate, .06, .46, .6, 0x8a6a4a, s * .3, -.01, 0, .02));
+    const lid = block(crate, .82, .07, .62, 0x8a6a4a, 0, .44, 0, .03);
+    const gun = blaster(PALETTE.teal); gun.position.set(.6, 1.2, .15); gun.scale.setScalar(1.5); g.add(gun);
+    const ring = add(g, new THREE.TorusGeometry(.36, .025, 8, 40), mat(PALETTE.teal, { emissive: PALETTE.teal, intensity: 1 }), .6, .88, .15, false); ring.rotation.x = Math.PI / 2;
+    const glow = glowSprite(0x8ff6ff, 1.5, .25); glow.position.set(.6, 1.1, .15); g.add(glow);
+    return t => {
+      bot.update(t, 0);
+      const k = .5 + .5 * Math.sin(t * 1.2);                       // the harness lifts out of its crate and settles back
+      gun.position.y = 1 + k * .32; gun.rotation.y = t * .7;
+      lid.position.y = .475 + k * .08; lid.rotation.z = -k * .5;
+      ring.scale.setScalar(.85 + k * .3); glow.material.opacity = .16 + k * .14;
+      g.rotation.y = -.3 + Math.sin(t * .3) * .1;
+    };
+  },
+  'submit-benchmark'(g) {
+    plinth(g, 0, 1.3);
+    const stack = bookStack(4, 1); stack.position.set(.45, .3, 0); stack.scale.setScalar(1.3); g.add(stack);
+    const top = .3 + 4 * .125 * 1.3;
+    const author = person(41); author.root.scale.setScalar(.95); author.root.position.set(-.55, .3, .2); author.root.rotation.y = .7; g.add(author.root);
+    const fresh = block(g, .5 * 1.3, .12 * 1.3, .36 * 1.3, mat(PALETTE.amber, { emissive: PALETTE.amber, intensity: .35 }), .45, top, 0, .03);
+    const glow = glowSprite(0xffe2b0, 1.4, .25); g.add(glow);
+    const plus = new THREE.Group(); g.add(plus);
+    const lit = mat(0xffe2b0, { emissive: 0xffd27a, intensity: 1.2 });
+    add(plus, rbox(.4, .11, .11, .05), lit); add(plus, rbox(.11, .4, .11, .05), lit);
+    return t => {
+      author.update(t, 0);
+      const k = smooth(loopPhase(t, 3.6) / .7);                     // the new task drops onto the stack, then the loop starts over
+      fresh.position.y = top + (1 - k) * .9; fresh.rotation.y = (1 - k) * .9;
+      glow.position.set(.45, top + .1 + (1 - k) * .9, 0); glow.material.opacity = .1 + (1 - k) * .2 + (k > .98 ? .12 : 0);
+      plus.position.set(1.05, top + .7 + Math.sin(t * 2) * .05, .1); plus.rotation.y = t * 1.2; plus.scale.setScalar(.7 + .3 * k);
+      g.rotation.y = -.35 + Math.sin(t * .3) * .1;
+    };
+  },
+  'submit-failure'(g) {
+    plinth(g, 0, 1.3);
+    const run = tile({ sig: 3, edge: PALETTE.rose, size: .7 }); run.position.set(.55, 1.0, -.05); run.rotation.x = Math.PI / 2; run.rotation.z = -.12; g.add(run);
+    cyl(g, .05, .07, .78, PALETTE.ink, .55, .3, -.12);                // the post the failed case hangs on
+    const warn = new THREE.Group(); warn.position.set(.55, 1.6, -.05); g.add(warn);
+    const red = mat(PALETTE.rose, { emissive: PALETTE.rose, intensity: 1.1 }).clone(); // its own, as it blinks
+    add(warn, rbox(.08, .24, .08, .035), red, 0, .1, 0); ball(warn, .05, red, 0, -.1, 0);
+    const bot = robot(0xf7f5f0); bot.root.scale.setScalar(1.05); bot.root.position.set(-.55, .3, .25); bot.root.rotation.y = .75; g.add(bot.root);
+    const glass = lens(PALETTE.amber); glass.position.set(.34, .5, .3); glass.scale.setScalar(1.4); bot.root.add(glass);
+    const glow = glowSprite(0xff9aa6, 1.6, .2); glow.position.set(.55, 1.2, 0); g.add(glow);
+    return t => {
+      bot.update(t, 0); glass.rotation.z = Math.sin(t * 1.5) * .3;
+      const blink = .5 + .5 * Math.sin(t * 4);
+      red.emissiveIntensity = .6 + blink * .9; glow.material.opacity = .1 + blink * .14;
+      warn.position.y = 1.6 + Math.sin(t * 2) * .04;
+      g.rotation.y = -.3 + Math.sin(t * .3) * .1;
+    };
+  },
+});
 const FRAMING = { // camera target y, distance, elevation[, always show the full width]
   replication: [1.3, 10, .3], business: [1.4, 10, .3], social: [1.4, 10, .3], next: [1.2, 9.5, .32],
   ai: [1.4, 8.5, .22], people: [1.1, 8, .22], join: [1.1, 10, .34, true],
   field: [1.15, 6.4, .2],
-  tasks: [.4, 6.2, .3, true], models: [.6, 6.4, .25, true], harnesses: [.6, 6.2, .3, true],
+  tasks: [.4, 4.4, .3, true], models: [.55, 4.4, .22, true], harnesses: [.5, 4.2, .3, true],
+  'submit-harness': [.62, 5.6, .3, true], 'submit-benchmark': [.66, 5.6, .3, true], 'submit-failure': [.72, 5.6, .28, true],
 };
 
 export function createCard(kind, node) {

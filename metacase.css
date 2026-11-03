@@ -238,34 +238,91 @@ html[lang^="zh"] .mc-en-only { display: none; }
 /* the workroom's wall board can stand behind 05's intro; a soft backing keeps the text readable */
 #rules .mc-scene-head .mc-sub { padding: 10px 14px; border-radius: 12px; background: color-mix(in oklab, var(--bg-canvas) 70%, transparent); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
 .mc-results { padding-top: clamp(40px, 6vh, 72px); padding-bottom: clamp(24px, 4vh, 48px); }
-.mc-results-card { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); grid-template-areas: "head stats" "actions stats"; gap: 20px clamp(28px, 4vw, 56px); padding: clamp(24px, 3vw, 40px);
+.mc-results-card { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: "head intro" "stats stats"; gap: 28px clamp(28px, 4vw, 56px); padding: clamp(24px, 3vw, 40px);
   border-radius: 24px; border: 1px solid var(--border-hairline);
-  background: radial-gradient(70% 120% at 0% 0%, color-mix(in oklab, var(--track-1) 12%, transparent), transparent 60%), color-mix(in oklab, var(--surface-1) 88%, transparent);
+  /* light, not a solid panel: the 3D pictures draw on the page canvas behind it */
+  background: radial-gradient(70% 120% at 0% 0%, color-mix(in oklab, var(--track-1) 10%, transparent), transparent 60%), linear-gradient(180deg, color-mix(in oklab, var(--surface-1) 50%, transparent), transparent 40%, transparent 72%, color-mix(in oklab, var(--surface-1) 50%, transparent));
   box-shadow: var(--inner-highlight); }
 .mc-results-head { grid-area: head; display: grid; align-content: start; gap: 14px; }
-.mc-results-head h2 { font-size: clamp(28px, 2.8vw, 40px); line-height: 1.08; letter-spacing: -0.03em; font-weight: 650; }
-.mc-results-scope { color: var(--text-secondary); font-size: 15px; line-height: 1.6; }
-.mc-results-stats { grid-area: stats; list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; align-self: center; }
-.mc-results-stats li { display: grid; align-content: start; gap: 2px; padding: 0 14px 16px; border-radius: 16px; border: 1px solid var(--border-hairline); overflow: hidden; }
-.mc-results-stats .mc-art { aspect-ratio: 4 / 3; margin: 0 -14px 6px; border-bottom: 1px solid var(--border-hairline); background: radial-gradient(80% 90% at 50% 70%, color-mix(in oklab, var(--tc) 16%, transparent), transparent 70%); }
-.mc-results-stats b { font-size: clamp(36px, 3.4vw, 52px); font-weight: 650; letter-spacing: -0.045em; line-height: 1; color: var(--text-primary); font-variant-numeric: tabular-nums; }
-.mc-results-stats span { font-size: 14px; font-weight: 600; color: var(--tc); }
-.mc-results-stats small { font-size: 12.5px; line-height: 1.45; color: var(--text-tertiary); font-variant-numeric: tabular-nums; }
-.mc-results-actions { grid-area: actions; display: flex; flex-wrap: wrap; align-items: flex-end; gap: 12px; }
+.mc-results-head h2 { font-size: clamp(30px, 3.2vw, 46px); line-height: 1.08; letter-spacing: -0.03em; font-weight: 650; }
+.mc-results-intro { grid-area: intro; display: grid; align-content: end; gap: 20px; }
+.mc-results-scope { color: var(--text-secondary); font-size: 16px; line-height: 1.6; max-width: 56ch; }
+.mc-results-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+/* the three figures, each a toy picture over its number, with the parts or progress it stands for */
+.mc-results-stats { grid-area: stats; list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.mc-results-stats > li { display: flex; flex-direction: column; border-radius: 20px; border: 1px solid color-mix(in oklab, var(--tc) 26%, var(--border-hairline)); overflow: hidden;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 6%), 0 6px 0 rgb(0 0 0 / 24%), 0 24px 40px -28px rgb(0 0 0 / 70%); }
+/* nothing painted over the picture (it is drawn behind the page), only a hairline under it */
+.mc-results-stats .mc-art { aspect-ratio: 16 / 8; border-bottom: 1px solid color-mix(in oklab, var(--tc) 22%, var(--border-hairline)); }
+.mc-stat { flex: 1; display: grid; align-content: start; gap: 12px; padding: 18px 20px 22px;
+  background: linear-gradient(180deg, color-mix(in oklab, var(--tc) 10%, var(--surface-1)), var(--surface-1) 70%); }
+.mc-stat-head { display: grid; gap: 6px; margin: 0; }
+.mc-stat-head b { font-size: clamp(42px, 4vw, 58px); font-weight: 650; letter-spacing: -0.045em; line-height: .95; color: var(--text-primary); font-variant-numeric: tabular-nums; }
+.mc-stat-head span { font-size: 15px; font-weight: 600; line-height: 1.35; color: var(--tc); }
+.mc-stat-note { margin: 0; font-size: 13.5px; line-height: 1.45; color: var(--text-secondary); }
+/* 600 split into its three sources, in proportion */
+.mc-stat-split { display: flex; gap: 3px; height: 10px; }
+.mc-stat-split i { flex: var(--w) 1 0; min-width: 8px; border-radius: 999px; }
+.mc-stat-split i:nth-child(2), .mc-stat-key li:nth-child(2) { --seg: color-mix(in oklab, var(--tc) 55%, var(--surface-2)); }
+.mc-stat-split i:nth-child(3), .mc-stat-key li:nth-child(3) { --seg: color-mix(in oklab, var(--tc) 35%, #f3f6fb); }
+.mc-stat-split i { background: var(--seg, var(--tc)); }
+.mc-stat-key { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.mc-stat-key li { display: grid; grid-template-columns: 8px 34px minmax(0, 1fr); align-items: baseline; gap: 8px; font-size: 13px; line-height: 1.4; color: var(--text-secondary); }
+.mc-stat-key li::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--seg, var(--tc)); translate: 0 -1px; }
+.mc-stat-key b { font-weight: 650; color: var(--text-primary); text-align: right; }
+/* trials scored, as a filled bar */
+.mc-stat-meter { height: 8px; border-radius: 999px; background: color-mix(in oklab, var(--tc) 14%, var(--surface-2)); overflow: hidden; }
+.mc-stat-meter i { display: block; height: 100%; width: calc(var(--v) * 100%); border-radius: inherit; background: linear-gradient(90deg, color-mix(in oklab, var(--tc) 60%, transparent), var(--tc)); box-shadow: 0 0 12px color-mix(in oklab, var(--tc) 50%, transparent); }
+.mc-stat-chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.mc-stat-chips li { padding: 4px 10px; border-radius: 999px; font-size: 12px; line-height: 1.3; color: var(--text-primary);
+  border: 1px solid color-mix(in oklab, var(--tc) 35%, transparent); background: color-mix(in oklab, var(--tc) 12%, transparent); }
+/* the nine harness configurations, one pip each */
+.mc-stat-pips { display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); gap: 6px; max-width: 260px; }
+.mc-stat-pips i { aspect-ratio: 1; border-radius: 7px; background: linear-gradient(180deg, color-mix(in oklab, var(--tc) 70%, #fff), var(--tc)); box-shadow: 0 3px 0 color-mix(in oklab, var(--tc) 40%, #000); }
+/* the bars fill and the pips pop in as the card comes into view */
+.js .mc-results-card .mc-stat-meter i, .js .mc-results-card .mc-stat-split i { transform-origin: left; transform: scaleX(0); transition: transform 1.1s var(--ease-emphasized) .35s; }
+.js .mc-results-card.in .mc-stat-meter i, .js .mc-results-card.in .mc-stat-split i { transform: none; }
+.js .mc-results-card .mc-stat-pips i { opacity: 0; scale: .5; transition: opacity .4s, scale .5s cubic-bezier(.34, 1.5, .5, 1); }
+.js .mc-results-card.in .mc-stat-pips i { opacity: 1; scale: 1; }
+.mc-results-card.in .mc-stat-pips i:nth-child(1) { transition-delay: 0.51s; }
+.mc-results-card.in .mc-stat-pips i:nth-child(2) { transition-delay: 0.57s; }
+.mc-results-card.in .mc-stat-pips i:nth-child(3) { transition-delay: 0.63s; }
+.mc-results-card.in .mc-stat-pips i:nth-child(4) { transition-delay: 0.69s; }
+.mc-results-card.in .mc-stat-pips i:nth-child(5) { transition-delay: 0.75s; }
+.mc-results-card.in .mc-stat-pips i:nth-child(6) { transition-delay: 0.81s; }
+.mc-results-card.in .mc-stat-pips i:nth-child(7) { transition-delay: 0.87s; }
+.mc-results-card.in .mc-stat-pips i:nth-child(8) { transition-delay: 0.93s; }
+.mc-results-card.in .mc-stat-pips i:nth-child(9) { transition-delay: 0.99s; }
 /* the three ways to submit, under the results: one row of plain links, each with the thing it carries */
-.mc-results-card { grid-template-areas: "head stats" "actions stats" "submit submit"; }
-.mc-submit { grid-area: submit; display: grid; gap: 12px; padding-top: 20px; border-top: 1px solid var(--border-hairline); }
-.mc-submit-label { color: var(--text-tertiary); font-size: 13px; font-weight: 500; }
-.mc-submit-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
-.mc-submit-list a { display: grid; gap: 4px; height: 100%; padding: 14px 16px; border-radius: 12px; border: 1px solid var(--border-hairline); text-decoration: none;
-  transition: border-color var(--duration-base) var(--ease-standard), background-color var(--duration-base) var(--ease-standard), transform var(--duration-fast) var(--ease-standard); }
+.mc-results-card { grid-template-areas: "head intro" "stats stats" "submit submit"; }
+.mc-submit { grid-area: submit; display: grid; gap: 16px; padding-top: 26px; border-top: 1px solid var(--border-hairline); }
+.mc-submit-label { color: var(--text-primary); font-size: 18px; font-weight: 650; letter-spacing: -0.01em; }
+/* each way to submit is a toy card: its scene on top (drawn behind the page, so nothing is painted over it), then what it carries */
+.mc-submit-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.mc-submit-list a { display: flex; flex-direction: column; height: 100%; border-radius: 18px; overflow: hidden; text-decoration: none;
+  border: 1px solid color-mix(in oklab, var(--tc) 26%, var(--border-hairline));
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 6%), 0 6px 0 rgb(0 0 0 / 24%), 0 22px 36px -26px rgb(0 0 0 / 70%);
+  transition: translate .35s cubic-bezier(.34, 1.4, .5, 1), box-shadow .35s var(--ease-standard), border-color var(--duration-base) var(--ease-standard); }
+.mc-submit-list .mc-art { aspect-ratio: 16 / 7; border-bottom: 1px solid color-mix(in oklab, var(--tc) 22%, var(--border-hairline)); }
+.mc-submit-body { flex: 1; display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "title go" "desc go"; align-items: center; gap: 4px 14px; padding: 14px 16px 16px;
+  background: linear-gradient(180deg, color-mix(in oklab, var(--tc) 9%, var(--surface-1)), var(--surface-1) 80%); transition: background-color var(--duration-base) var(--ease-standard); }
+/* the way out: a soft disc in the card's colour with a drawn arrow on it, the arrow nudging out on hover */
+.mc-submit-body::before, .mc-submit-body::after { content: ""; grid-area: go; align-self: center; justify-self: center; }
+.mc-submit-body::before { width: 38px; height: 38px; border-radius: 50%; background: color-mix(in oklab, var(--tc) 16%, transparent); box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--tc) 22%, transparent);
+  transition: background-color var(--duration-base) var(--ease-standard), box-shadow var(--duration-base) var(--ease-standard); }
+.mc-submit-body::after { width: 16px; height: 16px; background: var(--tc);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 11.5l7-7M6 4.5h5.5V10'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 11.5l7-7M6 4.5h5.5V10'/%3E%3C/svg%3E") center / contain no-repeat;
+  transition: translate .3s cubic-bezier(.34, 1.5, .5, 1), background-color var(--duration-base) var(--ease-standard); }
 @media (hover: hover) and (pointer: fine) {
-  .mc-submit-list a:hover { border-color: var(--border-strong); background: color-mix(in oklab, var(--surface-2) 70%, transparent); }
+  .mc-submit-list a:hover { translate: 0 -4px; border-color: color-mix(in oklab, var(--tc) 55%, transparent); box-shadow: inset 0 1px 0 rgb(255 255 255 / 8%), 0 10px 0 rgb(0 0 0 / 26%), 0 30px 44px -26px rgb(0 0 0 / 75%); }
+  .mc-submit-list a:hover .mc-submit-body::before { background: var(--tc); box-shadow: 0 0 18px color-mix(in oklab, var(--tc) 45%, transparent); }
+  .mc-submit-list a:hover .mc-submit-body::after { background: var(--bg-canvas, #05070e); translate: 2px -2px; }
 }
-.mc-submit-list a:active { transform: scale(.98); }
-.mc-submit-list b { font-size: 15px; font-weight: 600; color: var(--text-primary); }
-.mc-submit-list b::after { content: " ↗"; color: var(--track-1); }
-.mc-submit-list span { font-size: 13px; line-height: 1.45; color: var(--text-secondary); }
+.mc-submit-list a:active { translate: 0 1px; }
+.mc-submit-list a:focus-visible { outline: 2px solid var(--tc); outline-offset: 3px; }
+.mc-submit-list b { grid-area: title; font-size: 16px; font-weight: 650; color: var(--text-primary); }
+.mc-submit-list span { grid-area: desc; font-size: 13.5px; line-height: 1.45; color: var(--text-secondary); }
 /* the hero's third way in: a plain link to the recorded run, beside the two buttons */
 .mc-text-link { display: inline-flex; align-items: center; gap: 10px; height: 52px; padding: 0 6px; color: var(--text-secondary); font-size: 15px; font-weight: 600; text-decoration: none;
   transition: color var(--duration-base) var(--ease-standard); }
@@ -659,13 +716,17 @@ html:not(.js) .mc-fbook .mc-art { display: none; }
   .mc-people-mini, .mc-orgs { grid-template-columns: 1fr; }
   .mc-grid-3 .mc-card:last-child .mc-art { aspect-ratio: 16 / 11; }
   .mc-catalogue-meta { grid-template-columns: repeat(3, 1fr); gap: 24px; }
-  .mc-results-card { grid-template-columns: 1fr; grid-template-areas: "head" "stats" "actions" "submit"; }
-  .mc-submit-list { grid-template-columns: 1fr; }
-  .mc-results-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
-  .mc-results-stats li { padding: 0 10px 12px; }
-  .mc-results-stats .mc-art { margin: 0 -10px 6px; }
-  .mc-results-stats b { font-size: 30px; }
-  .mc-results-stats small { display: none; }
+  .mc-results-card { grid-template-columns: 1fr; grid-template-areas: "head" "intro" "stats" "submit"; gap: 22px; }
+  .mc-submit-list { grid-template-columns: 1fr; gap: 12px; }
+  .mc-submit-list a { flex-direction: row; }
+  .mc-submit-list .mc-art { flex: none; width: 118px; aspect-ratio: auto; border-bottom: 0; border-right: 1px solid color-mix(in oklab, var(--tc) 22%, var(--border-hairline)); }
+  .mc-submit-body { padding: 14px; }
+  .mc-results-stats { grid-template-columns: 1fr; gap: 14px; }
+  .mc-results-stats .mc-art { aspect-ratio: 16 / 7; }
+  .mc-stat { padding: 16px 18px 20px; }
+  .mc-stat-head { grid-template-columns: auto minmax(0, 1fr); align-items: end; column-gap: 14px; }
+  .mc-stat-head b { font-size: 44px; }
+  .mc-stat-head span { padding-bottom: 4px; }
   .mc-results-actions .btn { flex: 1 1 100%; justify-content: space-between; }
   .mc-bookrow { gap: 8px; margin-bottom: 22px; }
   .mc-fbook .mc-art { aspect-ratio: 1 / 1; }
@@ -678,10 +739,16 @@ html:not(.js) .mc-fbook .mc-art { display: none; }
   .is-books .mc-fbook:not([data-slot="center"]) small { display: none; }
   .mc-pages { gap: 12px; }
 }
+@media (max-width: 520px) {
+  .mc-submit-list .mc-art { width: 104px; }
+  .mc-submit-body { grid-template-columns: 1fr; grid-template-areas: "title" "desc"; align-content: center; }
+  .mc-submit-body::before, .mc-submit-body::after { display: none; }
+}
 
 /* ---------- Reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
   .js .mc-in, .js .mc-r { animation: none; opacity: 1; translate: none; transition: none; }
+  .js .mc-results-card :is(.mc-stat-meter, .mc-stat-split, .mc-stat-pips) i { transform: none; opacity: 1; scale: 1; transition: none; }
   .mc-rail li, .mc-rail li.on, .mc-rail li.is-active { transition: none; translate: none; }
   .mc-fbook-label { transition: none; }
   .mc-fieldbooks-track { height: auto; }

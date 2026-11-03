@@ -461,7 +461,7 @@ if (chapter) {
   async function load() {
     if(loading)return;loading=true;
     try {
-      const {createArenaScene}=await import('./arena-scene.js?v=20261102-portal-scale');
+      const {createArenaScene}=await import('./arena-scene.js?v=20261103-wheel-centre');
       scene=createArenaScene($('.mc-canvas'), { onWeaponProject: projectWeapon, onPortalProject: projectPortals }); scene.update(state);
       import('./portal-warp.js?v=20261101-shuttle').catch(() => {}); // the shuttle, ready before any portal is taken
       $('.mc-fallback').hidden=true;chapter.dataset.renderer='webgl';

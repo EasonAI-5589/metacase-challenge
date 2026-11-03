@@ -942,6 +942,13 @@ export function createArenaScene(canvas, { onWeaponProject, onPortalProject } = 
   const head = toyRobot.head;
   if (head.children[4]) head.children[4].visible = false;
   if (head.children[5]) head.children[5].visible = false;
+  // height of the robot's middle per unit of scale (feet to head, the hidden aerial left out),
+  // so the wheel can be centred on its body
+  agent.updateMatrixWorld(true);
+  const robotBox = new THREE.Box3();
+  toyRobot.root.traverseVisible((node) => { if (node.isMesh) robotBox.expandByObject(node); });
+  const robotMid = (robotBox.getCenter(vec()).y - agent.position.y) / 2.85,
+    robotTall = robotBox.getSize(vec()).y / 2.85;
   canvas.dataset.robotModel = "mc-kit";
 
   // Six distinct 3D Model Character loadouts (bold armor colors, brand logo chest shield, shoulder pauldrons & head crest)
@@ -1149,7 +1156,7 @@ export function createArenaScene(canvas, { onWeaponProject, onPortalProject } = 
   stage.add(inventory);
   const wheelLight = new THREE.PointLight(0xffffff, 18, 12, 1.5);
   stage.add(wheelLight);
-  const slotRay = vec();
+  const slotRay = vec(), robotCentre = vec();
   const inventoryGuns = harnessColors.map((c, i) => {
     const mount = new THREE.Group();
     inventory.add(mount);
@@ -1599,10 +1606,7 @@ export function createArenaScene(canvas, { onWeaponProject, onPortalProject } = 
             2 * Math.atan(Math.tan(THREE.MathUtils.degToRad(shot.fov) / 2) * Math.min(1.55, 1 / camera.aspect)),
           )
         : shot.fov;
-    // Align the loadout portrait with the shared page grid's 57% wheel centre.
-    const wheelShift = smooth(0.15, 0.21, p) * (1 - smooth(0.35, 0.4, p));
-    if (!mobile && wheelShift > 0.001) camera.setViewOffset(width, height, -width * 0.07 * wheelShift, 0, width, height);
-    else camera.clearViewOffset();
+    camera.clearViewOffset();
     camera.updateProjectionMatrix();
     agent.position.copy(heroPos);
     const inventoryAmount = smooth(0.14, 0.21, p) * (1 - smooth(0.35, 0.395, p));
@@ -1644,12 +1648,35 @@ export function createArenaScene(canvas, { onWeaponProject, onPortalProject } = 
     const enginePower = (1 - takeoff) * airborne * (0.45 + braking * 0.75) +
       takeoff * (1.05 + travel * 0.25);
     // Sized against the doorways (veil 5.3 × 6.2, frame 6.5 high): smaller in the wide views and
-    // in front of a portal, larger only at the wheel, where the loadout is the subject.
-    const robotScale = mix(mix(2.0, 2.32, inventoryAmount), 1.6, inTrackTunnel);
+    // in front of a portal. At the wheel it is sized to the ring, so head and feet stay clear of the
+    // top and bottom bays.
+    const wheelDiam = mobile
+      ? Math.min(width * 0.82, Math.max(260, Math.min(330, height - 395)))
+      : Math.min(width * 0.46, height * 0.64, 540);
+    camera.updateMatrixWorld();
+    robotCentre.set(heroPos.x, heroPos.y + hover, heroPos.z).project(camera);
+    const footY = robotCentre.y;
+    robotCentre.set(heroPos.x, heroPos.y + hover + robotTall, heroPos.z).project(camera);
+    const pxPerScale = Math.abs(robotCentre.y - footY) / 2 * height;
+    const wheelFit = clamp(wheelDiam * 0.44 / Math.max(1, pxPerScale), 1.6, 2.32);
+    const robotScale = mix(mix(2.0, wheelFit, inventoryAmount), 1.6, inTrackTunnel);
     toyRobot.root.scale.setScalar(robotScale);
     // the thrusters were built for the robot at 2.85: they stay under its feet and in proportion
     jetMounts.forEach((mount, index) => { mount.position.x = (index ? 1 : -1) * 0.14 * robotScale; mount.scale.setScalar(robotScale / 2.85); });
     agent.position.y += hover;
+    // At the wheel the robot stands in the middle of the ring: shift the view so its body lands on
+    // the wheel's centre (the wheel itself sits at the page grid's 58% on wide screens).
+    const wheelCx = width * (mobile ? 0.5 : 0.58);
+    const wheelCy = height * (mobile ? 0.4 : 0.46);
+    const wheelShift = smooth(0.15, 0.21, p) * (1 - smooth(0.35, 0.4, p));
+    if (wheelShift > 0.001) {
+      camera.updateMatrixWorld();
+      robotCentre.copy(agent.position).y += robotMid * robotScale;
+      robotCentre.project(camera);
+      const dx = wheelCx - (robotCentre.x + 1) / 2 * width, dy = wheelCy - (1 - robotCentre.y) / 2 * height;
+      camera.setViewOffset(width, height, -dx * wheelShift, -dy * wheelShift, width, height);
+      camera.updateProjectionMatrix();
+    }
     body.position.y = 0;
     body.scale.set(1 + impact * 0.018, 1 - impact * 0.045, 1 + impact * 0.018);
     body.rotation.x = takeoff * (0.04 + travel * 0.22) +
@@ -1779,12 +1806,7 @@ export function createArenaScene(canvas, { onWeaponProject, onPortalProject } = 
     wheelLight.intensity = 10 * inventoryAmount;
     wheelLight.position.copy(camera.position);
     // Place each of the six 3D weapons in the foreground (slotDist = 3.1, 1.65 units IN FRONT of the robot),
-    // compensating for camera.setViewOffset(-0.07 * width * wheelShift)
-    const wheelDiam = mobile
-      ? Math.min(width * 0.82, Math.max(260, Math.min(330, height - 395)))
-      : Math.min(width * 0.46, height * 0.64, 540);
-    const wheelCx = width * (mobile ? 0.5 : 0.58);
-    const wheelCy = height * (mobile ? 0.4 : 0.46);
+    // projected through the shifted view, so they stay on the wheel's bays
     const slotRadiusPx = (210 / 600) * wheelDiam;
     const slotDist = 3.1;
     camera.updateMatrixWorld();

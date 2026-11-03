@@ -16,14 +16,14 @@
   <script>document.documentElement.classList.add("js")</script>
   <script src="site.js?v=20261019-motion" defer></script>
   <link rel="stylesheet" href="language.css">
-  <script src="language.js?v=20261031-team" defer></script>
+  <script src="language.js?v=20261103-results" defer></script>
   <link rel="stylesheet" href="v2.css?v=20261101-shuttle">
   <link rel="stylesheet" href="arena.css?v=20261031-dark">
-  <link rel="stylesheet" href="metacase.css?v=20261102-toybook">
+  <link rel="stylesheet" href="metacase.css?v=20261103-results">
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
   <script src="v2.js?v=20261031-dark" defer></script>
-  <script type="module" src="metacase.js?v=20261102-toybook"></script>
-  <script type="module" src="arena.js?v=20261102-portal-scale"></script>
+  <script type="module" src="metacase.js?v=20261103-results"></script>
+  <script type="module" src="arena.js?v=20261103-wheel-centre"></script>
 </head>
 <body class="v2-home mc-home">
   <a class="skip-link" href="#main">Skip to content</a>
@@ -452,23 +452,53 @@
       <div class="mc-results-head">
         <p class="mc-label mono"><span>07</span>Results so far</p>
         <h2 id="results-title"><span>See how runs</span> <em>have been scored.</em></h2>
-        <p class="mc-results-scope">The Harbor benchmark catalog curates 600 hard task records across 3 fields and 18 classes (200 per field). On its 100-task Dev100 econometric replication split, Harbor has evaluated 8 models across 5 agent harnesses (3,999 / 4,000 formal trials scored) and compared 9 harness configurations on GPT-5.6 Sol (900 / 900 trials scored), alongside the 14-model × 4-harness v10 development board.</p>
+      </div>
+      <div class="mc-results-intro">
+        <p class="mc-results-scope">Harbor scores every run against a frozen catalog of hard tasks. Dev100 is its 100-task econometric replication split; the 14-model × 4-harness v10 development board sits beside these figures.</p>
+        <div class="mc-results-actions">
+          <a class="btn btn-primary" href="leaderboard.html"><span>See the leaderboard</span><span class="arrow" aria-hidden="true"><i>→</i><i>→</i></span></a>
+          <a class="btn btn-secondary" href="challenge.html#replication-demo"><span>Watch an agent run</span><span class="arrow" aria-hidden="true"><i>→</i><i>→</i></span></a>
+        </div>
       </div>
       <ul class="mc-results-stats" aria-label="Benchmark snapshot">
-        <li style="--tc: var(--track-1)"><div class="mc-art" data-art="tasks"></div><b class="tnum" data-count="600">600</b><span>Candidate tasks</span><small>3 fields × 200 tasks · 18 classes: 35 Dev100 causal replications, 484 hard Harbor registry tasks pinned at commit, 81 workflow deliverable tasks</small></li>
-        <li style="--tc: var(--mc-violet)"><div class="mc-art" data-art="models"></div><b class="tnum">8 × 5</b><span>Models × harnesses on Dev100</span><small>3,999 / 4,000 trials scored</small><small data-no-translate>DeepAgents · Terminus-2 · Claude Agent SDK · OpenAI Agents SDK · DeepSeek Harness</small></li>
-        <li style="--tc: var(--track-2)"><div class="mc-art" data-art="harnesses"></div><b class="tnum" data-count="9">9</b><span>Harnesses on GPT-5.6 Sol</span><small>900 / 900 Dev100 trials scored</small></li>
+        <li style="--tc: var(--track-1)">
+          <div class="mc-art" data-art="tasks"></div>
+          <div class="mc-stat">
+            <p class="mc-stat-head"><b class="tnum" data-count="600">600</b><span>Candidate tasks</span></p>
+            <p class="mc-stat-note">3 fields × 200 tasks · 18 classes</p>
+            <div class="mc-stat-split" aria-hidden="true"><i style="--w: 35"></i><i style="--w: 484"></i><i style="--w: 81"></i></div>
+            <ul class="mc-stat-key">
+              <li><b class="tnum">35</b><span>Dev100 causal replications</span></li>
+              <li><b class="tnum">484</b><span>Hard Harbor registry tasks, pinned at commit</span></li>
+              <li><b class="tnum">81</b><span>Workflow deliverable tasks</span></li>
+            </ul>
+          </div>
+        </li>
+        <li style="--tc: var(--mc-violet)">
+          <div class="mc-art" data-art="models"></div>
+          <div class="mc-stat">
+            <p class="mc-stat-head"><b class="tnum">8 × 5</b><span>Models × harnesses on Dev100</span></p>
+            <div class="mc-stat-meter" aria-hidden="true"><i style="--v: .99975"></i></div>
+            <p class="mc-stat-note tnum">3,999 / 4,000 trials scored</p>
+            <ul class="mc-stat-chips" data-no-translate><li>DeepAgents</li><li>Terminus-2</li><li>Claude Agent SDK</li><li>OpenAI Agents SDK</li><li>DeepSeek Harness</li></ul>
+          </div>
+        </li>
+        <li style="--tc: var(--track-2)">
+          <div class="mc-art" data-art="harnesses"></div>
+          <div class="mc-stat">
+            <p class="mc-stat-head"><b class="tnum" data-count="9">9</b><span>Harnesses on GPT-5.6 Sol</span></p>
+            <div class="mc-stat-meter" aria-hidden="true"><i style="--v: 1"></i></div>
+            <p class="mc-stat-note tnum">900 / 900 Dev100 trials scored</p>
+            <div class="mc-stat-pips" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          </div>
+        </li>
       </ul>
-      <div class="mc-results-actions">
-        <a class="btn btn-primary" href="leaderboard.html"><span>See the leaderboard</span><span class="arrow" aria-hidden="true"><i>→</i><i>→</i></span></a>
-        <a class="btn btn-secondary" href="challenge.html#replication-demo"><span>Watch an agent run</span><span class="arrow" aria-hidden="true"><i>→</i><i>→</i></span></a>
-      </div>
       <div class="mc-submit">
         <p class="mc-submit-label">Submit to the Challenge</p>
         <ul class="mc-submit-list">
-          <li><a href="https://submit.inferencenet.cn/submit/harness/" target="_blank" rel="noopener"><b>Submit an agent / harness</b><span>A model and its harness, packaged to rerun</span></a></li>
-          <li><a href="https://submit.inferencenet.cn/submit/benchmark/" target="_blank" rel="noopener"><b>Submit a benchmark</b><span>A new task with its data and references</span></a></li>
-          <li><a href="https://submit.inferencenet.cn/submit/failure-case/" target="_blank" rel="noopener"><b>Submit a failure case</b><span>A reproducible failure with its diagnosis</span></a></li>
+          <li style="--tc: var(--track-1)"><a href="https://submit.inferencenet.cn/submit/harness/" target="_blank" rel="noopener"><div class="mc-art" data-art="submit-harness" aria-hidden="true"></div><div class="mc-submit-body"><b>Submit an agent / harness</b><span>A model and its harness, packaged to rerun</span></div></a></li>
+          <li style="--tc: var(--track-2)"><a href="https://submit.inferencenet.cn/submit/benchmark/" target="_blank" rel="noopener"><div class="mc-art" data-art="submit-benchmark" aria-hidden="true"></div><div class="mc-submit-body"><b>Submit a benchmark</b><span>A new task with its data and references</span></div></a></li>
+          <li style="--tc: var(--mc-rose)"><a href="https://submit.inferencenet.cn/submit/failure-case/" target="_blank" rel="noopener"><div class="mc-art" data-art="submit-failure" aria-hidden="true"></div><div class="mc-submit-body"><b>Submit a failure case</b><span>A reproducible failure with its diagnosis</span></div></a></li>
         </ul>
       </div>
     </div>
