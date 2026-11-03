@@ -3,8 +3,8 @@
 .professional-page .nav-links a[aria-current="true"]::after{content:"";position:absolute;height:1px;bottom:19px;left:0;right:0;background:var(--ink)}
 .professional-hero{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(280px,1fr);gap:68px;align-items:center;padding-block:64px 52px}
 .professional-hero h1{font-size:clamp(32px,3.7vw,46px);line-height:1.17;letter-spacing:-.035em;max-width:640px;overflow-wrap:normal}
-.professional-hero h1>span{display:block}
-html[lang="zh-CN"] .professional-hero h1>span{display:inline}
+.professional-hero h1>:is(span,em){display:block}
+html[lang="zh-CN"] .professional-hero h1>:is(span,em){display:inline}
 .professional-deck{font-size:22px;line-height:1.4;letter-spacing:-.025em;color:var(--brand);max-width:570px;margin:22px 0 0}
 .professional-hero .lead{font-size:15px;max-width:600px;margin-top:16px}
 .professional-hero-links{display:flex;flex-wrap:wrap;align-items:center;gap:20px 28px;margin-top:28px}

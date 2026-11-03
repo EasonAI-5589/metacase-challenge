@@ -92,3 +92,23 @@ html.js:not(.rm) .v2-in .toy-spot svg, html.js:not(.rm) .toy-spot.is-in svg { an
 .toy-badge .th, .toy-spot .th { stroke-width: 7; }
 .toy-badge .tx, .toy-spot .tx { font: 700 15px/1 Inter, system-ui, sans-serif; fill: #fff; text-anchor: middle; }
 @media (prefers-reduced-motion: reduce) { .toy-hero canvas { transition: none; } .v2-content :is(.card, .card-grid > *) { transition: none; } }
+
+/* ---- the homepage's frame (metacase.css): the same column, hero eyebrow and chapter labels ---- */
+/* the header bar keeps its own frame; everything below it takes the homepage's column */
+.v2-content .container:not(.nav) { width: min(calc(var(--content-max) - 2 * var(--space-4)), calc(100% - 48px)); }
+.v2-content .page-hero .kicker { gap: 14px; font: 400 12px/1.5 var(--font-mono); letter-spacing: .08em; color: var(--track-1); }
+.v2-content .page-hero .kicker::before { width: 32px; background: currentColor; }
+/* chapter labels read like the homepage's: the number in a small box, then the name, no rule or beads */
+.v2-content .section-heading .kicker { gap: 10px; font: 400 12px/1.5 var(--font-mono); letter-spacing: .08em; color: var(--text-tertiary); }
+.v2-content .section-heading .kicker::before, .v2-content .section-heading .kicker::after { content: none; }
+.kicker-num { display: inline-grid; place-items: center; min-width: 26px; height: 20px; padding: 0 6px; border-radius: 6px;
+  border: 1px solid color-mix(in oklab, var(--text-primary) 15%, transparent); color: var(--text-primary); font-size: 11px; }
+/* the homepage has no page counter or scroll cue in its header */
+.v2-content .v2-hero-index, .v2-content .v2-scroll-cue { display: none; }
+/* hero calls to action, in the homepage's pill buttons (skin.css .button) */
+.v2-content .hero-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-start; gap: 12px 14px; margin-top: 32px; }
+@media (max-width: 520px) { .v2-content .hero-actions .button { width: 100%; justify-content: space-between; } }
+/* the column is 48px narrower than before, so let the title keep its two lines */
+@media (min-width: 1100px) { .v2-content .page-hero.has-toy > h1 { max-width: min(780px, 57%); } }
+/* every chapter heading's second half takes the gradient, including the ones outside .section (the demo heading) */
+.v2-content main h2 em { background: var(--toy-grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
