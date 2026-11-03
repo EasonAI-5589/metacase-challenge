@@ -633,7 +633,9 @@ def create_app(config=None):
     def shared_css():
         return send_file(REPO / "v2.css")
 
+    # v2.css now sits at the repo root and links fonts relative to itself, i.e. under /shared/.
     @app.get("/assets/fonts/<name>")
+    @app.get("/shared/assets/fonts/<name>")
     def font(name):
         if name not in ("inter-latin.woff2", "space-mono-latin.woff2"):
             raise Problem(404, "not_found", "Asset not found.")

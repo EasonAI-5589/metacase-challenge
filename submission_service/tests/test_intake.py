@@ -1,6 +1,7 @@
 import hashlib
 import json
 from pathlib import Path
+import re
 import secrets
 
 import pytest
@@ -190,6 +191,14 @@ def test_no_payload_execution(app):
     upload(client, headers, initialized, files)
     assert complete(client, headers, initialized).status_code == 200
     assert not marker.exists()
+
+
+def test_shared_stylesheet_fonts_resolve(app):
+    client = app.test_client()
+    css = client.get("/shared/v2.css")
+    assert css.status_code == 200
+    for link in re.findall(r'url\("([^"#:]+\.woff2)"\)', css.get_data(as_text=True)):
+        assert client.get("/shared/" + link).status_code == 200, link
 
 
 def test_private_reference_cannot_be_reused_by_another_account(app):
