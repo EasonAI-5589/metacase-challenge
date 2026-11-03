@@ -62,7 +62,7 @@
 
 ## SFF 视频
 
-最新成片仍是 `docs/video/sff-homepage/metacase-sff-stage-1080p60-v5.mp4`（11-02 拍摄），里面还是旧角色、旧书、旧结果区，和现在的网页不一致。要按现在的网页重拍 v6，需要先重调 05-fields 段的滚动关键帧：Fields 的滚动距离从 200vh 加长到 330vh，书也改成了三个展开页。
+已按现在的网页重拍为 v6：`docs/video/sff-homepage/metacase-sff-stage-1080p60-v6.mp4`（134.53 s）。拍摄改动和验收结果写在 `docs/video/sff-homepage/STATUS.md` 的 v6 一节。v5 保留作对比。
 
 ## 检查结果
 

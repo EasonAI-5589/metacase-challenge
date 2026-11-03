@@ -4,7 +4,7 @@ import { PAINT_HIDDEN } from './lib/stage.mjs';
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 const LOCK = process.env.LOCK || 'cefd87bb44155d86528f452ceefb6992bdc9b9fe', FPS = process.env.FPS || 60;
-const FILES = ['index.html', 'arena.js', 'arena-data.js', 'metacase.js', 'challenge.html'];
+const FILES = ['index.html', 'arena.js', 'arena-data.js', 'metacase.js', 'challenge.html', 'mc-classart.js'];
 const source = Object.fromEntries(FILES.map(f => [f, execFileSync('git', ['show', `${LOCK}:${f}`], { encoding: 'utf8', maxBuffer: 1 << 26 }).split('\n')]));
 const norm = s => s.replace(/&amp;/g, '&').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().toLowerCase();
 const flat = Object.fromEntries(FILES.map(f => [f, source[f].map(norm)]));

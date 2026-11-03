@@ -76,6 +76,7 @@ export const STAGE_CSS = `
   .mc-book .mc-page-desc { display: none !important; }
   .mc-book .mc-page-name { font-size: 24px !important; line-height: 1.16 !important; }
   .mc-book .mc-call { font-size: 19px !important; }
+  .mc-page-folio { display: none !important; }
   .mc-fbook-label small { font-size: 19px !important; }
   .is-books .mc-fbook:not([data-slot="center"]) .mc-fbook-title { font-size: 20px !important; }
   .mc-fbook-n { font-size: 19px !important; }
@@ -96,8 +97,7 @@ export const STAGE_CSS = `
   .mc-loadout .mc-chip, .mc-loadout .mc-model-btn, .mc-loadout .mc-effort-btn, .mc-loadout .mc-confirm { font-size: 14px !important; }
   .mc-loadout .mc-confirm { padding: 8px 12px !important; }
   [data-mc-equipped] { font-size: 21px !important; }
-  /* the wheel stands clear of the wider panel */
-  .mc-wheel { translate: 60px 0 !important; }
+  /* the wheel stays where the page puts it (58%), where the 3D robot and weapons are centred: at 1280 it clears the wider panel */
   /* type only: zoom would scale the inline translate too and pull the labels out of their doorways */
   .mc-portal.is-compact em { font-size: 19px !important; }
   .mc-portal.is-compact i { width: 32px !important; height: 32px !important; }
@@ -109,15 +109,24 @@ export const STAGE_CSS = `
   .mc-domain-directory { display: none !important; }
   .mc-corner { font-size: 19px !important; }
 
-  /* chapter 07: the numbers are the picture */
-  .mc-results-card { display: block !important; padding: 56px 64px !important; }
-  .mc-results-actions, .mc-submit, .mc-results-stats small[data-no-translate] { display: none !important; }
+  /* chapter 07: the numbers are the picture (the submit cards are links, so they stay off the stage) */
+  .mc-results-card { display: block !important; padding: 44px 32px 48px !important; }
+  .mc-results-head, .mc-results-intro { padding-inline: 24px !important; }
+  .mc-results-actions, .mc-submit { display: none !important; }
   .mc-results-head h2 { font-size: 52px !important; }
-  .mc-results-stats { margin-top: 44px !important; gap: 20px !important; align-items: stretch !important; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.12fr) minmax(0, 1fr) !important; }
-  .mc-results-stats li { padding: 32px 28px 30px !important; }
-  .mc-results-stats b { font-size: 116px !important; }
-  .mc-results-stats span { font-size: 25px !important; line-height: 1.2 !important; margin-top: 14px; text-wrap: balance; }
-  .mc-results-stats small { font-size: 19px !important; line-height: 1.3 !important; color: var(--text-secondary) !important; margin-top: 10px; text-wrap: balance; }
+  .mc-results-intro { margin-top: 18px !important; }
+  .mc-results-scope { font-size: 21px !important; max-width: 50em !important; }
+  .mc-results-stats { margin-top: 34px !important; gap: 18px !important; }
+  .mc-results-stats .mc-art { aspect-ratio: 16 / 6.5 !important; }
+  .mc-stat { padding: 20px 24px 26px !important; gap: 14px !important; }
+  .mc-stat-head b { font-size: 84px !important; }
+  .mc-stat-head span { font-size: 25px !important; line-height: 1.2 !important; text-wrap: balance; }
+  .mc-stat-note, .mc-stat-key li, .mc-stat-chips li { font-size: 19px !important; line-height: 1.3 !important; text-wrap: balance; }
+  .mc-stat-key li { grid-template-columns: 10px 50px minmax(0, 1fr) !important; }
+  .mc-stat-key li::before { width: 10px !important; height: 10px !important; }
+  .mc-stat-split { height: 12px !important; }
+  .mc-stat-meter { height: 10px !important; }
+  .mc-stat-pips { max-width: none !important; }
 
   /* chapter 08: host and the two partner labs in one frame */
   .mc-join { padding: 24px 0 !important; }
@@ -144,8 +153,6 @@ export async function applyStageText(page) {
     // fixed line break for the page's sentence, so "experience-based" is never split at its hyphen
     const statement = document.querySelector('#net .mc-caption-statement span');
     if (statement) statement.innerHTML = 'A foundation for<br>experience-based AI.';
-    const small = document.querySelector('.mc-results-stats li:first-child small');
-    if (small) small.textContent = '3 fields × 200 tasks · 18 classes';
   });
 }
 
