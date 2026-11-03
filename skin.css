@@ -273,6 +273,8 @@ html.past-hero .v2-content .ambient { opacity: 1; }
 @keyframes v2Beacon { 50% { box-shadow: 0 0 0 9px transparent; } }
 .v2-content .plan-number { font: 400 11.5px var(--font-mono); letter-spacing: .12em; color: var(--muted); }
 .v2-content .status.is-tbc { border-radius: 999px; padding: 3px 9px; font: 400 10.5px var(--font-mono); letter-spacing: .06em; color: var(--caution); background: color-mix(in oklab, var(--caution) 14%, transparent); border: 0; }
+.v2-content .status.is-open { border-radius: 999px; padding: 3px 9px; font: 400 10.5px var(--font-mono); letter-spacing: .06em; color: var(--brand); background: var(--brand-tint); border: 0; }
+.v2-content .plan-stage .text-link { margin-top: 12px; }
 .v2-content .plan-stage h3 { margin-top: 14px; font-size: 18px; letter-spacing: -0.015em; }
 
 /* Ways to take part: numbered cards. */

@@ -98,7 +98,7 @@
   .plan-stage:first-child{border-top:1px solid var(--strong-line)}
   .plan-stage.is-current{border-top:1px solid var(--ink)}
   .plan-meta{grid-row:1/3;flex-direction:column;align-items:flex-start;gap:8px;margin:0}
-  .plan-stage h3,.plan-stage p{grid-column:2}
+  .plan-stage h3,.plan-stage p,.plan-stage .text-link{grid-column:2}
   .track{padding:24px}
   .track-facts div{grid-template-columns:1fr;gap:2px}
 }
