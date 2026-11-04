@@ -460,8 +460,9 @@ borderless row below the hero buttons. Each crest is 72px tall, with no universi
 wordmark. HKU uses its standalone crest; a CSS window shows the shield from the
 unchanged NTU university logo asset. SUFE uses its official red-on-white charter seal,
 `assets/institutions/sufe-university-official.png`, on a white disc in light and
-dark themes. The homepage Team cards show the NTU, HKU Business School and SUFE
-marks on white plates. The GIFTS text link remains in the introduction. Teams retains the
+dark themes. The homepage Team cards show crests only, at one size and in
+one column with the directors' photos: the NTU shield (same CSS window), the HKU
+standalone crest and the SUFE seal on a white disc. The GIFTS text link remains in the introduction. Teams retains the
 existing college and business-school marks. Original assets and ownership notes
 are recorded in `assets/institutions/ATTRIBUTION.txt`.
 Faculty profiles and institutional research profiles link their official

@@ -77,8 +77,8 @@ wordmark. The source image bytes are unchanged; the window preserves the
 shield itself and its original proportions. SUFE uses the opaque charter seal above
 (sufe-university-official.png): its original red-on-white artwork on a white disc
 in both light and dark mode. The transparent homepage asset is retained for provenance.
-The homepage Team cards show NTU (ntu-university-official.png), HKU Business School
-(hku-business-horizontal.png) and the SUFE charter seal on white plates, in their
-original colors.
+The homepage Team cards show crests only, in their original colors and one 64px
+column: the NTU shield (the same CSS window on ntu-university-official.png), the HKU
+standalone crest (hku-university-crest.png) and the SUFE charter seal on a white disc.
 NTU and HKU retain their original colors, including white within their shields.
 No source image bytes are changed.
