@@ -69,7 +69,7 @@ the first 145 pixels of its 702-pixel width; the adjacent wordmark is not shown.
 Display color #811c21 is used by the official homepage's tlogo.svg:
 https://www.sufe.edu.cn/_upload/tpl/02/d6/726/template726/images/tlogo.svg
 
-Homepage presentation: all three crests have a 72px display height in a borderless
+Homepage presentation: all four crests have a 72px display height in a borderless
 row below the action buttons. Full university names remain available as hover
 titles and accessible image descriptions. A CSS window
 shows the NTU shield from the original university logo without the adjacent
@@ -77,9 +77,11 @@ wordmark. The source image bytes are unchanged; the window preserves the
 shield itself and its original proportions. SUFE uses the opaque charter seal above
 (sufe-university-official.png): its original red-on-white artwork on a white disc
 in both light and dark mode. The transparent homepage asset is retained for provenance.
+The Tsinghua crest (tsinghua-pbcsf-crest.png, below) sits on the same white disc.
 The homepage Team cards show crests only, in their original colors and one 64px
 column: the NTU shield (the same CSS window on ntu-university-official.png), the HKU
-standalone crest (hku-university-crest.png) and the SUFE charter seal on a white disc.
+standalone crest (hku-university-crest.png), and the SUFE charter seal and the Tsinghua
+crest on white discs.
 NTU and HKU retain their original colors, including white within their shields.
 No source image bytes are changed.
 
@@ -93,3 +95,13 @@ Original: https://vi.tsinghua.edu.cn/__local/8/1C/21/2F02A66E31BF084FE340463BB47
 Format and dimensions: JPEG, 1400 x 600 pixels
 SHA-256: 90132d030d8a70f9d21375c85d8a0c614d44a6201ab82200067b10aca38986a8
 Processing: Original downloaded bytes preserved. White background and margins remain; this is the source master, not the final card-sized crest.
+
+Tsinghua University crest - display file
+File: tsinghua-pbcsf-crest.png (435 x 435)
+Derived from: tsinghua-university-original.jpg (above)
+Processing: cropped to the round crest, pixels x 469-903 and y 77-511 of the original
+(the crest's bounding box plus a 2px white margin), and saved as PNG. Not resized;
+colors and proportions unchanged.
+SHA-256: 035bdcc5172a44f5854be0688fc0325fe785075cb2ce592312012cdc2b9cb8b2
+Used on the homepage (hero crest row and Team card, on a white disc) and on the
+Teams page (logo wall and partner card, on a white plate).

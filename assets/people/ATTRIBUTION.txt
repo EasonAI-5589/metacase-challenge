@@ -36,3 +36,9 @@ Original: https://www.pbcsf.tsinghua.edu.cn/__local/0/74/8D/81E5407F6F92E6E90E14
 Format and dimensions: JPEG, 2364 x 3072 pixels
 SHA-256: 190eb959dba72cb09903481cfe3c2d278d0a1a3e805b3f96b564f79f5ed30bb3
 Processing: Original downloaded bytes preserved. Unlike the display portraits described above, this source master has not been cropped or resized to 240 x 240.
+
+xiaoyan-zhang.jpg - Xiaoyan Zhang (display portrait)
+Derived from: xiaoyan-zhang-original.jpg (above)
+Processing: cropped to the square x 422-2201, y 26-1805 around the face and resized
+to 240 x 240 JPEG, framed like the other portraits.
+SHA-256: 984d598b911713d43f66c9834345744a713a0440c65272bc43bbc57967702484
