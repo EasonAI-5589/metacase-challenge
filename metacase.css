@@ -347,13 +347,13 @@ html[lang^="zh"] .mc-en-only { display: none; }
 .mc-join-copy { padding: clamp(40px, 6vw, 88px); background: linear-gradient(90deg, var(--surface-1), color-mix(in oklab, var(--surface-1) 70%, transparent)); }
 .mc-join-copy h2 { margin-top: 16px; }
 .mc-join-card .mc-art { aspect-ratio: auto; min-height: 420px; }
-/* the people, below the card's copy and picture: the host institute first, then the partner labs
-   with their directors, then the student leaders */
-.mc-team { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 32px clamp(24px, 3vw, 48px);
+/* the people, below the card's copy and picture: the host institute first, then the partners
+   with their directors, then the student leaders, each group in its own full-width row */
+.mc-team { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px clamp(24px, 3vw, 48px);
   padding: clamp(28px, 4vw, 48px) clamp(40px, 6vw, 88px) clamp(36px, 5vw, 64px); border-top: 1px solid var(--border-hairline); background: color-mix(in oklab, var(--surface-1) 92%, transparent); }
 .mc-team-kicker { margin-bottom: 14px; color: var(--text-tertiary); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; }
 .mc-people { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
-.mc-people-mini { grid-template-columns: 1fr; }
+.mc-team .mc-orgs, .mc-team .mc-people-mini { grid-template-columns: minmax(0, 1fr); }
 .mc-person { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 14px; align-items: start; padding: 16px; border: 1px solid var(--border-hairline); border-radius: 16px; background: var(--surface-1); box-shadow: var(--inner-highlight); }
 .mc-person img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; }
 .mc-person div { display: grid; gap: 3px; min-width: 0; }
@@ -371,7 +371,7 @@ html[lang^="zh"] .mc-en-only { display: none; }
 .mc-org h3 { font-size: 18px; letter-spacing: -.015em; }
 .mc-org-full { color: var(--text-secondary); font-size: 13.5px; line-height: 1.45; text-wrap: balance; }
 .mc-org .mc-person { margin-top: 12px; padding: 14px 0 0; border: 0; border-top: 1px solid var(--border-hairline); border-radius: 0; background: none; box-shadow: none; }
-.mc-orgs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.mc-orgs { display: grid; gap: 14px; }
 /* partner cards share their rows (name block, director), so the dividers and directors line up */
 .mc-orgs .mc-org { grid-row: span 2; grid-template-rows: subgrid; row-gap: 0; }
 /* crest beside the name: crests and director photos share one 64px column and the names one text
@@ -397,6 +397,18 @@ html[lang^="zh"] .mc-en-only { display: none; }
 .mc-org-host .mc-person-lead { margin: 0; padding: 18px; border: 1px solid var(--border-hairline); border-radius: 14px; background: color-mix(in oklab, var(--surface-2) 72%, transparent); box-shadow: var(--inner-highlight); }
 .mc-org-host .mc-person-lead img { width: 80px; height: 80px; }
 .mc-person-lead { grid-template-columns: 80px minmax(0, 1fr); }
+/* partners and student leaders: three columns where three partner cards fit, with the student cards
+   under the first two; on tablets each partner card puts its director beside the crest and name, so
+   no card is left on its own row; on phones everything stacks */
+.mc-team-partners, .mc-team-students { container-type: inline-size; }
+@container (width >= 880px) {
+  .mc-team .mc-orgs, .mc-team .mc-people-mini { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@container (600px <= width < 880px) {
+  .mc-team .mc-people-mini { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .mc-orgs .mc-org { grid-row: auto; grid-template-rows: none; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 24px; align-items: center; }
+  .mc-orgs .mc-org .mc-person { margin-top: 0; padding: 0 0 0 24px; border-top: 0; border-left: 1px solid var(--border-hairline); }
+}
 .mc-home .v2-footer { margin-top: 0; background: var(--bg-canvas); }
 
 /* ---------- 04 The catalogue: three wings of call-numbered classes ---------- */
@@ -697,7 +709,6 @@ html:not(.js) .mc-fbook .mc-art { display: none; }
   .mc-join-card .mc-art { min-height: 320px; }
   .mc-team { grid-template-columns: 1fr; }
   .mc-org-host { grid-template-columns: 1fr; }
-  .mc-people-mini { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 860px) {
   :root { --mc-gutter: 16px; }
@@ -730,7 +741,6 @@ html:not(.js) .mc-fbook .mc-art { display: none; }
   .mc-tags i { display: none; }
   .mc-grid-2, .mc-grid-3, .mc-grid-4 { grid-template-columns: 1fr; }
   .mc-team { padding: 28px 20px 32px; }
-  .mc-people-mini, .mc-orgs { grid-template-columns: 1fr; }
   .mc-org-host .mc-org-note { grid-column: 1 / -1; margin-top: 14px; } /* on phones the note takes the full card width */
   .mc-grid-3 .mc-card:last-child .mc-art { aspect-ratio: 16 / 11; }
   .mc-catalogue-meta { grid-template-columns: repeat(3, 1fr); gap: 24px; }
