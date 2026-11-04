@@ -26,3 +26,13 @@ Source: supplied by the Metacase Challenge team for this page, 2026-10-22.
 tianyang-han.jpg — Tianyang Han
 Source page: https://www.hkubs.hku.hk/people/tianyang-han/
 Original: https://www.hkubs.hku.hk/wp-content/uploads/fly-images/199691/HAN-Tianyang-scaled-940x1000-ct.jpg
+
+
+xiaoyan-zhang-original.jpg - Xiaoyan Zhang (official source original)
+Retrieved: 2026-11-05
+Owner/source: PBC School of Finance, Tsinghua University
+Source page: https://www.pbcsf.tsinghua.edu.cn/info/1018/1013.htm
+Original: https://www.pbcsf.tsinghua.edu.cn/__local/0/74/8D/81E5407F6F92E6E90E140DE802D_269765B7_ABE85.jpg
+Format and dimensions: JPEG, 2364 x 3072 pixels
+SHA-256: 190eb959dba72cb09903481cfe3c2d278d0a1a3e805b3f96b564f79f5ed30bb3
+Processing: Original downloaded bytes preserved. Unlike the display portraits described above, this source master has not been cropped or resized to 240 x 240.
