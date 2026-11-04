@@ -458,10 +458,10 @@ The homepage shows the university crests for NTU Singapore, the University of
 Hong Kong and Shanghai University of Finance and Economics in a transparent,
 borderless row below the hero buttons. Each crest is 72px tall, with no university
 wordmark. HKU uses its standalone crest; a CSS window shows the shield from the
-unchanged NTU university logo asset. SUFE uses the alpha channel of the official
-transparent asset, `assets/institutions/sufe-university-transparent-official.png`,
-as a CSS mask filled with `#811c21`; this color stays the same in light and dark
-themes. The GIFTS text link remains in the introduction. Teams retains the
+unchanged NTU university logo asset. SUFE uses its official red-on-white charter seal,
+`assets/institutions/sufe-university-official.png`, on a white disc in light and
+dark themes. The homepage Team cards show the NTU, HKU Business School and SUFE
+marks on white plates. The GIFTS text link remains in the introduction. Teams retains the
 existing college and business-school marks. Original assets and ownership notes
 are recorded in `assets/institutions/ATTRIBUTION.txt`.
 Faculty profiles and institutional research profiles link their official

@@ -74,9 +74,11 @@ row below the action buttons. Full university names remain available as hover
 titles and accessible image descriptions. A CSS window
 shows the NTU shield from the original university logo without the adjacent
 wordmark. The source image bytes are unchanged; the window preserves the
-shield itself and its original proportions. SUFE uses the transparent homepage
-asset's alpha channel as a CSS mask: red (#811c21) in both light and dark mode.
-The background, including the space inside the seal, is
-transparent. The opaque charter asset above is retained for provenance.
+shield itself and its original proportions. SUFE uses the opaque charter seal above
+(sufe-university-official.png): its original red-on-white artwork on a white disc
+in both light and dark mode. The transparent homepage asset is retained for provenance.
+The homepage Team cards show NTU (ntu-university-official.png), HKU Business School
+(hku-business-horizontal.png) and the SUFE charter seal on white plates, in their
+original colors.
 NTU and HKU retain their original colors, including white within their shields.
 No source image bytes are changed.
