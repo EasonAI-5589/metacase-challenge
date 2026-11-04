@@ -385,10 +385,12 @@ html[lang^="zh"] .mc-en-only { display: none; }
 .mc-crest-seal { display: grid; place-items: center; width: 58px; height: 58px; padding: 2px; border-radius: 50%; overflow: hidden; background: #fff; }
 .mc-crest-seal img { width: 100%; height: 100%; max-width: none; }
 /* the host: full width, set apart by its accent and a larger name, its director on a raised panel */
-.mc-org-host { grid-column: 1 / -1; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); align-items: center; gap: 20px clamp(24px, 4vw, 56px);
+.mc-team-host { grid-column: 1 / -1; }
+.mc-org-host { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); align-items: center; gap: 20px clamp(24px, 4vw, 56px);
   border-color: color-mix(in oklab, var(--track-1) 38%, var(--border-hairline)); border-radius: 20px;
   background: radial-gradient(90% 140% at 0% 0%, color-mix(in oklab, var(--track-1) 12%, transparent), transparent 62%), var(--surface-1); }
-.mc-org-host .mc-team-kicker { margin-bottom: 6px; color: var(--track-1); }
+/* the "Host" label sits above the card like the other group labels, so the crest lines up with the title */
+.mc-org-host .mc-org-head { align-items: center; }
 .mc-org-host h3 a { font-size: clamp(26px, 2.4vw, 34px); letter-spacing: -.03em; }
 .mc-org-host .mc-org-name { gap: 6px; }
 .mc-org-note { grid-column: 2; margin-top: 10px; max-width: 34em; color: var(--text-secondary); font-size: 15px; line-height: 1.55; }
