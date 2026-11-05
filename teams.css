@@ -71,3 +71,7 @@
   .research-group-wide .group-name{min-height:0}
   .research-group-wide .group-links{padding-top:0}
 }
+/* phones and tablets: room above the diorama for the backdrop globe's four cities */
+@media(max-width:1099px){.v2-page-teams .page-hero.has-toy .toy-hero{margin-top:44px}}
+/* the globe's cities show through above the diorama; the veil starts where the copy does */
+@media(max-width:1099px){.v2-page-teams .v2-veil{background:linear-gradient(180deg,transparent 0,transparent 38%,color-mix(in oklab,var(--paper) 78%,transparent) 54%)}}

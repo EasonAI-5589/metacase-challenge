@@ -454,6 +454,11 @@ The MetricsAI workflow is attributed to Figure 1 of Chen et al.,
 image and the 2026-09-15 vector redraws retain their source and permission notes
 in `assets/figures/ATTRIBUTION.txt`. They illustrate related research.
 
+The Teams page header draws the Earth turned to East Asia, with Beijing, Shanghai,
+Hong Kong and Singapore marked for Tsinghua PBCSF, SUFE, HKU and NTU. Its land mask
+in `backdrop.js` comes from Natural Earth 1:110m land (public domain), packaged by
+world-atlas 2.0.2, sampled on a 1.5° grid by `scripts/build-land-mask.mjs`.
+
 The homepage shows the university crests for NTU Singapore, the University of
 Hong Kong, Shanghai University of Finance and Economics and Tsinghua University
 in a transparent, borderless row below the hero buttons. Each crest is 72px tall, with no university

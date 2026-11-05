@@ -6,7 +6,7 @@
  *   contour       Self-evolving: a moving fitness landscape with an optimiser climbing it
  *   bump          Leaderboard: a continuously scrolling rank chart
  *   ledger        Business deliverables: a sheet whose mismatched cells reconcile
- *   constellation Teams: NTU, HKU, SUFE and Tsinghua linked, with collaborators around them
+ *   globe       Teams: the Earth turned to East Asia, NTU, HKU, SUFE and Tsinghua marked and linked
  * Usage: Backdrop.mount(canvas, { mode, focus: [x, y] }) → { setTone(i), destroy() }
  */
 (() => {
@@ -22,6 +22,7 @@
     const d = probe.getImageData(0, 0, 1, 1).data; return [d[0], d[1], d[2]];
   }
   const css = (c, a) => `rgba(${c[0]},${c[1]},${c[2]},${a})`;
+  const mix = (a, b, k) => a.map((v, i) => Math.round(v + (b[i] - v) * k));
   // Soft glows come from one cached radial texture per colour; shadowBlur is far too slow per frame.
   const sprites = new Map();
   function glow(ctx, c, x, y, r, a = 1) {
@@ -45,6 +46,7 @@
       v: dark ? [150, 128, 255] : [104, 84, 214],
       r: dark ? [240, 114, 122] : [196, 64, 82],
       ink: dark ? [238, 242, 247] : [14, 20, 32],
+      bg: rgb(cs.getPropertyValue("--paper").trim() || (dark ? "#05070e" : "#f6f5f1")),
     };
   }
 
@@ -365,59 +367,170 @@
     },
   };
 
-  MODES.constellation = {
+  /* ---- globe (Teams): the Earth turned to East Asia, the host and its three partners marked in
+   * their colours and linked, collaborators dotted around the world. The city band is placed above
+   * the header diorama's flags, so the round table stands in front of the planet.
+   * Land: Natural Earth 1:110m land (public domain) via world-atlas 2.0.2, one bit per 1.5° cell,
+   * north to south and west to east (scripts/build-land-mask.mjs). */
+  const LAND = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB//8////44AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPx/n////+AAAA/AAYAAAAfAAAAAAAAAAAAAAAAEO3v4f////+AAAPgAAAAAAAAcAAAAAAAAAAAAAADAAAfgP////+AAAHAAAAAAAAAMAAAAAAAAAAAAAAA9jjCAAP///+AAAAAAAAHgAAP/8AAPAAAAAAAAAAcAAAAAAD///8AAAAAAAAYAAD//gAAAAAAAAAAAAAe6zs/AAB///4AAAAAAABgDA/////wGAAAAwAEAAAI/wM//AAf//4AAAAAAABwHf/////z/+AABAB//wPI/+sEP4A///wAAAAf8AACHf////////8B8wH/////ww3mB4Af/8AAAAD//xjf7v///////////7A////////+B/g//gAAAAH//4///f///////////GH////////0P5Af4AH4AAPx+H///////////////AAf///////Ng+AP4ADAAA/n////////////////+AD///////8COMAHwAAAAD/P///////////////v8AD/7/////4APwABgAAAAH/P//////////////wfAAA+AH////4APzAAAAAAAD/D/////////////JhgAAAFAAf///8AH/gAAAAAIAOD////////////4AHAAAAQAAP////wH/gAAAAAMBuP////////////wAPgAACAAAH////+f/8AAAAAWAhf////////////AAPAAAAAAAT////+f/+AAAAA3H//////////////+AOAAAAAAAB/////f/8AAAAAHn//////////////+AIAAAAAAAB//////8wAAAAAMf//////////////9AAAAAAAAAA//////2HAAAAAF///////////////4AAAAAAAAAAf/////+AgAAAAD///////////////4AAAAAAAAAAf//////wAAAAAB///yfx/////////wAAAAAAAAAAf/////yAAAAAAB/z/gPj/////////jAAAAAAAAAAf/////gAAAAAA/wY/gDx////////8HAAAAAAAAAAf/////AAAAAAA/gGfnn4////////wAAAAAAAAAAAf////+AAAAAAA/ACY//4///////1gGAAAAAAAAAAP////8AAAAAAA/ACM//4///////hwEAAAAAAAAAAH////4AAAAAAAOLgA//////////4wcAAAAAAAAAAH////4AAAAAAAN/gDC/////////wz8AAAAAAAAAAB////wAAAAAAAf/gAA/////////wDgAAAAAAAAAAA////AAAAAAAA//8YB/////////4EAAAAAAAAAAAAX///AAAAAAAA///f//////////4AAAAAAAAAAAAAX/5BAAAAAAAB//////z///////4AAAAAAAAAAAAAb/gBAAAAAAAH////8/5///////4AAAAAAAAAAAAAF/gBoAAAAAAP////+/4f//////wAAAAAAAAAAAAAE/gAAAAAAAAP////+f8wH/////gAAAAAAAAAAAAAAfgAAAAAAAAf/////P/4D/////IAAAAAAAAAAAAAAPgAQAAAAAAf/////v/8D/+f/4AAAAAAAAAAAAAAAPgwOAAAAAAf/////n/4Af8P+AAAAAAAAAAAAAAAAHxwAwAAAAAf/////n/wAfwH+wAAAAAAAAAAAAAAAB/gAAAAAAAf/////z/gAfgH+AMAAAAAAAAAAAAAAAT8AAAAAAAf/////z+AAfAF/AIAAAAAAAAAAAAAAAB+AAAAAAAf/////94AAOAB/gIAAAAAAAAAAAAAAAAMAAAAAAAf//////AAAOAA/gCAAAAAAAAAAAAAAAAEBQAAAAAP/////+MAAGAAHAFAAAAAAAAAAAAAAAACDfgAAAAH//////8AAGAACAAAAAAAAAAAAAAAAAABP/wAAAAH//////4AABABgADAAAAAAAAAAAAAAAAAP/4AAAAD//////4AABAAQABAAAAAAAAAAAAAAAAAP//gAAAA/H////wAAAACYBgAAAAAAAAAAAAAAAAAH//wAAAAAA////wAAAADYDAAAAAAAAAAAAAAAAAAP//wAAAAAA////gAAAABoPgAAAAAAAAAAAAAAAAAf//4AAAAAA///+AAAAAA4fuQAAAAAAAAAAAAAAAA///+AAAAAA///8AAAAAAYfASAAAAAAAAAAAAAAAA////AAAAAA///4AAAAAAcfYBYAAAAAAAAAAAAAAA////8AAAAAf//4AAAAAAOCEh/AAAAAAAAAAAAAAA/////AAAAAP//wAAAAAAGAAAPgAAAAAAAAAAAAAA/////gAAAAP//wAAAAAADIABPwIAAAAAAAAAAAAAf////gAAAAH//wAAAAAAAOAAPYCAAAAAAAAAAAAAP////AAAAAH//4AAAAAAAACAAMAAAAAAAAAAAAAAP///+AAAAAH//4AAAAAAAAAAAAAAAAAAAAAAAAAAH///+AAAAAH//4AAAAAAAAAHhAAAAAAAAAAAAAAAH///8AAAAAP//4IAAAAAAAAvjAAAAAAAAAAAAAAAD///8AAAAAP//4cAAAAAAAB/jgAAAAAAAAAAAAAAA///8AAAAAP//h4AAAAAAAD/7gAAAAAAAAAAAAAAAf//8AAAAAP//B4AAAAAAAH//wAAAAAAAAAAAAAAAf//4AAAAAH/+AwAAAAAAAf//4AQAAAAAAAAAAAAAf//4AAAAAH//BwAAAAAAB///8AIAAAAAAAAAAAAAf//gAAAAAD//BwAAAAAAD///+AAAAAAAAAAAAAAAf/8AAAAAAD/+BgAAAAAAD////AAAAAAAAAAAAAAAf/8AAAAAAD/8AAAAAAAAD////AAAAAAAAAAAAAAAf/8AAAAAAD/8AAAAAAAAD////AAAAAAAAAAAAAAA//4AAAAAAB/4AAAAAAAAB////AAAAAAAAAAAAAAA//wAAAAAAA/wAAAAAAAAB////AAAAAAAAAAAAAAA//gAAAAAAA/gAAAAAAAAB/h//AAAAAAAAAAAAAAA//AAAAAAAA+AAAAAAAAAB+Av+AAAAAAAAAAAAAAA/8AAAAAAAAAAAAAAAAAAAAAP8AAQAAAAAAAAAAAB/8AAAAAAAAAAAAAAAAAAAAAH8AAIAAAAAAAAAAAB/4AAAAAAAAAAAAAAAAAAAAADQAAOAAAAAAAAAAAB/gAAAAAAAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAB+AAAAAAAAAAAAAAAAAAAAAAAYAAIAAAAAAAAAAAB+AAAAAAAAAAAAAAAAAAAAAAAYAAwAAAAAAAAAAAD8AAAAAAAAAAAAAAAAAAAAAAAAADAAAAAAAAAAAAD4AAAAAAAAAAAAAAAAAAAAAAAAAHAAAAAAAAAAAAD8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGAAAAAAAAAAAADwAACAefH/gAAAAAAAAAAAAAAAAEAAAAAAAAAAAB//8B///////4AAAAAAAAAAAAAAA/AAAAAAAAAAH///8P////////8AAAAAAAAAAAAAB3gAAAAATf//////8//////////+AAAAAAAAAAAgAHgAAAAH////////////////////AAAAAAAB4B////gAAAAP///////////////////4AAAAD////////4AAAAD////////////////////gAAALP///////8AAAAD/////////////////////gAABj////////wAAHg//////////////////////4AAAAD///////8AQ/AB////////////////////+AAAAB//////////AGP//////////////////////AAAAA///////////////////////////////////8A/8AAf///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
+  const DEG = Math.PI / 180;
+  const unit = (lat, lon) => [Math.cos(lat * DEG) * Math.sin(lon * DEG), Math.sin(lat * DEG), Math.cos(lat * DEG) * Math.cos(lon * DEG)];
+  const VIEW = { lon: 112, lat: -30 };   // looking up at Asia from the south, so the four cities sit near the top
+
+  MODES.globe = {
     init(S) {
-      const R = prng(9);
-      S.anchors = [{ id: "TSINGHUA · BEIJING", x: 0.79, y: 0.12, c: "r" }, { id: "SUFE · SHANGHAI", x: 0.84, y: 0.26, c: "t2" }, { id: "HKU · HONG KONG", x: 0.76, y: 0.5, c: "v" }, { id: "NTU · SINGAPORE", x: 0.66, y: 0.8, c: "t1" }];
-      S.dots = [];
-      for (let i = 0; i < 1400; i++) {
-        const x = R(), y = R();
-        // loose "landmass" density around the anchor region, sparse elsewhere
-        const near = S.anchors.some(a => Math.hypot(x - a.x, (y - a.y) * 0.8) < 0.26);
-        if (near || R() < 0.12) S.dots.push([x, y, near ? 1 : 0.4]);
+      const bits = atob(LAND), ROWS = 120, COLS = 240, STEP = 1.5, hub = unit(24, 112), near = Math.cos(27 * DEG), pts = [];
+      const isLand = (r, c) => { if (r < 0 || r >= ROWS) return true; c = (c + COLS) % COLS; const i = r * COLS + c; return (bits.charCodeAt(i >> 3) >> (7 - (i & 7))) & 1; };
+      for (let r = 0; r < ROWS; r++) {
+        const lat = 90 - STEP / 2 - r * STEP, every = Math.max(1, Math.round(1 / Math.max(Math.cos(lat * DEG), 0.1)));   // even density towards the poles
+        for (let c = 0; c < COLS; c += every) {
+          const i = r * COLS + c;
+          if (!isLand(r, c)) continue;
+          const u = unit(lat, -180 + STEP / 2 + c * STEP), coast = !isLand(r - 1, c) || !isLand(r + 1, c) || !isLand(r, c - every) || !isLand(r, c + every);
+          pts.push(u[0], u[1], u[2], (u[0] * hub[0] + u[1] * hub[1] + u[2] * hub[2] > near ? 6 : 0) + (coast ? 3 : 0));
+        }
       }
-      S.peers = Array.from({ length: 18 }, () => ({ x: 0.46 + R() * 0.52, y: 0.06 + R() * 0.88, a: (R() * S.anchors.length) | 0 }));
-      S.pulses = []; S.timer = 0;
+      S.land = Float32Array.from(pts); S.buf = new Float32Array(pts.length); S.bin = new Uint8Array(pts.length / 4);
+      S.cities = [
+        { id: "TSINGHUA · BEIJING", lat: 40.0, lon: 116.33, c: "r" }, { id: "SUFE · SHANGHAI", lat: 31.3, lon: 121.5, c: "t2" },
+        { id: "HKU · HONG KONG", lat: 22.28, lon: 114.14, c: "v" }, { id: "NTU · SINGAPORE", lat: 1.35, lon: 103.68, c: "t1" },
+      ].map((c, i) => ({ ...c, u: unit(c.lat, c.lon), ph: i * 0.27 }));
+      const R = prng(9), n = S.land.length / 4;
+      S.peers = Array.from({ length: 28 }, () => { const j = ((R() * n) | 0) * 4; return { u: [S.land[j], S.land[j + 1], S.land[j + 2]], a: (R() * 4) | 0 }; });
+      S.pulses = []; S.timer = 0; S.t = 0; S.fade = reduce ? 1 : 0; S.born = performance.now();
     },
     step(S, dt) {
-      S.timer += dt;
-      if (S.timer > 520) {
+      S.t += dt; S.timer += dt;
+      if (S.lay && S.lay.toy !== null) S.fade = Math.min(1, S.fade + dt / 1100);
+      if (S.timer > 560) {
         S.timer = 0;
-        const n = S.anchors.length;
-        if (Math.random() < 0.55) { const a = (Math.random() * n) | 0; let b = (Math.random() * n) | 0; if (b === a) b = (b + 1) % n; S.pulses.push({ from: S.anchors[a], to: S.anchors[b], k: 0 }); }
-        else { const p = S.peers[(Math.random() * S.peers.length) | 0]; S.pulses.push({ from: p, to: S.anchors[p.a], k: 0, peer: true }); }
+        const C = S.cities;
+        if (Math.random() < 0.6) { const a = (Math.random() * 4) | 0; let b = (Math.random() * 3) | 0; if (b >= a) b++; S.pulses.push({ from: C[a].u, to: C[b].u, c: C[b].c, k: 0 }); }
+        else { const p = S.peers[(Math.random() * S.peers.length) | 0]; S.pulses.push({ from: p.u, to: C[p.a].u, c: null, k: 0 }); }
       }
-      for (let i = S.pulses.length - 1; i >= 0; i--) { S.pulses[i].k += dt / 1400; if (S.pulses[i].k >= 1) S.pulses.splice(i, 1); }
+      for (let i = S.pulses.length - 1; i >= 0; i--) { S.pulses[i].k += dt / 1700; if (S.pulses[i].k >= 1) S.pulses.splice(i, 1); }
     },
-    xy(S, p) { return [p.x * S.w + S.pmx * 14 * (p.x - 0.5), p.y * S.h + S.pmy * 10 * (p.y - 0.5)]; },
-    arc(S, ctx, a, b, k) {
-      const A = this.xy(S, a), B = this.xy(S, b), mx = (A[0] + B[0]) / 2, my = (A[1] + B[1]) / 2 - Math.hypot(B[0] - A[0], B[1] - A[1]) * 0.28;
-      if (k === undefined) { ctx.beginPath(); ctx.moveTo(A[0], A[1]); ctx.quadraticCurveTo(mx, my, B[0], B[1]); ctx.stroke(); return; }
-      const u = 1 - k; return [u * u * A[0] + 2 * u * k * mx + k * k * B[0], u * u * A[1] + 2 * u * k * my + k * k * B[1]];
+    // where the globe goes: centred on the diorama, its top just under the hero's top edge and the
+    // southernmost city (Singapore) just above the flags. Measured from layout boxes (offsets), which the
+    // hero's entrance and scroll transforms leave alone, so it is worked out once per size.
+    layout(S, ctx) {
+      const toy = document.querySelector(".page-hero .toy-hero"), L = S.lay, now = performance.now();
+      if (L && L.w === S.w && L.h === S.h && L.toy === !!toy && (L.toy !== null || now - S.born < 1800)) return L;
+      if (!toy && now - S.born < 1800 && !reduce) return (S.lay = { w: S.w, h: S.h, toy: null });   // the diorama is still loading
+      let cx = S.w * 0.72, flags = S.h * 0.4, maxR = Math.min(S.w * 0.42, S.h * 0.7);
+      const hero = toy && toy.offsetParent;
+      if (toy && hero) {
+        const abs = getComputedStyle(toy).position === "absolute";   // desktop: centred with translate: 0 -50%
+        const left = toy.offsetLeft + (S.w - hero.clientWidth) / 2, top = toy.offsetTop - (abs ? toy.offsetHeight / 2 : 0);
+        cx = left + toy.offsetWidth / 2;
+        flags = top + toy.offsetHeight * 0.235;                        // the flags' tops
+        maxR = Math.min(toy.offsetWidth * 0.62, S.w * 0.56);
+      }
+      const v = this.view(VIEW.lon, VIEW.lat, 0, 0, 1), ys = S.cities.map(c => -v(c.u)[1]);
+      const fTop = Math.max(...ys), fBot = Math.min(...ys), limb = 12, bottom = flags - 18;
+      const R = clamp((bottom - limb) / (1 - fBot), 140, Math.max(140, maxR));   // limb to Singapore spans (1 - fBot) R
+      const top = limb + (1 - fTop) * R;                       // Beijing, the northernmost city
+      if (L && L.toy === false && toy) S.fade = 0;            // the diorama arrived after the fallback: fade in again in place
+      return (S.lay = { w: S.w, h: S.h, toy: !!(toy && hero), R, gx: cx, gy: top + fTop * R });
+    },
+    // orthographic view: turn the Earth so (lon, lat) faces the viewer; returns screen x, y, depth, distance² from the centre
+    view(lon, lat, gx, gy, R) {
+      const sl = Math.sin(lon * DEG), cl = Math.cos(lon * DEG), sp = Math.sin(lat * DEG), cp = Math.cos(lat * DEG);
+      return p => { const x1 = p[0] * cl - p[2] * sl, z1 = p[0] * sl + p[2] * cl, y2 = p[1] * cp - z1 * sp, z2 = p[1] * sp + z1 * cp; return [gx + R * x1, gy - R * y2, z2, x1 * x1 + y2 * y2]; };
+    },
+    // a great circle from a to b, lifted towards its middle
+    arc(a, b, k) {
+      const w = Math.acos(clamp(a[0] * b[0] + a[1] * b[1] + a[2] * b[2], -1, 1));
+      if (w < 1e-4) return a;
+      const s = Math.sin(w), ka = Math.sin((1 - k) * w) / s, kb = Math.sin(k * w) / s, lift = 1 + (0.04 + w * 0.2) * Math.sin(Math.PI * k);
+      return [(a[0] * ka + b[0] * kb) * lift, (a[1] * ka + b[1] * kb) * lift, (a[2] * ka + b[2] * kb) * lift];
+    },
+    path(ctx, v, a, b, steps = 28) {
+      let on = false;
+      ctx.beginPath();
+      for (let i = 0; i <= steps; i++) { const q = v(this.arc(a, b, i / steps)); if (q[2] > 0 || q[3] > 1) { on ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]); on = true; } else on = false; }
+      ctx.stroke();
     },
     draw(S, ctx, P) {
       ctx.clearRect(0, 0, S.w, S.h);
-      for (const d of S.dots) { ctx.fillStyle = css(P.ink, 0.07 * d[2] + 0.02); ctx.fillRect(d[0] * S.w + S.pmx * 6 * (d[0] - .5), d[1] * S.h, 1.6, 1.6); }
-      ctx.lineWidth = 1;
-      for (const p of S.peers) { ctx.strokeStyle = css(P.ink, 0.08); this.arc(S, ctx, p, S.anchors[p.a]); }
-      for (let i = 0; i < S.anchors.length; i++) for (let j = i + 1; j < S.anchors.length; j++) { ctx.strokeStyle = css(P.ink, 0.26); this.arc(S, ctx, S.anchors[i], S.anchors[j]); }
+      const L = this.layout(S, ctx);
+      if (!L.R) { if (!S.retry) S.retry = setTimeout(() => { S.retry = 0; this.draw(S, ctx, P); }, 1900); return; }
+      if (reduce && !L.toy && (S.tries = (S.tries || 0) + 1) < 6) setTimeout(() => this.draw(S, ctx, P), 900);   // still picture: redraw once the diorama is in
+      const f = S.fade, { R, gx, gy } = L;
+      if (f <= 0) return;
+      const lon0 = VIEW.lon + 5 * Math.sin(S.t / 7000) + S.pmx * 8, lat0 = VIEW.lat - S.pmy * 4, v = this.view(lon0, lat0, gx, gy, R);
+
+      // the planet: a thin atmosphere, a dark ocean lit from the upper left, a bright limb
+      const disc = () => { ctx.beginPath(); ctx.arc(gx, gy, R, 0, TAU); };
+      const halo = ctx.createRadialGradient(gx, gy, R, gx, gy, R * 1.12);
+      halo.addColorStop(0, css(P.t1, 0.16 * f)); halo.addColorStop(1, css(P.t1, 0));
+      ctx.fillStyle = halo; ctx.beginPath(); ctx.arc(gx, gy, R * 1.12, 0, TAU); ctx.fill();
+      ctx.fillStyle = css(mix(P.bg, P.t1, 0.09), 0.94 * f); disc(); ctx.fill();
+      const lit = ctx.createRadialGradient(gx - R * 0.35, gy - R * 0.45, 0, gx - R * 0.35, gy - R * 0.45, R * 1.2);
+      lit.addColorStop(0, css(P.ink, 0.07 * f)); lit.addColorStop(1, css(P.ink, 0));
+      ctx.fillStyle = lit; disc(); ctx.fill();
+      const rim = ctx.createRadialGradient(gx, gy, R * 0.8, gx, gy, R);
+      rim.addColorStop(0, css(P.t1, 0)); rim.addColorStop(1, css(P.t1, 0.18 * f));
+      ctx.fillStyle = rim; disc(); ctx.fill();
+      ctx.strokeStyle = css(P.t1, 0.4 * f); ctx.lineWidth = 1.2; disc(); ctx.stroke();
+
+      // graticule every 30°
+      ctx.strokeStyle = css(P.ink, 0.06 * f); ctx.lineWidth = 1;
+      for (let m = -180; m < 180; m += 30) { ctx.beginPath(); let on = false; for (let la = -84; la <= 84; la += 4) { const q = v(unit(la, m)); if (q[2] > 0) { on ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]); on = true; } else on = false; } ctx.stroke(); }
+      for (let la = -60; la <= 60; la += 30) { ctx.beginPath(); let on = false; for (let m = -180; m <= 180; m += 4) { const q = v(unit(la, m)); if (q[2] > 0) { on ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]); on = true; } else on = false; } ctx.stroke(); }
+
+      // land: one pass to project, then a shade per region (world or East Asia), coast or inland, and depth
+      const D = S.land, B = S.buf, N = S.bin, sl = Math.sin(lon0 * DEG), cl = Math.cos(lon0 * DEG), sp = Math.sin(lat0 * DEG), cp = Math.cos(lat0 * DEG);
+      const dot = clamp(R * 1.5 * DEG * 0.44, 1.5, 4.2);
+      let n = 0;
+      for (let i = 0; i < D.length; i += 4) {
+        const x1 = D[i] * cl - D[i + 2] * sl, z1 = D[i] * sl + D[i + 2] * cl, z2 = D[i + 1] * sp + z1 * cp;
+        if (z2 <= 0.02) continue;
+        // each dot foreshortened along the radius, as a mark on a sphere would be
+        const y2 = D[i + 1] * cp - z1 * sp, k = 1 - z2 * z2, zz = z2 * z2;
+        B[n * 4] = gx + R * x1; B[n * 4 + 1] = gy - R * y2;
+        B[n * 4 + 2] = k < 1e-4 ? dot : Math.max(0.7, dot * Math.sqrt((zz * x1 * x1 + y2 * y2) / k));
+        B[n * 4 + 3] = k < 1e-4 ? dot : Math.max(0.7, dot * Math.sqrt((zz * y2 * y2 + x1 * x1) / k));
+        N[n++] = D[i + 3] + (z2 > 0.66 ? 2 : z2 > 0.33 ? 1 : 0);
+      }
+      for (let s = 0; s < 12; s++) {
+        const asia = s > 5, coast = s % 6 > 2, depth = s % 3, a = (coast ? 0.3 : 0.2) + depth * 0.13;
+        ctx.fillStyle = asia ? css(coast ? mix(P.t1, P.ink, 0.5) : mix(P.t1, P.bg, 0.12), Math.min(1, a + 0.22) * f) : css(mix(P.ink, P.t1, 0.25), a * 0.8 * f);
+        ctx.beginPath();
+        for (let j = 0; j < n; j++) if (N[j] === s) ctx.rect(B[j * 4] - B[j * 4 + 2] / 2, B[j * 4 + 1] - B[j * 4 + 3] / 2, B[j * 4 + 2], B[j * 4 + 3]);
+        ctx.fill();
+      }
+
+      // collaborators around the world, and their links to the partner nearest them in the drawing
+      for (const p of S.peers) {
+        const q = v(p.u); if (q[2] <= 0.05) continue;
+        if (v(S.cities[p.a].u)[2] > 0) { ctx.strokeStyle = css(P.ink, 0.07 * f); this.path(ctx, v, p.u, S.cities[p.a].u, 20); }
+        ctx.fillStyle = css(P.ink, 0.42 * f); ctx.beginPath(); ctx.arc(q[0], q[1], 1.8, 0, TAU); ctx.fill();
+      }
+      // the four institutions, all linked
+      ctx.lineWidth = 1.1;
+      for (let i = 0; i < 4; i++) for (let j = i + 1; j < 4; j++) { ctx.strokeStyle = css(P.ink, 0.28 * f); this.path(ctx, v, S.cities[i].u, S.cities[j].u); }
       for (const pl of S.pulses) {
-        const col = pl.peer ? P.ink : P[pl.to.c], q = this.arc(S, ctx, pl.from, pl.to, pl.k);
-        if (!pl.peer) glow(ctx, col, q[0], q[1], 12, 0.7);
-        ctx.fillStyle = css(col, pl.peer ? 0.7 : 1); ctx.beginPath(); ctx.arc(q[0], q[1], pl.peer ? 1.8 : 2.6, 0, TAU); ctx.fill();
+        const q = v(this.arc(pl.from, pl.to, pl.k)); if (q[2] <= 0 && q[3] <= 1) continue;
+        const col = pl.c ? P[pl.c] : P.ink;
+        if (pl.c) glow(ctx, col, q[0], q[1], 12, 0.7 * f);
+        ctx.fillStyle = css(col, (pl.c ? 1 : 0.75) * f); ctx.beginPath(); ctx.arc(q[0], q[1], pl.c ? 2.6 : 1.8, 0, TAU); ctx.fill();
       }
-      for (const p of S.peers) { const q = this.xy(S, p); ctx.fillStyle = css(P.ink, 0.35); ctx.beginPath(); ctx.arc(q[0], q[1], 2, 0, TAU); ctx.fill(); }
-      ctx.font = "10.5px 'Space Mono', monospace";
-      for (const a of S.anchors) {
-        const q = this.xy(S, a), col = P[a.c];
-        glow(ctx, col, q[0], q[1], 34, 0.5);
-        ctx.fillStyle = css(col, 1); ctx.beginPath(); ctx.arc(q[0], q[1], 5, 0, TAU); ctx.fill();
-        ctx.fillStyle = css(P.ink, 0.6); ctx.fillText(a.id, q[0] + 12, q[1] + 4);
-      }
+      ctx.font = (R < 260 ? 10 : 11) + "px 'Space Mono', monospace";
+      S.cities.forEach((c, i) => {
+        const q = v(c.u); if (q[2] <= 0) return;
+        const col = P[c.c], ph = (S.t / 2600 + c.ph) % 1, w = ctx.measureText(c.id).width;
+        const right = (R >= 260 || i % 2 === 1) && q[0] + 14 + w < S.w - 8, x = right ? q[0] + 13 : q[0] - 13 - w;
+        glow(ctx, col, q[0], q[1], 30, 0.55 * f);
+        ctx.strokeStyle = css(col, (1 - ph) * 0.75 * f); ctx.lineWidth = 1.2; ctx.beginPath(); ctx.arc(q[0], q[1], 5 + ph * 15, 0, TAU); ctx.stroke();
+        ctx.fillStyle = css(col, f); ctx.beginPath(); ctx.arc(q[0], q[1], 4.2, 0, TAU); ctx.fill();
+        ctx.fillStyle = css(P.bg, 0.62 * f); ctx.beginPath(); ctx.roundRect ? ctx.roundRect(x - 5, q[1] - 8, w + 10, 16, 4) : ctx.rect(x - 5, q[1] - 8, w + 10, 16); ctx.fill();
+        ctx.fillStyle = css(P.ink, 0.88 * f); ctx.fillText(c.id, x, q[1] + 4);
+      });
     },
   };
 
-  const BUDGETS = { field: { dpr: 1, fps: 36 }, contour: { fps: 30 }, constellation: { fps: 36 }, orbit: { fps: 45 }, dev100: { fps: 40 }, ledger: { fps: 40 }, bump: { fps: 40 } };
+  const BUDGETS = { field: { dpr: 1, fps: 36 }, contour: { fps: 30 }, globe: { fps: 30 }, orbit: { fps: 45 }, dev100: { fps: 40 }, ledger: { fps: 40 }, bump: { fps: 40 } };
 
   /* ------------------------------------------------------------ mount */
   function mount(canvas, opts = {}) {
