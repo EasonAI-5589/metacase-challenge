@@ -469,9 +469,13 @@ wordmark. HKU uses its standalone crest; a CSS window shows the shield from the
 unchanged NTU university logo asset. SUFE uses its official red-on-white charter seal,
 `assets/institutions/sufe-university-official.png`, on a white disc in light and
 dark themes; the Tsinghua crest, `assets/institutions/tsinghua-pbcsf-crest.png`,
-sits on the same white disc. The homepage Team cards show crests only, at one size
-and in one column with the directors' photos: the NTU shield (same CSS window), the
-HKU standalone crest, and the SUFE seal and Tsinghua crest on white discs. The GIFTS text link remains in the introduction. Teams retains the
+sits on the same white disc. The homepage Team block keeps organizations and people apart, as the
+Teams page does: the founding organization (NTU GIFTS) and the collaborating organizations (NTU NBS,
+NTU CCDS, HKU AI-Agents Lab, SUFE AIFLM Lab, SLAI, Tsinghua PBCSF, Columbia CDFT) are cards with the
+official mark on a white plate, the short name linking to the Teams entry and the full name, and no
+people; Columbia CDFT sets its name as text. The people (Lin William Cong, Ye Luo, Liwen Zhang) and
+the student leaders follow in their own rows, with affiliations as text and no marks, and a link to
+the other team members on the Teams page. Teams retains the
 existing college and business-school marks. Original assets and ownership notes
 are recorded in `assets/institutions/ATTRIBUTION.txt`.
 Faculty profiles and institutional research profiles link their official
