@@ -192,7 +192,9 @@ export function mount(canvas, name, { reduce = false } = {}) {
   if (!reduce) addEventListener('pointermove', e => { px = e.clientX / innerWidth - .5; py = e.clientY / innerHeight - .5; }, { passive: true });
   let visible = true, last = performance.now(), clock = 0;
   const frame = now => {
-    clock += Math.min(.05, (now - last) / 1000); last = now;
+    // A frame's timestamp can predate `last`: rAF reports when the frame began, which is before a
+    // long mount ended. The clock must not run backwards, since the Evolution stair indexes by it.
+    clock += Math.max(0, Math.min(.05, (now - last) / 1000)); last = now;
     size();
     const yaw = Math.sin(clock * .18) * .16 + px * .18;
     camera.position.set(Math.sin(yaw) * 10.4, 4 - py * .5, Math.cos(yaw) * 10.4);
