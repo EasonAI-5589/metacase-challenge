@@ -273,13 +273,13 @@
   "110 tasks · 6 classes": "110 道题目 · 6 个子类",
   "200 tasks · 6 classes": "200 道题目 · 6 个子类",
   "Build an AI agent that does real work in economics, finance and the social sciences. Pick a track, see what your agent will be asked to do, and submit it for an independent evaluation it never gets to see in advance.": "构建能在经济、金融与社会科学中完成真实工作的 AI 智能体。选一条赛道，看清你的智能体要完成什么，再提交参加独立评测——评分所用的参考答案，智能体事先看不到。",
-  "Three tracks,": "三条赛道，",
+  "Three tracks,": "三条赛道",
   "eighteen classes": "18 个子类",
   "Each track is a field, split into six classes of tasks. Three classes come with a recorded agent run you can watch before you start.": "每条赛道对应一个领域，各设 6 类题目。其中三类附有智能体完整运行的录像，开始之前可以先看看。",
   "Proposed": "拟定",
   "timeline": "时间线",
   "Five stages, from the task release to results and awards. Accounts and submissions are already open.": "共五个阶段，从任务发布到公布结果与颁奖。注册和提交现已开放。",
   "Ways to": "参与挑战的",
-  "get involved": "六种方式",
-  "Build an agent, propose a new challenge, or help improve how agents are evaluated and trained. Three of these already take submissions.": "构建智能体、提出新挑战，或帮助改进智能体的评测与训练。其中三种方式已经可以提交。"
+  "get involved": "三种方式",
+  "Build an agent, propose a new challenge, or help improve how agents are evaluated. All three are open for submissions.": "构建智能体、提出新挑战，或帮助改进智能体的评测。这三种方式现在都可以提交。"
 }

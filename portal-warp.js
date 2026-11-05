@@ -37,7 +37,7 @@ const loadoutLine = l => `${MODEL_CHARACTERS[l.model].provider} · ${MODEL_CHARA
 let kitPromise;
 function deps() {
   kitPromise ||= Promise.all([
-    import('./assets/vendor/three/three.module.js'), import('./mc-kit.js?v=20261102-toy'), import('./arena-models.js'),
+    import('./assets/vendor/three/three.module.js'), import('./mc-kit.js?v=20261105-grip'), import('./arena-models.js'),
   ]).then(([THREE, kit, { loadArenaWeapons }]) => ({ THREE, kit, weapons: loadArenaWeapons().catch(() => null) }));
   return kitPromise;
 }
@@ -200,7 +200,7 @@ async function mountTrackGuardians(delay = 0) {
 
   if (delay) await new Promise(done => setTimeout(done, delay));
   try {
-    const { THREE, kit: { robot, block, cyl, add, mat, PALETTE }, weapons } = await deps();
+    const { THREE, kit: { robot, block, cyl, add, mat, PALETTE, GUN_HOLD }, weapons } = await deps();
     const weaponLib = await weapons;
     const domainColors = [0x45b5b0, 0xf2b545, 0x7d6ad8];
 
@@ -275,9 +275,10 @@ async function mountTrackGuardians(delay = 0) {
       crown.rotation.x = 0.2;
 
       const weaponHand = new THREE.Group();
-      weaponHand.position.set(0.36, 0.42, 0.28);
-      weaponHand.rotation.set(-0.15, -0.35, 0.08);
+      weaponHand.position.copy(GUN_HOLD.at);
+      weaponHand.rotation.copy(GUN_HOLD.turn);
       bot.root.add(weaponHand);
+      bot.grip();
       const weaponClones = weaponLib
         ? weaponLib.weapons.map(w => {
             const c = w.clone(true);
@@ -324,7 +325,6 @@ async function mountTrackGuardians(delay = 0) {
       const t = now * 0.001;
       shown.forEach(v => {
         v.bot.update(t + v.idx, 0);
-        v.weaponHand.position.y = 0.42 + Math.sin(t * 2.2 + v.idx) * 0.025;
         v.renderer.render(v.scene, v.camera);
       });
       if (shown.size && !reduced()) raf = requestAnimationFrame(tick);

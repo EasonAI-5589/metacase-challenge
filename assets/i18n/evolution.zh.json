@@ -1147,7 +1147,7 @@
   "Feedback-driven evolutionary search over fixed-weight scaffolding": "固定模型权重下的反馈驱动脚手架演化搜索",
   "High-probability admission rule under continual PAC-learning generalization and retention bounds": "基于持续 PAC 学习泛化界与保持界的高概率非退化准入规则",
   "Model weights; independent validation evaluator": "模型权重；独立验证评测器",
-  "Learning from tasks.": "从任务中学习，",
+  "Learning from tasks.": "从任务中学习",
   "Improving agents.": "让智能体持续改进。",
   "The Challenge tasks show which capabilities agents still lack: reading research requirements, interpreting data and building analyses that hold up. There are two ways to close the gap—train the model, or improve the harness around it. Most of what follows is about the second: harnesses that improve from their own runs while the model stays fixed, including our own ModularRSI study.": "挑战赛的任务暴露出智能体仍欠缺的能力：读懂研究要求、理解数据、做出站得住的分析。补齐短板有两条路——训练模型，或改进模型外面的 Harness。下文主要讲第二条：在模型不变的前提下，让 Harness 从自己的运行中不断改进，包括我们自己的 ModularRSI 实验。",
   "See the improvement loop": "看看改进循环",

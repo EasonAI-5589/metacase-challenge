@@ -48,6 +48,7 @@ must not be used to overwrite this version.
 | Hero → 01 hand-off: the Metacase is drawn off its shelf (with a web page, a data sheet, a chart and a recording from other shelves), crosses the screen on its own top canvas and lands exactly on chapter 01's desk; hero, chapter 01 and the courier read one scroll value so the book is never shown twice | `metacase-courier.js`, `closedBook()` in `mc-kit.js`, `bookHandoff()` in `metacase.js` |
 | Content pages: remaps the `styles.css` / `site.css` tokens and restyles the shared components; animated page header | `skin.css`, `v2.js` |
 | Header backdrops (one canvas renderer, one motif per page) | `backdrop.js` |
+| Chapter rail down the side of every page: the rail fills as the page is read, a tab goes straight to its chapter without replaying the scenes between (the homepage's chapter bar does too) | `page-rail.js`, `page-rail.css` |
 | Homepage arena: scroll camera, harness wheel, flying agent and challenge rooms | `arena.css`, `arena.js`, `arena-scene.js`, `arena-models.js`, `arena-motion.js` |
 | Portal shuttle from an arena room into its track on the Challenge page: an iris of dark with rings, plain elements animating only transform and opacity (no WebGL); the track guardians beside each track heading | `portal-warp.js`, `v2.css` (the shuttle), `theme.js` (arrival before first paint) |
 | Layered system scenes (`.v2-stack`, `data-scene`) on Challenge, Harness and Self-evolving: an interactive isometric L1–L3 stack whose tile labels come from each layer's chips | `scene.css`, `scene.js` |

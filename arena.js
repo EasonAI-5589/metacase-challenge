@@ -411,19 +411,23 @@ if (chapter) {
     $('[data-mc-floating-status]').textContent = lang() ? 'HARNESS · 就绪' : 'HARNESS · READY';
   }
   // Portal links ride on their doorways: all three at the entrance and at the end, the one in focus in between.
+  const thresholds = {};
   function projectPortals(list) {
     const pin = $('.mc-pin'), allOpen = (state.phase === 0 && state.progress < .105) || state.phase === 5, roomPhase = state.phase >= 2 && state.phase <= 4;
     (list || []).forEach((p, i) => {
       const link = $(`[data-portal="${p.id}"]`); if (!link) return;
       // the wide shots show all three doors close together: a compact label in each doorway;
-      // inside a room, the full link on its threshold
-      const on = allOpen ? p.midVisible : roomPhase && i === state.room && p.visible;
+      // inside a room, the full link on its threshold, held at the edge of the view once the
+      // camera moves in so close that the threshold leaves the frame
+      const on = allOpen ? p.midVisible : roomPhase && i === state.room;
       link.classList.toggle('is-on', on);
       link.classList.toggle('is-compact', on && allOpen);
       link.classList.toggle('is-active', on && roomPhase);
       link.tabIndex = on ? 0 : -1;
       if (!on) return;
-      const px = allOpen ? p.mx : p.x, py = allOpen ? p.my : p.y, edge = allOpen ? 70 : 110;
+      if (p.ahead) thresholds[p.id] = p;
+      const at = thresholds[p.id] || { x: pin.clientWidth, y: pin.clientHeight };
+      const px = allOpen ? p.mx : at.x, py = allOpen ? p.my : at.y, edge = allOpen ? 70 : link.offsetWidth / 2 + 16;
       const x = Math.max(edge, Math.min(pin.clientWidth - edge, px)), y = Math.max(120, Math.min(pin.clientHeight - 150, py));
       link.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) translate(-50%, -50%)`;
     });
@@ -453,7 +457,7 @@ if (chapter) {
       saveLoadout();
       // the shuttle starts at once (the doorway surges under the opening iris) and the arena stops
       // drawing as soon as the window is covered
-      const fly = () => import('./portal-warp.js?v=20261101-shuttle').then(m => m.warp({ x, y, track: id, href, model: state.model, variant: state.variant, effort: state.effort, harness: chosenHarness, onCovered: () => { state.paused = true; scene?.update(state); } })).catch(() => { location.href = href; });
+      const fly = () => import('./portal-warp.js?v=20261105-grip').then(m => m.warp({ x, y, track: id, href, model: state.model, variant: state.variant, effort: state.effort, harness: chosenHarness, onCovered: () => { state.paused = true; scene?.update(state); } })).catch(() => { location.href = href; });
       fly();
     });
   });
@@ -461,9 +465,9 @@ if (chapter) {
   async function load() {
     if(loading)return;loading=true;
     try {
-      const {createArenaScene}=await import('./arena-scene.js?v=20261105-classes');
+      const {createArenaScene}=await import('./arena-scene.js?v=20261105-grip');
       scene=createArenaScene($('.mc-canvas'), { onWeaponProject: projectWeapon, onPortalProject: projectPortals }); scene.update(state);
-      import('./portal-warp.js?v=20261101-shuttle').catch(() => {}); // the shuttle, ready before any portal is taken
+      import('./portal-warp.js?v=20261105-grip').catch(() => {}); // the shuttle, ready before any portal is taken
       $('.mc-fallback').hidden=true;chapter.dataset.renderer='webgl';
     } catch(error) {
       $('.mc-fallback').hidden=false;chapter.dataset.renderer='fallback';

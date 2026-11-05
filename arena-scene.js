@@ -4,7 +4,7 @@
 import * as THREE from "./assets/vendor/three/three.module.js";
 import { catmullRom } from "./arena-motion.js";
 import { toon, toonify, createPost } from "./mc-toon.js";
-import { person, robot, tile, PALETTE } from "./mc-kit.js?v=20261102-toy";
+import { person, robot, tile, PALETTE, GUN_HOLD } from "./mc-kit.js?v=20261105-grip";
 import { pageBackground } from "./mc-stage.js";
 import { ARENA_DOMAINS, HARNESS_NAMES, MODEL_CHARACTERS, EFFORTS, DEFAULT_EFFORT } from "./arena-data.js?v=20261105-classes";
 import { createCampusDetails } from "./arena-campus.js?v=20261027-frontgun";
@@ -804,16 +804,17 @@ export function createArenaScene(canvas, { onWeaponProject, onPortalProject } = 
     guardianBot.root.scale.setScalar(1.85);
     guardianBot.root.position.y = 0.1;
     guardianSpot.add(guardianBot.root);
-    // Give the track-side robot shoulder pauldrons, a crest, and an equipped 3D weapon mount in hand
+    // Give the track-side robot shoulder pauldrons, a crest, and an equipped 3D weapon held in both hands
     for (const s of [-1, 1]) {
       const pld = box(guardianBot.root, 0.13, 0.15, 0.22, accent, s * 0.28, 0.45, 0, 0.035);
       pld.rotation.z = -s * 0.2;
     }
     ring(guardianBot.head, 0.22, 0.022, gold, 0, 0.5, 0, false).rotation.x = 0.2;
     const guardianWeaponMount = new THREE.Group();
-    guardianWeaponMount.position.set(0.34, 0.42, 0.26);
-    guardianWeaponMount.rotation.set(-0.18, -0.25, 0.1);
+    guardianWeaponMount.position.copy(GUN_HOLD.at);
+    guardianWeaponMount.rotation.copy(GUN_HOLD.turn);
     guardianBot.root.add(guardianWeaponMount);
+    guardianBot.grip();
     const guardianWeaponFallback = weapon(index * 2);
     guardianWeaponFallback.scale.setScalar(0.52);
     guardianWeaponMount.add(guardianWeaponFallback);
@@ -1870,10 +1871,10 @@ export function createArenaScene(canvas, { onWeaponProject, onPortalProject } = 
       // two anchors: the threshold (for the full link) and the foot of the doorway (for a compact one,
       // below the vortex so the portal itself stays in view)
       portalPoint.set(1.85, 0.22, 3.25); room.group.localToWorld(portalPoint).project(camera);
-      const low = { x: (portalPoint.x + 1) * width / 2, y: (1 - portalPoint.y) * height / 2, ok: portalPoint.z > -1 && portalPoint.z < 1 && Math.abs(portalPoint.x) < 0.96 && Math.abs(portalPoint.y) < 0.96 };
+      const low = { x: (portalPoint.x + 1) * width / 2, y: (1 - portalPoint.y) * height / 2, ok: portalPoint.z > -1 && portalPoint.z < 1 && Math.abs(portalPoint.x) < 0.96 && Math.abs(portalPoint.y) < 0.96, ahead: portalPoint.z > -1 && portalPoint.z < 1 };
       portalPoint.set(0, 1.25, 2.1); room.group.localToWorld(portalPoint).project(camera);
       portalList[i] = {
-        id: ARENA_DOMAINS[i].id, x: low.x, y: low.y, visible: low.ok,
+        id: ARENA_DOMAINS[i].id, x: low.x, y: low.y, visible: low.ok, ahead: low.ahead,
         mx: (portalPoint.x + 1) * width / 2, my: (1 - portalPoint.y) * height / 2,
         midVisible: portalPoint.z > -1 && portalPoint.z < 1 && Math.abs(portalPoint.x) < 0.96 && Math.abs(portalPoint.y) < 0.96,
         active, power,

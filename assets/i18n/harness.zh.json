@@ -2216,7 +2216,7 @@
   "Your agent is a model plus a harness: the code that decides what the model sees, which tools it can use, how errors come back and when it stops. In the Metacase Challenge you can submit the harness itself. Here is what a harness does, how every submission runs under the same conditions, and how four reference harnesses performed.": "你的智能体 = 模型 + Harness。Harness 决定模型看到什么、能用哪些工具、出错后得到什么反馈、何时停下。在 Metacase Challenge 中，你可以直接提交 Harness。这里介绍 Harness 负责什么、每份提交如何在相同条件下运行，以及四个参考 Harness 的表现。",
   "Submit an agent / harness": "提交 Agent / Harness",
   "How submissions are evaluated": "提交如何评测",
-  "Designing harnesses": "Harness 设计：",
+  "Designing harnesses": "Harness 设计",
   "for the two challenges": "面向两类挑战",
   "In both challenges you build an agent: a model plus the harness that runs it. A harness organises context, tool execution, state and checks around the model, and the four jobs below are where your design choices matter most. So far we have compared harnesses on econometric replication (Subtrack 1); harness work for the finance and HR tasks (Subtrack 2) comes next.": "两个挑战都要你构建一个智能体：模型，加上运行它的 Harness。Harness 围绕模型组织上下文、工具执行、状态与检查；下面四项职责，是你的设计最能拉开差距的地方。目前我们已在计量复现（子赛道 1）上比较了多种 Harness；面向金融与人力资源任务（子赛道 2）的 Harness 工作是下一步。",
   "Your agent gets the research data and one tool,": "你的智能体会拿到研究数据和一个工具",
