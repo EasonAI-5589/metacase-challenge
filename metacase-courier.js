@@ -8,7 +8,7 @@
  * from one chapter into the next; it matches both ends by measuring where each scene
  * shows the book. */
 import * as THREE from './assets/vendor/three/three.module.js';
-import { BOOK, BOOK_CENTRE, closedBook, bookTabs, lights, rbox, PALETTE } from './mc-kit.js?v=20261102-toy';
+import { BOOK, BOOK_CENTRE, closedBook, bookTabs, lights, rbox, PALETTE } from './mc-kit.js?v=20261105-grip';
 import { clamp, smooth, ramp, lerp, glowSprite } from './mc-stage.js';
 
 const smoother = x => { const p = clamp(x); return p * p * p * (p * (p * 6 - 15) + 10); };

@@ -12,7 +12,7 @@ const $ = (selector, scope = document) => scope.querySelector(selector);
 const $$ = (selector, scope = document) => [...scope.querySelectorAll(selector)];
 const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
 const ease = x => { const p = clamp(x); return p * p * (3 - 2 * p); };
-const V = '?v=20261103-results';
+const V = '?v=20261105-grip';
 
 /* ---- layout helpers ---- */
 const siteHeader = $('.site-header'), subnav = $('.mc-subnav');
@@ -451,7 +451,8 @@ if (fieldbooks) {
     order.forEach(i => {
       const leaf = b.leaves[i], busy = leaf.classList.contains('is-turning');
       const start = together || busy ? now : Math.max(now, b.next);
-      if (!together) b.next = start + dur / 2;
+      // the cover lands before the first page lifts; leaves after it overlap, as riffled pages do
+      if (!together) b.next = start + (i === 0 && s > from ? dur + 120 : dur / 2);
       last = Math.max(last, start);
       leaf.style.setProperty('--delay', `${Math.round(start - now)}ms`);
       leaf.style.zIndex = 40 + ++b.z;

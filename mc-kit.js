@@ -325,6 +325,11 @@ export function cloud(scale = 1) {
 // Scenes reach into the robot: body.children[0] is the hull, [1] a foot; head.children are
 // [shell, visor, eye, eye, aerial, aerial tip] before any detail; hull, ink and eye colours
 // are matched by value to re-skin it. Keep that order and those colours.
+// The two-handed hold, in a robot's own units: the gun lies across its waist, muzzle towards its
+// left, clear of the chest plate, with a hand either side of the middle.
+export const GUN_HOLD = { at: new THREE.Vector3(.03, .2, .27), turn: new THREE.Euler(0, 1.45, 0) };
+const HANDS = [new THREE.Vector3(-.19, .2, .26), new THREE.Vector3(.25, .2, .31)], ARM_DOWN = new THREE.Vector3(0, -1, 0);
+const armReach = new THREE.Vector3(), armTurn = new THREE.Quaternion();
 export function robot(color = 0xf7f5f0, eye = 0x8ff6ff) {
   const root = new THREE.Group(), body = new THREE.Group(); root.add(body);
   block(body, .5, .48, .38, color, 0, .12, 0, .17);
@@ -349,13 +354,22 @@ export function robot(color = 0xf7f5f0, eye = 0x8ff6ff) {
     block(g, .1, .17, .12, color, s * .015, -.2, 0, .05);
     return g;
   });
+  let grip = null;
   return {
     root, head,
+    // how far the hands have closed on a gun at GUN_HOLD, 0..1; the arms stretch to reach it
+    grip(amount = 1) { grip = amount; },
     update(t, walking = 0) {
       body.position.y = Math.abs(Math.sin(t * 7)) * .035 * walking + (Math.sin(t * 2) + 1) * .005;
       head.rotation.y = Math.sin(t * .8) * .3 * (1 - walking);
       head.rotation.z = Math.sin(t * .6 + 1) * .04 * (1 - walking);
       arms.forEach((a, k) => { a.rotation.x = Math.sin(t * 7 + k * Math.PI) * .5 * walking + Math.sin(t * 1.4 + k) * .06; a.rotation.z = (k ? 1 : -1) * (.1 + Math.sin(t * 2 + k) * .03); });
+      if (grip !== null) arms.forEach((a, k) => {
+        armReach.copy(HANDS[k]).sub(a.position);
+        const reach = armReach.length(), limb = a.children[1], stretch = 1 + ((reach - .03) / .17 - 1) * grip;
+        a.quaternion.slerp(armTurn.setFromUnitVectors(ARM_DOWN, armReach.divideScalar(reach)), grip);
+        limb.scale.y = stretch; limb.position.y = -.03 - .085 * stretch;
+      });
       const open = blink(t, 7); eyes[0].scale.y = eyes[1].scale.y = open;
     },
   };

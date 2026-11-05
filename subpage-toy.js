@@ -45,7 +45,7 @@ if (hero && SCENES[page] && webgl) {
   holder.append(canvas);
   if (panel) panel.prepend(holder);
   else { hero.append(holder); hero.classList.add('has-toy'); }
-  const start = () => import('./subpage-toy-scenes.js?v=20261105-toyclock').then(m => m.mount(canvas, page, { reduce })).catch(() => holder.remove());
+  const start = () => import('./subpage-toy-scenes.js?v=20261105-grip').then(m => m.mount(canvas, page, { reduce })).catch(() => holder.remove());
   // build when the header is near the view; the header is at the top, so normally at once
   if ('IntersectionObserver' in window) {
     const io = new IntersectionObserver(entries => { if (entries.some(e => e.isIntersecting)) { io.disconnect(); start(); } }, { rootMargin: '200px' });

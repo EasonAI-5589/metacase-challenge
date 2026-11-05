@@ -3,7 +3,7 @@
  * the first fields and the benchmark snapshot. Each is a looping vignette drawn by the shared
  * stage. */
 import * as THREE from './assets/vendor/three/three.module.js';
-import { PALETTE, BOOK, mat, add, block, cyl, ball, tile, volume, robot, person, buildings, tree, island, crane, scaffold, bookStack, lights, STAGE_COLORS, rbox, labelPlane, blaster, terminal, lens } from './mc-kit.js?v=20261102-toy';
+import { PALETTE, BOOK, mat, add, block, cyl, ball, tile, volume, robot, person, buildings, tree, island, crane, scaffold, bookStack, lights, STAGE_COLORS, rbox, labelPlane, blaster, terminal, lens } from './mc-kit.js?v=20261105-grip';
 import { clamp, smooth, ramp, lerp, fitCamera, glowSprite } from './mc-stage.js';
 
 const loopPhase = (t, period, offset = 0) => ((t + offset) % period) / period;

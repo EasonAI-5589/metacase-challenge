@@ -1,0 +1,39 @@
+/* page-rail.css — the chapter rail: the homepage's bookmark tabs (metacase.css .mc-rail) turned on
+ * their side, standing on a line down the edge of the window. Hovering opens the chapter names. */
+.page-rail { --rail-p: 0; position: fixed; z-index: 60; top: 50%; right: 0; translate: 0 -50%; pointer-events: none; }
+.page-rail ol { position: relative; display: grid; justify-items: end; gap: 5px; margin: 0; padding: 8px 14px 8px 0; list-style: none; }
+.page-rail ol::before { content: ""; position: absolute; top: 0; bottom: 0; right: 10px; width: 4px; border-radius: 4px;
+  background: linear-gradient(180deg, var(--track-1), oklch(70% 0.16 290) 55%, var(--track-2)) top / 100% calc(var(--rail-p) * 100%) no-repeat, color-mix(in oklab, var(--text-primary) 16%, transparent); }
+.page-rail a { position: relative; display: flex; align-items: center; gap: 0; min-height: 30px; padding: 0 9px 0 10px; border: 1px solid color-mix(in oklab, var(--text-primary) 15%, transparent); border-right: 0;
+  border-radius: 10px 2px 2px 10px; background: color-mix(in oklab, var(--surface-1) 88%, transparent); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  color: var(--text-secondary); font: 500 12.5px/1.1 var(--font-sans); letter-spacing: 0; text-decoration: none; white-space: nowrap; pointer-events: auto; translate: 3px 0;
+  transition: translate .3s cubic-bezier(.34, 1.4, .5, 1), color .25s, background-color .25s, border-color .25s, box-shadow .25s; }
+.page-rail-mark { min-width: 15px; color: var(--text-tertiary); font: 600 10.5px/1 var(--font-mono); text-align: center; transition: color .25s; }
+.page-rail-name { max-width: 0; overflow: hidden; opacity: 0; transition: max-width .3s cubic-bezier(.2, 0, 0, 1), margin .3s cubic-bezier(.2, 0, 0, 1), opacity .2s; }
+.page-rail:hover .page-rail-name, .page-rail:has(a:focus-visible) .page-rail-name { max-width: 190px; margin-left: 8px; opacity: 1; }
+.page-rail a:hover { translate: 0 0; color: var(--text-primary); background: color-mix(in oklab, var(--rc) 12%, var(--surface-1)); }
+.page-rail a:focus-visible { outline: 2px solid var(--rc); outline-offset: 2px; }
+.page-rail a:active { translate: 1px 0; }
+.page-rail a.done { color: var(--text-primary); border-color: color-mix(in oklab, var(--rc) 34%, transparent); background: color-mix(in oklab, var(--rc) 10%, var(--surface-1)); }
+.page-rail a.done .page-rail-mark { color: var(--rc); }
+.page-rail a.on { translate: -5px 0; color: var(--text-primary); border-color: color-mix(in oklab, var(--rc) 62%, transparent); background: color-mix(in oklab, var(--rc) 18%, var(--surface-2));
+  box-shadow: 0 4px 0 color-mix(in oklab, var(--rc) 34%, transparent), 0 12px 22px -14px var(--rc); }
+.page-rail a.on .page-rail-mark { color: var(--rc); }
+/* the cut to a chapter dips through the page colour; the bars and the rail stay in view */
+.page-rail-veil { position: fixed; z-index: 19; inset: 0; background: var(--bg-canvas); opacity: 0; pointer-events: none; transition: opacity .16s cubic-bezier(.2, 0, 0, 1); }
+.page-rail-veil.is-on { opacity: 1; }
+/* where the margin is too narrow for tabs they become short markers on the line, opening on hover */
+@media (max-width: 1299px) {
+  .page-rail ol { gap: 4px; padding-right: 8px; }
+  .page-rail ol::before { right: 5px; width: 3px; }
+  .page-rail a { width: 11px; min-height: 22px; padding: 0; translate: 2px 0; }
+  .page-rail a::after { content: ""; position: absolute; inset: -2px -8px -2px -14px; }
+  .page-rail-mark { display: none; }
+  .page-rail a.on { translate: -2px 0; }
+}
+@media (max-width: 1299px) and (hover: hover) {
+  .page-rail:hover a, .page-rail:has(a:focus-visible) a { width: auto; min-height: 28px; padding: 0 9px 0 10px; }
+  .page-rail:hover .page-rail-mark, .page-rail:has(a:focus-visible) .page-rail-mark { display: block; }
+}
+@media print { .page-rail, .page-rail-veil { display: none; } }
+@media (prefers-reduced-motion: reduce) { .page-rail a, .page-rail-name, .page-rail-veil { transition: none; } }

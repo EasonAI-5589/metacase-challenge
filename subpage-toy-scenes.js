@@ -9,7 +9,7 @@
  *   replication a reading desk, a researcher with the book, the robot with its lens, a fitted line
  * The picture is drawn on a transparent canvas over the page's own backdrop. */
 import * as THREE from './assets/vendor/three/three.module.js';
-import { PALETTE, mat, add, block, cyl, ball, person, robot, tile, bookStack, tree, lights, blaster, lens, terminal, closedBook } from './mc-kit.js?v=20261102-toy';
+import { PALETTE, GUN_HOLD, mat, add, block, cyl, ball, person, robot, tile, bookStack, tree, lights, blaster, lens, terminal, closedBook } from './mc-kit.js?v=20261105-grip';
 import { createPost } from './mc-toon.js?v=20261102-toy';
 
 const TRACK = [0x45b5b0, 0xf2b545, 0x7d6ad8];
@@ -64,7 +64,7 @@ const BUILD = {
     const term = terminal(PALETTE.teal); bench.add(at(term.root, -.6, .72, -.1, .2, 1.3));
     bench.add(at(bookStack(3, 1), .7, .72, 0, .3, .9));
     const bot = robot(PALETTE.cream, 0x8ff6ff); scene.add(at(bot.root, -.4, 0, .75, .25, 1.2));
-    const held = blaster(PALETTE.teal); held.scale.setScalar(.55); held.position.set(.36, .4, .28); held.rotation.set(-.1, -.2, 0); bot.root.add(held);
+    const held = blaster(PALETTE.teal); held.scale.setScalar(.55); held.position.copy(GUN_HOLD.at); held.rotation.copy(GUN_HOLD.turn); bot.root.add(held); bot.grip();
     // a harness on a pedestal, turning in its rings
     const ped = new THREE.Group(); ped.position.set(1.65, 0, .35); scene.add(ped);
     cyl(ped, .45, .55, .5, 0x26324d, 0, 0, 0, 32);

@@ -4,7 +4,7 @@
  * (2) Configure: as in the arena, the model is the agent's character and the harness its weapon.
  *     The participant hands the robot behind the desk a model, which reasons and decides: it
  *     powers up in that provider's armour, brand plate, crest and visor. Then a harness, which
- *     lends it tools, a workflow and its run settings: a blaster that docks at its right shoulder.
+ *     lends it tools, a workflow and its run settings: a weapon it takes in both hands.
  * (3) Execute: the agent reads, plans, calls tools and writes until it delivers; every call
  *     leaves the harness's muzzle and adds a page to the trajectory on the stand by the desk.
  * (4) Verify: the deliverable goes into the verifier, the only place the sealed reference is
@@ -15,7 +15,7 @@
  *     diagnostic board).
  * Rendered by the shared stage; the page's labels follow the objects through onProject. */
 import * as THREE from './assets/vendor/three/three.module.js';
-import { PALETTE, BOOK, closedBook, bookTabs, mat, add, block, cyl, ball, rbox, robot, person, lights, blaster, lens, terminal } from './mc-kit.js?v=20261102-toy';
+import { PALETTE, BOOK, closedBook, bookTabs, mat, add, block, cyl, ball, rbox, robot, GUN_HOLD, person, lights, blaster, lens, terminal } from './mc-kit.js?v=20261105-grip';
 import { clamp, smooth, ramp, lerp, pageBackground, fitSafe, fitBox, toView, glowSprite } from './mc-stage.js';
 import { toonify } from './mc-toon.js';
 import { MODEL_CHARACTERS, HARNESS_NAMES, EFFORTS, DEFAULT_EFFORT } from './arena-data.js?v=20261028-cascade';
@@ -32,7 +32,7 @@ const SHEET_GEO = new THREE.PlaneGeometry(.4, .5);
 // stands a little smaller. Its plate, weapon and the weapon's length are in the robot's units.
 const AGENT_Z = DESK_Z - .7, AGENT_S = .82, AGENT_ON_PLINTH = .62, AGENT_Y = [.4, .5];
 const PLATE_AT = new THREE.Vector3(0, .41, .199);
-const GUN_AT = new THREE.Vector3(.46, .38, .26), GUN_TURN = new THREE.Euler(.1, 1, .1), GUN_SIZE = .8;
+const GUN_SIZE = .8;
 const BARE = { hull: 0xf7f5f0, limb: PALETTE.ink, eye: 0x8ff6ff, trim: 0xd5d9e0 };  // before it has a model
 
 const springy = x => { const q = clamp(x) - 1; return 1 + 2.6 * q * q * q + 1.6 * q * q; }; // eases past 1 and settles
@@ -247,7 +247,7 @@ export function createRun({ onProject = () => {}, safe = () => null, reduce = fa
   });
   // what the participant hands over flies to its place on the robot and keeps to it there
   const plateAt = new THREE.Object3D(); plateAt.position.copy(PLATE_AT); body.add(plateAt);
-  const gunAt = new THREE.Object3D(); gunAt.position.copy(GUN_AT); gunAt.rotation.copy(GUN_TURN); body.add(gunAt);
+  const gunAt = new THREE.Object3D(); gunAt.position.copy(GUN_HOLD.at); gunAt.rotation.copy(GUN_HOLD.turn); body.add(gunAt);
   let dressed = loadout();
   const plateTex = canvasTexture(512, 320, g => paintPlate(g, MODEL_CHARACTERS[dressed.model], dressed.variant, dressed.effort));
   const plate = new THREE.Mesh(new THREE.PlaneGeometry(.4, .25), new THREE.MeshBasicMaterial({ map: plateTex, transparent: true, side: THREE.DoubleSide })); plate.visible = false; scene.add(plate);
@@ -463,6 +463,7 @@ export function createRun({ onProject = () => {}, safe = () => null, reduce = fa
     arc(agent.root.position, at, to, hop, .95);
     agent.root.scale.setScalar(lerp(AGENT_S, AGENT_ON_PLINTH, hop));
     agent.root.rotation.y = hop * Math.PI * 2;
+    agent.grip(ramp(smooth(arm), .55, 1));                                              // the hands close as the weapon arrives
     agent.update(t, 0);
     head.rotation.x = lerp(.3, 0, lit) + .16 * shown(p, .41, .44, .56, .59);           // it wakes, and looks down at its work
     const thrust = Math.sin(Math.PI * hop);
