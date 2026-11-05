@@ -77,52 +77,57 @@ wordmark. The source image bytes are unchanged; the window preserves the
 shield itself and its original proportions. SUFE uses the opaque charter seal above
 (sufe-university-official.png): its original red-on-white artwork on a white disc
 in both light and dark mode. The transparent homepage asset is retained for provenance.
-The Tsinghua crest (tsinghua-pbcsf-crest.png, below) sits on the same white disc.
+The Tsinghua PBCSF mark (tsinghua-pbcsf-mark.png, below) sits on the same white disc.
 On the Teams page, the logo wall and the SUFE partner card show the transparent homepage
 lockup (seal and wordmark) as a CSS mask in the same #811c21 on white plates.
 The homepage Team cards show crests only, in their original colors and one 64px
 column: the NTU shield (the same CSS window on ntu-university-official.png), the HKU
-standalone crest (hku-university-crest.png), and the SUFE charter seal and the Tsinghua
-crest on white discs.
+standalone crest (hku-university-crest.png), the SUFE charter seal on a white disc, and the
+Tsinghua PBCSF lockup (tsinghua-pbcsf-official.png).
 NTU and HKU retain their original colors, including white within their shields.
 No source image bytes are changed.
 
 
-Tsinghua University official crest - source original
-File: tsinghua-university-original.jpg
+Tsinghua University PBC School of Finance (Tsinghua PBCSF)
+File: tsinghua-pbcsf-official.png (418 x 116)
 Retrieved: 2026-11-05
-Owner: Tsinghua University
-Source page: https://vi.tsinghua.edu.cn/gk/xxbz/xh/bzjbzsy.htm
-Original: https://vi.tsinghua.edu.cn/__local/8/1C/21/2F02A66E31BF084FE340463BB47_B9A95F73_185BC.jpg
-Format and dimensions: JPEG, 1400 x 600 pixels
-SHA-256: 90132d030d8a70f9d21375c85d8a0c614d44a6201ab82200067b10aca38986a8
-Processing: Original downloaded bytes preserved. White background and margins remain; this is the source master, not the final card-sized crest.
+Owner: PBC School of Finance, Tsinghua University
+Source page: https://www.pbcsf.tsinghua.edu.cn/ (site header logo)
+Original: https://www.pbcsf.tsinghua.edu.cn/new_index/images/logo.png
+SHA-256: 2c3fa41e3e5a7fb8db40e56e34c4994c12a2af5f3abf01a3d082712f2d9556a2
+Original bytes preserved (PNG with transparency: the hexagonal mark, "TSINGHUA PBCSF"
+and the Chinese name, all in the school's red). This replaces the Tsinghua University
+crest used earlier (removed 2026-11-05).
+Shown on the Teams page organization card and the homepage Team card on white plates.
 
-Tsinghua University crest - display file
-File: tsinghua-pbcsf-crest.png (435 x 435)
-Derived from: tsinghua-university-original.jpg (above)
-Processing: cropped to the round crest, pixels x 469-903 and y 77-511 of the original
-(the crest's bounding box plus a 2px white margin), and saved as PNG. Not resized;
-colors and proportions unchanged.
-SHA-256: 035bdcc5172a44f5854be0688fc0325fe785075cb2ce592312012cdc2b9cb8b2
-Used on the homepage (hero crest row and Team card, on a white disc) and on the
-Teams page (logo wall and partner card, on a white plate).
-
-Shenzhen Loop Area Institute (SLAI)
-File: slai-official.png (760 x 121)
-Retrieved: 2026-11-05
-Owner: Shenzhen Loop Area Institute
-Source page: https://www.slai.edu.cn/en/home (site header, the opaque logo)
-Original: https://www.slai.edu.cn/sites/default/files/2026-03/%E9%A6%96%E9%A1%B5logo_black.png
-SHA-256: d66bd99bce4008f751dce1f2efc8f9cff51589969b9ea82c3231d3678c43ce2b
-Original bytes preserved (PNG with transparency: the mark, the Chinese name and the English name).
-Shown on the Teams page collaborating-organization card on a white plate.
+Tsinghua PBCSF mark - display file
+File: tsinghua-pbcsf-mark.png (105 x 116)
+Derived from: tsinghua-pbcsf-official.png (above)
+Processing: cropped to the hexagonal mark, pixels x 0-104 of the original at full height.
+Not resized; colors and proportions unchanged.
+SHA-256: 9b39cbb0e5a24a2182e3ee97edd8cc2f8571d77ecd7c1d664460e2a317042d8f
+Used in the homepage hero crest row, on a white disc.
 
 Columbia University Center for Digital Finance and Technologies (CDFT)
-No file. The center's site (https://cdft.engineering.columbia.edu/, checked 2026-11-05)
-shows only the Columbia University logo beside the center's name in text; no
-center-specific mark was found. The Teams page card sets the name as plain text
-and does not use the Columbia University logo.
+File: columbia-cdft-original.png (1772 x 485)
+Retrieved: 2026-11-05
+Owner: Columbia University (Columbia Engineering)
+Source page: https://cdft.engineering.columbia.edu/ (site header)
+Original: the center's logo is inlined in the site header as an SVG that wraps this PNG
+as a data URI; there is no separate file URL. The PNG bytes were extracted unchanged.
+SHA-256: ec8edcee06e8b221359380dda3b765aa703ce16c0e215a28dc4dfab3740ca457
+Original bytes preserved (PNG with transparency: the Columbia crown, "Columbia Engineering"
+and "The Center for Digital Finance and Technologies" in Columbia blue, with wide
+transparent margins on both sides).
+
+Columbia CDFT - display file
+File: columbia-cdft-official.png (700 x 485)
+Derived from: columbia-cdft-original.png (above)
+Processing: cropped to the artwork, pixels x 489-1188 of the original at full height
+(the lockup's bounding box plus a 10px transparent margin on each side). Not resized;
+colors and proportions unchanged.
+SHA-256: 21c76f1a2aae6ed73df2378c1c3e16207f2642dc6ef4312ddc2a3863ae0c8e05
+Shown on the Teams page organization card and the homepage Team card on white plates.
 
 Teams page layout (2026-11-05): organizations and people are separate sections.
 Organization cards carry official marks only; person cards carry portraits or

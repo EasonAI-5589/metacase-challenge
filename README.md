@@ -191,8 +191,8 @@ to be announced; only reviewed summaries belong in the public website.
 Organizations (`#organizations`): the founding organization, NTU GIFTS, then the collaborating
 organizations in the order Lin William Cong gave: NTU NBS, NTU CCDS, HKU AI-Agents Lab, SUFE AIFLM Lab,
 SLAI (Shenzhen Loop Area Institute), Tsinghua PBCSF and Columbia CDFT. Organization cards carry
-official marks, names and descriptions only, never people; Columbia CDFT has no center mark of its own,
-so its card sets the name as text. People (`#people`): Lin William Cong, Ye Luo, Liwen Zhang.
+official marks, names and descriptions only, never people; Tsinghua PBCSF shows the school's own
+lockup and Columbia CDFT the center's Columbia Engineering lockup, both taken from their own sites. People (`#people`): Lin William Cong, Ye Luo, Liwen Zhang.
 Student leaders (`#student-leaders`): Yichen Guo and Yujie Cai. Other team members (`#team-members`):
 faculty and researchers (Agostino Capponi, Yang Liu, Xiaoyan Zhang) and a row of students and
 contributors; add new people there. Person cards carry portraits (or initials), names and roles, with
@@ -463,17 +463,17 @@ in `backdrop.js` comes from Natural Earth 1:110m land (public domain), packaged 
 world-atlas 2.0.2, sampled on a 1.5° grid by `scripts/build-land-mask.mjs`.
 
 The homepage shows the university crests for NTU Singapore, the University of
-Hong Kong, Shanghai University of Finance and Economics and Tsinghua University
+Hong Kong, Shanghai University of Finance and Economics and Tsinghua PBCSF
 in a transparent, borderless row below the hero buttons. Each crest is 72px tall, with no university
 wordmark. HKU uses its standalone crest; a CSS window shows the shield from the
 unchanged NTU university logo asset. SUFE uses its official red-on-white charter seal,
 `assets/institutions/sufe-university-official.png`, on a white disc in light and
-dark themes; the Tsinghua crest, `assets/institutions/tsinghua-pbcsf-crest.png`,
+dark themes; the Tsinghua PBCSF hexagonal mark, `assets/institutions/tsinghua-pbcsf-mark.png`,
 sits on the same white disc. The homepage Team block keeps organizations and people apart, as the
 Teams page does: the founding organization (NTU GIFTS) and the collaborating organizations (NTU NBS,
 NTU CCDS, HKU AI-Agents Lab, SUFE AIFLM Lab, SLAI, Tsinghua PBCSF, Columbia CDFT) are cards with the
 official mark on a white plate, the short name linking to the Teams entry and the full name, and no
-people; Columbia CDFT sets its name as text. The people (Lin William Cong, Ye Luo, Liwen Zhang) and
+people. The people (Lin William Cong, Ye Luo, Liwen Zhang) and
 the student leaders follow in their own rows, with affiliations as text and no marks, and a link to
 the other team members on the Teams page. Teams retains the
 existing college and business-school marks. Original assets and ownership notes

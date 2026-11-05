@@ -56,8 +56,8 @@
 .gifts-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 28px;margin:0;padding:0;list-style:none}
 .gifts-list li{font-size:13.5px;line-height:1.7;color:var(--soft)}
 .gifts-list strong{display:block;margin-bottom:2px;font-size:14px;font-weight:600;line-height:1.5;color:var(--ink)}
-/* An organization without an official mark we could verify: its name set as plain text on the plate. */
-.v2-page-teams .org-textmark{font:600 22px/1.2 var(--font-sans);letter-spacing:-.01em;color:#0e1420;white-space:nowrap}
+/* Tall lockups (Columbia CDFT) use the plate's full inner height */
+.v2-page-teams .org-grid .v2-group-plate img.org-mark-tall{max-height:72px}
 .v2-page-teams .org-grid{margin-top:0}
 .v2-page-teams .org-grid .v2-group-top{display:block}
 .v2-page-teams .org-grid .v2-group-plate{width:100%;height:104px;padding:16px 22px}
