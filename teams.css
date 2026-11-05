@@ -83,3 +83,7 @@
   .v2-page-teams #partners .group-links{grid-row:8}
 }
 .v2-page-teams .group-project a{text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--muted)}
+/* SUFE: the official homepage lockup (seal and wordmark, white on transparent) in SUFE red on the white plates */
+.v2-page-teams .sufe-lockup{display:block;aspect-ratio:702/142;background:#811c21;-webkit-mask:url("assets/institutions/sufe-university-transparent-official.png") center/contain no-repeat;mask:url("assets/institutions/sufe-university-transparent-official.png") center/contain no-repeat}
+.v2-page-teams .v2-logo-plate .sufe-lockup{width:min(100%,240px)}
+.v2-page-teams .v2-group-plate .sufe-lockup{width:188px;max-width:100%}

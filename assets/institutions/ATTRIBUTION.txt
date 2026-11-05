@@ -78,6 +78,8 @@ shield itself and its original proportions. SUFE uses the opaque charter seal ab
 (sufe-university-official.png): its original red-on-white artwork on a white disc
 in both light and dark mode. The transparent homepage asset is retained for provenance.
 The Tsinghua crest (tsinghua-pbcsf-crest.png, below) sits on the same white disc.
+On the Teams page, the logo wall and the SUFE partner card show the transparent homepage
+lockup (seal and wordmark) as a CSS mask in the same #811c21 on white plates.
 The homepage Team cards show crests only, in their original colors and one 64px
 column: the NTU shield (the same CSS window on ntu-university-official.png), the HKU
 standalone crest (hku-university-crest.png), and the SUFE charter seal and the Tsinghua
