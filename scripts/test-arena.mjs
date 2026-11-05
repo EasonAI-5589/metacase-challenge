@@ -9,9 +9,9 @@ const reports = [];
 const names = ['DeepSeek Harness', 'DeepAgents', 'Claude Code', 'Codex CLI', 'OpenCode', 'OpenHands SDK', 'Terminus-2', 'mini-SWE-agent'];
 const previewProgress = index => .16 + (index + .5) / 8 * .22;
 const expectedDomains = [
-  ['econ', ['econ.replication', 'econ.monetary', 'econ.markets', 'econ.data', 'econ.statistics']],
-  ['fin', ['fin.accounting', 'fin.filings', 'fin.payments', 'fin.credit', 'fin.numeric', 'fin.nlp']],
-  ['soc', ['soc.law', 'soc.hr', 'soc.business', 'soc.society', 'soc.psychology']],
+  ['econ', ['econ.replication', 'econ.markets', 'econ.data', 'econ.publicfinance', 'econ.monetary', 'econ.statistics']],
+  ['fin', ['fin.accounting', 'fin.numeric', 'fin.payments', 'fin.filings', 'fin.credit', 'fin.nlp']],
+  ['soc', ['soc.law', 'soc.business', 'soc.policy', 'soc.society', 'soc.hr', 'soc.psychology']],
 ];
 async function aimedWeapon(page, harness, target) {
   await page.waitForFunction(({ name, target }) => {

@@ -6,9 +6,9 @@
   <meta name="color-scheme" content="dark light">
   <meta name="referrer" content="no-referrer">
   <title>Challenge — Metacase Challenge</title>
-  <meta name="description" content="Explore the Metacase Challenge: three tracks (economics, finance and social science) with sixteen classes, recorded agent runs, independent evaluation and ways to participate.">
+  <meta name="description" content="Explore the Metacase Challenge: three tracks (economics, finance and social science) with eighteen classes, recorded agent runs, independent evaluation and ways to participate.">
   <meta property="og:title" content="Metacase Challenge — Challenge">
-  <meta property="og:description" content="Explore the Metacase Challenge: three tracks (economics, finance and social science) with sixteen classes, recorded agent runs, independent evaluation and ways to participate.">
+  <meta property="og:description" content="Explore the Metacase Challenge: three tracks (economics, finance and social science) with eighteen classes, recorded agent runs, independent evaluation and ways to participate.">
   <meta property="og:type" content="website">
   <link rel="icon" type="image/svg+xml" href="assets/favicon-v2.svg">
   <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -18,7 +18,7 @@
   <link rel="stylesheet" href="challenge.css?v=20261103-submit">
   <script src="site.js?v=20261019-motion" defer></script>
   <link rel="stylesheet" href="language.css">
-  <script src="language.js?v=20261103-copy" defer></script>
+  <script src="language.js?v=20261105-classes" defer></script>
   <link rel="stylesheet" href="v2.css?v=20261101-shuttle">
   <link rel="stylesheet" href="skin.css?v=20261103-submit">
   <link rel="stylesheet" href="subpage-toy.css?v=20261103-align">
@@ -115,7 +115,7 @@
       <article class="track field-track" id="track-econ" aria-labelledby="track-econ-title" style="--accent: var(--track-1); --accent-soft: var(--track-1-soft)">
         <div class="track-head"><span class="pill">Track 01</span><span class="track-tag">200 tasks · 6 classes</span></div>
         <h3 id="track-econ-title">Economics</h3>
-        <p class="track-summary">From published research to live data: replicate empirical estimates, read central-bank language, forecast market moves and build economic datasets.</p>
+        <p class="track-summary">From published research to official statistics: replicate empirical estimates, analyse capital markets and central-bank operations, and build economic datasets.</p>
         <ol class="class-list">
           <li class="class-item" id="class-econ-replication">
             <div class="class-row">
@@ -171,23 +171,23 @@
               <h4 class="class-name">Economic &amp; business data engineering</h4>
               <span class="class-count"><b class="tnum">34</b> tasks</span>
             </div>
-            <p class="class-desc">SQL and dbt over banking, retail, e-commerce and wholesale supply-chain data.</p>
+            <p class="class-desc">Multi-table SQL and multi-model dbt engineering over banking, retail, e-commerce and wholesale supply-chain data.</p>
           </li>
           <li class="class-item" id="class-econ-markets">
             <div class="class-row">
               <span class="class-call mono" data-no-translate>econ.markets</span>
-              <h4 class="class-name">Market movement forecasting</h4>
+              <h4 class="class-name">Capital markets &amp; bond-yield analysis</h4>
               <span class="class-count"><b class="tnum">34</b> tasks</span>
             </div>
-            <p class="class-desc">Predict stock price movement from tweets and historical prices.</p>
+            <p class="class-desc">Compute multi-year corporate vs. Treasury bond yield spreads, auction bid-to-cover ratios and deliver securities trading analyses.</p>
           </li>
           <li class="class-item" id="class-econ-monetary">
             <div class="class-row">
               <span class="class-call mono" data-no-translate>econ.monetary</span>
-              <h4 class="class-name">Monetary policy communication</h4>
+              <h4 class="class-name">Monetary policy &amp; central-bank operations</h4>
               <span class="class-count"><b class="tnum">32</b> tasks</span>
             </div>
-            <p class="class-desc">Classify the hawkish / dovish stance of FOMC statements and minutes.</p>
+            <p class="class-desc">Compute multi-year reserve assets, foreign-exchange interventions and interest-rate series from official U.S. Treasury bulletins.</p>
           </li>
           <li class="class-item" id="class-econ-publicfinance">
             <div class="class-row">
@@ -195,7 +195,7 @@
               <h4 class="class-name">Public finance &amp; fiscal policy</h4>
               <span class="class-count"><b class="tnum">33</b> tasks</span>
             </div>
-            <p class="class-desc">Analyse federal budget receipts, department outlays, public debt structure, Treasury auctions and intergovernmental transfers.</p>
+            <p class="class-desc">Analyse federal budget receipts, department outlays, public debt structure, trust funds and intergovernmental transfers across 697 bulletins.</p>
           </li>
           <li class="class-item" id="class-econ-statistics">
             <div class="class-row">
@@ -203,7 +203,7 @@
               <h4 class="class-name">Official statistics synthesis</h4>
               <span class="class-count"><b class="tnum">32</b> tasks</span>
             </div>
-            <p class="class-desc">Synthesise multi-year series, statistical transformations and distribution metrics from official U.S. Treasury statistical bulletins.</p>
+            <p class="class-desc">Synthesise multi-year series, Box-Cox transformations, KL divergence, Zipf exponents and regression forecasts from official U.S. Treasury bulletins.</p>
           </li>
         </ol>
       </article>
@@ -211,15 +211,15 @@
       <article class="track field-track" id="track-fin" aria-labelledby="track-fin-title" style="--accent: var(--track-2); --accent-soft: var(--track-2-soft)">
         <div class="track-head"><span class="pill">Track 02</span><span class="track-tag">200 tasks · 6 classes</span></div>
         <h3 id="track-fin-title">Finance</h3>
-        <p class="track-summary">The work of analysts and accountants: answer questions from filings, analyse payments, read financial text, reason with numbers, judge credit risk and close the books.</p>
+        <p class="track-summary">The work of analysts and accountants: answer questions from filings, analyse payments, build financial models, extract structure from long disclosures, judge credit risk and close the books.</p>
         <ol class="class-list">
           <li class="class-item" id="class-fin-nlp">
             <div class="class-row">
               <span class="class-call mono" data-no-translate>fin.nlp</span>
-              <h4 class="class-name">Financial text understanding</h4>
+              <h4 class="class-name">Financial disclosure &amp; structured extraction</h4>
               <span class="class-count"><b class="tnum">32</b> tasks</span>
             </div>
-            <p class="class-desc">Sentiment, news headlines, entity recognition and ESG issues in financial text.</p>
+            <p class="class-desc">150-tag XBRL statement tagging, long earnings-call summarization, relation triplet extraction and financial dbt models.</p>
           </li>
           <li class="class-item" id="class-fin-accounting">
             <div class="class-row">
@@ -279,15 +279,15 @@
               <h4 class="class-name">Lending operations &amp; credit risk</h4>
               <span class="class-count"><b class="tnum">33</b> tasks</span>
             </div>
-            <p class="class-desc">Lending operations, credit risk, fraud detection and portfolio or consumer-protection analysis across borrower, servicing and transaction evidence.</p>
+            <p class="class-desc">Multi-file lending workflows, hard merchant fraud investigations and loan-delinquency SQL pipelines.</p>
           </li>
           <li class="class-item" id="class-fin-numeric">
             <div class="class-row">
               <span class="class-call mono" data-no-translate>fin.numeric</span>
-              <h4 class="class-name">Financial numerical reasoning</h4>
+              <h4 class="class-name">Financial modeling &amp; spreadsheet engineering</h4>
               <span class="class-count"><b class="tnum">34</b> tasks</span>
             </div>
-            <p class="class-desc">Table and text numeric reasoning over financial reports, CFA-style questions and financial planning models.</p>
+            <p class="class-desc">Hard cell-level Excel financial modeling, retirement/option-pricing workbooks and multi-step report calculations.</p>
           </li>
           <li class="class-item" id="class-fin-payments">
             <div class="class-row">
@@ -319,7 +319,7 @@
               <h4 class="class-name">Law, regulation &amp; compliance</h4>
               <span class="class-count"><b class="tnum">36</b> tasks</span>
             </div>
-            <p class="class-desc">Legal statute recall, case-outcome prediction, regulatory data-lake pipelines and compliance review deliverables.</p>
+            <p class="class-desc">Multi-file regulatory data-lake pipelines, quantitative sentencing and case reasoning, and compliance review deliverables.</p>
           </li>
           <li class="class-item" id="class-soc-society">
             <div class="class-row">
@@ -393,7 +393,7 @@
               <h4 class="class-name">Public policy &amp; service governance</h4>
               <span class="class-count"><b class="tnum">35</b> tasks</span>
             </div>
-            <p class="class-desc">Environmental and wildfire public-policy data-lake pipelines, constituent feedback analysis and service remediation deliverables.</p>
+            <p class="class-desc">Hard environmental and wildfire public-policy data-lake pipelines, constituent feedback analysis and service remediation deliverables.</p>
           </li>
           <li class="class-item" id="class-soc-psychology">
             <div class="class-row">

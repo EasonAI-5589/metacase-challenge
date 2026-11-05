@@ -1,6 +1,6 @@
 /* A single scroll-owned timeline: camera, equipment, rooms and evidence all follow it. */
 import { createSignatureRail } from './mc-rail.js?v=20261027-frontgun';
-import { ARENA_DOMAINS, HARNESS_NAMES, MODEL_CHARACTERS, EFFORTS, DEFAULT_EFFORT } from './arena-data.js?v=20261028-cascade';
+import { ARENA_DOMAINS, HARNESS_NAMES, MODEL_CHARACTERS, EFFORTS, DEFAULT_EFFORT } from './arena-data.js?v=20261105-classes';
 
 const chapter = document.querySelector('.mc-chapter');
 if (chapter) {
@@ -298,7 +298,7 @@ if (chapter) {
       ? (l ? '选择厂商 · 点击外圈槽位装备武器' : 'PICK A PROVIDER · CLICK A SLOT TO EQUIP')
       : (l ? '选择厂商 · 滚动或点击外圈装备武器' : 'PICK A PROVIDER · SCROLL OR CLICK TO EQUIP');
     $('[data-mc-episode-label]').textContent = l ? 'METACASE / 轨迹' : 'METACASE / TRACE';
-    $('[data-mc-illustrative]').textContent = l ? '经济 · 金融 · 社科 / 三大方向，16 个二级目录。' : 'Economics · Finance · Social Science / 3 domains, 16 case categories.';
+    $('[data-mc-illustrative]').textContent = l ? '经济 · 金融 · 社科 / 三大方向，18 个二级目录。' : 'Economics · Finance · Social Science / 3 domains, 18 case categories.';
     $('[data-mc-slider-label]').textContent = l ? '探索完整解题轨迹' : 'Explore the complete episode';
     $('.mc-timeline').setAttribute('aria-label', l ? '解题轨迹章节' : 'Episode chapters');
     $('.mc-fallback p').textContent = l ? '一个 Agent，多种 Harness。从原始证据走向可复用经验。滚动或使用进度条探索。' : 'One agent. Many harnesses. Follow the path from evidence to experience by scrolling or using the slider.';
@@ -461,7 +461,7 @@ if (chapter) {
   async function load() {
     if(loading)return;loading=true;
     try {
-      const {createArenaScene}=await import('./arena-scene.js?v=20261103-wheel-centre');
+      const {createArenaScene}=await import('./arena-scene.js?v=20261105-classes');
       scene=createArenaScene($('.mc-canvas'), { onWeaponProject: projectWeapon, onPortalProject: projectPortals }); scene.update(state);
       import('./portal-warp.js?v=20261101-shuttle').catch(() => {}); // the shuttle, ready before any portal is taken
       $('.mc-fallback').hidden=true;chapter.dataset.renderer='webgl';

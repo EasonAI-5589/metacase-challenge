@@ -135,7 +135,7 @@ export function createCampusDetails({ rooms, localKit }) {
   });
   spineBands.instanceMatrix.needsUpdate = true; root.add(spineBands);
 
-  // Three side reading tables hold all sixteen actual directory signatures.
+  // Three side reading tables hold all eighteen actual directory signatures.
   // They stay outside the room walls and the weapon/agent approach corridors.
   rooms.forEach((room, index) => {
     const domain = ARENA_DOMAINS[index], color = domain.color;

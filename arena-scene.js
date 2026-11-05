@@ -6,7 +6,7 @@ import { catmullRom } from "./arena-motion.js";
 import { toon, toonify, createPost } from "./mc-toon.js";
 import { person, robot, tile, PALETTE } from "./mc-kit.js?v=20261102-toy";
 import { pageBackground } from "./mc-stage.js";
-import { ARENA_DOMAINS, HARNESS_NAMES, MODEL_CHARACTERS, EFFORTS, DEFAULT_EFFORT } from "./arena-data.js?v=20261028-cascade";
+import { ARENA_DOMAINS, HARNESS_NAMES, MODEL_CHARACTERS, EFFORTS, DEFAULT_EFFORT } from "./arena-data.js?v=20261105-classes";
 import { createCampusDetails } from "./arena-campus.js?v=20261027-frontgun";
 import { createRoomSubtracks } from "./arena-subtracks.js?v=20261027-frontgun";
 export function createArenaScene(canvas, { onWeaponProject, onPortalProject } = {}) {
