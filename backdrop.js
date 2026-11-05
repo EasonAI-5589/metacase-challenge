@@ -6,7 +6,7 @@
  *   contour       Self-evolving: a moving fitness landscape with an optimiser climbing it
  *   bump          Leaderboard: a continuously scrolling rank chart
  *   ledger        Business deliverables: a sheet whose mismatched cells reconcile
- *   constellation Teams: NTU, HKU and SUFE linked, with collaborators around them
+ *   constellation Teams: NTU, HKU, SUFE and Tsinghua linked, with collaborators around them
  * Usage: Backdrop.mount(canvas, { mode, focus: [x, y] }) → { setTone(i), destroy() }
  */
 (() => {
@@ -43,6 +43,7 @@
       t1: rgb(cs.getPropertyValue("--track-1").trim()),
       t2: rgb(cs.getPropertyValue("--track-2").trim()),
       v: dark ? [150, 128, 255] : [104, 84, 214],
+      r: dark ? [240, 114, 122] : [196, 64, 82],
       ink: dark ? [238, 242, 247] : [14, 20, 32],
     };
   }
@@ -367,7 +368,7 @@
   MODES.constellation = {
     init(S) {
       const R = prng(9);
-      S.anchors = [{ id: "SUFE · SHANGHAI", x: 0.84, y: 0.26, c: "t2" }, { id: "HKU · HONG KONG", x: 0.76, y: 0.5, c: "v" }, { id: "NTU · SINGAPORE", x: 0.66, y: 0.8, c: "t1" }];
+      S.anchors = [{ id: "TSINGHUA · BEIJING", x: 0.79, y: 0.12, c: "r" }, { id: "SUFE · SHANGHAI", x: 0.84, y: 0.26, c: "t2" }, { id: "HKU · HONG KONG", x: 0.76, y: 0.5, c: "v" }, { id: "NTU · SINGAPORE", x: 0.66, y: 0.8, c: "t1" }];
       S.dots = [];
       for (let i = 0; i < 1400; i++) {
         const x = R(), y = R();
@@ -375,14 +376,15 @@
         const near = S.anchors.some(a => Math.hypot(x - a.x, (y - a.y) * 0.8) < 0.26);
         if (near || R() < 0.12) S.dots.push([x, y, near ? 1 : 0.4]);
       }
-      S.peers = Array.from({ length: 18 }, () => ({ x: 0.46 + R() * 0.52, y: 0.06 + R() * 0.88, a: (R() * 3) | 0 }));
+      S.peers = Array.from({ length: 18 }, () => ({ x: 0.46 + R() * 0.52, y: 0.06 + R() * 0.88, a: (R() * S.anchors.length) | 0 }));
       S.pulses = []; S.timer = 0;
     },
     step(S, dt) {
       S.timer += dt;
       if (S.timer > 520) {
         S.timer = 0;
-        if (Math.random() < 0.55) { const a = (Math.random() * 3) | 0; let b = (Math.random() * 3) | 0; if (b === a) b = (b + 1) % 3; S.pulses.push({ from: S.anchors[a], to: S.anchors[b], k: 0 }); }
+        const n = S.anchors.length;
+        if (Math.random() < 0.55) { const a = (Math.random() * n) | 0; let b = (Math.random() * n) | 0; if (b === a) b = (b + 1) % n; S.pulses.push({ from: S.anchors[a], to: S.anchors[b], k: 0 }); }
         else { const p = S.peers[(Math.random() * S.peers.length) | 0]; S.pulses.push({ from: p, to: S.anchors[p.a], k: 0, peer: true }); }
       }
       for (let i = S.pulses.length - 1; i >= 0; i--) { S.pulses[i].k += dt / 1400; if (S.pulses[i].k >= 1) S.pulses.splice(i, 1); }
@@ -398,7 +400,7 @@
       for (const d of S.dots) { ctx.fillStyle = css(P.ink, 0.07 * d[2] + 0.02); ctx.fillRect(d[0] * S.w + S.pmx * 6 * (d[0] - .5), d[1] * S.h, 1.6, 1.6); }
       ctx.lineWidth = 1;
       for (const p of S.peers) { ctx.strokeStyle = css(P.ink, 0.08); this.arc(S, ctx, p, S.anchors[p.a]); }
-      for (let i = 0; i < 3; i++) for (let j = i + 1; j < 3; j++) { ctx.strokeStyle = css(P.ink, 0.26); this.arc(S, ctx, S.anchors[i], S.anchors[j]); }
+      for (let i = 0; i < S.anchors.length; i++) for (let j = i + 1; j < S.anchors.length; j++) { ctx.strokeStyle = css(P.ink, 0.26); this.arc(S, ctx, S.anchors[i], S.anchors[j]); }
       for (const pl of S.pulses) {
         const col = pl.peer ? P.ink : P[pl.to.c], q = this.arc(S, ctx, pl.from, pl.to, pl.k);
         if (!pl.peer) glow(ctx, col, q[0], q[1], 12, 0.7);

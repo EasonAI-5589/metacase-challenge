@@ -4,7 +4,7 @@
  *   harness     a workbench, the robot arming itself, a harness turning on a pedestal
  *   evolution   a stair of Metacase tiles winding up, the robot partway, a loop overhead
  *   leaderboard a podium of three robots, a cup, confetti, two people cheering
- *   teams       a round table of people and the robot, the three partners' flags
+ *   teams       a round table of people and the robot, a flag for each of the four institutions
  *   professional-tasks  a desk of documents and charts, an analyst, the robot with a report
  *   replication a reading desk, a researcher with the book, the robot with its lens, a fitted line
  * The picture is drawn on a transparent canvas over the page's own backdrop. */
@@ -129,8 +129,9 @@ const BUILD = {
     const seats = [[-1.55, .5, 1.1], [1.6, .45, -1.15], [-.9, -1.25, .5], [.95, -1.3, -.55], [0, 1.45, Math.PI]];
     const crew = seats.map(([x, z, r], k) => { const p = k === 4 ? robot(PALETTE.cream, 0x8ff6ff) : person(k * 4 + 1); scene.add(at(p.root, x, 0, z - .1, r + Math.PI, k === 4 ? 1.05 : 1.05)); return p; });
     crew.forEach((p, k) => { if (k < 4) p.root.lookAt(0, 0, -.1); });
-    TRACK.forEach((c, k) => {
-      const x = -1.8 + k * 1.8, z = -2.15;
+    // one flag per institution, in the colours the Teams backdrop gives them: NTU, SUFE, HKU, Tsinghua
+    [...TRACK, PALETTE.rose].forEach((c, k) => {
+      const x = -2.1 + k * 1.4, z = -2.15;
       cyl(scene, .03, .03, 2.1, 0xd9dde5, x, 0, z, 8);
       const flag = block(scene, .7, .42, .03, mat(c, { emissive: c, intensity: .25 }), x + .36, 1.62, z, .04); flag.userData.k = k;
       tick.push(t => { flag.rotation.y = Math.sin(t * 2 + k) * .18; });
