@@ -17,7 +17,7 @@
 .rsi-release-map{margin:0 0 24px}
 .rsi-release .se-map-lane{grid-template-columns:minmax(80px,.58fr) repeat(3,minmax(0,1fr))}
 .rsi-release .se-map-lane:last-child{padding-bottom:4px}
-.se-map-methods .is-inferencenet{border-color:var(--brand);background:var(--brand-tint)}
+.se-map-methods .is-metacase{border-color:var(--brand);background:var(--brand-tint)}
 .rsi-release-details{border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin:18px 0}
 .rsi-release-details+ .rsi-release-details{border-top:0;margin-top:-18px}
 .rsi-release-details summary{cursor:pointer;padding:18px 4px;font-size:15px;font-weight:600;line-height:1.65}

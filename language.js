@@ -146,7 +146,7 @@
       // Keep a page's release-tagged script and dictionary on the same version.
       dictionaryURL.search = new URL(scriptURL).search;
       // A page read once this session translates again without waiting for the network.
-      const cacheKey = `inferencenet-i18n:${dictionaryURL.pathname}${dictionaryURL.search}`;
+      const cacheKey = `metacase-i18n:${dictionaryURL.pathname}${dictionaryURL.search}`;
       let cached = null;
       try { cached = JSON.parse(sessionStorage.getItem(cacheKey)); } catch {}
       dictionaryPromise = (cached ? Promise.resolve(cached) : fetch(dictionaryURL)

@@ -8,7 +8,9 @@ served directly from the root (`index.html`, `challenge.html`, `harness.html`,
 `professional-tasks.html`, with `data.html` and `agent.html` redirecting to their
 current sections while keeping any `#anchor`). The former InferenceNet design is retired;
 its files remain in the git history. InferenceNet now appears only as the name of the
-research dataset on Hugging Face (`CamoAiLab/InferenceNet`), and only in links.
+research dataset on Hugging Face (`CamoAiLab/InferenceNet`), and only in links. The
+submission service keeps its `submit.inferencenet.cn` domain and its server names until
+it is migrated.
 
 ## Edit the website
 
@@ -580,7 +582,7 @@ driven through its SDK). The DeepAgents tab also keeps its two full figures from
 the previous version: the three-layer assembly (DeepAgents, LangChain’s
 create_agent graph and LangGraph, down to our compiled graph) at
 `harness.html#deepagents-architecture`, and the historical wiring on branch
-dev-gyc-eval at 92e56c8 at `harness.html#deepagents-inferencenet`; that wiring’s
+dev-gyc-eval at 92e56c8 at `harness.html#deepagents-metacase`; that wiring’s
 budget is not the ModularRSI study’s. A comparison by slot follows, then a short section that
 separates running a harness from optimizing it and links to the Self-evolving
 page, the four Dev100 v10 configurations (DeepAgents 0.7.13, DeepSeek Harness

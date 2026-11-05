@@ -1,4 +1,4 @@
-# InferenceNet 提交格式 v0.1.0
+# Metacase Challenge 提交格式 v0.1.0
 
 > 2026-10-22：三类材料结构继续适用。当前提交入口使用用户名＋密码，将文件保存到自有服务器，submitter 为服务端分配的稳定账号 ID；正式引用采用 server 回执。下文 HF 仓库/登录/下载描述为历史方案，当前覆盖规则、限额和合成示例边界见 [SELF-HOSTED.md](SELF-HOSTED.md)。
 
@@ -257,4 +257,4 @@ python tools/fetch_submission.py receipt.json --dest work/submission
 - HF 指定 revision 下载：https://huggingface.co/docs/huggingface_hub/guides/download
 - HF repository 可见性：https://huggingface.co/docs/hub/repositories-settings
 - Harbor 任务组成：https://docs.harborframework.com/tasks/overview
-- 本项目版本与运行约束：相邻 `inferencenet-harbor` 项目的 `AGENTS.md`、`notes/decisions.md`、`adapters/econometrics/build_tasks.py`、`scripts/dev100_campaign.py`。接口以本项目锁定的 0.24.0 源码为准，不把不断变化的在线文档当锁文件。
+- 本项目版本与运行约束：相邻 `metacase-harbor` 项目的 `AGENTS.md`、`notes/decisions.md`、`adapters/econometrics/build_tasks.py`、`scripts/dev100_campaign.py`。接口以本项目锁定的 0.24.0 源码为准，不把不断变化的在线文档当锁文件。
