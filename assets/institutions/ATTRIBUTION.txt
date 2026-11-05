@@ -107,3 +107,25 @@ colors and proportions unchanged.
 SHA-256: 035bdcc5172a44f5854be0688fc0325fe785075cb2ce592312012cdc2b9cb8b2
 Used on the homepage (hero crest row and Team card, on a white disc) and on the
 Teams page (logo wall and partner card, on a white plate).
+
+Shenzhen Loop Area Institute (SLAI)
+File: slai-official.png (760 x 121)
+Retrieved: 2026-11-05
+Owner: Shenzhen Loop Area Institute
+Source page: https://www.slai.edu.cn/en/home (site header, the opaque logo)
+Original: https://www.slai.edu.cn/sites/default/files/2026-03/%E9%A6%96%E9%A1%B5logo_black.png
+SHA-256: d66bd99bce4008f751dce1f2efc8f9cff51589969b9ea82c3231d3678c43ce2b
+Original bytes preserved (PNG with transparency: the mark, the Chinese name and the English name).
+Shown on the Teams page collaborating-organization card on a white plate.
+
+Columbia University Center for Digital Finance and Technologies (CDFT)
+No file. The center's site (https://cdft.engineering.columbia.edu/, checked 2026-11-05)
+shows only the Columbia University logo beside the center's name in text; no
+center-specific mark was found. The Teams page card sets the name as plain text
+and does not use the Columbia University logo.
+
+Teams page layout (2026-11-05): organizations and people are separate sections.
+Organization cards carry official marks only; person cards carry portraits or
+initials, with affiliations in plain text and no institutional marks. The
+logo wall above the GIFTS card was removed; the GIFTS card shows the NTU
+university logo (the GIFTS site's own header logo).

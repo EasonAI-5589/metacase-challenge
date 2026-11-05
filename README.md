@@ -52,7 +52,7 @@ must not be used to overwrite this version.
 | Homepage arena: scroll camera, harness wheel, flying agent and challenge rooms | `arena.css`, `arena.js`, `arena-scene.js`, `arena-models.js`, `arena-motion.js` |
 | Portal shuttle from an arena room into its track on the Challenge page: an iris of dark with rings, plain elements animating only transform and opacity (no WebGL); the track guardians beside each track heading | `portal-warp.js`, `v2.css` (the shuttle), `theme.js` (arrival before first paint) |
 | Layered system scenes (`.v2-stack`, `data-scene`) on Challenge, Harness and Self-evolving: an interactive isometric L1–L3 stack whose tile labels come from each layer's chips | `scene.css`, `scene.js` |
-| Teams: institution logo wall on white plates, profile photos (`assets/people/`, sources in its `ATTRIBUTION.txt`) with monograms for anyone without one, contributor chips | `skin.css` §16 |
+| Teams: organization cards with official marks on white plates, profile photos (`assets/people/`, sources in its `ATTRIBUTION.txt`) with monograms for anyone without one, contributor chips | `skin.css` §16 |
 | Theme restore before paint; first visits use the dark theme | `theme.js` |
 
 Every page speaks of the Metacase Challenge throughout; InferenceNet appears only as the name of the research dataset (`CamoAiLab/InferenceNet`, Dev100). Pages load `site.js`, `language.js`, `charts.js` and page scripts from the root,
@@ -117,7 +117,7 @@ of future updates unless explicitly requested again.
 | Harness: definition, system structure, selected 2025–2026 milestones, common mechanism comparison, catalogue by role, three breakdowns and our four configurations | `harness.html`, `harness.css`; reuses `data.css`, `agent.css`, `evolution.css` |
 | Self-evolving: capability questions, model training and co-evolution directions, concept, research map by adaptation regime, method comparison, three detailed offline cases and our development study | `evolution.html`, `evolution.css`, `evolution.js`, `assets/data/modular-rsi-evolution.json` |
 | Leaderboard: the Dev100 / v10 development release | `leaderboard.html`, `leaderboard.css` |
-| About NTU GIFTS, leadership, student leaders and contributors, partner teams and Yichen Guo contact | `teams.html`, `teams.css` |
+| Organizations (founding and collaborating), people, student leaders, other team members and Yichen Guo contact | `teams.html`, `teams.css` |
 | Shared layout, navigation and theme | `styles.css`, `site.css`, `site.js`, `theme.js` |
 | Chinese translations and language control | `assets/i18n/*.zh.json`, `language.js`, `language.css` |
 | Charts and mountain leaderboard | `charts.js`, `mountain.js`, `mountain.css` |
@@ -189,15 +189,17 @@ These four observations are a pilot, not official Challenge rankings or a
 general performance estimate. Task release, final rules and submissions remain
 to be announced; only reviewed summaries belong in the public website.
 
-Institutional profiles, faculty profiles, student leaders and contributors live on `teams.html`, in
-this order: About NTU GIFTS (the institute that hosts the Initiative), Leadership (Lin William Cong, Ye Luo,
-Liwen Zhang, alphabetically by surname), Student leaders (Yichen Guo and Yujie Cai, followed by one
-Contributors row: Tianyang Han, Binling Jiang, Hao Jiang, Renyuan Li, Jiajie Xu and Wei Zhang,
-alphabetically by surname), Collaborating partners (HKU AI-Agents Lab and Liwen Zhang’s team) and Contact.
-The faculty cards carry institution labels without assigning Initiative Lead or
-Co-Lead roles. The heading states the alphabetical ordering and links to the
-Initiative description at NTU GIFTS. Home links to Teams rather than duplicating
-the roster.
+`teams.html` keeps organizations and people apart, in this order:
+Organizations (`#organizations`): the founding organization, NTU GIFTS, then the collaborating
+organizations in the order Lin William Cong gave: NTU NBS, NTU CCDS, HKU AI-Agents Lab, SUFE AIFLM Lab,
+SLAI (Shenzhen Loop Area Institute), Tsinghua PBCSF and Columbia CDFT. Organization cards carry
+official marks, names and descriptions only, never people; Columbia CDFT has no center mark of its own,
+so its card sets the name as text. People (`#people`): Lin William Cong, Ye Luo, Liwen Zhang.
+Student leaders (`#student-leaders`): Yichen Guo and Yujie Cai. Other team members (`#team-members`):
+faculty and researchers (Agostino Capponi, Yang Liu, Xiaoyan Zhang) and a row of students and
+contributors; add new people there. Person cards carry portraits (or initials), names and roles, with
+affiliations as plain text and no institutional marks. Then Contact. Old anchors (`#institutions`,
+`#partners`, `#team`) are redirected by `site.js`.
 Every footer links to `teams.html#contact`, with only Yichen Guo’s email, WeChat
 ID and homepage. The personal WeChat QR image will be added when supplied.
 Previously shared Home team anchors redirect to the corresponding Teams section.
@@ -475,8 +477,7 @@ HKU standalone crest, and the SUFE seal and Tsinghua crest on white discs. The G
 existing college and business-school marks. Original assets and ownership notes
 are recorded in `assets/institutions/ATTRIBUTION.txt`.
 Faculty profiles and institutional research profiles link their official
-sources. The leadership cards are listed alphabetically by surname, without
-Initiative Lead or Co-Lead designations. Institutional trademarks are not covered by code or font licenses.
+sources. People are listed in the order Lin William Cong gave. Institutional trademarks are not covered by code or font licenses.
 
 ## Publication
 

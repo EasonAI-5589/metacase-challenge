@@ -13,11 +13,21 @@
   // Keep previously shared Home team links working after the page split.
   const homeFile = window.location.pathname.split('/').pop();
   const teamAnchors = new Map([
-    ['#team', '#team'], ['#team-title', '#team'], ['#leadership-title', '#team'],
-    ['#labs', '#labs'], ['#labs-title', '#labs'], ['#ntu-gifts', '#ntu-gifts'],
+    ['#team', '#people'], ['#team-title', '#people'], ['#leadership-title', '#people'],
+    ['#labs', '#organizations'], ['#labs-title', '#organizations'], ['#ntu-gifts', '#ntu-gifts'],
     ['#gifts-title', '#ntu-gifts'], ['#hku-ai-agents-lab', '#hku-ai-agents-lab'],
     ['#hku-lab-title', '#hku-ai-agents-lab'],
   ]);
+  // Teams page sections renamed when organizations and people were separated.
+  const teamsRenamed = new Map([
+    ['#institutions', '#organizations'], ['#labs', '#organizations'], ['#partners', '#organizations'],
+    ['#team', '#people'], ['#contributors-label', '#team-members'],
+  ]);
+  if (homeFile === 'teams.html' && teamsRenamed.has(window.location.hash)) {
+    const renamed = teamsRenamed.get(window.location.hash);
+    history.replaceState(history.state, '', renamed);
+    requestAnimationFrame(() => document.querySelector(renamed)?.scrollIntoView());
+  }
   if (!homeFile || homeFile === 'index.html') {
     const redirectTeamLink = () => {
       const target = teamAnchors.get(window.location.hash);

@@ -9,7 +9,6 @@
 .faculty-group-link{font-size:12px}
 .team-member .text-link{margin-top:9px}
 #yujie-cai{scroll-margin-top:calc(var(--header-h) + 58px)}
-#yujie-cai{grid-column:2}
 .contact-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:20px;align-items:stretch}
 .contact-card,.contact-qr{min-width:0;padding:28px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface)}
 .contact-card:only-child{grid-column:1/-1}
@@ -27,7 +26,6 @@
   #yujie-cai{scroll-margin-top:calc(var(--header-h) + 16px)}
 }
 @media(max-width:680px){
-  #yujie-cai{grid-column:auto}
   .team-grid,.contact-grid{grid-template-columns:1fr}
   .team-member,.contact-card,.contact-qr{padding:24px}
   .team-member h3,.contact-card h3{font-size:22px}
@@ -36,15 +34,20 @@
   .contact-details div{grid-template-columns:1fr;gap:2px}
 }
 
-/* Initiative layout: About NTU GIFTS feature, three leaders, student leaders and contributors, and partner teams. */
-.team-grid-leaders{grid-template-columns:repeat(4,minmax(0,1fr))}
-/* Contributors: one labelled row under the student leaders, alphabetical by surname. */
-.contributors{display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px;margin:22px 0 0}
+/* Two parts that never mix: (A) organizations — marks, names and descriptions, no people;
+   (B) people — portraits or initials, names and roles, affiliations as plain text, no marks. */
+.org-tier{margin:0 0 18px;font:400 11.5px var(--font-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--brand)}
+.research-groups+.org-tier{margin-top:44px}
+.member-group-label{margin:0 0 18px;font:400 11.5px var(--font-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--brand)}
+.team-grid+.member-group-label{margin-top:40px}
+.team-grid-three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.team-member .member-role{margin:10px 0 0;font-size:14px;font-weight:500;line-height:1.55;color:var(--ink)}
+.team-member .member-org{margin:8px 0 16px;font-size:13.5px;line-height:1.6;color:var(--soft)}
+.team-member .member-role+.faculty-detail{margin-top:4px}
 .contributor-list{display:flex;flex-wrap:wrap;align-items:center;gap:8px 24px;margin:0;padding:0;list-style:none;font-size:15px;line-height:1.6;color:var(--ink)}
 .contributor-list .text-link{margin-top:0;font-size:15px}
 .research-group h3{font-size:21px;line-height:1.3;letter-spacing:-.025em;margin:13px 0 0;font-weight:600}
 .group-project h4{font-size:12px;line-height:1.6;font-weight:600;margin:0 0 8px}
-.research-group>.pill{align-self:flex-start;margin-bottom:14px}
 .gifts-feature{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:44px;margin-top:0}
 .gifts-intro{display:flex;flex-direction:column;min-width:0}
 .gifts-feature .group-name{min-height:0}
@@ -53,34 +56,38 @@
 .gifts-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 28px;margin:0;padding:0;list-style:none}
 .gifts-list li{font-size:13.5px;line-height:1.7;color:var(--soft)}
 .gifts-list strong{display:block;margin-bottom:2px;font-size:14px;font-weight:600;line-height:1.5;color:var(--ink)}
-.anchor-schools{margin-top:40px}
-.anchor-schools>h3{margin:0 0 20px;font-size:22px;font-weight:600}
-.institution-grid-two{grid-template-columns:repeat(2,minmax(0,1fr))}
-.institution-grid h4{margin:12px 0 0;font-size:19px;font-weight:500;line-height:1.4;letter-spacing:-.025em}
+/* An organization without an official mark we could verify: its name set as plain text on the plate. */
+.v2-page-teams .org-textmark{font:600 22px/1.2 var(--font-sans);letter-spacing:-.01em;color:#0e1420;white-space:nowrap}
+.v2-page-teams .org-grid{margin-top:0}
+.v2-page-teams .org-grid .v2-group-top{display:block}
+.v2-page-teams .org-grid .v2-group-plate{width:100%;height:104px;padding:16px 22px}
+.v2-page-teams .org-grid .v2-group-plate img{max-height:60px;max-width:min(100%,260px)}
+.v2-page-teams .org-grid .v2-group-plate .sufe-lockup{width:min(100%,250px)}
+.v2-page-teams .gifts-intro .v2-group-plate{height:96px;padding:16px 24px;align-self:flex-start}
+.v2-page-teams .gifts-intro .v2-group-plate img{max-height:60px;max-width:200px}
 @media(max-width:1000px){
-  .team-grid-leaders{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .team-grid-three{grid-template-columns:repeat(2,minmax(0,1fr))}
   .gifts-feature{grid-template-columns:1fr}
 }
 @media(max-width:680px){
-  .team-grid-leaders,.gifts-list,.institution-grid-two{grid-template-columns:1fr}
+  .team-grid-three,.gifts-list{grid-template-columns:1fr}
 }
 /* phones and tablets: room above the diorama for the backdrop globe's four cities */
 @media(max-width:1099px){.v2-page-teams .page-hero.has-toy .toy-hero{margin-top:44px}}
 /* the globe's cities show through above the diorama; the veil starts where the copy does */
 @media(max-width:1099px){.v2-page-teams .v2-veil{background:linear-gradient(180deg,transparent 0,transparent 38%,color-mix(in oklab,var(--paper) 78%,transparent) 54%)}}
-/* partner teams: three cards side by side whose rows (school, name, full name, director, description,
-   project, links) line up across the cards */
+/* collaborating organizations: three cards a row whose rows (mark, school, name, full name, description,
+   project, links) line up across each row */
 @media(min-width:861px){
-  .v2-page-teams #partners .research-group-grid{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:0}
-  .v2-page-teams #partners .research-group{display:grid;grid-row:span 8;grid-template-rows:subgrid;align-content:start}
-  .v2-page-teams #partners .research-group>.v2-group-top{grid-row:1}
-  .v2-page-teams #partners .group-affiliation{grid-row:2}
-  .v2-page-teams #partners .research-group>h3{grid-row:3}
-  .v2-page-teams #partners .group-name{grid-row:4;min-height:0}
-  .v2-page-teams #partners .group-lead{grid-row:5}
-  .v2-page-teams #partners .group-description{grid-row:6}
-  .v2-page-teams #partners .group-project{grid-row:7;align-self:start}
-  .v2-page-teams #partners .group-links{grid-row:8}
+  .v2-page-teams .org-grid{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:20px}
+  .v2-page-teams .org-grid>.research-group{display:grid;grid-row:span 7;grid-template-rows:subgrid;row-gap:0;align-content:start}
+  .v2-page-teams .org-grid>.research-group>.v2-group-top{grid-row:1}
+  .v2-page-teams .org-grid .group-affiliation{grid-row:2}
+  .v2-page-teams .org-grid>.research-group>h3{grid-row:3}
+  .v2-page-teams .org-grid .group-name{grid-row:4;min-height:0}
+  .v2-page-teams .org-grid .group-description{grid-row:5}
+  .v2-page-teams .org-grid .group-project{grid-row:6;align-self:start}
+  .v2-page-teams .org-grid .group-links{grid-row:7;align-self:end}
 }
 .v2-page-teams .group-project a{text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--muted)}
 /* SUFE: the official homepage lockup (seal and wordmark, white on transparent) in SUFE red on the white plates */
