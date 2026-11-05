@@ -64,14 +64,22 @@
 @media(max-width:680px){
   .team-grid-leaders,.gifts-list,.institution-grid-two{grid-template-columns:1fr}
 }
-/* a partner without a research write-up spans both columns under the lab cards: details left, links right */
-@media(min-width:861px){
-  .research-group-wide{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:32px;align-items:end}
-  .research-group-wide .v2-group-top{grid-column:1/-1}
-  .research-group-wide .group-name{min-height:0}
-  .research-group-wide .group-links{padding-top:0}
-}
 /* phones and tablets: room above the diorama for the backdrop globe's four cities */
 @media(max-width:1099px){.v2-page-teams .page-hero.has-toy .toy-hero{margin-top:44px}}
 /* the globe's cities show through above the diorama; the veil starts where the copy does */
 @media(max-width:1099px){.v2-page-teams .v2-veil{background:linear-gradient(180deg,transparent 0,transparent 38%,color-mix(in oklab,var(--paper) 78%,transparent) 54%)}}
+/* partner teams: three cards side by side whose rows (school, name, full name, director, description,
+   project, links) line up across the cards */
+@media(min-width:861px){
+  .v2-page-teams #partners .research-group-grid{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:0}
+  .v2-page-teams #partners .research-group{display:grid;grid-row:span 8;grid-template-rows:subgrid;align-content:start}
+  .v2-page-teams #partners .research-group>.v2-group-top{grid-row:1}
+  .v2-page-teams #partners .group-affiliation{grid-row:2}
+  .v2-page-teams #partners .research-group>h3{grid-row:3}
+  .v2-page-teams #partners .group-name{grid-row:4;min-height:0}
+  .v2-page-teams #partners .group-lead{grid-row:5}
+  .v2-page-teams #partners .group-description{grid-row:6}
+  .v2-page-teams #partners .group-project{grid-row:7;align-self:start}
+  .v2-page-teams #partners .group-links{grid-row:8}
+}
+.v2-page-teams .group-project a{text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--muted)}
