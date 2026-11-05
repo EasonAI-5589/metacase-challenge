@@ -83,10 +83,9 @@ html[lang="zh-CN"] .mc-title { letter-spacing: -0.02em; line-height: 1.12; max-w
 .mc-lead { margin-top: 36px; max-width: min(30em, 44vw); color: var(--text-secondary); font-size: clamp(17px, 1.35vw, 19px); }
 .mc-lead b { color: var(--text-primary); font-weight: 600; }
 .mc-lead-more { margin-top: 14px; max-width: min(33em, 44vw); color: var(--text-tertiary); font-size: clamp(15px, 1.1vw, 16.5px); line-height: 1.6; }
-/* the hero names the Challenge in both languages in Chinese; the English space after it is not wanted there */
+/* the hero names the Challenge in both languages in Chinese */
 .mc-zh-only { display: none; }
 html[lang^="zh"] .mc-zh-only { display: inline; }
-html[lang^="zh"] .mc-en-only { display: none; }
 .mc-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
 .mc-cta .btn { height: 52px; padding: 0 10px 0 22px; border-radius: 999px; }
 .mc-home .btn-primary { box-shadow: 0 10px 40px -10px var(--track-1); }
