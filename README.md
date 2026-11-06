@@ -191,8 +191,9 @@ to be announced; only reviewed summaries belong in the public website.
 Organizations (`#organizations`): the founding organization, NTU GIFTS, then the collaborating
 organizations in the order Lin William Cong gave: NTU NBS, NTU CCDS, HKU AI-Agents Lab, SUFE AIFLM Lab,
 SLAI (Shenzhen Loop Area Institute), Tsinghua PBCSF and Columbia CDFT. Organization cards carry
-official marks, names and descriptions only, never people; Tsinghua PBCSF shows the school's own
-lockup and Columbia CDFT the center's Columbia Engineering lockup, both taken from their own sites. People (`#people`): Lin William Cong, Ye Luo, Liwen Zhang.
+official marks, names and descriptions only, never people; NTU GIFTS shows the GIFTS logo, SLAI the
+logo of its AI4S2 center, Tsinghua PBCSF the school's own lockup and Columbia CDFT the center's
+Columbia Engineering lockup. People (`#people`): Lin William Cong, Ye Luo, Liwen Zhang.
 Student leaders (`#student-leaders`): Yichen Guo and Yujie Cai. Other team members (`#team-members`):
 faculty and researchers (Agostino Capponi, Yang Liu, Xiaoyan Zhang) and a row of students and
 contributors; add new people there. Person cards carry portraits (or initials), names and roles, with

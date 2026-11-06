@@ -359,7 +359,7 @@ html[lang^="zh"] .mc-zh-only { display: inline; }
 .mc-org-mark { display: grid; place-items: center; width: 100%; height: 64px; padding: 10px 16px; border-radius: 12px; background: #fff; box-shadow: inset 0 0 0 1px rgb(14 20 32 / 7%); }
 .mc-org-mark img { display: block; width: auto; height: auto; max-width: 100%; max-height: 40px; object-fit: contain; }
 .mc-org-mark .mc-org-crest { height: 46px; max-height: 46px; } /* square crests and seals read larger than wordmarks */
-.mc-org-mark-tall { padding: 4px 16px; } .mc-org-mark-tall img { max-height: 56px; } /* tall lockups (Columbia CDFT) use the plate's full inner height */
+.mc-org-mark-tall { padding: 4px 16px; } .mc-org-mark-tall img { max-height: 56px; } /* tall lockups (Columbia CDFT, AI4S2) use the plate's full inner height */
 .mc-org-name { display: grid; gap: 4px; min-width: 0; }
 .mc-org h3 { font-size: 17px; letter-spacing: -.015em; }
 .mc-org h3 a { color: var(--text-primary); font-weight: 650; text-decoration: none; transition: color var(--duration-fast) var(--ease-standard); }
@@ -367,7 +367,7 @@ html[lang^="zh"] .mc-zh-only { display: inline; }
 .mc-org-full { color: var(--text-secondary); font-size: 13.5px; line-height: 1.45; text-wrap: balance; }
 /* the founding organization: full width, set apart by its accent, its mark beside a larger name */
 .mc-team-host { grid-column: 1 / -1; }
-.mc-org-host { grid-template-columns: 220px minmax(0, 1fr); align-items: center; gap: 20px clamp(24px, 4vw, 48px); padding: var(--mc-org-pad, 24px);
+.mc-org-host { grid-template-columns: 300px minmax(0, 1fr); align-items: center; gap: 20px clamp(24px, 4vw, 48px); padding: var(--mc-org-pad, 24px);
   border-color: color-mix(in oklab, var(--track-1) 38%, var(--border-hairline)); border-radius: 20px;
   background: radial-gradient(90% 140% at 0% 0%, color-mix(in oklab, var(--track-1) 12%, transparent), transparent 62%), var(--surface-1); }
 .mc-org-host .mc-org-mark { height: 88px; padding: 14px 24px; }
@@ -690,7 +690,7 @@ html:not(.js) .mc-fbook .mc-art { display: none; }
   .mc-join-card .mc-art { min-height: 320px; }
   .mc-team { grid-template-columns: 1fr; }
   .mc-org-host { grid-template-columns: 1fr; }
-  .mc-org-host .mc-org-mark { width: min(100%, 260px); }
+  .mc-org-host .mc-org-mark { width: min(100%, 320px); }
 }
 @media (max-width: 860px) {
   :root { --mc-gutter: 16px; }
