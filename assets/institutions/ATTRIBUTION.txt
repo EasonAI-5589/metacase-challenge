@@ -77,7 +77,8 @@ wordmark. The source image bytes are unchanged; the window preserves the
 shield itself and its original proportions. SUFE uses the opaque charter seal above
 (sufe-university-official.png): its original red-on-white artwork on a white disc
 in both light and dark mode. The transparent homepage asset is retained for provenance.
-The Tsinghua PBCSF mark (tsinghua-pbcsf-mark.png, below) sits on the same white disc.
+The Tsinghua University purple crest (tsinghua-university-crest.png, below) sits on
+the same white disc in the homepage hero row.
 On the Teams page, the logo wall and the SUFE partner card show the transparent homepage
 lockup (seal and wordmark) as a CSS mask in the same #811c21 on white plates.
 The homepage Team cards show crests only, in their original colors and one 64px
@@ -106,7 +107,24 @@ Derived from: tsinghua-pbcsf-official.png (above)
 Processing: cropped to the hexagonal mark, pixels x 0-104 of the original at full height.
 Not resized; colors and proportions unchanged.
 SHA-256: 9b39cbb0e5a24a2182e3ee97edd8cc2f8571d77ecd7c1d664460e2a317042d8f
-Used in the homepage hero crest row, on a white disc.
+Formerly used in the homepage hero crest row (2026-11-05 to 2026-11-06).
+Retained for provenance; the hero now uses the purple university crest below.
+
+Tsinghua University - purple university crest
+File: tsinghua-university-crest.png (435 x 435)
+Owner: Tsinghua University
+Official VI source page: https://vi.tsinghua.edu.cn/gk/xxbz/xh/bzjbzsy.htm
+Original: https://vi.tsinghua.edu.cn/__local/8/1C/21/2F02A66E31BF084FE340463BB47_B9A95F73_185BC.jpg
+Original SHA-256: 90132d030d8a70f9d21375c85d8a0c614d44a6201ab82200067b10aca38986a8
+Restored unchanged on 2026-11-06 from this repository's existing display asset:
+commit d641e6955482feaa369ccc44b47d391a26180c91,
+path assets/institutions/tsinghua-pbcsf-crest.png,
+Git blob f346cb700df5e6b5eed588a8f1c9e4195c45f540.
+The existing display file crops the round crest from the official 1400 x 600 VI
+image (x 469-903, y 77-511), without resizing or recoloring.
+Display SHA-256: 035bdcc5172a44f5854be0688fc0325fe785075cb2ce592312012cdc2b9cb8b2
+Shown on the homepage hero white disc, replacing the red PBCSF hexagonal mark.
+The PBCSF organization cards continue to use the school's official lockup above.
 
 Columbia University Center for Digital Finance and Technologies (CDFT)
 File: columbia-cdft-original.png (1772 x 485)
