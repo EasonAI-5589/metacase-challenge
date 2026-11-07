@@ -1,4 +1,6 @@
 {
+  "2025": "2025",
+  "2026": "2026",
   "Harness — InferenceNet": "Harness — Metacase Challenge",
   "Skip to content": "跳转到正文",
   "Main navigation": "主导航",
@@ -1465,8 +1467,6 @@
   "G": "G",
   "Agent Harness systems: selected developments, 2025–2026": "Agent Harness 系统：2025–2026 年精选进展",
   "Agent Harness systems, 2025–2026": "Agent Harness 系统，2025–2026",
-  "2025": "2025",
-  "2026": "2026",
   "Interactive harnesses": "交互式 Harness",
   "Programmable harnesses": "可编程 Harness",
   "2025-02 · research preview": "2025 年 2 月 · 研究预览",
@@ -2245,5 +2245,16 @@
   ") and reports our ModularRSI study on Dev100.": "），并报告了我们在 Dev100 上的 ModularRSI 实验。",
   "Sources and": "来源与",
   "further reading": "延伸阅读",
-  "Engineering write-ups, evaluation frameworks, open-source harnesses and self-evolution papers referenced above, if you want to go deeper. Star counts and links as of October 2026.": "想深入了解，可以从这里开始：上文引用的工程文章、评测框架、开源 Harness 与自进化论文。Star 数与链接截至 2026 年 10 月。"
+  "Engineering write-ups, evaluation frameworks, open-source harnesses and self-evolution papers referenced above, if you want to go deeper. Star counts and links as of October 2026.": "想深入了解，可以从这里开始：上文引用的工程文章、评测框架、开源 Harness 与自进化论文。Star 数与链接截至 2026 年 10 月。",
+  "Agent =": "Agent =",
+  "Model + Harness.": "Model + Harness。",
+  "A harness is the code around a language model that decides what it sees, which tools it can use, how errors come back and when it stops. In the Metacase Challenge you can submit the harness itself, and every submission runs under the same conditions.": "Harness 是包在语言模型外面的那层代码：它决定模型看到什么、能用哪些工具、错误怎样反馈回来，以及何时停止。在 Metacase Challenge 中，你可以直接提交 Harness，所有提交都在相同条件下运行。",
+  "Model + harness": "模型 + Harness",
+  "Design jobs": "设计要点",
+  "Reference harnesses": "参考 Harness",
+  "Background": "背景阅读",
+  "Background reading: definitions, harness systems 2025–2026, a DeepAgents breakdown and sources": "背景阅读：术语定义、2025–2026 年的 Harness 体系、DeepAgents 拆解与来源",
+  "Compare the four across eight dimensions": "从八个维度对比这四个 Harness",
+  "Every submission, whichever harness it uses, runs on the same task bundle in an isolated container and is graded afterwards by an independent verifier the agent never sees.": "无论使用哪个 Harness，每份提交都在同一任务包和隔离容器中运行，事后由 Agent 看不到的独立验证器评分。",
+  "How Harbor makes harnesses comparable ↓": "Harbor 如何让不同 Harness 可比 ↓"
 }
