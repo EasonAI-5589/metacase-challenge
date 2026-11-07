@@ -1,4 +1,4 @@
-# InferenceNet 提交入口与最小 API 设计
+# Metacase Challenge 提交入口与最小 API 设计
 
 > 2026-10-22：本文保留 HF-first 历史设计。当前上线服务使用用户名＋密码和自有服务器存储；现行接口、同步 complete、server 回执与运行边界以 [SELF-HOSTED.md](SELF-HOSTED.md) 为准。
 
