@@ -344,7 +344,11 @@ html[lang^="zh"] .mc-zh-only { display: inline; }
   background: radial-gradient(80% 120% at 100% 0%, color-mix(in oklab, var(--mc-violet) 16%, transparent), transparent 60%), color-mix(in oklab, var(--surface-1) 86%, transparent);
   box-shadow: var(--inner-highlight); }
 .mc-join-copy { padding: clamp(40px, 6vw, 88px); background: linear-gradient(90deg, var(--surface-1), color-mix(in oklab, var(--surface-1) 70%, transparent)); }
-.mc-join-copy h2 { margin-top: 16px; }
+.mc-home .mc-join-copy h2 { margin-top: 16px; font-size: clamp(32px, 3.2vw, 44px); line-height: 1.12; letter-spacing: -.035em; }
+.mc-home .mc-join-copy h2 > em { white-space: nowrap; }
+@media (max-width: 480px) {
+  .mc-home .mc-join-copy h2 { font-size: clamp(22px, 6.8vw, 30px); }
+}
 .mc-join-card .mc-art { aspect-ratio: auto; min-height: 420px; }
 /* organizations and people, below the card's copy and picture, kept apart as on the Teams page:
    the founding organization, the collaborating organizations (marks and names only, no people),
