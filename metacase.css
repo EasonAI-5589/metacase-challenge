@@ -346,11 +346,13 @@ html[lang^="zh"] .mc-zh-only { display: inline; }
 .mc-join-copy { padding: clamp(40px, 6vw, 88px); background: linear-gradient(90deg, var(--surface-1), color-mix(in oklab, var(--surface-1) 70%, transparent)); }
 .mc-join-copy h2 { margin-top: 16px; }
 .mc-join-card .mc-art { aspect-ratio: auto; min-height: 420px; }
-/* organizations and people, below the card's copy and picture, kept apart as on the Teams page:
-   the founding organization, the collaborating organizations (marks and names only, no people),
-   then the people and the student leaders, each group in its own full-width row */
-.mc-team { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px clamp(24px, 3vw, 48px);
-  padding: clamp(28px, 4vw, 48px) clamp(40px, 6vw, 88px) clamp(36px, 5vw, 64px); border-top: 1px solid var(--border-hairline); background: color-mix(in oklab, var(--surface-1) 92%, transparent); }
+/* Organizations and people have separate, labelled panels outside the intro card. */
+.mc-team { display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px clamp(24px, 3vw, 48px);
+  padding: clamp(28px, 4vw, 48px) clamp(40px, 6vw, 88px) clamp(36px, 5vw, 64px); }
+.mc-community-block { margin-top: 32px; border: 1px solid var(--border-hairline); border-radius: 28px; background: var(--surface-1); box-shadow: var(--inner-highlight); scroll-margin-top: 140px; }
+.mc-community-heading { padding-bottom: 20px; border-bottom: 2px solid color-mix(in oklab, var(--track-1) 45%, var(--border-hairline)); }
+.mc-community-heading h3 { margin: 0; color: var(--text-primary); font-size: clamp(28px, 3.2vw, 40px); line-height: 1.15; letter-spacing: -.035em; }
+.mc-community-people .mc-community-heading { border-bottom-color: color-mix(in oklab, var(--mc-violet) 45%, var(--border-hairline)); }
 .mc-team-kicker { margin-bottom: 14px; color: var(--text-tertiary); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; }
 /* an organization card: its mark on a white plate (the same plate as the Teams page), its short name
    linking to its Teams entry, and its full name; nobody's name or photo */
@@ -361,9 +363,9 @@ html[lang^="zh"] .mc-zh-only { display: inline; }
 .mc-org-mark .mc-org-crest { height: 46px; max-height: 46px; } /* square crests and seals read larger than wordmarks */
 .mc-org-mark-tall { padding: 4px 16px; } .mc-org-mark-tall img { max-height: 56px; } /* tall lockups (Columbia CDFT, AI4S2) use the plate's full inner height */
 .mc-org-name { display: grid; gap: 4px; min-width: 0; }
-.mc-org h3 { font-size: 17px; letter-spacing: -.015em; }
-.mc-org h3 a { color: var(--text-primary); font-weight: 650; text-decoration: none; transition: color var(--duration-fast) var(--ease-standard); }
-.mc-org h3 a:hover { color: var(--track-1); }
+.mc-org h4 { margin: 0; font-size: 17px; letter-spacing: -.015em; }
+.mc-org h4 a { color: var(--text-primary); font-weight: 650; text-decoration: none; transition: color var(--duration-fast) var(--ease-standard); }
+.mc-org h4 a:hover { color: var(--track-1); }
 .mc-org-full { color: var(--text-secondary); font-size: 13.5px; line-height: 1.45; text-wrap: balance; }
 /* the founding organization: full width, set apart by its accent, its mark beside a larger name */
 .mc-team-host { grid-column: 1 / -1; }
@@ -372,13 +374,13 @@ html[lang^="zh"] .mc-zh-only { display: inline; }
   background: radial-gradient(90% 140% at 0% 0%, color-mix(in oklab, var(--track-1) 12%, transparent), transparent 62%), var(--surface-1); }
 .mc-org-host .mc-org-mark { height: 88px; padding: 14px 24px; }
 .mc-org-host .mc-org-mark img { max-height: 56px; }
-.mc-org-host h3 { font-size: clamp(26px, 2.4vw, 34px); letter-spacing: -.03em; }
+.mc-org-host h4 { font-size: clamp(26px, 2.4vw, 34px); letter-spacing: -.03em; }
 .mc-org-host .mc-org-name { gap: 6px; }
 .mc-org-note { margin-top: 6px; max-width: 40em; color: var(--text-secondary); font-size: 15px; line-height: 1.55; }
 /* a person card: photo, name, role and affiliation as plain text, no institutional mark */
 .mc-people { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
-.mc-people-lead { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
-.mc-people-mini { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+.mc-people-lead { grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); }
+.mc-people-mini { grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); }
 .mc-person { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 14px; align-items: start; padding: 16px var(--mc-org-pad, 20px); border: 1px solid var(--border-hairline); border-radius: 16px; background: var(--surface-1); box-shadow: var(--inner-highlight); }
 .mc-person img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; }
 .mc-person div { display: grid; gap: 3px; min-width: 0; }
