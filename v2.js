@@ -86,6 +86,7 @@
     const draw = () => {
       const tokens = [];
       for (const node of src.childNodes) {
+        if (node.nodeType === 1 && node.tagName === "BR") { tokens.push({ br: true }); continue; }
         const em = node.nodeType === 1 && node.tagName === "EM";
         for (const chunk of node.textContent.match(CHUNKS) || []) {
           if (CJK.test(chunk)) tokens.push({ t: chunk, em });
@@ -95,6 +96,7 @@
       vis.textContent = "";
       let i = 0;
       tokens.forEach((tk, k) => {
+        if (tk.br) { vis.append(document.createElement("br")); return; }
         if (tk.space) {
           const prev = tokens[k - 1], next = tokens[k + 1];
           if (!(prev && next && CJK.test(prev.t.slice(-1)) && CJK.test(next.t[0]))) vis.append(" ");
