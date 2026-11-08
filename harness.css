@@ -1,4 +1,4 @@
-/* harness.html — page-specific rules. Loads after data.css, agent.css and
+/* metacase.html — page-specific rules. Loads after data.css, agent.css and
  * evolution.css and reuses their stat strips, field groups, case panels,
  * tabs, figures, notes, tables and timelines; only the adjustments live here. */
 .harness-page .page-hero h1{max-width:900px}

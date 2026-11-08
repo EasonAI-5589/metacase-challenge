@@ -319,7 +319,7 @@ html.past-hero .v2-content .ambient { opacity: 1; }
 html[data-theme="dark"] { --track-3: oklch(74% 0.14 290); --track-3-soft: oklch(74% 0.14 290 / 14%); }
 html[data-theme="light"] { --track-3: oklch(50% 0.15 290); --track-3-soft: oklch(50% 0.15 290 / 10%); }
 .v2-page-professional-tasks, .v2-page-leaderboard { --brand: var(--track-2); --brand-tint: var(--track-2-soft); }
-.v2-page-harness { --brand: var(--track-3); --brand-tint: var(--track-3-soft); }
+.v2-page-metacase { --brand: var(--track-3); --brand-tint: var(--track-3-soft); }
 
 /* =================================================================
    12 · Subtrack pages: replication workflow and business deliverables
@@ -352,7 +352,7 @@ html[data-theme="light"] { --track-3: oklch(50% 0.15 290); --track-3-soft: oklch
 .v2-content .diagram-scroll { border-radius: 16px; }
 .v2-content figure.hs-timeline, .v2-content figure.hs-composition, .v2-content figure.rsi-figure, .v2-content .diagram {
   padding: clamp(16px, 2vw, 28px); border: 1px solid var(--line); border-radius: 20px; background: linear-gradient(180deg, color-mix(in oklab, var(--surface), white 2%), var(--surface)); box-shadow: var(--inner-highlight), var(--shadow-card); }
-.v2-page-harness .hs-timeline .hs-dot { stroke: var(--brand); stroke-width: 2; }
+.v2-page-metacase .hs-timeline .hs-dot { stroke: var(--brand); stroke-width: 2; }
 .v2-content details { border: 1px solid var(--line); background: color-mix(in oklab, var(--surface) 70%, transparent); }
 .v2-content details > summary { cursor: pointer; padding: 14px 18px; font-weight: 600; letter-spacing: -0.01em; }
 .v2-content details[open] > summary { border-bottom: 1px solid var(--line); }

@@ -308,7 +308,7 @@
  * When recent methods change a harness: four parallel regimes (lanes), each read
  * left to right as feedback → edit → selection, with composition above,
  * representation below and evaluation beside. Every rule is scoped to
- * .evolution-page because harness.html also loads this stylesheet. */
+ * .evolution-page because metacase.html also loads this stylesheet. */
 .evolution-page .se-map{margin:6px 0 0;display:grid;gap:14px}
 .evolution-page .se-map-band,.evolution-page .se-map-search,.evolution-page .se-map-eval{min-width:0;border:1px solid var(--line);border-radius:var(--radius);padding:16px 20px 18px}
 .evolution-page .se-map-band{background:var(--tint)}

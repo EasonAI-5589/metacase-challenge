@@ -3,7 +3,7 @@
 [Live website](https://easonai-5589.github.io/metacase-challenge/)
 
 Public website for the Metacase Challenge of the Global Metacase Initiative. The site is
-served directly from the root (`index.html`, `challenge.html`, `harness.html`,
+served directly from the root (`index.html`, `challenge.html`, `metacase.html`,
 `evolution.html`, `leaderboard.html`, `teams.html`, `replication.html`, and
 `professional-tasks.html`, with `data.html` and `agent.html` redirecting to their
 current sections while keeping any `#anchor`). The former InferenceNet design is retired;
@@ -112,7 +112,7 @@ of future updates unless explicitly requested again.
 | Business Analysis & Deliverables: Finance and HR cases, rubric scoring and pilot evidence | `professional-tasks.html`, `professional-tasks.css`, `assets/i18n/professional-tasks.zh.json`, `assets/data/professional-tasks-pilot.json` |
 | Former Data URL: compatibility redirect to Challenge's research data introduction | `data.html`; `data.css` remains available for Harness |
 | Former Agent URL: redirects to improvement directions | `agent.html`; `agent.css` remains shared by Harness and Self-evolving |
-| Metacase (nav label; file `harness.html`): one run of FIN-T1-003 as a scroll-driven film on one pinned Three.js stage — Task, Agent, Trajectory, Grading, Metacase, one heading, one line and one number each — then the replay video, the full expert rubric (folded) and the hand-off to Self-evolving; harness definitions, 2025–2026 systems, the DeepAgents breakdown and sources sit in a Further reading fold. Without usable WebGL the five beats read as a column; with reduced motion they are composed stills | `harness.html`, `harness.css`, `metacase-film.css`, `metacase-film.js` (renderer, camera line, copy, rail, static and reduced-motion paths) and one module per beat: `film-task.js`, `film-agent.js`, `film-trajectory.js`, `film-grading.js`, `film-metacase.js`; reuses `mc-kit.js`, `mc-toon.js`, `arena-models.js`, `data.css`, `agent.css`, `evolution.css` |
+| Metacase (nav label; file `metacase.html`): one run of FIN-T1-003 as a scroll-driven film on one pinned Three.js stage — Task, Agent, Trajectory, Grading, Metacase, one heading, one line and one number each — then the replay video, the full expert rubric (folded) and the hand-off to Self-evolving; harness definitions, 2025–2026 systems, the DeepAgents breakdown and sources sit in a Further reading fold. Without usable WebGL the five beats read as a column; with reduced motion they are composed stills | `metacase.html`, `harness.css`, `metacase-film.css`, `metacase-film.js` (renderer, camera line, copy, rail, static and reduced-motion paths) and one module per beat: `film-task.js`, `film-agent.js`, `film-trajectory.js`, `film-grading.js`, `film-metacase.js`; reuses `mc-kit.js`, `mc-toon.js`, `arena-models.js`, `data.css`, `agent.css`, `evolution.css` |
 | Self-evolving: capability questions, model training and co-evolution directions, concept, research map by adaptation regime, method comparison, three detailed offline cases and our development study | `evolution.html`, `evolution.css`, `evolution.js`, `assets/data/modular-rsi-evolution.json` |
 | Leaderboard: the Dev100 / v10 development release | `leaderboard.html`, `leaderboard.css` |
 | Organizations (founding and collaborating), people, student leaders, other team members and Yichen Guo contact | `teams.html`, `teams.css` |
@@ -562,7 +562,7 @@ The reading order is Definition → Industry systems → Breakdowns → Compare 
 Self-evolution → Compare → Sources. The definition appears first,
 with a direct industry-map link and optional expanded terminology/boundaries.
 
-Section 02 (`harness.html#development`) starts with an architecture map of runnable
+Section 02 (`metacase.html#development`) starts with an architecture map of runnable
 harnesses, systems that host or delegate to them, extensions and surrounding
 infrastructure. A curated 2025–2026 timeline follows, with 2026 emphasized.
 Dates refer to specific releases, papers or announcements, not uniformly to
@@ -586,8 +586,8 @@ Superpowers 7.0.0 (an extension inside a host harness) and DeepSeek Harness
 driven through its SDK). The DeepAgents tab also keeps its two full figures from
 the previous version: the three-layer assembly (DeepAgents, LangChain’s
 create_agent graph and LangGraph, down to our compiled graph) at
-`harness.html#deepagents-architecture`, and the historical wiring on branch
-dev-gyc-eval at 92e56c8 at `harness.html#deepagents-inferencenet`; that wiring’s
+`metacase.html#deepagents-architecture`, and the historical wiring on branch
+dev-gyc-eval at 92e56c8 at `metacase.html#deepagents-inferencenet`; that wiring’s
 budget is not the ModularRSI study’s. A comparison by slot follows, then a short section that
 separates running a harness from optimizing it and links to the Self-evolving
 page, the four Dev100 v10 configurations (DeepAgents 0.7.13, DeepSeek Harness
