@@ -6,3 +6,5 @@ __pycache__/
 *.sqlite3*
 .env
 submission_service/runtime/
+# private test pages (e.g. _film-dev.html): never published
+_*.html

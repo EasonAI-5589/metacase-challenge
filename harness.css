@@ -224,3 +224,54 @@ html[data-theme="dark"] .hs-timeline{--hs-e:#eba57f;--hs-c:#93d093;--hs-v:#d2a5e
 @media(max-width:760px){
   .challenge-harnesses .harness-pillars,.challenge-harnesses .harness-subtrack-grid{grid-template-columns:1fr}
 }
+
+/* Background reading: the survey sits in one fold below the public story */
+.harness-background-wrap{padding-block:clamp(32px,5vw,64px)}
+.hs-details.harness-background{margin:0;padding:20px 0}
+.hs-details.harness-background>summary{font-size:clamp(16px,1.6vw,18px)}
+.hs-details.harness-background[open]>summary{margin-bottom:8px}
+.harness-background>.section,.harness-background>.hs-catalogue{margin-top:clamp(24px,4vw,48px)}
+.harness-background>.section:first-of-type{margin-top:24px}
+.harness-table-fold{margin:28px 0 0}
+
+/* Four design jobs: separate, smaller cards with room between them */
+.challenge-harnesses .harness-pillars{grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;margin-top:36px;border:0}
+.challenge-harnesses .harness-pillars>li{padding:20px 20px 22px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+.challenge-harnesses .harness-pillars h3{font-size:16px;margin:12px 0 8px}
+.challenge-harnesses .harness-pillars p{font-size:13.5px;line-height:1.7}
+.challenge-harnesses .harness-subtrack-grid{margin-top:40px}
+@media (max-width:1100px){.challenge-harnesses .harness-pillars{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:700px){.challenge-harnesses .harness-pillars{grid-template-columns:1fr}}
+
+/* The Metacase page around its film (metacase-film.css): the design jobs, the hand-off, the harness
+ * gallery, the replay and the full rubric, and Further reading. */
+.harness-page .mc-design{margin-top:44px}
+.harness-page .mc-design .harness-pillars{margin-top:16px}
+.harness-page .mc-handoff{margin-top:36px}
+.harness-page .harness-background>.section.container{width:100%}
+.harness-page .mc-harnesses{margin-top:44px}
+.harness-page .mc-harnesses-lead{margin:6px 0 18px;opacity:.85}
+.harness-page .mc-hgroup h4{font-size:12px;letter-spacing:.06em;text-transform:uppercase;opacity:.75;margin:18px 0 8px}
+.harness-page .mc-hgroup ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.harness-page .mc-hgroup li{padding:14px 16px;border:1px solid var(--line);border-radius:12px;background:var(--surface);font-size:13.5px;line-height:1.6}
+.harness-page .mc-hgroup li b{display:block;font-size:15px;margin-bottom:4px}
+.harness-page .mc-video{margin:32px 0 0}
+.harness-page .mc-video video{width:100%;height:auto;border-radius:14px;border:1px solid var(--line);display:block;background:#000}
+.harness-page .mc-video figcaption{font-size:13px;opacity:.75;margin-top:10px}
+.harness-page .mc-rubric-wrap{margin-top:44px}
+.harness-page .mc-formula{font-family:var(--font-mono,ui-monospace,monospace);font-size:13.5px;padding:10px 14px;border:1px solid var(--line);border-radius:10px;display:inline-block;margin:6px 0 12px}
+.harness-page .mc-rubric-note{max-width:820px;line-height:1.75;opacity:.9}
+.harness-page .mc-rubric{font-size:13.5px;margin-top:18px}
+.harness-page .mc-rubric td,.harness-page .mc-rubric th{vertical-align:top;line-height:1.6}
+.harness-page .mc-rubric .mc-rg th{background:color-mix(in oklab,var(--track-1) 9%,transparent);font-weight:600;text-align:left;text-transform:none;letter-spacing:0;font-family:inherit;font-size:13.5px}
+.harness-page .mc-res{white-space:nowrap;font-weight:600}
+.harness-page .mc-res.is-met{color:oklch(70% .15 150)}
+.harness-page .mc-res.is-part{color:var(--track-2)}
+.harness-page .mc-res.is-miss{opacity:.6;font-weight:500}
+.harness-page .mc-rubric tr.is-this{background:color-mix(in oklab,var(--track-2) 12%,transparent)}
+.harness-page .mc-rubric-wrap .hs-details{margin-top:18px}
+@media(max-width:1100px){.harness-page .mc-hgroup ul{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.harness-page .mc-hgroup ul{grid-template-columns:1fr}}
+.harness-page .mc-agents{grid-template-columns:minmax(0,1fr)}
+.harness-page .mc-agents .v2-stack-layers{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media(max-width:900px){.harness-page .mc-agents .v2-stack-layers{grid-template-columns:minmax(0,1fr)}}

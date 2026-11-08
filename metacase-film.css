@@ -1,0 +1,164 @@
+/* metacase-film.css — the Metacase page's film (metacase-film.js). Without the class .is-film
+ * (before the script decides, or with no usable WebGL) the five beats read as a plain column;
+ * with it, the section becomes a tall scroll track behind one pinned stage.
+ *   --film-top   where the pin sticks: under the sticky header and subnav (measured by the script)
+ *   --film-beat  scroll length of one beat */
+.mc-film {
+  --film-top: calc(var(--header-h, 64px) + 49px);
+  --film-beat: 135svh;
+  --film-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --film-gutter: clamp(20px, 4.2vw, 64px);
+  --film-violet: oklch(74% 0.15 292);
+  position: relative;
+  color: var(--text-primary);
+}
+.mc-beat[data-beat="0"], .mc-film-tick[data-k="0"] { --a: var(--track-1); }
+.mc-beat[data-beat="1"], .mc-film-tick[data-k="1"] { --a: var(--track-2); }
+.mc-beat[data-beat="2"], .mc-film-tick[data-k="2"] { --a: var(--film-violet); }
+.mc-beat[data-beat="3"], .mc-film-tick[data-k="3"] { --a: var(--track-2); }
+.mc-beat[data-beat="4"], .mc-film-tick[data-k="4"] { --a: var(--track-1); }
+/* html's scroll-padding-top already clears the header and the subnav */
+.mc-film-step, .mc-beat { scroll-margin-top: 0; }
+
+/* ---- the copy of a beat: one heading, one line, one big number ---- */
+.mc-beat h3 { margin: 0; font-size: clamp(28px, 2.9vw, 46px); font-weight: 650; line-height: 1.05; letter-spacing: -0.03em; color: var(--text-primary); }
+.mc-beat h3 .ln { display: block; }
+html[lang="zh-CN"] .mc-beat h3 { line-height: 1.22; letter-spacing: 0; word-break: keep-all; line-break: strict; }
+.mc-beat > p:not(.mc-stat) { margin: 14px 0 0; font-size: 16px; line-height: 1.5; color: var(--text-secondary); }
+.mc-stat { display: grid; gap: 8px; justify-items: start; margin: 26px 0 0; }
+.mc-stat b { font-size: clamp(60px, 6.8vw, 116px); font-weight: 600; line-height: .86; letter-spacing: -0.04em; color: var(--a); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.mc-stat span { font-size: 13.5px; line-height: 1.4; color: var(--text-secondary); }
+/* the harness slot: a name, not a number, so it runs smaller and rolls over at each pick */
+.mc-stat.is-slot b { display: inline-block; font-size: clamp(30px, 3.1vw, 48px); line-height: 1.08; letter-spacing: -0.025em; padding-bottom: 6px; border-bottom: 2px solid color-mix(in oklab, var(--a) 60%, transparent); }
+[data-n][data-to] { font-variant-numeric: tabular-nums; }
+.mc-beat-cta { margin: 26px 0 0; font-size: 18px; font-weight: 600; }
+.mc-beat-cta a { color: var(--a); }
+
+/* ---- static: the five beats as a column (no script yet, or no usable WebGL) ---- */
+.mc-film:not(.is-film) { width: min(var(--content-max, 1248px), calc(100% - 48px)); margin-inline: auto; padding-block: clamp(40px, 6vw, 88px); }
+.mc-film:not(.is-film) .mc-film-canvas, .mc-film:not(.is-film) .mc-film-scrim, .mc-film:not(.is-film) .mc-film-rail { display: none; }
+.mc-film:not(.is-film) .mc-beat { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); column-gap: clamp(32px, 6vw, 96px); align-content: start; padding-block: clamp(40px, 5vw, 72px); border-top: 1px solid var(--line); }
+.mc-film:not(.is-film) .mc-beat > * { grid-column: 1; }
+.mc-film:not(.is-film) .mc-beat > .mc-stat { grid-column: 2; grid-row: 1 / span 3; align-self: center; justify-self: end; margin-top: 0; }
+@media (max-width: 760px) {
+  .mc-film:not(.is-film) { width: calc(100% - 32px); }
+  .mc-film:not(.is-film) .mc-beat { grid-template-columns: minmax(0, 1fr); }
+  .mc-film:not(.is-film) .mc-beat > .mc-stat { grid-column: 1; grid-row: auto; justify-self: start; margin-top: 22px; }
+}
+
+/* ---- the film ---- */
+.mc-film.is-film { height: calc(100svh - var(--film-top) + 5 * var(--film-beat)); }
+.mc-film.is-film .mc-film-pin { position: sticky; top: var(--film-top); height: calc(100svh - var(--film-top)); min-height: min(480px, calc(100svh - var(--film-top))); overflow: hidden; isolation: isolate; background: var(--bg-canvas); }
+.mc-film-canvas { position: absolute; inset: 0; z-index: 0; display: block; width: 100%; height: 100%; }
+.mc-film-scrim { position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background:
+    linear-gradient(90deg, var(--bg-canvas) 0, color-mix(in oklab, var(--bg-canvas) 88%, transparent) 24%, color-mix(in oklab, var(--bg-canvas) 55%, transparent) 37%, transparent 54%),
+    linear-gradient(0deg, var(--bg-canvas) 0, color-mix(in oklab, var(--bg-canvas) 55%, transparent) 70px, transparent 160px),
+    linear-gradient(180deg, color-mix(in oklab, var(--bg-canvas) 70%, transparent) 0, transparent 70px); }
+.mc-film.is-film .mc-film-copy { position: absolute; z-index: 2; left: var(--film-gutter); bottom: clamp(88px, 12svh, 128px); width: min(540px, 40vw); height: 0; }
+.mc-film.is-film .mc-beat { position: absolute; left: 0; right: 0; bottom: 0; pointer-events: none; }
+.mc-film.is-film .mc-beat.is-active { pointer-events: auto; }
+
+/* A beat's copy enters as one short cascade: each part rises into place in order, 50 ms apart.
+ * It leaves in half the time, upwards once its beat has passed. Opacity and translate only:
+ * the WebGL frame under it is busiest exactly then. */
+.mc-film.is-film .mc-beat > * {
+  opacity: 0; translate: 0 .5em;
+  transition: opacity .22s var(--film-ease), translate .22s var(--film-ease);
+}
+.mc-film.is-film .mc-beat.is-past > * { translate: 0 -.4em; }
+.mc-film.is-film .mc-beat.is-active > * {
+  opacity: 1; translate: 0 0;
+  transition-duration: .45s;
+  transition-delay: calc(var(--i, 0) * 50ms + 40ms);
+}
+/* keyboard focus never sits on an invisible link */
+.mc-film.is-film .mc-beat:focus-within > * { opacity: 1; translate: 0 0; transition-delay: 0s; }
+.mc-beat > :nth-child(2) { --i: 1; }
+.mc-beat > :nth-child(3) { --i: 2; }
+.mc-beat > :nth-child(4) { --i: 3; }
+
+/* the rail: one track per beat, filled by its local progress; a button each */
+.mc-film-rail { position: absolute; z-index: 2; left: var(--film-gutter); right: var(--film-gutter); bottom: 22px; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+.mc-film-tick { display: grid; align-content: end; gap: 9px; min-width: 0; min-height: 24px; margin: 0; padding: 0; border: 0; background: none; cursor: pointer; text-align: left; color: var(--text-tertiary); font: 500 11.5px/1.2 var(--font-sans); letter-spacing: .01em; transition: color .3s var(--film-ease); }
+.mc-film-tick:focus-visible { outline: 2px solid var(--a); outline-offset: 4px; border-radius: 2px; }
+.mc-film-track { position: relative; height: 2px; overflow: hidden; border-radius: 2px; background: var(--border-hairline); }
+.mc-film-fill { position: absolute; inset: 0; background: var(--a); transform: scaleX(0); transform-origin: 0 50%; }
+.mc-film-label { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.mc-film-tick.is-done { color: var(--text-secondary); }
+.mc-film-tick.is-on { color: var(--text-primary); }
+@media (hover: hover) and (pointer: fine) { .mc-film-tick:hover { color: var(--text-primary); } }
+/* beside the copy the subnav names the beats; the rail keeps only its tracks (the names stay for
+ * screen readers and show on keyboard focus) */
+.mc-film-rail .mc-film-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.mc-film-tick:focus-visible .mc-film-label { position: static; width: auto; height: auto; clip-path: none; }
+
+/* while the film holds the window, the page's own chapter rail steps aside */
+.page-rail { transition: opacity .2s var(--film-ease, ease); }
+html.film-pinned .page-rail { opacity: 0; pointer-events: none; }
+html.film-pinned .page-rail a { pointer-events: none; }
+
+/* short landscape screens (phones on their side): the copy shrinks to fit beside the picture, and
+ * the subnav leaves the sticky stack (the rail names the beats instead) */
+@media (max-height: 560px) and (min-aspect-ratio: 11/10) {
+  .harness-page .subnav { position: static; }
+  .mc-film-rail .mc-film-label { position: static; width: auto; height: auto; clip-path: none; }
+  .mc-film-tick { gap: 6px; font-size: 10.5px; }
+  .mc-film.is-film .mc-film-copy { bottom: 54px; width: min(420px, 42vw); }
+  .mc-film.is-film .mc-beat > p:not(.mc-stat):not(.mc-beat-cta) { display: none; }
+  .mc-beat h3 { font-size: clamp(22px, 3.4vw, 30px); }
+  .mc-stat { margin-top: 14px; }
+  .mc-stat b { font-size: clamp(40px, 7vw, 60px); }
+  .mc-stat.is-slot b { font-size: clamp(22px, 3.4vw, 30px); }
+  .mc-film-rail { bottom: 12px; }
+}
+
+/* stacked: the picture above, the copy over a scrim below it */
+@media (max-width: 600px), (max-aspect-ratio: 11/10) {
+  .mc-film { --film-beat: 120svh; }
+  /* the subnav leaves the sticky stack on this page: the film's rail names the beats instead */
+  .harness-page .subnav { position: static; }
+  .mc-film-scrim { background:
+    linear-gradient(0deg, var(--bg-canvas) 0, var(--bg-canvas) 22%, color-mix(in oklab, var(--bg-canvas) 70%, transparent) 32%, transparent 44%),
+    linear-gradient(180deg, color-mix(in oklab, var(--bg-canvas) 70%, transparent) 0, transparent 60px); }
+  .mc-film.is-film .mc-film-copy { left: 16px; right: 16px; width: auto; bottom: 62px; }
+  .mc-film.is-film .mc-beat > p:not(.mc-stat):not(.mc-beat-cta) { display: none; }
+  .mc-film-rail { left: 16px; right: 16px; bottom: 16px; gap: 6px; }
+  .mc-film-tick { gap: 8px; font-size: 10.5px; letter-spacing: 0; }
+  .mc-film-rail .mc-film-label { position: static; width: auto; height: auto; clip-path: none; }
+  .mc-beat h3 { font-size: clamp(24px, 6.6vw, 34px); }
+  .mc-beat > p:not(.mc-stat) { margin-top: 10px; font-size: 14.5px; }
+  .mc-stat { margin-top: 16px; }
+  .mc-stat b { font-size: clamp(44px, 12vw, 64px); }
+  .mc-stat.is-slot b { font-size: clamp(24px, 6.6vw, 34px); }
+  .mc-stat span { font-size: 12.5px; }
+  .mc-beat-cta { margin-top: 16px; font-size: 16px; }
+}
+
+/* the private dev page: the pin fills the window */
+.mc-film.is-dev { height: 100svh; }
+.mc-film.is-dev .mc-film-pin { top: 0; height: 100svh; }
+.mc-film.is-dev .mc-film-steps { display: none; }
+
+/* scroll markers (made by the script): the subnav's targets, one per beat, over the scroll track */
+.mc-film.is-film .mc-film-steps { position: absolute; inset: 0; pointer-events: none; }
+.mc-film.is-film .mc-film-step { position: absolute; left: 0; right: 0; height: var(--film-beat); top: calc(var(--k) * var(--film-beat) + var(--film-beat) * .05 + 8px); }
+
+/* the page around the film: solid accents, no gradient text */
+.harness-page .page-hero h1 em, .harness-page #replay h2 em, .harness-page .split-vis .w.em > span {
+  background: none; -webkit-background-clip: border-box; background-clip: border-box; color: var(--track-1); -webkit-text-fill-color: currentColor; }
+
+/* after the film */
+.harness-page .mc-rubric-fold, .harness-page .mc-after { padding-block: 0 clamp(24px, 4vw, 48px); }
+.harness-page .mc-rubric-fold > .hs-details > summary { font-size: clamp(16px, 1.6vw, 18px); }
+.harness-page .mc-after .mc-handoff { margin-top: 12px; }
+
+/* reduced motion: composed stills that dip out and in (200 ms), copy that fades without moving */
+.mc-film.is-reduce .mc-film-canvas { transition: opacity .1s linear !important; }
+.mc-film.is-reduce .mc-film-pin.is-dip .mc-film-canvas { opacity: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .mc-film.is-film .mc-beat > *, .mc-film.is-film .mc-beat.is-past > * { translate: none; }
+  .mc-film.is-film .mc-beat > * { transition: opacity .2s linear !important; transition-delay: 0s !important; }
+  .mc-film-tick { transition: none; }
+  .page-rail { transition: none; }
+}

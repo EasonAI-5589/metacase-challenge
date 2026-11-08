@@ -3,7 +3,7 @@
  * on-screen rectangle of its own element, so large pinned chapters and small card
  * illustrations share one context, one light model and one finish. */
 import * as THREE from './assets/vendor/three/three.module.js';
-import { createPost } from './mc-toon.js';
+import { createPost } from './mc-toon.js?v=20261102-toy';
 
 export function createStage(canvas, { reduce = false, clipTop = () => 0 } = {}) {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });

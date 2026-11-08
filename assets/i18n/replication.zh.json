@@ -91,5 +91,6 @@
   "Your agent does the analysis; the reference answers stay with the evaluator.": "分析由你的智能体完成；参考答案始终留在评测方手里。",
   "This is how the development runs worked. The official evaluation rules will be announced with the task release.": "以上是开发评测时的流程。正式评测规则将随任务包一起公布。",
   "Task examples, systems": "任务示例、执行系统",
-  "and development evidence": "与开发评测证据"
+  "and development evidence": "与开发评测证据",
+  "See what a Metacase is made of": "看看一个 Metacase 由什么构成"
 }

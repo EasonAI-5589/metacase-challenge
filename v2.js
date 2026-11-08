@@ -73,6 +73,8 @@
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const RANGE = String.fromCharCode(0x3400) + "-" + String.fromCharCode(0x9fff);
   const CJK = new RegExp(`[${RANGE}]`), CHUNKS = new RegExp(`[${RANGE}]|[^${RANGE}]+`, "g");
+  // Full-width punctuation (，。：) joins CJK words too: no space either side of it.
+  const CJKP = new RegExp(`[${RANGE}\u3000-\u303f\uff00-\uffef]`);
 
   /* Kinetic headings. The original nodes stay in a visually hidden source span that
    * language.js translates in place; an aria-hidden mirror is split into words. */
@@ -85,19 +87,33 @@
     el.append(src, vis);
     const draw = () => {
       const tokens = [];
-      for (const node of src.childNodes) {
-        const em = node.nodeType === 1 && node.tagName === "EM";
-        for (const chunk of node.textContent.match(CHUNKS) || []) {
+      const words = (text, em) => {
+        for (const chunk of text.match(CHUNKS) || []) {
           if (CJK.test(chunk)) tokens.push({ t: chunk, em });
           else chunk.split(/(\s+)/).forEach(p => { if (p) tokens.push({ t: p, em, space: /^\s+$/.test(p) }); });
         }
+      };
+      for (const node of src.childNodes) {
+        if (node.nodeType === 1 && node.tagName === "BR") { tokens.push({ br: true }); continue; }
+        if (!(node.nodeType === 1 && node.tagName === "EM")) { words(node.textContent, false); continue; }
+        // A <br> inside <em> still breaks the line, and the text on both sides stays emphasised.
+        let text = "";
+        const walker = document.createTreeWalker(node, NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT);
+        while (walker.nextNode()) {
+          const child = walker.currentNode;
+          if (child.nodeType === 3) text += child.data;
+          else if (child.tagName === "BR") { words(text, true); tokens.push({ br: true }); text = ""; }
+        }
+        words(text, true);
       }
       vis.textContent = "";
       let i = 0;
       tokens.forEach((tk, k) => {
+        if (tk.br) { vis.append(document.createElement("br")); return; }
         if (tk.space) {
           const prev = tokens[k - 1], next = tokens[k + 1];
-          if (!(prev && next && CJK.test(prev.t.slice(-1)) && CJK.test(next.t[0]))) vis.append(" ");
+          // A <br> neighbour has no text, so it never joins two CJK words.
+          if (!(prev && prev.t && next && next.t && CJKP.test(prev.t.slice(-1)) && CJKP.test(next.t[0]))) vis.append(" ");
           return;
         }
         const w = document.createElement("span"); w.className = tk.em ? "w em" : "w";
@@ -223,6 +239,9 @@
     document.body.prepend(canvas);
     const field = window.Backdrop.mount(canvas, { mode: "field", host: document.body, velocity: () => (window.__lenis ? window.__lenis.velocity : 0) });
     field.setTone(Number(document.body.dataset.tone || 0));
+    // a pinned film (metacase-film.js) covers the whole window: the field rests while it does
+    const rest = () => field.pause && field.pause(root.classList.contains("film-pinned"));
+    new MutationObserver(rest).observe(root, { attributes: true, attributeFilter: ["class"] });
     // a fixed glow follows the section in view, cycling through the page's accent colours
     const ambient = document.createElement("div");
     ambient.className = "ambient"; ambient.setAttribute("aria-hidden", "true");

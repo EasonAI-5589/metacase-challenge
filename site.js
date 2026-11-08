@@ -101,8 +101,10 @@
 
   /* Reading progress + subnav scroll-spy ------------------------------------- */
   const progress = legacy ? null : document.getElementById('reading-progress');
+  // Targets are looked up when used: a page script may move an id later (the Metacase film moves
+  // its beats' ids onto scroll markers).
   const subnavLinks = [...document.querySelectorAll('.subnav a[href^="#"]')]
-    .map(link => ({ link, target: document.getElementById(decodeURIComponent(link.hash.slice(1))) }))
+    .map(link => { const id = decodeURIComponent(link.hash.slice(1)); return { link, id, get target() { return document.getElementById(id); } }; })
     .filter(item => item.target);
   if (progress) {
     // The bar scales on the compositor instead of changing width every scroll frame.
@@ -149,7 +151,10 @@
       if (subnavLinks.length) {
         const threshold = Math.round(window.innerHeight * 0.3);
         let active = null;
-        subnavLinks.forEach(item => { if (item.target.getBoundingClientRect().top <= threshold) active = item; });
+        // A pinned scene that tracks its own chapters (data-subnav-current) decides while it holds the window.
+        const owner = document.querySelector('[data-subnav-current]');
+        if (owner) active = subnavLinks.find(item => item.id === owner.dataset.subnavCurrent) || null;
+        else subnavLinks.forEach(item => { const target = item.target; if (target && target.getBoundingClientRect().top <= threshold) active = item; });
         if (!active && window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2) active = subnavLinks[subnavLinks.length - 1];
         subnavLinks.forEach(item => {
           if (item === active) item.link.setAttribute('aria-current', 'location');
@@ -162,6 +167,7 @@
     const schedule = () => { if (!pending) { pending = true; requestAnimationFrame(update); } };
     const relayout = () => { remeasure = true; schedule(); };
     window.addEventListener('scroll', schedule, { passive: true });
+    document.addEventListener('film:beat', schedule);
     window.addEventListener('resize', relayout, { passive: true });
     if (track && document.fonts && document.fonts.ready) document.fonts.ready.then(relayout);
     update();

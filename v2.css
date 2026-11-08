@@ -136,7 +136,8 @@
 .v2-footer .cols { grid-template-columns: 1fr 1fr; }
 }
 html.lenis, html.lenis body { height: auto; }
-.lenis.lenis-smooth { scroll-behavior: auto !important; }
+/* Lenis does the smoothing whenever it runs: native smooth scrolling would turn its instant jumps into glides */
+html.lenis, .lenis.lenis-smooth { scroll-behavior: auto !important; }
 .lenis.lenis-stopped { overflow: hidden; }
 html:not(.lenis) { scroll-behavior: smooth; scroll-padding-top: 112px; }
 .btn { position: relative; overflow: hidden; isolation: isolate; }

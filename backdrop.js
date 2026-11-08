@@ -539,7 +539,7 @@
     const ctx = canvas.getContext("2d");
     const host = opts.host || canvas.parentElement;
     const S = { w: 0, h: 0, mx: -1e4, my: -1e4, pmx: 0, pmy: 0, tmx: 0, tmy: 0, scrollDy: 0, velocity: opts.velocity || (() => 0) };
-    let P = palette(), raf = 0, running = false, last = 0, lastY = scrollY, drawn = 0;
+    let P = palette(), raf = 0, running = false, last = 0, lastY = scrollY, drawn = 0, paused = false;
     // Background art does not need retina pixels or 60 fps; the budgets keep it off the critical path.
     const budget = { dpr: 1.25, fps: 40, ...(BUDGETS[opts.mode] || {}), ...(opts.budget || {}) };
 
@@ -562,7 +562,7 @@
       if (!once && running) raf = requestAnimationFrame(frame);
     }
     function setRunning(on) {
-      const next = on && !reduce && !document.hidden;
+      const next = on && !reduce && !document.hidden && !paused;
       if (next === running) return;
       running = next;
       if (running) { last = 0; raf = requestAnimationFrame(frame); } else cancelAnimationFrame(raf);
@@ -585,7 +585,8 @@
     document.addEventListener("visibilitychange", () => setRunning(visible));
     setRunning(true);
 
-    return { setTone(i) { S.tone = i; }, state: S };
+    // pause(true): something opaque covers the window (a pinned 3D scene), so stop drawing until it leaves
+    return { setTone(i) { S.tone = i; }, pause(on) { paused = !!on; setRunning(visible); }, state: S };
   }
 
   window.Backdrop = { mount, modes: Object.keys(MODES) };

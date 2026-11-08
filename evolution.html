@@ -20,15 +20,15 @@
   <script src="site.js?v=20261105-orgs" defer></script>
   <script src="evolution.js?v=20261014-rsi-structure" defer></script>
   <link rel="stylesheet" href="language.css">
-  <script src="language.js?v=20261105-cards" defer></script>
+  <script src="language.js?v=20261107-metacase" defer></script>
   <link rel="stylesheet" href="v2.css?v=20261101-shuttle">
   <link rel="stylesheet" href="skin.css?v=20261022-v2-ambient">
-  <link rel="stylesheet" href="subpage-toy.css?v=20261103-align">
-  <script type="module" src="subpage-toy.js?v=20261105-grip"></script>
+  <link rel="stylesheet" href="subpage-toy.css?v=20261109-clip">
+  <script type="module" src="subpage-toy.js?v=20261107-metacase"></script>
   <link rel="stylesheet" href="scene.css?v=20261022-v2-ambient">
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
   <script src="backdrop.js?v=20261022-v2-ambient" defer></script>
-  <script src="v2.js?v=20261031-dark" defer></script>
+  <script src="v2.js?v=20261107-metacase" defer></script>
   <link rel="stylesheet" href="page-rail.css?v=20261105-rail">
   <script src="page-rail.js?v=20261105-rail" defer></script>
   <script src="scene.js?v=20261022-v2-ambient" defer></script>
@@ -76,7 +76,7 @@
       <div class="nav-links open" id="nav-links">
         <a href="index.html">Home</a>
         <a href="challenge.html">Challenge</a>
-        <a href="harness.html">Harness</a>
+        <a href="harness.html">Metacase</a>
         <a href="evolution.html" aria-current="page">Self-evolving</a>
         <a href="leaderboard.html">Leaderboard</a>
         <a href="teams.html">Teams</a>
@@ -95,6 +95,7 @@
       <p class="kicker">Model training · Model–Harness co-evolution</p>
       <h1 id="page-title">Learning from tasks. <em>Improving agents.</em></h1>
       <p class="lead">The Challenge tasks show which capabilities agents still lack: reading research requirements, interpreting data and building analyses that hold up. There are two ways to close the gap—train the model, or improve the harness around it. Most of what follows is about the second: harnesses that improve from their own runs while the model stays fixed, including our own ModularRSI study.</p>
+      <p class="case-caption">This page starts from many recorded runs; the Metacase page follows one run from task to graded record. <a class="text-link" href="harness.html#metacase">See one run as a record <span aria-hidden="true">→</span></a></p>
       <div class="hero-actions">
         <a class="button primary" href="#cycle">See the improvement loop <span aria-hidden="true">↓</span></a>
         <a class="button" href="#rsi-versions">Our ModularRSI results <span aria-hidden="true">↓</span></a>
@@ -131,7 +132,7 @@
         <article><p class="se-role">Phase 2 · Planned for Finance &amp; HR (Harbor + Claude Code)</p><h4>Adapting harness checks and evolution to Harbor</h4><p>Subtrack 2 (Business Analysis &amp; Deliverables) has not yet undergone harness optimization. Its tasks currently run on the Harbor (0.20.0) evaluation framework driving Claude Code (2.1.114), where pilot errors stemmed from missing Excel formulas, cross-file count mismatches and rubric misclassifications. We plan to adapt our modular harness hooks and evolution loop to the Harbor + Claude Code workflow—adding pre-submission readback checks for spreadsheet formulas (.xlsx), report-to-workbook consistency (.docx/.xlsx) and source-evidence indexing.</p></article>
       </div>
       <p class="case-caption improvement-scope">These are research directions. Our ModularRSI study below evolves the harness on econometric replication tasks while keeping model weights fixed.</p>
-      <div class="se-links"><a class="text-link" href="challenge.html#replication-demo">Watch the replication demo <span aria-hidden="true">→</span></a><a class="text-link" href="challenge.html#subtrack-professional">Explore the business task demos <span aria-hidden="true">→</span></a><a class="text-link" href="harness.html#challenge-harnesses">Compare how both challenges run harnesses <span aria-hidden="true">→</span></a></div>
+      <div class="se-links"><a class="text-link" href="challenge.html#replication-demo">Watch the replication demo <span aria-hidden="true">→</span></a><a class="text-link" href="challenge.html#subtrack-professional">Explore the business task demos <span aria-hidden="true">→</span></a><a class="text-link" href="harness.html#trajectory">See how one run is recorded and graded <span aria-hidden="true">→</span></a></div>
     </section>
 
     <section class="section container ruled" id="concept" aria-labelledby="concept-title">
@@ -147,8 +148,8 @@
         <li><span class="se-role">Fixed</span><h3>Evaluator</h3><p>The scorer that grades finished runs. It decides which version looks better, so it is never among the things edited; methods differ in how much of its output the proposer may see.</p></li>
       </ul>
       <p class="case-caption">When you compare methods, check what each one is allowed to edit. Every result below keeps its original task split, budget caps and selection policy.</p>
-      <p class="case-caption">These six terms match the Harness page, which explains how harnesses such as DeepAgents and DeepSeek Harness, and extensions such as Superpowers, are built. The question here is how to improve a harness once you have one.</p>
-      <div class="se-links"><a class="text-link" href="harness.html#definition">Harness: six terms and their boundaries <span aria-hidden="true">→</span></a><a class="text-link" href="harness.html#deepagents-architecture">Harness: how DeepAgents is built <span aria-hidden="true">→</span></a></div>
+      <p class="case-caption">These six terms are used as on the Metacase page, which follows one run from task to graded record and keeps the harness breakdowns in its further reading. The question here is how to improve a harness once you have one.</p>
+      <div class="se-links"><a class="text-link" href="harness.html#agent">Metacase: what the agent is made of <span aria-hidden="true">→</span></a><a class="text-link" href="harness.html#deepagents-architecture">Metacase page: how DeepAgents is built <span aria-hidden="true">→</span></a></div>
     </section>
 
     <section class="section container ruled" id="research-map" aria-labelledby="research-map-title">
@@ -169,7 +170,7 @@
               <p class="se-map-src"><a href="https://arxiv.org/abs/2609.33439">arXiv 2609.33439</a><span>v1 27 Sep 2026</span></p>
             </div>
           </div>
-          <p class="se-map-link"><span class="se-map-calls" aria-hidden="true"></span>Both call runnable harnesses, which the Harness page maps:<a class="text-link" href="harness.html#development">Harness systems, 2025–2026 <span aria-hidden="true">→</span></a></p>
+          <p class="se-map-link"><span class="se-map-calls" aria-hidden="true"></span>Both call runnable harnesses, which the Metacase page maps in its further reading:<a class="text-link" href="harness.html#development">Harness systems, 2025–2026 <span aria-hidden="true">→</span></a></p>
         </div>
 
         <div class="se-map-core">
@@ -326,7 +327,7 @@
           </table>
         </div>
       </details>
-      <div class="se-links"><a class="text-link" href="harness.html#development">Harness: runnable systems and 2025–2026 timeline <span aria-hidden="true">→</span></a><a class="text-link" href="harness.html#landscape">Harness: unified evaluation via Harbor <span aria-hidden="true">→</span></a></div>
+      <div class="se-links"><a class="text-link" href="harness.html#development">Metacase page: runnable systems and 2025–2026 timeline <span aria-hidden="true">→</span></a><a class="text-link" href="harness.html#landscape">Metacase page: one run in four stages, via Harbor <span aria-hidden="true">→</span></a></div>
     </section>
 
 
@@ -615,14 +616,14 @@
             <tr><th scope="row">Significant Level Correctness</th><td>78%</td><td>81%</td></tr>
           </tbody>
         </table></div>
-        <p class="case-caption">Strict replication requires coefficient and standard-error relative errors ≤ 1% and p-value absolute error ≤ 0.01 (<code>local-paper-v1</code>). Partial replication checks coefficient error ≤ 5%; significance compares p-value bands at 0.01, 0.05 and 0.1. All 100 tasks remain in the denominator.</p>
+        <p class="case-caption">Strict replication requires coefficient and standard-error relative errors ≤ 1% and p-value absolute error ≤ 0.01 (<code>local-paper-v1</code>). Partial replication requires coefficient and standard-error relative errors both ≤ 5%; significance requires the correct sign and the same p-value band (0.01, 0.05 or 0.1). All 100 tasks remain in the denominator.</p>
       </div>
     </section>
     <!-- rsi-versions:end -->
 
     <div class="container">
       <nav class="page-footer-nav" aria-label="Page sequence">
-        <a href="harness.html"><small>Previous</small><span><span aria-hidden="true">←</span> Harness</span></a>
+        <a href="harness.html"><small>Previous</small><span><span aria-hidden="true">←</span> Metacase</span></a>
         <a href="leaderboard.html"><small>Next</small><span>Leaderboard <span aria-hidden="true">→</span></span></a>
       </nav>
     </div>
@@ -635,7 +636,7 @@
           <p>AI Agents for Business, Finance and Social Science.</p>
         </div>
         <div><h4>Pages</h4><ul>
-          <li><a href="challenge.html">Challenge</a></li><li><a href="harness.html">Harness</a></li>
+          <li><a href="challenge.html">Challenge</a></li><li><a href="harness.html">Metacase</a></li>
           <li><a href="evolution.html">Self-evolving</a></li><li><a href="leaderboard.html">Leaderboard</a></li>
           <li><a href="teams.html">Teams</a></li></ul></div>
         <div><h4>Resources</h4><ul>

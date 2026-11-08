@@ -377,5 +377,6 @@
   "The 100 Dev100 tasks will be released as open source for Subtrack 1: Econometric replication; the task package, official rules and dates are still to be announced. Below are development results for 14 models × 4 harnesses—a baseline to beat, not an official Challenge ranking.": "Dev100 的 100 道题将作为子赛道 1「计量复现」的任务开源发布；任务包、正式规则与日期尚待公布。下面是 14 个模型 × 4 种 Harness 的开发评测结果——是你要超越的基准，不是挑战赛的正式排名。",
   "Dev100 / v10": "Dev100 / v10",
   "development release": "开发评测结果",
-  "directions": "方向"
+  "directions": "方向",
+  "Metacase: one run from task to graded record": "Metacase：一次运行，从任务到已评分的记录"
 }

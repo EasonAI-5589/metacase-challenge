@@ -2,7 +2,7 @@
  * reading tables and quiet case transfers leave the agent's approach lanes open. */
 import * as THREE from './assets/vendor/three/three.module.js';
 import { tile, bookStack, block, cyl, mat as kitMaterial, PALETTE } from './mc-kit.js?v=20261105-grip';
-import { glowSprite } from './mc-stage.js';
+import { glowSprite } from './mc-stage.js?v=20261105-grip';
 import { ARENA_DOMAINS } from './arena-data.js';
 
 const WOOD = 0x7a5a42, SHELF = 0x8a6a4a, DARK_WOOD = 0x5a4434;

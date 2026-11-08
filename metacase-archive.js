@@ -8,7 +8,7 @@
  * to read them. Rendered by the shared stage. */
 import * as THREE from './assets/vendor/three/three.module.js';
 import { PALETTE, BOOK, SIGNATURES, STAGE_COLORS, closedBook, bookTabs, mat, add, ball, block, rbox, volume, robot, person, lights } from './mc-kit.js?v=20261105-grip';
-import { clamp, smooth, ramp, lerp, pageBackground, fitSafe, fitBox, toView, glowSprite } from './mc-stage.js';
+import { clamp, smooth, ramp, lerp, pageBackground, fitSafe, fitBox, toView, glowSprite } from './mc-stage.js?v=20261105-grip';
 
 // Same order as the tags in the page.
 export const COLUMNS = [
