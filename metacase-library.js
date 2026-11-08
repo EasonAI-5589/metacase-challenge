@@ -7,7 +7,7 @@
  * own cases → shared structures → reuse → new cases arrive). */
 import * as THREE from './assets/vendor/three/three.module.js';
 import { PALETTE, BOOK, closedBook, bookTabs, mat, add, block, cyl, person, robot, tile, lights } from './mc-kit.js?v=20261105-grip';
-import { clamp, smooth, ramp, lerp, pageBackground, fitCamera, toView, glowSprite } from './mc-stage.js';
+import { clamp, smooth, ramp, lerp, pageBackground, fitCamera, toView, glowSprite } from './mc-stage.js?v=20261105-grip';
 
 // Bays per wing: [catalogue class, volumes, bay width in units]. Counts follow
 // metacase-harbor v0.1 (metacase/summary.json); econometric replication is shelved as its

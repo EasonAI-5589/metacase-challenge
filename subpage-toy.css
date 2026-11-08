@@ -3,8 +3,10 @@
  * Loaded after skin.css on every page but the homepage (subpage-toy.js adds the pieces). */
 :root { --toy-grad: linear-gradient(100deg, var(--track-1), oklch(70% 0.16 290) 50%, var(--track-2)); --toy-edge: rgb(0 0 0 / 26%); }
 html[data-theme="light"] { --toy-edge: rgb(14 20 32 / 12%); }
-/* the header backdrop grows a little as the page scrolls on (skin.css); keep it from making the page scroll sideways */
-body.v2-content { overflow-x: clip; }
+/* the header backdrop grows a little as the page scrolls on (skin.css) and the aurora reaches past the
+ * edge; keep them from making the page scroll sideways. On body alone the value is handed up to the
+ * viewport, where it does not clip, so the root clips too. */
+html, body.v2-content { overflow-x: clip; }
 
 /* ---- header: the statement on the left, the diorama on the right ---- */
 .page-hero.has-toy .toy-hero { position: absolute; z-index: 1; right: max(-4vw, -56px); top: 50%; translate: 0 -50%;

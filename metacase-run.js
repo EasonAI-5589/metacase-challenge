@@ -16,8 +16,8 @@
  * Rendered by the shared stage; the page's labels follow the objects through onProject. */
 import * as THREE from './assets/vendor/three/three.module.js';
 import { PALETTE, BOOK, closedBook, bookTabs, mat, add, block, cyl, ball, rbox, robot, GUN_HOLD, person, lights, blaster, lens, terminal } from './mc-kit.js?v=20261105-grip';
-import { clamp, smooth, ramp, lerp, pageBackground, fitSafe, fitBox, toView, glowSprite } from './mc-stage.js';
-import { toonify } from './mc-toon.js';
+import { clamp, smooth, ramp, lerp, pageBackground, fitSafe, fitBox, toView, glowSprite } from './mc-stage.js?v=20261105-grip';
+import { toonify } from './mc-toon.js?v=20261102-toy';
 import { MODEL_CHARACTERS, HARNESS_NAMES, EFFORTS, DEFAULT_EFFORT } from './arena-data.js?v=20261028-cascade';
 
 const DESK_Z = .8, DESK_Y = .72, WALL_Z = -2.6, WALL_H = 3.4;

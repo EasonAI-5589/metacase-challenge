@@ -5,7 +5,7 @@
  * chapter (scroll-driven: own cases → bridges → crossing → new fields). */
 import * as THREE from './assets/vendor/three/three.module.js';
 import { PALETTE, mat, add, block, cyl, person, robot, buildings, tree, island, cloud, tile, crane, scaffold, lights, STAGE_COLORS } from './mc-kit.js?v=20261105-grip';
-import { clamp, smooth, ramp, lerp, pageBackground, fitCamera, toView, glowSprite } from './mc-stage.js';
+import { clamp, smooth, ramp, lerp, pageBackground, fitCamera, toView, glowSprite } from './mc-stage.js?v=20261105-grip';
 
 export const FIELDS = [
   { key: 'economics', accent: PALETTE.teal, pos: [-10, 0, -3], r: 3.4, now: true },

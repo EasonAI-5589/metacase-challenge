@@ -112,7 +112,7 @@ of future updates unless explicitly requested again.
 | Business Analysis & Deliverables: Finance and HR cases, rubric scoring and pilot evidence | `professional-tasks.html`, `professional-tasks.css`, `assets/i18n/professional-tasks.zh.json`, `assets/data/professional-tasks-pilot.json` |
 | Former Data URL: compatibility redirect to Challenge's research data introduction | `data.html`; `data.css` remains available for Harness |
 | Former Agent URL: redirects to improvement directions | `agent.html`; `agent.css` remains shared by Harness and Self-evolving |
-| Harness: definition, system structure, selected 2025–2026 milestones, common mechanism comparison, catalogue by role, three breakdowns and our four configurations | `harness.html`, `harness.css`; reuses `data.css`, `agent.css`, `evolution.css` |
+| Metacase (nav label; file `harness.html`): one run of FIN-T1-003 as a scroll-driven film on one pinned Three.js stage — Task, Agent, Trajectory, Grading, Metacase, one heading, one line and one number each — then the replay video, the full expert rubric (folded) and the hand-off to Self-evolving; harness definitions, 2025–2026 systems, the DeepAgents breakdown and sources sit in a Further reading fold. Without usable WebGL the five beats read as a column; with reduced motion they are composed stills | `harness.html`, `harness.css`, `metacase-film.css`, `metacase-film.js` (renderer, camera line, copy, rail, static and reduced-motion paths) and one module per beat: `film-task.js`, `film-agent.js`, `film-trajectory.js`, `film-grading.js`, `film-metacase.js`; reuses `mc-kit.js`, `mc-toon.js`, `arena-models.js`, `data.css`, `agent.css`, `evolution.css` |
 | Self-evolving: capability questions, model training and co-evolution directions, concept, research map by adaptation regime, method comparison, three detailed offline cases and our development study | `evolution.html`, `evolution.css`, `evolution.js`, `assets/data/modular-rsi-evolution.json` |
 | Leaderboard: the Dev100 / v10 development release | `leaderboard.html`, `leaderboard.css` |
 | Organizations (founding and collaborating), people, student leaders, other team members and Yichen Guo contact | `teams.html`, `teams.css` |
@@ -592,12 +592,12 @@ budget is not the ModularRSI study’s. A comparison by slot follows, then a sho
 separates running a harness from optimizing it and links to the Self-evolving
 page, the four Dev100 v10 configurations (DeepAgents 0.7.13, DeepSeek Harness
 0.1.5rc1, Claude Agent SDK 0.2.165 and OpenAI Agents SDK 0.23.1, at
-`harness.html#configurations`, with each one’s evidence scope) followed by the
+the configurations block of Further reading, with each one’s evidence scope) followed by the
 historical wiring of the first DeepAgents and DeepSeek Harness arms, a dated
 update and the sources, including market changes checked on 10 October 2026. The
 page reports no scores; it links to the Leaderboard for Dev100 v10 results.
 
-Section 07, "Update · 12 Oct 2026" (`harness.html#update`), retains the dated
+Section 07, "Update · 12 Oct 2026" (in the Further reading fold), retains the dated
 research snapshot; the catalogue now incorporates some of those candidates.
 The pinned breakdowns remain unchanged. Three tabs read
 current maintainers' READMEs and named files: nine engineering projects placed by

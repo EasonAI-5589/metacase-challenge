@@ -8,7 +8,7 @@
  * the problem was solved. Rendered by the shared stage (mc-stage.js). */
 import * as THREE from './assets/vendor/three/three.module.js';
 import { BOOK, bookTabs, labelPlane, labelTexture, METACASE_LABEL, PALETTE, mat, add, block, cyl, ball, rbox, lights, person, robot, buildings, STAGE_COLORS } from './mc-kit.js?v=20261105-grip';
-import { clamp, smooth, ramp, lerp, pageBackground, fitSafe, fitBox, toView, glowSprite } from './mc-stage.js';
+import { clamp, smooth, ramp, lerp, pageBackground, fitSafe, fitBox, toView, glowSprite } from './mc-stage.js?v=20261105-grip';
 
 const { PW, PD, T, BOARD } = BOOK;             // page width (x), page depth (z), page block, cover board (shared with closedBook)
 const CHAPTERS = [.13, .8];                    // where the book is open; one band per stage

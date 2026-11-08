@@ -3,9 +3,9 @@
  * Shared toy-kit geometry, warm wood, cream walls and theme-aware lighting. */
 import * as THREE from "./assets/vendor/three/three.module.js";
 import { catmullRom } from "./arena-motion.js";
-import { toon, toonify, createPost } from "./mc-toon.js";
+import { toon, toonify, createPost } from "./mc-toon.js?v=20261102-toy";
 import { person, robot, tile, PALETTE, GUN_HOLD } from "./mc-kit.js?v=20261105-grip";
-import { pageBackground } from "./mc-stage.js";
+import { pageBackground } from "./mc-stage.js?v=20261105-grip";
 import { ARENA_DOMAINS, HARNESS_NAMES, MODEL_CHARACTERS, EFFORTS, DEFAULT_EFFORT } from "./arena-data.js?v=20261105-classes";
 import { createCampusDetails } from "./arena-campus.js?v=20261027-frontgun";
 import { createRoomSubtracks } from "./arena-subtracks.js?v=20261027-frontgun";

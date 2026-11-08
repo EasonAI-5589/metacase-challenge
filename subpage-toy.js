@@ -2,7 +2,7 @@
  * page header (the kit's people and robot on a round plinth, with the page's own props), and
  * the class pictures from the field books beside the Challenge page's class list.
  * Loaded as a module on every page but the homepage. Local Three.js r170 only. */
-import { classArt, sectionArt } from './mc-classart.js?v=20261102-toybook';
+import { classArt, sectionArt } from './mc-classart.js?v=20261107-metacase';
 
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const page = [...document.body.classList].find(c => c.startsWith('v2-page-'))?.slice(8) || '';
@@ -45,7 +45,7 @@ if (hero && SCENES[page] && webgl) {
   holder.append(canvas);
   if (panel) panel.prepend(holder);
   else { hero.append(holder); hero.classList.add('has-toy'); }
-  const start = () => import('./subpage-toy-scenes.js?v=20261105-grip').then(m => m.mount(canvas, page, { reduce })).catch(() => holder.remove());
+  const start = () => import('./subpage-toy-scenes.js?v=20261107-metacase').then(m => m.mount(canvas, page, { reduce })).catch(() => holder.remove());
   // build when the header is near the view; the header is at the top, so normally at once
   if ('IntersectionObserver' in window) {
     const io = new IntersectionObserver(entries => { if (entries.some(e => e.isIntersecting)) { io.disconnect(); start(); } }, { rootMargin: '200px' });
