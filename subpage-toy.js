@@ -5,7 +5,8 @@
 import { classArt, sectionArt } from './mc-classart.js?v=20261107-metacase';
 
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const page = [...document.body.classList].find(c => c.startsWith('v2-page-'))?.slice(8) || '';
+// The Metacase page (metacase.html) keeps the harness diorama in its header.
+const page = { metacase: 'harness' }[[...document.body.classList].find(c => c.startsWith('v2-page-'))?.slice(8)] || [...document.body.classList].find(c => c.startsWith('v2-page-'))?.slice(8) || '';
 
 /* ---- class pictures beside each class on the Challenge page ---- */
 document.querySelectorAll('.class-item .class-row').forEach(row => {

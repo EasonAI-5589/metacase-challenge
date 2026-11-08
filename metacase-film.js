@@ -15,7 +15,7 @@
  *   dim: optional 0..1 the beat may set in update; while it is the current beat the stage lights
  *        are scaled by (1 - dim), so one colour can own the frame.
  *   A beat's story ends by lp .88: from 1 - DOLLY (.90) the camera whips on to the next set.
- * Debug: harness.html?film=0.42 holds global progress (add &t=2 to hold the clock);
+ * Debug: metacase.html?film=0.42 holds global progress (add &t=2 to hold the clock);
  * _film-dev.html?beat=2&lp=0.6 renders one beat on its own. Either one also allows software GL. */
 import * as THREE from './assets/vendor/three/three.module.js';
 import * as kit from './mc-kit.js?v=20261105-grip';
@@ -550,7 +550,7 @@ export function createFilm(section, { dev = null } = {}) {
 
 /* The private dev page (_film-dev.html) borrows the page's own film markup and renders one beat. */
 export async function mountFilmDev(host, { beat = 0, lp = 0, t = null, chain = false } = {}) {
-  const html = await (await fetch('harness.html', { cache: 'no-store' })).text();
+  const html = await (await fetch('metacase.html', { cache: 'no-store' })).text();
   const section = new DOMParser().parseFromString(html, 'text/html').querySelector('.mc-film');
   const film = document.importNode(section, true);
   host.append(film);

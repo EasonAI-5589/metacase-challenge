@@ -17,7 +17,7 @@ const devData = await exists(DEV_JSON) ? JSON.parse(await read(DEV_JSON)) : null
 const malformed = JSON.parse(await readFile(new URL('fixtures/dev100-malformed.json', import.meta.url), 'utf8'));
 const selected = selectedBoardDescriptor('assets/data/paired-results.json');
 const PAGE = 'https://example.org/leaderboard.html';
-const PAGES = ['index.html', 'challenge.html', 'replication.html', 'harness.html', 'evolution.html', 'leaderboard.html', 'teams.html', 'professional-tasks.html'];
+const PAGES = ['index.html', 'challenge.html', 'replication.html', 'metacase.html', 'evolution.html', 'leaderboard.html', 'teams.html', 'professional-tasks.html'];
 const TAG = '20261018-dev100-challenge';
 const DEV100_TAG = '20261018-home-challenges';
 // The development data module was re-released when the site became the Metacase Challenge.
