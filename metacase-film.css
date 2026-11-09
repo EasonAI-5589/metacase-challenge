@@ -110,9 +110,10 @@ html[lang="zh-CN"] .mc-beat-keep br { display: none; }
 @media (max-height: 760px) and (min-aspect-ratio: 11/10) {
   .mc-film.is-film .mc-beat > p:not(.mc-stat):not(.mc-beat-cta):not(.mc-beat-label):not(.mc-beat-keep) { display: none; }
 }
-/* very short windows: the copy has no room for the keep line's lead */
+/* very short windows: the copy has no room for the keep line's lead, and the box stays on one line */
 @media (max-height: 640px) and (min-aspect-ratio: 11/10) {
   .mc-beat-keep > span { display: none; }
+  .mc-beat-keep br { display: none; }
 }
 
 /* A beat's copy enters as one short cascade: each part rises into place in order, 50 ms apart.
