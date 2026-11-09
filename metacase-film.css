@@ -24,29 +24,31 @@
 .mc-beat h3 { margin: 0; font-size: clamp(28px, 2.9vw, 46px); font-weight: 650; line-height: 1.05; letter-spacing: -0.03em; color: var(--text-primary); }
 .mc-beat h3 .ln { display: block; }
 html[lang="zh-CN"] .mc-beat h3 { line-height: 1.22; letter-spacing: 0; word-break: keep-all; line-break: strict; }
-.mc-beat > p:not(.mc-stat) { margin: 14px 0 0; font-size: 19px; line-height: 1.6; color: var(--text-secondary); text-wrap: pretty; }
+.mc-beat > p:not(.mc-stat) { margin: 14px 0 0; font-size: 20px; line-height: 1.6; color: var(--text-secondary); text-wrap: pretty; }
 /* the chapter label above a beat's heading, as on the homepage's scenes: a numbered chip and a name */
 .mc-beat > p.mc-beat-label { display: flex; align-items: center; gap: 10px; margin: 0 0 14px; font: 400 13px/1.4 var(--font-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--text-secondary); }
 .mc-beat-label > span { display: inline-grid; place-items: center; min-width: 26px; height: 20px; padding: 0 6px; border: 1px solid color-mix(in oklab, var(--a) 55%, transparent); border-radius: 6px; color: var(--a); font-size: 11px; letter-spacing: 0; }
 /* the story steps: what is happening in the picture now. In the film they share one cell and only
  * the lit one shows (the script lights it from the beat's progress); without the film all are read. */
-.mc-beat-steps { counter-reset: step; display: grid; margin: 18px 0 0; padding: 14px 0 0; list-style: none; border-top: 1px solid var(--line); }
+.mc-beat-steps { counter-reset: step; display: grid; margin: 22px 0 0; padding: 16px 0 0; list-style: none; border-top: 1px solid var(--line); }
 .mc-beat-steps li { counter-increment: step; display: grid; gap: 6px; }
-.mc-beat-steps b { font: 400 13px/1.4 var(--font-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--a); }
+.mc-beat-steps b { font: 400 15px/1.4 var(--font-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--a); }
 .mc-beat-steps b::before { content: counter(step) " · "; }
-.mc-beat-steps span { font-size: 18.5px; line-height: 1.55; color: var(--text-primary); text-wrap: pretty; }
+.mc-beat-steps span { font-size: 19.5px; line-height: 1.55; color: var(--text-primary); text-wrap: pretty; }
 html[lang="zh-CN"] .mc-beat > p.mc-beat-label, html[lang="zh-CN"] .mc-beat-steps b, html[lang="zh-CN"] .mc-lesson-tag { text-transform: none; letter-spacing: .04em; }
+html[lang="zh-CN"] .mc-beat-steps b { font-family: var(--font-sans); font-size: 16px; font-weight: 600; }
+html[lang="zh-CN"] .mc-beat > p.mc-beat-label { font-family: var(--font-sans); font-size: 15px; }
 .mc-film.is-film .mc-beat-steps li { grid-area: 1 / 1; opacity: 0; translate: 0 6px; transition: opacity .3s var(--film-ease), translate .4s var(--film-ease); }
 .mc-film.is-film .mc-beat-steps li.is-on { opacity: 1; translate: 0 0; }
 .mc-film:not(.is-film) .mc-beat-steps { gap: 14px; }
 /* beside the picture the running text stays narrower than the heading, clear of the set */
 .mc-film.is-film .mc-beat > p:not(.mc-stat):not(.mc-beat-label):not(.mc-beat-keep), .mc-film.is-film .mc-beat-steps { max-width: min(520px, 36vw); }
 /* where this part of the run is kept: the homepage's five Metacase stages */
-.mc-film .mc-beat > p.mc-beat-keep { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; width: fit-content; margin: 18px 0 0; padding: 10px 16px; border: 1px solid color-mix(in oklab, var(--a) 40%, transparent); border-radius: 12px; background: color-mix(in oklab, var(--a) 12%, var(--bg-canvas)); font-size: 17px; line-height: 1.45; color: var(--text-primary); }
+.mc-film .mc-beat > p.mc-beat-keep { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; width: fit-content; margin: 24px 0 0; padding: 10px 16px; border: 1px solid color-mix(in oklab, var(--a) 40%, transparent); border-radius: 12px; background: color-mix(in oklab, var(--a) 12%, var(--bg-canvas)); font-size: 18px; line-height: 1.45; color: var(--text-primary); }
 .mc-beat-keep > span { color: var(--text-secondary); }
-.mc-beat-keep b { padding: 2px 12px; border-radius: 999px; background: color-mix(in oklab, var(--a) 22%, transparent); border: 1px solid color-mix(in oklab, var(--a) 60%, transparent); color: var(--a); font-size: 18px; font-weight: 650; }
+.mc-beat-keep b { padding: 2px 12px; border-radius: 999px; background: color-mix(in oklab, var(--a) 22%, transparent); border: 1px solid color-mix(in oklab, var(--a) 60%, transparent); color: var(--a); font-size: 19px; font-weight: 650; }
 .mc-beat-keep i { font-style: normal; font-weight: 600; }
-.mc-stat { display: grid; gap: 8px; justify-items: start; margin: 22px 0 0; }
+.mc-stat { display: grid; gap: 8px; justify-items: start; margin: 30px 0 0; }
 .mc-stat b { font-size: clamp(52px, 5.6vw, 92px); font-weight: 600; line-height: .86; letter-spacing: -0.04em; color: var(--a); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .mc-stat span { font-size: 13.5px; line-height: 1.4; color: var(--text-secondary); }
 /* the harness slot: a name, not a number, so it runs smaller and rolls over at each pick */
@@ -88,20 +90,21 @@ html[lang="zh-CN"] .mc-beat > p.mc-beat-label, html[lang="zh-CN"] .mc-beat-steps
   .mc-film.is-film .mc-beat { position: relative; grid-area: 1 / 1; align-self: start; bottom: auto; }
 }
 /* shorter windows: smaller type, then the story line drops out, so the copy never runs under the subnav */
-@media (max-height: 860px) and (min-aspect-ratio: 11/10) {
+@media (max-height: 880px) and (min-aspect-ratio: 11/10) {
   .mc-film.is-film .mc-film-copy { bottom: 76px; }
-  .mc-beat h3 { font-size: clamp(26px, 2.5vw, 38px); }
-  .mc-beat > p:not(.mc-stat) { font-size: 17px; margin-top: 10px; }
+  .mc-beat h3 { font-size: clamp(24px, 2.3vw, 34px); }
+  .mc-beat > p:not(.mc-stat) { font-size: 19px; margin-top: 10px; }
   .mc-beat > p.mc-beat-label { margin-bottom: 10px; }
-  .mc-beat-steps { margin-top: 12px; padding-top: 10px; }
-  .mc-beat-steps span { font-size: 17px; }
-  .mc-film .mc-beat > p.mc-beat-keep { margin-top: 12px; padding: 8px 14px; font-size: 15.5px; }
-  .mc-beat-keep b { font-size: 16px; }
-  .mc-stat { margin-top: 12px; gap: 4px; }
-  .mc-stat b { font-size: clamp(44px, 4.6vw, 70px); }
+  .mc-beat-steps { margin-top: 16px; padding-top: 12px; }
+  .mc-beat-steps b { font-size: 14.5px; }
+  .mc-beat-steps span { font-size: 19px; }
+  .mc-film .mc-beat > p.mc-beat-keep { margin-top: 18px; padding: 8px 14px; font-size: 17px; }
+  .mc-beat-keep b { font-size: 17.5px; }
+  .mc-stat { margin-top: 22px; gap: 4px; }
+  .mc-stat b { font-size: clamp(40px, 4vw, 60px); }
   .mc-stat.is-slot b { font-size: clamp(24px, 2.4vw, 34px); }
 }
-@media (max-height: 720px) and (min-aspect-ratio: 11/10) {
+@media (max-height: 760px) and (min-aspect-ratio: 11/10) {
   .mc-film.is-film .mc-beat > p:not(.mc-stat):not(.mc-beat-cta):not(.mc-beat-label):not(.mc-beat-keep) { display: none; }
   .mc-beat-keep > span { display: none; }
 }
