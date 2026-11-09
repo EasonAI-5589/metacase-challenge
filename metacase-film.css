@@ -80,6 +80,32 @@ html[lang="zh-CN"] .mc-beat > p.mc-beat-label, html[lang="zh-CN"] .mc-beat-steps
 .mc-film.is-film .mc-beat { position: absolute; left: 0; right: 0; bottom: 0; pointer-events: none; }
 .mc-film.is-film .mc-beat.is-active { pointer-events: auto; }
 
+/* Beside the picture the five beats share one grid cell, as tall as the tallest beat and pinned to
+ * the bottom: every beat starts at the same height, whatever its length. (Stacked, the script measures
+ * the copy itself, so the original bottom-anchored layout stays there.) */
+@media (min-width: 601px) and (min-aspect-ratio: 11/10) {
+  .mc-film.is-film .mc-film-copy { display: grid; height: auto; }
+  .mc-film.is-film .mc-beat { position: relative; grid-area: 1 / 1; align-self: start; bottom: auto; }
+}
+/* shorter windows: smaller type, then the story line drops out, so the copy never runs under the subnav */
+@media (max-height: 860px) and (min-aspect-ratio: 11/10) {
+  .mc-film.is-film .mc-film-copy { bottom: 76px; }
+  .mc-beat h3 { font-size: clamp(26px, 2.5vw, 38px); }
+  .mc-beat > p:not(.mc-stat) { font-size: 17px; margin-top: 10px; }
+  .mc-beat > p.mc-beat-label { margin-bottom: 10px; }
+  .mc-beat-steps { margin-top: 12px; padding-top: 10px; }
+  .mc-beat-steps span { font-size: 17px; }
+  .mc-film .mc-beat > p.mc-beat-keep { margin-top: 12px; padding: 8px 14px; font-size: 15.5px; }
+  .mc-beat-keep b { font-size: 16px; }
+  .mc-stat { margin-top: 12px; gap: 4px; }
+  .mc-stat b { font-size: clamp(44px, 4.6vw, 70px); }
+  .mc-stat.is-slot b { font-size: clamp(24px, 2.4vw, 34px); }
+}
+@media (max-height: 720px) and (min-aspect-ratio: 11/10) {
+  .mc-film.is-film .mc-beat > p:not(.mc-stat):not(.mc-beat-cta):not(.mc-beat-label):not(.mc-beat-keep) { display: none; }
+  .mc-beat-keep > span { display: none; }
+}
+
 /* A beat's copy enters as one short cascade: each part rises into place in order, 50 ms apart.
  * It leaves in half the time, upwards once its beat has passed. Opacity and translate only:
  * the WebGL frame under it is busiest exactly then. */
@@ -196,6 +222,7 @@ html.film-pinned .page-rail a { pointer-events: none; }
 .mc-lesson-tag { font: 400 11.5px/1.4 var(--font-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--a); }
 .mc-lessons h3 { margin: 0; font-size: 18px; line-height: 1.3; font-weight: 650; letter-spacing: -0.01em; }
 .mc-lessons p { margin: 0; font-size: 14.5px; line-height: 1.6; color: var(--text-secondary); text-wrap: pretty; }
+.harness-page #epilogue .section-heading .lead { font-size: 19px; line-height: 1.65; color: var(--text-primary); }
 .harness-page #epilogue .mc-handoff { margin: 32px 0 0; max-width: 860px; font-size: 15px; line-height: 1.8; color: var(--text-secondary); }
 @media (max-width: 900px) { .mc-lessons { grid-template-columns: minmax(0, 1fr); gap: 14px; } }
 
