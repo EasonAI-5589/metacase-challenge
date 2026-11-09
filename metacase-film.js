@@ -364,8 +364,9 @@ export function createFilm(section, { dev = null } = {}) {
       liftY = (1 - free) / 2;
       push = clamp(1.4 * (H * free) / W, 1, 2.2);
     } else {
-      shiftX = clamp((aspect - .9) * .14, .06, .14);
-      push = clamp(1.6 / aspect, 1, 1.35);
+      // the copy column takes a wide share of the left, so the set sits further right and a little further back
+      shiftX = clamp((aspect - .9) * .25, .08, .19);
+      push = clamp(1.86 / aspect, 1.14, 1.45);
     }
     if (push !== 1) pos.sub(look).multiplyScalar(push).add(look);
     camera.position.copy(pos);
