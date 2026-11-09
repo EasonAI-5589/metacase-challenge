@@ -341,14 +341,14 @@ The animation source and export scripts stay in the research workspace.
 ## Business analysis narrated demos
 
 Finance (`finance-story-demo.mp4`) is 294.667 seconds (4 min 55 s); HR
-(`hr-agent-replay.mp4`) is 245.433 seconds (4 min 05 s). Both are 1920×1080, 30 fps
+(`hr-agent-replay.mp4`) is 245.233 seconds (4 min 05 s). Both are 1920×1080, 30 fps
 H.264 High / AAC 48 kHz mono (BT.709) with English narration in `en-US-AriaNeural`, the
-voice of the approved PR #27 replay requested at +12 % to match its 1.12 pace. Finance
-(Metacase v3 edition) burns English captions only; HR still burns English / Chinese captions. They use the PR #27 layout and chapters (TASK → AGENT →
+voice of the approved PR #27 replay requested at +12 % to match its 1.12 pace. Both
+(Metacase v3 editions) burn English captions only. They use the PR #27 layout and chapters (TASK → AGENT →
 HARNESS → CHECK → RESULT): the task card, the agent's own TodoWrite plan, the run ledger
 (requests, tool calls by type, output tokens, latest prompt size), findings and
 `/app/output` stay on screen while a guide points at what the narration describes: the
-homepage robot with the Claude Code blaster in Finance, the pixel guide in HR.
+homepage robot with the Claude Code blaster.
 
 The AGENT chapter follows the recorded requests. Request numbers are the 28 assistant
 message ids of each Claude Code session log, so the replay shows what one request carried:
@@ -367,8 +367,8 @@ R51 = 0.5) and zero formulas (R19). Reward 0.332849 = 57.25 / 172.
 
 HR (28 shots, fictional task): eight parallel previews; the data-use rule; one
 19,223-token response that writes a 1,336-line script; a clean first run that labels WP-A
-“验收通过” while retaining 10 %; the model's review of its own output, two checks, two
-Reads, four Edits and a re-run that makes WP-A “附条件验收”. No tool call failed. CHECK
+“accepted” while retaining 10 %; the model's review of its own output, two checks, two
+Reads, four Edits and a re-run that makes WP-A a “conditional acceptance”. No tool call failed. CHECK
 shows R20 met, pooled rather than per-site comparisons (R14–R16), no source index
 (R1, R19) and penalty R32: all ten people with too few opportunities were marked as not
 meeting the standard (−7 raw weighted points). Reward 0.207547 = (29 − 7) / 106.
@@ -380,27 +380,29 @@ so the replay is time-compressed; the header clock shows the recorded agent time
 rewards are pilot rubric scores, not accuracy rates, rankings or general model performance.
 
 The professional task page and the Metacase page share Finance's media; Challenge embeds
-both. Finance uses `?v=20261109-metacase-v3`; HR keeps `?v=20261019-claude-relay-v2`. All
+both. Finance and HR use `?v=20261109-metacase-v3`. All
 use native controls, metadata preload, posters and download fallbacks.
 `docs/video/finance/` holds the English SRT and `provenance.json` (streams, chapters, every
 shot with its narration, the English glossary, file and source hashes); `docs/video/hr/`
-holds HR's three SRT variants and provenance. The editable Finance source is
-`video-demo/sources/finance/`. HR's storyboard, run data and narration cache
-(`research/sufe-video-claude-relay-20261018/`) are not in this repository.
+holds HR's English SRT and provenance. The editable sources are
+`video-demo/sources/finance/` and `video-demo/sources/hr/`. HR's original v2 storyboard,
+run data and narration cache were never archived; the v3 source rebuilds them from the
+published v2 film, and its provenance (`reconstruction`) lists what is exact, approximate
+and unknown.
 
 ## Metacase edition of the demo videos (2026-11-09)
 
 Issue #64 asked for the Finance replay in the website's current identity; task 0001
-received the same changes. Story, narration, cue timing, chapters, numbers and scores are
+and HR-T3-114 received the same changes. Story, narration, cue timing, chapters, numbers and scores are
 unchanged, and nothing was re-run or re-scored.
 
 - **Guide.** The homepage robot (`mc-kit.js` `robot()`) holding the arena's Claude Code
   blaster (`blaster-e.glb`) replaces the task0001 pixel pet. Its transparent sprites are
   rendered with three.js from the website's own modules, one per degree of aim; a sight
   laser from the muzzle replaces the baton and follows the same targets.
-- **English only.** Captions are English only. In Finance, Chinese source material on
-  screen (file names, the pending-entry register, sheet names, journal lines) is shown by
-  English names from a 69-entry glossary; numbers, codes, dates and amounts are unchanged.
+- **English only.** Captions are English only. In Finance and HR, Chinese source material
+  on screen (file names, registers, sheet names, journal lines, statuses) is shown by
+  English names from a glossary per task; numbers, codes, dates and amounts are unchanged.
 - **Brand.** The header, opening and closing titles use the Metacase mark and wordmark,
   the four hero crests with "Hosted by NTU GIFTS with HKU, SUFE and Tsinghua PBCSF", and
   `easonai-5589.github.io/metacase-challenge`. Finance's last narration line was re-voiced
@@ -412,8 +414,13 @@ unchanged, and nothing was re-run or re-scored.
   Finance's guide geometry audit passes on all 8,840 frames; task 0001's guide continuity
   audit passes on all 8,558 frames, its 11 original render functions are byte-identical,
   and its layout QA reports no caption or diagram overflow.
-- **Not yet changed.** HR-T3-114 keeps its previous edition until its editable source is
-  available.
+- **HR reconstruction.** HR's v2 source was never archived, so its storyboard and run data
+  were rebuilt from the published v2 film: shots, narration and timings from its
+  provenance, card text from its frames, and per-request tokens and tool calls read off
+  its ledger, trace and context panels. 21 sampled ledger readings match within 2 tokens,
+  the re-voiced shots keep the v2 boundaries within 0.011 s, and the guide geometry audit
+  passes on all 7,357 frames. `docs/video/hr/provenance.json` (`reconstruction`) lists
+  what is exact, approximate and unknown.
 
 ## Self-evolving: improving a harness
 

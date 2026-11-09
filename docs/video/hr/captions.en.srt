@@ -51,61 +51,61 @@ The run succeeded, with no error. But after reading its own output, the model re
 It checks the scope: 81 people included, 2 observation-limited, 1 excluded. Then it reads the script, edits it four times, and runs it again.
 
 14
-00:01:58,238 --> 00:02:09,286
+00:01:58,238 --> 00:02:09,275
 Same script, still no error. This time WP-A is a conditional acceptance: 220,320 yuan to approve, 24,480 retained.
 
 15
-00:02:09,876 --> 00:02:15,963
+00:02:09,865 --> 00:02:15,952
 It checks the nine-sheet workbook and the memo, and confirms that only the two required files are in the output folder.
 
 16
-00:02:16,553 --> 00:02:24,777
+00:02:16,542 --> 00:02:24,766
 The plan is ticked off and the agent stops: 28 requests, 44 tool calls, about six minutes. Not one tool call failed.
 
 17
-00:02:25,817 --> 00:02:36,943
+00:02:25,806 --> 00:02:36,932
 Here is the whole run. 33 Bash, 4 TodoWrite, 1 Write, 2 Read and 4 Edit calls. The turning point was not a crash; it came from the model reading its own results.
 
 18
-00:02:37,533 --> 00:02:46,460
+00:02:37,522 --> 00:02:46,449
 Each result is added to the model's context. By the last request, the prompt has grown from about 25 thousand to about 89 thousand tokens.
 
 19
-00:02:47,050 --> 00:02:53,209
+00:02:47,039 --> 00:02:53,198
 When the agent stops, Harbor copies the tests into the same container. Only then does scoring begin.
 
 20
-00:02:54,249 --> 00:02:56,497
+00:02:54,238 --> 00:02:56,486
 An independent check now takes over.
 
 21
-00:02:57,087 --> 00:03:08,402
+00:02:57,076 --> 00:03:08,391
 RewardKit opens one judge session for each of 34 criteria. The judge model is qwen3.7-plus, a different model from the agent. Nothing flows back to the agent.
 
 22
-00:03:08,992 --> 00:03:13,740
+00:03:08,981 --> 00:03:13,729
 The WP-A fix holds up: the judge accepts the conditional-acceptance status.
 
 23
-00:03:14,330 --> 00:03:22,721
+00:03:14,319 --> 00:03:22,710
 Other parts fall short. The workbook pools the three trained sites instead of comparing each one with the delayed site, and it has no source-index sheet.
 
 24
-00:03:23,311 --> 00:03:31,089
+00:03:23,300 --> 00:03:31,078
 And one penalty applies. Ten people had too few chances to show the behavior, yet the workbook marks them as not meeting the standard.
 
 25
-00:03:31,679 --> 00:03:36,750
+00:03:31,668 --> 00:03:36,739
 Too little opportunity is not evidence of low ability, so seven weighted points are deducted.
 
 26
-00:03:37,790 --> 00:03:46,695
+00:03:37,779 --> 00:03:46,684
 Of 28 positive criteria, 6 are met and 22 are not. One of six penalties applies, and this task has no red-line criteria.
 
 27
-00:03:47,285 --> 00:03:57,172
+00:03:47,274 --> 00:03:57,161
 The recorded reward is 0.208: 29 points, minus 7, over 106. One pilot run on a fictional task, not a ranking.
 
 28
-00:03:57,762 --> 00:04:04,613
+00:03:57,751 --> 00:04:04,413
 A professional task, an agent run, and an independent check. Explore more on the Metacase Challenge site.
