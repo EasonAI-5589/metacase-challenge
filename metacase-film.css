@@ -106,6 +106,9 @@ html[lang="zh-CN"] .mc-beat > p.mc-beat-label { font-family: var(--font-sans); f
 }
 @media (max-height: 760px) and (min-aspect-ratio: 11/10) {
   .mc-film.is-film .mc-beat > p:not(.mc-stat):not(.mc-beat-cta):not(.mc-beat-label):not(.mc-beat-keep) { display: none; }
+}
+/* very short windows: the copy has no room for the keep line's lead */
+@media (max-height: 640px) and (min-aspect-ratio: 11/10) {
   .mc-beat-keep > span { display: none; }
 }
 
@@ -176,7 +179,6 @@ html.film-pinned .page-rail a { pointer-events: none; }
   .mc-film.is-film .mc-film-copy { left: 16px; right: 16px; width: auto; bottom: 62px; }
   .mc-film.is-film .mc-beat > p:not(.mc-stat):not(.mc-beat-cta):not(.mc-beat-label):not(.mc-beat-keep) { display: none; }
   .mc-film .mc-beat > p.mc-beat-keep { width: auto; margin-top: 10px; padding: 6px 10px; gap: 4px 8px; font-size: 14px; border-radius: 10px; }
-  .mc-beat-keep > span { display: none; }
   .mc-beat-keep b { font-size: 14px; padding: 1px 9px; }
   .mc-beat-steps { margin-top: 10px; }
   .mc-stat { margin-top: 12px; }
