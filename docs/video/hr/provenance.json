@@ -1,5 +1,5 @@
 {
-  "version": "sufe-claude-relay-v2",
+  "version": "hr-metacase-v3",
   "task_id": "HR-T3-114",
   "run": "hr",
   "status": "approved for publication",
@@ -11,8 +11,8 @@
   "model_requests": 28,
   "tool_calls": 44,
   "reward": 0.207547,
-  "duration_seconds": 245.433,
-  "frames": 7363,
+  "duration_seconds": 245.233,
+  "frames": 7357,
   "fps": "30/1",
   "resolution": [
     1920,
@@ -28,10 +28,8 @@
       "pix_fmt": "yuv420p",
       "color_range": "tv",
       "color_space": "bt709",
-      "color_transfer": "bt709",
-      "color_primaries": "bt709",
       "r_frame_rate": "30/1",
-      "nb_frames": "7363"
+      "nb_frames": "7357"
     },
     {
       "codec_name": "aac",
@@ -40,17 +38,420 @@
       "sample_rate": "48000",
       "channels": 1,
       "r_frame_rate": "0/0",
-      "nb_frames": "11506"
+      "nb_frames": "11497"
     }
   ],
-  "voice": "en-US-AriaNeural (same voice as the approved PR #27 replay), rate +12% to match its 1.12 pacing",
+  "voice": "en-US-AriaNeural, rate +12% (the v2 voice and rate; 27 of 28 clips re-synthesised with the v2 timing to within 0.011 s)",
   "audio_is_synthetic": true,
   "audio_processing": "per-shot neural TTS clips placed on the shot timeline, loudnorm I=-16.5 LUFS, AAC 48 kHz mono",
   "burned_captions": [
-    "en",
-    "zh"
+    "en"
   ],
   "renderer": "offline Skia (skia-python) frame renderer; no browser, no CDP; H.264 High via libx264",
+  "runtime": {
+    "python": "3.12.7",
+    "platform": "Windows",
+    "packages": {
+      "skia-python": "144.0.post2",
+      "numpy": "2.3.5",
+      "pybind11": "3.1.0",
+      "fonttools": "4.51.0",
+      "Brotli": "1.0.9",
+      "Pillow": null
+    },
+    "ffmpeg": "ffmpeg version N-119917-g8087777e66-20250617 Copyright (c) 2000-2025 the FFmpeg developers",
+    "ffprobe": "ffprobe version N-119917-g8087777e66-20250617 Copyright (c) 2007-2025 the FFmpeg developers",
+    "phase": "packaging runtime"
+  },
+  "guide_alignment": {
+    "reference_edition": "task0001 v3.2",
+    "reference_file": "replay-deepagents-v3-2/site/original-guide.js",
+    "reference_sha256": "9246340ec582e46bdc2339a8824deba064ec2fa30dbb3be9c6839ee815b95e68",
+    "implementation": "engine/reference_pet.py",
+    "implementation_sha256": "d17cca8578c259620666433559b50fecebe1a0f3fd55558659e109d6adad307f",
+    "svg_path_elements": [
+      {
+        "name": "tail",
+        "path": "M4 13H1v-2h-2V9h2v2h3Z",
+        "color": "#c98a6c"
+      },
+      {
+        "name": "foot_0_0",
+        "path": "M5 15h4v6H5Z",
+        "color": "#805143"
+      },
+      {
+        "name": "foot_0_1",
+        "path": "M6 16h2v4H6Z",
+        "color": "#db9878"
+      },
+      {
+        "name": "foot_1_0",
+        "path": "M11 15h4v6h-4Z",
+        "color": "#805143"
+      },
+      {
+        "name": "foot_1_1",
+        "path": "M12 16h2v4h-2Z",
+        "color": "#db9878"
+      },
+      {
+        "name": "foot_2_0",
+        "path": "M17 15h4v6h-4Z",
+        "color": "#805143"
+      },
+      {
+        "name": "foot_2_1",
+        "path": "M18 16h2v4h-2Z",
+        "color": "#db9878"
+      },
+      {
+        "name": "body_0",
+        "path": "M5 4h3V2h3v2h6V2h3v3h2v3h2v9H2V8h3Z",
+        "color": "#7f5142"
+      },
+      {
+        "name": "body_1",
+        "path": "M5 5h4V3h2v2h6V3h2v3h2v3h2v7H3V9h2Z",
+        "color": "#eda67d"
+      },
+      {
+        "name": "body_2",
+        "path": "M6 5h3V3h2v2h6V3h2v3h2v3H5V7h1Z",
+        "color": "#ffc69a"
+      },
+      {
+        "name": "body_3",
+        "path": "M5 9h16v6H5Z",
+        "color": "#f7b78d"
+      },
+      {
+        "name": "body_4",
+        "path": "M3 14h20v2H3Z",
+        "color": "#ca8469"
+      },
+      {
+        "name": "mouth",
+        "path": "M12 13h1v1h2v-1h1v2h-4Z",
+        "color": "#965c48"
+      },
+      {
+        "name": "cheeks",
+        "path": "M6 13h2v1H6Zm14 0h2v1h-2Z",
+        "color": "#e9997a"
+      }
+    ],
+    "svg_path_element_count": 14,
+    "moving_mouth_alternative": "M12 13h3v2h-3Z",
+    "path_count_note": "14 SVG elements; the mouth has two authored animation states.",
+    "source_svg_viewbox": [
+      0,
+      0,
+      24,
+      22
+    ],
+    "output_svg_unit_pixels": 4.0,
+    "scale_relative_to_task0001_css_pet": 1.5,
+    "reference_files_sha256": {
+      "reference/task0001-v3.2/._enhancement.css": "efad876b04f8183b1ca3253626984e4f10d822e25a45a1c77392ab56563a41ec",
+      "reference/task0001-v3.2/._enhancement.js": "efad876b04f8183b1ca3253626984e4f10d822e25a45a1c77392ab56563a41ec",
+      "reference/task0001-v3.2/._index.html": "efad876b04f8183b1ca3253626984e4f10d822e25a45a1c77392ab56563a41ec",
+      "reference/task0001-v3.2/._original-guide.js": "efad876b04f8183b1ca3253626984e4f10d822e25a45a1c77392ab56563a41ec",
+      "reference/task0001-v3.2/._pet-overlay.css": "efad876b04f8183b1ca3253626984e4f10d822e25a45a1c77392ab56563a41ec",
+      "reference/task0001-v3.2/._timeline.json": "efad876b04f8183b1ca3253626984e4f10d822e25a45a1c77392ab56563a41ec",
+      "reference/task0001-v3.2/enhancement.css": "19a0c2227b44218c5790ee3ae66b1d9f62004554edf4195ae14b1a33379e2a9c",
+      "reference/task0001-v3.2/enhancement.js": "a660659f9c2256c050b8918125578bdb51df571faea7c1144cbd9aae9932a817",
+      "reference/task0001-v3.2/index.html": "d229957a3c3b48d3369d817d33427d2845a47e4011e07dff9d103d0bf83a93d7",
+      "reference/task0001-v3.2/original-guide.js": "9246340ec582e46bdc2339a8824deba064ec2fa30dbb3be9c6839ee815b95e68",
+      "reference/task0001-v3.2/pet-overlay.css": "8128bb8336a2202c308873635a9bd1f577734789768d14689e83b1b5ff664616",
+      "reference/task0001-v3.2/timeline.json": "9dce3e3d6b10f4cfc51183ce62be61761ac49742b5adf40a9b079f4490281861"
+    },
+    "orientation_policy": "Fixed right-facing reference pet; no mirroring or turning.",
+    "entrance_exit_policy": "Entrance and exit follow the task0001 v3.2 reference animation and timing relationship.",
+    "scope": "Original pet paths, colors and unmirrored pose equations translated to Skia, plus the reference whole opening and ending presentation. Finance retains its 93-cue narration and financial facts.",
+    "bookends": {
+      "source": "reference/task0001-v3.2/index.html",
+      "source_sha256": "d229957a3c3b48d3369d817d33427d2845a47e4011e07dff9d103d0bf83a93d7",
+      "implementation": "engine/reference_bookends.py",
+      "opening": "84 seeded floating glyphs and original role icons converge; original logo back-easing and staggered title reveal.",
+      "ending": "Original spotlight, logo, rule and sequential copy reveal; the compositor keeps result and ending foregrounds mutually exclusive.",
+      "timing": "Original 5000/5200 ms presentation clocks fit the existing finance opening/ending durations; narration, captions and audio are unchanged.",
+      "copy": "Existing finance role values, task ID, English/Chinese title and ending text retained; particle words use finance evidence."
+    }
+  },
+  "guide_character": {
+    "character": "the homepage robot (mc-kit.js robot(0xf7f5f0, 0x8ff6ff)) holding the arena's Claude Code blaster (Kenney blaster-e.glb, CC0)",
+    "renderer": "robot/sprite.html (three.js, homepage lights) -> 362 transparent sprites, -90..+90 degrees aim in 1-degree steps, eyes open and mid-blink",
+    "sprites_index": {
+      "path": "robot/sprites/sprites.json",
+      "sha256": "a0c0189cb4c86c692c1bf138eeb5cfa66f7e72d7357bc588d2da23b1fd0261c8"
+    },
+    "pointer": "a sight laser from the muzzle to the cue target; hidden in the parked pose",
+    "routes_and_cues": "73 cues at the v2 targets (engine/guide_targets.py, HR section)"
+  },
+  "english_only": {
+    "captions": "English only; no Chinese captions are burned in or delivered",
+    "on_screen_text": "Chinese source strings are shown by English names via story/hr_en.py GLOSSARY; numbers, codes, statuses' meaning and amounts unchanged",
+    "glossary": [
+      {
+        "zh": "三时点情境测验答题明细.csv",
+        "en": "scenario_test_answers_3_points.csv"
+      },
+      {
+        "zh": "中心月度运营指标.csv",
+        "en": "hub_monthly_operations.csv"
+      },
+      {
+        "zh": "主管范围与轮班花名册.csv",
+        "en": "supervisor_scope_shift_roster.csv"
+      },
+      {
+        "zh": "任务授权、伦理边界与决策权限.docx",
+        "en": "task_authority_ethics_decision_rights.docx"
+      },
+      {
+        "zh": "到课、补训与豁免事件.csv",
+        "en": "attendance_makeup_waivers.csv"
+      },
+      {
+        "zh": "历史基准与同期参照.xlsx",
+        "en": "historical_baseline_reference.xlsx"
+      },
+      {
+        "zh": "学习数据最小使用规范.docx",
+        "en": "learning_data_minimum_use.docx"
+      },
+      {
+        "zh": "带教约谈与行动承诺.csv",
+        "en": "coaching_talks_commitments.csv"
+      },
+      {
+        "zh": "异常处置机会暴露日志.csv",
+        "en": "incident_opportunity_log.csv"
+      },
+      {
+        "zh": "异常工单生命周期.csv",
+        "en": "incident_ticket_lifecycle.csv"
+      },
+      {
+        "zh": "现场处置行为编码.xlsx",
+        "en": "field_behaviour_coding.xlsx"
+      },
+      {
+        "zh": "训练单元和教学场次账.xlsx",
+        "en": "training_units_sessions.xlsx"
+      },
+      {
+        "zh": "设备、气象和货型扰动.csv",
+        "en": "equipment_weather_cargo_disruptions.csv"
+      },
+      {
+        "zh": "证据完整性复核清单.xlsx",
+        "en": "evidence_completeness_checklist.xlsx"
+      },
+      {
+        "zh": "采购工作包与结算规则.xlsx",
+        "en": "procurement_work_packages_settlement.xlsx"
+      },
+      {
+        "zh": "项目验收与整改决策备忘录.docx",
+        "en": "project_acceptance_remediation_memo.docx"
+      },
+      {
+        "zh": "训练成效与验收决策工作簿.xlsx",
+        "en": "training_impact_acceptance_workbook.xlsx"
+      },
+      {
+        "zh": "任务授权、伦理边界与决策权限",
+        "en": "Task authority, ethical boundaries and decision rights"
+      },
+      {
+        "zh": "学习数据最小使用规范",
+        "en": "learning-data minimum-use rules"
+      },
+      {
+        "zh": "昇川温控运营（虚构）｜冰链应变训练",
+        "en": "Jichuan Cold-Chain Operations (fictional) | cold-chain response training"
+      },
+      {
+        "zh": "全部主体、人员、客户、交易及业务数据均为虚构合成，仅用于基准测试。",
+        "en": "All entities, people, customers, transactions and business data are synthetic, for benchmarking only."
+      },
+      {
+        "zh": "个人测验、观察和辅导仅用于项目评估、支持性辅导与采购验收。",
+        "en": "Individual tests, observations and coaching are used only for evaluation, supportive coaching and acceptance."
+      },
+      {
+        "zh": "冰链应变训练: 训练成效与验收",
+        "en": "Cold-chain response training: impact and"
+      },
+      {
+        "zh": "决策分析流水线",
+        "en": "acceptance decision pipeline"
+      },
+      {
+        "zh": "机会行为个人汇总",
+        "en": "Opportunity-behaviour by person"
+      },
+      {
+        "zh": "阶段门与金额复算",
+        "en": "Stage gates & amounts"
+      },
+      {
+        "zh": "学习保持分析",
+        "en": "Learning retention"
+      },
+      {
+        "zh": "有效样本核定",
+        "en": "Valid sample"
+      },
+      {
+        "zh": "封面与口径",
+        "en": "Cover & definitions"
+      },
+      {
+        "zh": "机会与行为",
+        "en": "Opportunity & behaviour"
+      },
+      {
+        "zh": "带教辅导",
+        "en": "Coaching"
+      },
+      {
+        "zh": "运营对照",
+        "en": "Operations comparison"
+      },
+      {
+        "zh": "测验汇总",
+        "en": "Test summary"
+      },
+      {
+        "zh": "no 来源索引 (source index)",
+        "en": "no source-index sheet"
+      },
+      {
+        "zh": "来源索引",
+        "en": "Source index"
+      },
+      {
+        "zh": "附条件验收",
+        "en": "conditional acceptance"
+      },
+      {
+        "zh": "验收通过",
+        "en": "accepted"
+      },
+      {
+        "zh": "部分验收(",
+        "en": "partial acceptance ("
+      },
+      {
+        "zh": "单元)",
+        "en": " units)"
+      },
+      {
+        "zh": "交付率",
+        "en": "delivery rate"
+      },
+      {
+        "zh": "时长达标率",
+        "en": "hours-met rate"
+      },
+      {
+        "zh": "纳入 81 · 观察受限 2 · 排除 1",
+        "en": "included 81 · obs.-limited 2 · excluded 1"
+      },
+      {
+        "zh": "训练准备与交付",
+        "en": "Training preparation and delivery"
+      },
+      {
+        "zh": "学习保持与岗位转化证据",
+        "en": "Learning retention and on-the-job transfer"
+      },
+      {
+        "zh": "运营验证与结项关闭",
+        "en": "Operational validation and close-out"
+      },
+      {
+        "zh": "训练服务方阶段申请: “材料已上传”为由自评全部通过",
+        "en": "Vendor stage claim: all passed because “materials uploaded”"
+      },
+      {
+        "zh": "合同金额",
+        "en": "contract"
+      },
+      {
+        "zh": "建议提交",
+        "en": "to approve"
+      },
+      {
+        "zh": "保留",
+        "en": "retained"
+      },
+      {
+        "zh": "机会充足 (≥2 次)",
+        "en": "Enough opportunity (≥2)"
+      },
+      {
+        "zh": "机会充足 = 否",
+        "en": "Enough opportunity = no"
+      },
+      {
+        "zh": "行为达标 = 否",
+        "en": "Behaviour met = no"
+      },
+      {
+        "zh": "机会不足",
+        "en": "Too little opportunity"
+      }
+    ],
+    "check": "work/cjk_scan.py drew every 5th frame: 0 strings with Chinese characters reach the screen (cjk-onscreen.json)",
+    "not_drawn": [
+      "task-card Chinese subtitle",
+      "the Chinese duplicate of each work-package name"
+    ]
+  },
+  "brand": {
+    "mark_and_wordmark": "Metacase mark (.lg-anim timing) and 'Metacase Challenge' wordmark from the website homepage",
+    "institutions": "NTU, HKU, SUFE and Tsinghua crests as on the homepage hero; 'Hosted by NTU GIFTS with HKU, SUFE and Tsinghua PBCSF'",
+    "site": "easonai-5589.github.io/metacase-challenge",
+    "attribution": "brand/ATTRIBUTION.txt"
+  },
+  "reconstruction": {
+    "why": "The v2 HR source (story/hr.py, data/hr.json, hr.requests.jsonl, voice cache) was not archived with the published film.",
+    "inputs": [
+      "v2 film assets/video/hr-agent-replay.mp4 (frames and audio)",
+      "v2 docs/video/hr/provenance.json (shot ids, kinds, timings, narration, captions)"
+    ],
+    "method": [
+      "Shot list, chapters, kinds, narration and status lines copied from the v2 provenance and frames.",
+      "Per-request output tokens, prompt tokens, tool calls and plan states read from the run ledger, trace and context panels frame by frame (reconstruction/build_hr_data.py).",
+      "Card text, file names, statuses and amounts transcribed from the frames.",
+      "Narration re-synthesised with the v2 voice and rate; shot boundaries match v2 to within 0.011 s (h26 is 0.2 s shorter because it now names the Metacase Challenge site)."
+    ],
+    "checks": [
+      "21 ledger readings sampled across the v2 film (requests, tool calls, output tokens, latest prompt, files opened) reproduced within 2 tokens.",
+      "v3 stills at 35/70/95 % of every shot compared side by side with the v2 frames (84 pairs)."
+    ],
+    "exact": "request count 28, tool calls 44 by tool, step times shown on cards, 12 prompt-token values printed on screen, final output-token total 33,040, criteria results, reward, deliverable sizes",
+    "approximate": "the other 16 prompt-token values (read from the context chart, bias-corrected) and the per-request split of output tokens between sampled ledger readings",
+    "unknown": "two Word input files whose names never appear on screen (shown nowhere in v3 either); criterion weights other than R20 and R32",
+    "label_corrections": [
+      "h14 stage label 'Bash ×8 · TodoWrite' -> 'Bash ×7 · TodoWrite' (the v2 ledger shows 7 Bash calls and 1 TodoWrite in steps 39–46)"
+    ]
+  },
+  "validation": {
+    "geometry_report": "docs/video/hr/guide-geometry-qa.json",
+    "font_selection": "docs/video/hr/font-selection.json",
+    "render_receipt": "docs/video/hr/render-receipt.json",
+    "render_input_fingerprint": "d8e1287e5707aa95d2e236dbb85dbbcd75004d3ca9f799340a40ff74c9618bcd",
+    "geometry_passed": true,
+    "frames_checked": 7357,
+    "cue_boundaries_checked": 73,
+    "video_checks": "Full render frame count, frame rate and dimensions verified with ffprobe before packaging.",
+    "review_scope": "Automated geometry, text and asset checks plus side-by-side stills; these records do not claim full human viewing or listening."
+  },
   "chapters": [
     {
       "name": "TASK",
@@ -60,22 +461,22 @@
     {
       "name": "AGENT",
       "start_seconds": 42.472,
-      "end_seconds": 145.097
+      "end_seconds": 145.086
     },
     {
       "name": "HARNESS",
-      "start_seconds": 145.547,
-      "end_seconds": 173.529
+      "start_seconds": 145.536,
+      "end_seconds": 173.518
     },
     {
       "name": "CHECK",
-      "start_seconds": 173.979,
-      "end_seconds": 217.07
+      "start_seconds": 173.968,
+      "end_seconds": 217.059
     },
     {
       "name": "RESULT",
-      "start_seconds": 217.52,
-      "end_seconds": 244.933
+      "start_seconds": 217.509,
+      "end_seconds": 244.733
     }
   ],
   "shots": [
@@ -86,7 +487,6 @@
       "start_seconds": 0.0,
       "end_seconds": 8.211,
       "narration_en": "One model, one harness, one training review. Follow how the agent works inside Claude Code, and how its files are checked.",
-      "caption_zh": "一个模型、一套 Harness、一次培训评估。看 Agent 如何在 Claude Code 里工作，交付物又如何被检验。",
       "trace_seconds": null
     },
     {
@@ -96,7 +496,6 @@
       "start_seconds": 8.211,
       "end_seconds": 16.724,
       "narration_en": "A fictional cold-chain operator trained supervisors at three sites for six weeks. A fourth site, trained later, is the comparison.",
-      "caption_zh": "一家虚构的冷链运营商在三个中心对一线主管进行了六周训练；第四个中心延期参训，作为同期对照。",
       "trace_seconds": null
     },
     {
@@ -106,7 +505,6 @@
       "start_seconds": 16.724,
       "end_seconds": 25.32,
       "narration_en": "The agent must judge what the training changed, then decide acceptance and payment for three vendor work packages, worth 816,000 yuan.",
-      "caption_zh": "Agent 要判断训练带来了什么变化，再对三个服务采购工作包给出验收和付款建议，合计 816,000 元。",
       "trace_seconds": null
     },
     {
@@ -116,7 +514,6 @@
       "start_seconds": 25.32,
       "end_seconds": 35.842,
       "narration_en": "17 files go in: rosters, attendance, tests, field observations, work orders and procurement rules. A workbook and a decision memo must come out.",
-      "caption_zh": "输入 17 份材料：花名册、出勤、测验、现场观察、工单和采购规则；产出一份工作簿和一份决策备忘录。",
       "trace_seconds": null
     },
     {
@@ -126,7 +523,6 @@
       "start_seconds": 35.842,
       "end_seconds": 42.022,
       "narration_en": "The scoring rubric is not in the container. The agent works without seeing how it will be judged.",
-      "caption_zh": "评分标准不在容器里。Agent 在看不到评判方式的情况下工作。",
       "trace_seconds": null
     },
     {
@@ -136,7 +532,6 @@
       "start_seconds": 42.472,
       "end_seconds": 52.581,
       "narration_en": "Claude Code runs the loop. The model chooses an action, Claude Code turns it into a tool call, the call runs inside the container, and the result returns to the model.",
-      "caption_zh": "Claude Code 负责运行循环：模型选择动作，Claude Code 把它变成工具调用，调用在容器里执行，结果再回到模型。",
       "trace_seconds": [
         0.0,
         7.1
@@ -149,7 +544,6 @@
       "start_seconds": 52.581,
       "end_seconds": 61.563,
       "narration_en": "After listing the inputs, the second request sends eight tool calls at once, one preview per data ledger. All eight results come back together.",
-      "caption_zh": "列出输入目录之后，第二次请求一次发出 8 个工具调用，逐个预览数据台账；8 个结果一起返回。",
       "trace_seconds": [
         7.1,
         16.5
@@ -162,7 +556,6 @@
       "start_seconds": 61.563,
       "end_seconds": 70.103,
       "narration_en": "Request three writes a plan with TodoWrite: validate the samples, analyze learning and behavior, compare the sites, and compute the payments.",
-      "caption_zh": "第三次请求用 TodoWrite 写下计划：核定样本、分析学习与行为、比较各中心，再计算付款。",
       "trace_seconds": [
         23.5,
         25.4
@@ -175,7 +568,6 @@
       "start_seconds": 70.103,
       "end_seconds": 79.341,
       "narration_en": "Then it reads the workbooks and Word files. One rule matters: individual learning data may only be used for assessment, support and acceptance.",
-      "caption_zh": "接着它读取工作簿和 Word 文件。其中一条规则很关键：个人学习数据只能用于项目评估、支持性辅导和采购验收。",
       "trace_seconds": [
         31.5,
         52.0
@@ -188,7 +580,6 @@
       "start_seconds": 79.341,
       "end_seconds": 88.568,
       "narration_en": "Then comes one long response. For over two minutes the model writes a single analysis script, and Claude Code's Write tool saves it in the container.",
-      "caption_zh": "接着是一次很长的响应：模型用了两分多钟写出一整个分析脚本，Claude Code 的 Write 工具把它保存进容器。",
       "trace_seconds": [
         67.2,
         199.9
@@ -201,7 +592,6 @@
       "start_seconds": 88.568,
       "end_seconds": 98.789,
       "narration_en": "Bash runs the script. It loads every ledger and writes both files. Work package A comes out as accepted, yet 10% of its payment is held back.",
-      "caption_zh": "Bash 运行这个脚本，读入全部台账并写出两份文件。工作包 A 的结果是“验收通过”，却又扣留了 10% 的款项。",
       "trace_seconds": [
         204.0,
         206.0
@@ -214,7 +604,6 @@
       "start_seconds": 98.789,
       "end_seconds": 108.228,
       "narration_en": "The run succeeded, with no error. But after reading its own output, the model reports problems in the WP-A status logic and the sample filter.",
-      "caption_zh": "运行成功，没有报错。但读完自己的输出后，模型指出 WP-A 的状态判定和样本筛选存在问题。",
       "trace_seconds": [
         206.0,
         222.1
@@ -227,7 +616,6 @@
       "start_seconds": 108.228,
       "end_seconds": 117.968,
       "narration_en": "It checks the scope: 81 people included, 2 observation-limited, 1 excluded. Then it reads the script, edits it four times, and runs it again.",
-      "caption_zh": "它核对样本范围：81 人纳入、2 人观察受限、1 人排除。随后读取脚本、修改 4 处，再重新运行。",
       "trace_seconds": [
         221.8,
         282.4
@@ -238,9 +626,8 @@
       "chapter": "AGENT",
       "kind": "rerun",
       "start_seconds": 117.968,
-      "end_seconds": 129.606,
+      "end_seconds": 129.595,
       "narration_en": "Same script, still no error. This time WP-A is a conditional acceptance: 220,320 yuan to approve, 24,480 retained.",
-      "caption_zh": "同一个脚本，依旧没有报错。这次 WP-A 变为附条件验收：建议提交审批 220,320 元，保留 24,480 元。",
       "trace_seconds": [
         282.2,
         283.5
@@ -250,10 +637,9 @@
       "id": "h14",
       "chapter": "AGENT",
       "kind": "verify",
-      "start_seconds": 129.606,
-      "end_seconds": 136.283,
+      "start_seconds": 129.595,
+      "end_seconds": 136.272,
       "narration_en": "It checks the nine-sheet workbook and the memo, and confirms that only the two required files are in the output folder.",
-      "caption_zh": "它检查 9 张表的工作簿和备忘录，并确认输出目录里只有这两份文件。",
       "trace_seconds": [
         287.4,
         319.0
@@ -263,10 +649,9 @@
       "id": "h15",
       "chapter": "AGENT",
       "kind": "finish",
-      "start_seconds": 136.283,
-      "end_seconds": 145.097,
+      "start_seconds": 136.272,
+      "end_seconds": 145.086,
       "narration_en": "The plan is ticked off and the agent stops: 28 requests, 44 tool calls, about six minutes. Not one tool call failed.",
-      "caption_zh": "计划全部打勾，Agent 结束：28 次请求、44 次工具调用，约 6 分钟，没有一次工具调用失败。",
       "trace_seconds": [
         325.6,
         364.9
@@ -276,10 +661,9 @@
       "id": "h16",
       "chapter": "HARNESS",
       "kind": "trace",
-      "start_seconds": 145.547,
-      "end_seconds": 157.263,
+      "start_seconds": 145.536,
+      "end_seconds": 157.252,
       "narration_en": "Here is the whole run. 33 Bash, 4 TodoWrite, 1 Write, 2 Read and 4 Edit calls. The turning point was not a crash; it came from the model reading its own results.",
-      "caption_zh": "这是整次运行：33 次 Bash、4 次 TodoWrite、1 次 Write、2 次 Read、4 次 Edit。转折点不是崩溃，而是模型读了自己的结果。",
       "trace_seconds": [
         364.9,
         364.9
@@ -289,10 +673,9 @@
       "id": "h17",
       "chapter": "HARNESS",
       "kind": "context",
-      "start_seconds": 157.263,
-      "end_seconds": 166.78,
+      "start_seconds": 157.252,
+      "end_seconds": 166.769,
       "narration_en": "Each result is added to the model's context. By the last request, the prompt has grown from about 25 thousand to about 89 thousand tokens.",
-      "caption_zh": "每个结果都会追加进模型的上下文。到最后一次请求，提示长度从约 2.5 万 token 增长到约 8.9 万。",
       "trace_seconds": [
         364.9,
         364.9
@@ -302,10 +685,9 @@
       "id": "h18",
       "chapter": "HARNESS",
       "kind": "handoff",
-      "start_seconds": 166.78,
-      "end_seconds": 173.529,
+      "start_seconds": 166.769,
+      "end_seconds": 173.518,
       "narration_en": "When the agent stops, Harbor copies the tests into the same container. Only then does scoring begin.",
-      "caption_zh": "Agent 停止后，Harbor 才把测试复制进同一个容器。评分这时才开始。",
       "trace_seconds": [
         364.9,
         364.9
@@ -315,153 +697,232 @@
       "id": "h19",
       "chapter": "CHECK",
       "kind": "chapter",
-      "start_seconds": 173.979,
-      "end_seconds": 176.817,
+      "start_seconds": 173.968,
+      "end_seconds": 176.806,
       "narration_en": "An independent check now takes over.",
-      "caption_zh": "接下来，由独立检验接手。",
       "trace_seconds": null
     },
     {
       "id": "h20",
       "chapter": "CHECK",
       "kind": "judges",
-      "start_seconds": 176.817,
-      "end_seconds": 188.722,
+      "start_seconds": 176.806,
+      "end_seconds": 188.711,
       "narration_en": "RewardKit opens one judge session for each of 34 criteria. The judge model is qwen3.7-plus, a different model from the agent. Nothing flows back to the agent.",
-      "caption_zh": "RewardKit 为 34 条评分项各开一个裁判会话；裁判模型是 qwen3.7-plus，与 Agent 所用模型不同。评分结果不会回传给 Agent。",
       "trace_seconds": null
     },
     {
       "id": "h21",
       "chapter": "CHECK",
       "kind": "wpa",
-      "start_seconds": 188.722,
-      "end_seconds": 194.06,
+      "start_seconds": 188.711,
+      "end_seconds": 194.049,
       "narration_en": "The WP-A fix holds up: the judge accepts the conditional-acceptance status.",
-      "caption_zh": "WP-A 的修正经受住了检验：裁判认可“附条件验收”这一状态。",
       "trace_seconds": null
     },
     {
       "id": "h22",
       "chapter": "CHECK",
       "kind": "pooled",
-      "start_seconds": 194.06,
-      "end_seconds": 203.041,
+      "start_seconds": 194.049,
+      "end_seconds": 203.03,
       "narration_en": "Other parts fall short. The workbook pools the three trained sites instead of comparing each one with the delayed site, and it has no source-index sheet.",
-      "caption_zh": "其他部分没有过关：工作簿把三个受训中心合并计算，而不是逐一与延期中心比较；也没有“来源索引”表。",
       "trace_seconds": null
     },
     {
       "id": "h23",
       "chapter": "CHECK",
       "kind": "r32",
-      "start_seconds": 203.041,
-      "end_seconds": 211.409,
+      "start_seconds": 203.03,
+      "end_seconds": 211.398,
       "narration_en": "And one penalty applies. Ten people had too few chances to show the behavior, yet the workbook marks them as not meeting the standard.",
-      "caption_zh": "还有一项扣分：10 人因机会不足无法评价，工作簿却把他们标为“行为不达标”。",
       "trace_seconds": null
     },
     {
       "id": "h23b",
       "chapter": "CHECK",
       "kind": "r32",
-      "start_seconds": 211.409,
-      "end_seconds": 217.07,
+      "start_seconds": 211.398,
+      "end_seconds": 217.059,
       "narration_en": "Too little opportunity is not evidence of low ability, so seven weighted points are deducted.",
-      "caption_zh": "机会不足不等于能力不足，因此扣除 7 个原始加权分。",
       "trace_seconds": null
     },
     {
       "id": "h24",
       "chapter": "RESULT",
       "kind": "tally",
-      "start_seconds": 217.52,
-      "end_seconds": 227.015,
+      "start_seconds": 217.509,
+      "end_seconds": 227.004,
       "narration_en": "Of 28 positive criteria, 6 are met and 22 are not. One of six penalties applies, and this task has no red-line criteria.",
-      "caption_zh": "28 个正向评分项中 6 项满足、22 项未满足；6 个扣分项中触发 1 项；本题没有红线项。",
       "trace_seconds": null
     },
     {
       "id": "h25",
       "chapter": "RESULT",
       "kind": "reward",
-      "start_seconds": 227.015,
-      "end_seconds": 237.492,
+      "start_seconds": 227.004,
+      "end_seconds": 237.481,
       "narration_en": "The recorded reward is 0.208: 29 points, minus 7, over 106. One pilot run on a fictional task, not a ranking.",
-      "caption_zh": "记录的奖励值为 0.208，即 (29 − 7) / 106。这是虚构任务上的一次试跑，不是排名。",
       "trace_seconds": null
     },
     {
       "id": "h26",
       "chapter": "RESULT",
       "kind": "outro",
-      "start_seconds": 237.492,
-      "end_seconds": 244.933,
+      "start_seconds": 237.481,
+      "end_seconds": 244.733,
       "narration_en": "A professional task, an agent run, and an independent check. Explore more on the Metacase Challenge site.",
-      "caption_zh": "专业任务、Agent 运行、独立检验。更多内容见 Metacase Challenge 网站。",
       "trace_seconds": null
     }
   ],
   "files": {
     "assets/video/hr-agent-replay.mp4": {
-      "bytes": 42572792,
-      "sha256": "15f71e8d0ab128a658c9f1fa7cf8ba96ee6a415d96d8969f475328eadf9cecb4"
+      "bytes": 38218873,
+      "sha256": "910198595ef22be83f417ef2dbedf1daca3aa96256794f08d5c490b0cef20efd"
     },
     "assets/video/hr-agent-replay-poster.jpg": {
-      "bytes": 376369,
-      "sha256": "a7719d330eab6b94b69a79d98532718e29e9334aad108f1f1f4a857dded499e9"
+      "bytes": 334403,
+      "sha256": "94f96508c7a9d453b4161fcc890ca8e548d40de4eba05e03990798a948fdde39"
+    },
+    "docs/video/hr/README.md": {
+      "bytes": 4365,
+      "sha256": "822de0af43b8c4370a8130bbb65b1619cf741395b0554f3a73ab9d8828eb3f63"
     },
     "docs/video/hr/captions.en.srt": {
-      "bytes": 4499,
-      "sha256": "b0875674f840c3e03743823147b0cdc6e253881899639e798b5fd6d5099b5c0a"
+      "bytes": 4495,
+      "sha256": "7c2d52029b879889e1c04dc6c5778aebfc40f65d6991aec391d15a87b4c17cea"
     },
-    "docs/video/hr/captions.zh.srt": {
-      "bytes": 4276,
-      "sha256": "f395ba891a5acd6fd72ecb0600a96813127fb60483dcd54aa3826dfee5a84ff2"
+    "docs/video/hr/cjk-onscreen.json": {
+      "bytes": 2,
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
     },
-    "docs/video/hr/captions.bilingual.srt": {
-      "bytes": 7833,
-      "sha256": "ca057acdf1aa6e28a94c0403034920775f1d8b68a4804b4bb45da710660e2629"
+    "docs/video/hr/font-selection.json": {
+      "bytes": 5802,
+      "sha256": "e6fe25883be706f188a78a45f7df0fcd807aba4aa678a0a8e5cd2233e840c195"
+    },
+    "docs/video/hr/guide-geometry-qa.json": {
+      "bytes": 45594,
+      "sha256": "b0a0c7b145fdb29b3f0aeeed2aa274d793d2e9765f89a8c1db1cd5415ad3f050"
+    },
+    "docs/video/hr/render-receipt.json": {
+      "bytes": 26736,
+      "sha256": "fbd06fca4d2c720a687e96df9e7e1e2314f24e2cf4dbd7a47807e40f1dc1f216"
     }
   },
   "sources": {
     "run_export": {
-      "path": "HR-T3-114 recorded pilot run export",
-      "sha256": "5aa8822cfb2319fb116cac82b184fa4b6c86609712e56ef0ca94a238ea92037e"
+      "path": "data/hr.json",
+      "sha256": "4598e7a0281fba932ac20351c161b4e20bbb0f8fb9f0a877a3c159f782aeef75",
+      "note": "reconstructed; see reconstruction"
     },
-    "session_log": {
-      "path": "HR-T3-114 recorded Claude Code session log",
-      "sha256": "9d20ca4383f1e9d8761c9d6d51c49546ca54eb6b3edbb0b16810c805d4f94a9c"
+    "request_metadata": {
+      "path": "data/hr.requests.jsonl",
+      "sha256": "f70a33ddc6dc31e4e358abb509d840da776c479c1a63b22365ee34a411a970d0",
+      "note": "reconstructed; usage and tool names only"
     },
-    "facts_audit": "HR-T3-114 replay fact audit"
+    "voice_cache_index": {
+      "path": "build/hr/voice.json",
+      "sha256": "df74a25afe24dbddd7688da3268b67125ededb07e44f238e10451ce49bb30cfe"
+    }
   },
   "editable_source": {
-    "directory": "research/sufe-video-claude-relay-20261018/",
+    "directory": ".",
     "files_sha256": {
-      "engine/compose.py": "522a41794601c223e407bad53c1ed8cff28b894dc43b151c2adac6f3b3f57623",
-      "engine/fonts.py": "04808da021f67dc1c4d1e4e1b19043498c3c8575f18c71501f2976a12a57c79b",
-      "engine/gfx.py": "fb2a0dd582a9e0dc0beec8fccf7008a39804e12404d102cdad72687aaa784ed5",
-      "engine/package.py": "06fc11ac6b5bb2f9ff11ffa150167d5841763172c2abded9ef21fd7c9e2097e2",
-      "engine/panels.py": "2e3302c64adbc4d638c8320ec968b9fea81388c7964dd0c908feabda66de2e9a",
-      "engine/render.py": "a747d1c776859a6e8fada8fae99361db729f822c54dbdce7a627c7b4f5c03025",
-      "engine/rundata.py": "5ff37a83d841405a832e6cb83adbea83f5c60490a024f02b5e1fdb49c26cd04a",
-      "engine/scenes.py": "da2d0aa8677295619f5a539ac500df180bd38236714dc3520ec5894d72918235",
-      "engine/scenes_x.py": "3223156871452cb57b30f55756e8caa6dc1a7f53984b0a61b12a5013bf8f5a75",
+      "engine/._bookends_export.py": "efad876b04f8183b1ca3253626984e4f10d822e25a45a1c77392ab56563a41ec",
+      "engine/._brand.py": "efad876b04f8183b1ca3253626984e4f10d822e25a45a1c77392ab56563a41ec",
+      "engine/._check_guide.py": "efad876b04f8183b1ca3253626984e4f10d822e25a45a1c77392ab56563a41ec",
+      "engine/._compose.py": "efad876b04f8183b1ca3253626984e4f10d822e25a45a1c77392ab56563a41ec",
+      "engine/._fonts.py": "efad876b04f8183b1ca3253626984e4f10d822e25a45a1c77392ab56563a41ec",
+      "engine/._gfx.py": "efad876b04f8183b1ca3253626984e4f10d822e25a45a1c77392ab56563a41ec",
+      "engine/._guide.py": "efad876b04f8183b1ca3253626984e4f10d822e25a45a1c77392ab56563a41ec",
+      "engine/._guide_targets.py": "efad876b04f8183b1ca3253626984e4f10d822e25a45a1c77392ab56563a41ec",
+      "engine/._package.py": "efad876b04f8183b1ca3253626984e4f10d822e25a45a1c77392ab56563a41ec",
+      "engine/._package_hr.py": "efad876b04f8183b1ca3253626984e4f10d822e25a45a1c77392ab56563a41ec",
+      "engine/._panels.py": "efad876b04f8183b1ca3253626984e4f10d822e25a45a1c77392ab56563a41ec",
+      "engine/._reference_bookends.py": "efad876b04f8183b1ca3253626984e4f10d822e25a45a1c77392ab56563a41ec",
+      "engine/._reference_pet.py": "efad876b04f8183b1ca3253626984e4f10d822e25a45a1c77392ab56563a41ec",
+      "engine/._reference_robot.py": "efad876b04f8183b1ca3253626984e4f10d822e25a45a1c77392ab56563a41ec",
+      "engine/._render.py": "efad876b04f8183b1ca3253626984e4f10d822e25a45a1c77392ab56563a41ec",
+      "engine/._rundata.py": "efad876b04f8183b1ca3253626984e4f10d822e25a45a1c77392ab56563a41ec",
+      "engine/._scenes.py": "efad876b04f8183b1ca3253626984e4f10d822e25a45a1c77392ab56563a41ec",
+      "engine/._scenes_x.py": "efad876b04f8183b1ca3253626984e4f10d822e25a45a1c77392ab56563a41ec",
+      "engine/._sheet.py": "efad876b04f8183b1ca3253626984e4f10d822e25a45a1c77392ab56563a41ec",
+      "engine/._timeline.py": "efad876b04f8183b1ca3253626984e4f10d822e25a45a1c77392ab56563a41ec",
+      "engine/._ui.py": "efad876b04f8183b1ca3253626984e4f10d822e25a45a1c77392ab56563a41ec",
+      "engine/._voice.py": "efad876b04f8183b1ca3253626984e4f10d822e25a45a1c77392ab56563a41ec",
+      "engine/bookends_export.py": "6f8bc0e8e1a4ade337628558d91cad02b227e7318b41964ffbd7bded4e41bba6",
+      "engine/brand.py": "78945514fae4d3d96c620fa11a44c9c783d617cdbdd364895835906a266e557b",
+      "engine/check_guide.py": "164684aa019b65ef83fb6249c60a4847f778fe6a06d75e59268d991a189977a3",
+      "engine/compose.py": "ff937b34a103fbb42c13685b4c494f1bae4486bfd4b53d15c51b9d8552a79f9e",
+      "engine/fonts.py": "c4056c6e92309134873e2131a0d67149d4f0659eb0f7de009c5e1b243fed32e2",
+      "engine/gfx.py": "9f6d8fccb8c71b1a3e9d40f9e3de6c83056ab22879e75520b9929aeece97dba8",
+      "engine/guide.py": "73f0b5b6077872a1d381766d1c4e7119a2dd0c7f22e498aeb6b659d88f1de069",
+      "engine/guide_targets.py": "69bf610e5736766ef90a67cd746e804bfc303f2aae38fa839cf18861ed642747",
+      "engine/package.py": "d4c9fd2ca18adc1e726c52a1048d1303c13abe1c955df6542df1df45966b5bab",
+      "engine/package_hr.py": "5173f2bc0e076334f4eccb334b9f0024f47732a54322be27414e79e25763a73f",
+      "engine/panels.py": "d5d09d33c3330668abd057ba8db26a64bb53c5f37d331eb0026360a64f09a919",
+      "engine/reference_bookends.py": "748d60cfb22169ddee2d7144bed03083369580cf63fbea2d276cd9de66eabd41",
+      "engine/reference_pet.py": "d17cca8578c259620666433559b50fecebe1a0f3fd55558659e109d6adad307f",
+      "engine/reference_robot.py": "13fa63e354cfebd25a2393827b98388dd96599ce66681ba672b43dc24779c272",
+      "engine/render.py": "0caa52bd55c2df8ce5e6b8a9ea5e6d355bf2fb05b04200fcf9e8158441da84cb",
+      "engine/rundata.py": "9e80339e4f2d49e4602a3046dc1223aad3a4e1ffa4b97352d3f23013ddcd57ea",
+      "engine/scenes.py": "e739548effaa3208486ab8be14d75a09a42f9c6ae153eb60c6f790dabc898c19",
+      "engine/scenes_x.py": "2510a8a3a93e8c3823ad0fb978b626eedac5ba91d063936ea5e6b1b4215cdd48",
       "engine/sheet.py": "f48757b5f58661fa2f0087f66d6202ea5fc3ce7283ccc45d6eb43585ce9d31ae",
-      "engine/timeline.py": "5a6688d656aaf5519e1a7aaf2f6db46a17a9bea8b64f8a05c3d433e2dcce72aa",
-      "engine/ui.py": "00b887cd04f10a2a9ffb03d55a1dce3c2579b853fcecc6d3a10d8b7934f59ca6",
+      "engine/timeline.py": "ee152d2d78eea1379d5c58b40655092749245c4cf3c4b060ba750cdd94ad4286",
+      "engine/ui.py": "48e188a981782176f0ef07a74d09d46d9345fcb0907c7fbfb4c3869f31054406",
       "engine/voice.py": "015a1b19d04024c3ddbb5b76d0e8eb05b630d6a9e394bfe45e5b2fa06f7dbfbc",
-      "story/hr.py": "7b509757f5310981e290b586d8cb968e86f58939c433c112c3bf146304bc4384"
+      "story/hr.py": "3b2fbf9dcd261bfd07e1b1a9956e785623b7b9f624e71a2421790434a9776a6b",
+      "story/hr_en.py": "6735789518830360a1601879c9285c72ca0198ece8e5a516149426d720d5f306",
+      "story/fin_en.py": "2d677f8f09ebd7a29b393f84040cf0c95f9446e166a0ca4e1bb58c669989aac9",
+      "data/hr.json": "4598e7a0281fba932ac20351c161b4e20bbb0f8fb9f0a877a3c159f782aeef75",
+      "data/hr.requests.jsonl": "f70a33ddc6dc31e4e358abb509d840da776c479c1a63b22365ee34a411a970d0",
+      "README-hr-v3.md": "822de0af43b8c4370a8130bbb65b1619cf741395b0554f3a73ab9d8828eb3f63",
+      "requirements-render.txt": "35d63721155ff873f6ccc54bad59f89d17a2f33c5ee689dd5717955bc8ae0526",
+      "robot/sprites/sprites.json": "a0c0189cb4c86c692c1bf138eeb5cfa66f7e72d7357bc588d2da23b1fd0261c8",
+      "fonts/SpaceMono-400.ttf": "680157aa975a626716d8a6a5905452ece83512a3a2ab7d72729fcefab338a1c2",
+      "brand/._ATTRIBUTION.txt": "efad876b04f8183b1ca3253626984e4f10d822e25a45a1c77392ab56563a41ec",
+      "brand/._hku-university-crest.png": "efad876b04f8183b1ca3253626984e4f10d822e25a45a1c77392ab56563a41ec",
+      "brand/._ntu-university-official.png": "efad876b04f8183b1ca3253626984e4f10d822e25a45a1c77392ab56563a41ec",
+      "brand/._sufe-university-official.png": "efad876b04f8183b1ca3253626984e4f10d822e25a45a1c77392ab56563a41ec",
+      "brand/._tsinghua-university-crest.png": "efad876b04f8183b1ca3253626984e4f10d822e25a45a1c77392ab56563a41ec",
+      "brand/ATTRIBUTION.txt": "c2b2fd2d7a87b88499de4c6f852f4b8528dec8b7133d83659e2ca756d2215201",
+      "brand/hku-university-crest.png": "f91c5a39fdeede2a4b681fe8516762e9789338fd612643db46cf3c0dfa4f422f",
+      "brand/ntu-university-official.png": "45535780334a04c2384d82468ab49c2c8f6d5a77f717246dc42f0c6ff6451503",
+      "brand/sufe-university-official.png": "fcea85a9d55fd19cb12f8158d8e254ab4237d74731824ea07b729cdc51637072",
+      "brand/tsinghua-university-crest.png": "035bdcc5172a44f5854be0688fc0325fe785075cb2ce592312012cdc2b9cb8b2",
+      "reconstruction/._build_hr_data.py": "efad876b04f8183b1ca3253626984e4f10d822e25a45a1c77392ab56563a41ec",
+      "reconstruction/._cjk_scan.py": "efad876b04f8183b1ca3253626984e4f10d822e25a45a1c77392ab56563a41ec",
+      "reconstruction/._context_cols.json": "efad876b04f8183b1ca3253626984e4f10d822e25a45a1c77392ab56563a41ec",
+      "reconstruction/._context_raw.json": "efad876b04f8183b1ca3253626984e4f10d822e25a45a1c77392ab56563a41ec",
+      "reconstruction/._pair.py": "efad876b04f8183b1ca3253626984e4f10d822e25a45a1c77392ab56563a41ec",
+      "reconstruction/._README.md": "efad876b04f8183b1ca3253626984e4f10d822e25a45a1c77392ab56563a41ec",
+      "reconstruction/._stills.py": "efad876b04f8183b1ca3253626984e4f10d822e25a45a1c77392ab56563a41ec",
+      "reconstruction/._trace_extract.py": "efad876b04f8183b1ca3253626984e4f10d822e25a45a1c77392ab56563a41ec",
+      "reconstruction/._trace_raw.json": "efad876b04f8183b1ca3253626984e4f10d822e25a45a1c77392ab56563a41ec",
+      "reconstruction/._voice_hr.py": "efad876b04f8183b1ca3253626984e4f10d822e25a45a1c77392ab56563a41ec",
+      "reconstruction/build_hr_data.py": "8b4ec50ffbc8147b8158eb99d248a381a441009d7b920d8529be15755d9ccb7d",
+      "reconstruction/cjk_scan.py": "2f776f9d343cd0eeb09bda028c6e8262a23b5b4c872efe12f8daf30352fc16db",
+      "reconstruction/context_cols.json": "b73c0bb69df8e195dfd13a4a56bfc0ff3073d0b752a9baee4e7dc0c71a240850",
+      "reconstruction/context_raw.json": "6c8570a767ab8a4cee637f4c217bb77033356bb3700cbeb2cfe1cc2b3e33b552",
+      "reconstruction/pair.py": "d8c912c810d282b1ac980c651445ff97735ceb0aa3e6b3407d1bdea793ffab1b",
+      "reconstruction/README.md": "7256fddbb355f32050c4ac3806fc7a76d77451eee542301923f646848884c980",
+      "reconstruction/stills.py": "08ec98ac3e01f6ab5c6e8c92eb70020e665ab0168f7421ca2b32423b044c6d58",
+      "reconstruction/trace_extract.py": "5b3a933f0fe5b6a1733ab68d8b4325a8b0f26e78972b8542d3b245f177dede48",
+      "reconstruction/trace_raw.json": "a2698a2b699b1374c374c3b69f05c185117e606c3394252d8dd9466536630569",
+      "reconstruction/voice_hr.py": "39fdc3c2ecaad9a1f1e12d3adadc4fb23feb44bfe6c13bc514d9f4e287230115"
     },
+    "requirements": "requirements-render.txt",
+    "instructions": "README-hr-v3.md",
     "rebuild": [
-      "python engine/voice.py hr",
-      "python engine/render.py hr",
-      "python engine/package.py hr"
-    ]
+      "python -X utf8 engine/render.py hr --workers 2",
+      "python -X utf8 engine/package_hr.py"
+    ],
+    "offline": "Uses the 28 cached narration MP3 clips and build/hr/voice.json; do not run voice.py for this rebuild."
   },
   "boundaries": [
     "Editorial replay of an existing recorded pilot run; no new agent run, no re-scoring.",
-    "Request numbers are the 28 assistant message ids of the Claude Code session log; tool steps are run-export indexes.",
+    "The run data are a reconstruction from the published v2 film, not the original run export.",
     "Claude Code and Bash run inside the task's Docker container; the model is reached through an API.",
     "The rubric and tests are absent during the agent run; Harbor copies tests into the same container afterwards.",
     "Judge sessions are separate per criterion; scores never feed back into the recorded agent run."
