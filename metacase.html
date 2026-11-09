@@ -21,14 +21,14 @@
   <link rel="stylesheet" href="harness.css?v=20261109-film">
   <script src="site.js?v=20261109-film" defer></script>
   <link rel="stylesheet" href="language.css">
-  <script src="language.js?v=20261108-metacase-page" defer></script>
+  <script src="language.js?v=20261109-story2" defer></script>
   <link rel="stylesheet" href="v2.css?v=20261109-film">
   <link rel="stylesheet" href="skin.css?v=20261108-metacase-page">
   <link rel="stylesheet" href="subpage-toy.css?v=20261109-clip">
   <script type="module" src="subpage-toy.js?v=20261108-metacase-page"></script>
   <link rel="stylesheet" href="scene.css?v=20261022-v2-ambient">
-  <link rel="stylesheet" href="metacase-film.css?v=20261109-film">
-  <script type="module" src="metacase-film.js?v=20261108-metacase-page"></script>
+  <link rel="stylesheet" href="metacase-film.css?v=20261109-story2">
+  <script type="module" src="metacase-film.js?v=20261109-story"></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
   <script src="backdrop.js?v=20261109-film" defer></script>
   <script src="v2.js?v=20261109-film" defer></script>
@@ -95,8 +95,10 @@
 
   <main id="main" class="agent-case harness-page">
     <section class="page-hero container" data-backdrop="orbit" aria-labelledby="page-title">
+      <p class="kicker"><span data-no-translate>FIN-T1-003</span> · one recorded run</p>
       <h1 id="page-title">What a Metacase <em>is made of.</em></h1>
-      <p class="lead">Scroll through one real run, FIN-T1-003, from the task the agent receives to the Metacase it becomes.</p>
+      <p class="lead">A Metacase records one run from end to end: the task, the agent that took it on, every step it took and how the result was checked. To show what goes into one, this page follows a single real run from start to finish.</p>
+      <p class="lead mc-hero-story">The July books lock at 6 p.m. on 5 August, and six proposed entries are still waiting. One agent has 55 files to decide them from, and no sight of how it will be judged.</p>
       <div class="hero-actions">
         <a class="button primary" href="https://submit.inferencenet.cn/submit/harness/" target="_blank" rel="noopener">Submit an agent / harness <span aria-hidden="true">↗</span></a>
         <a class="button" href="#replay">Watch the whole run <span aria-hidden="true">↓</span></a>
@@ -119,29 +121,60 @@
         <div class="mc-film-scrim" aria-hidden="true"></div>
         <div class="mc-film-copy">
           <article class="mc-beat" data-beat="0" id="task" aria-labelledby="beat-task">
+            <p class="mc-beat-label"><span data-no-translate>01</span>The brief</p>
             <h3 id="beat-task"><span class="ln">55 files in.</span> <span class="ln">The rubric stays out.</span></h3>
-            <p>July close. Books lock 6 p.m., 5 Aug.</p>
+            <p>Six proposed entries, D01 to D06, must each be accepted, replaced or rejected before the July books lock.</p>
+            <ol class="mc-beat-steps" data-list="story">
+              <li data-at="0" class="is-on"><b>The materials</b><span>Ledgers, valuations, policies and letters: 55 files go into the container, read-only.</span></li>
+              <li data-at=".535"><b>The deliverables</b><span>Two files must come out: a Word report and an Excel workbook.</span></li>
+              <li data-at=".6"><b>The rubric</b><span>A finance expert’s 27 checks are locked away. The agent works without seeing how it will be judged.</span></li>
+            </ol>
             <p class="mc-stat"><b data-n="files" data-from="0" data-to="55" data-no-translate>55</b><span>files</span></p>
           </article>
           <article class="mc-beat" data-beat="1" id="agent" aria-labelledby="beat-agent">
+            <p class="mc-beat-label"><span data-no-translate>02</span>The pair</p>
             <h3 id="beat-agent"><span class="ln">Pick a model.</span> <span class="ln">Arm it with a harness.</span></h3>
-            <p>qwen3.7-max, in Docker. Ten harnesses on the rack.</p>
+            <p>The model, qwen3.7-max, chooses each action. The harness turns it into a tool call, runs it inside Docker and hands the output back.</p>
+            <ol class="mc-beat-steps" data-list="story">
+              <li data-at="0" class="is-on"><b>The rack</b><span>Ten harnesses could carry the same model, each with its own tools, context and limits.</span></li>
+              <li data-at=".404"><b>The pick</b><span>This run takes Claude Code 2.1.114. The other nine stay on the rack for other runs.</span></li>
+              <li data-at=".755"><b>Agent = Model + Harness</b><span>Change the harness and the same model behaves differently, so every result belongs to the pair.</span></li>
+            </ol>
             <p class="mc-stat is-slot"><b data-n="pair" data-roll data-no-translate>Claude Code</b><span>harness</span></p>
           </article>
           <article class="mc-beat" data-beat="2" id="trajectory" aria-labelledby="beat-trajectory">
+            <p class="mc-beat-label"><span data-no-translate>03</span>The run</p>
             <h3 id="beat-trajectory"><span class="ln">One crash,</span> <span class="ln">caught by itself.</span></h3>
-            <p>A NameError kills the script. It reads back, reruns.</p>
+            <p>Over 28 model requests it reads, plans, computes and writes. Every step lands in the trajectory, mistakes included.</p>
+            <ol class="mc-beat-steps" data-list="story">
+              <li data-at="0" class="is-on"><b>Reading</b><span>A Word letter comes back as raw binary, so it switches to a Python Word library. By request 12 it has opened 27 of the 55 files.</span></li>
+              <li data-at=".41"><b>Writing</b><span>From the daily valuations it sizes the swap’s July change, −3.12 million yuan, and a long script builds the workbook.</span></li>
+              <li data-at=".52"><b>The crash</b><span>A misspelled variable stops the next script with a NameError before it saves. The agent doesn’t notice yet.</span></li>
+              <li data-at=".62"><b>The read-back</b><span>Reading its own files back, it finds sheet one still at three rows, names the cause and runs the edit again: 39 rows, saved.</span></li>
+            </ol>
             <p class="mc-stat"><b data-n="calls" data-from="0" data-to="54" data-no-translate>54</b><span>tool calls</span></p>
           </article>
           <article class="mc-beat" data-beat="3" id="grading" aria-labelledby="beat-grading">
+            <p class="mc-beat-label"><span data-no-translate>04</span>The verdict</p>
             <h3 id="beat-grading"><span class="ln">27 checks,</span> <span class="ln">judged one by one.</span></h3>
-            <p>Only after the agent stops. Both red lines held.</p>
+            <p>The tests reach the container only after the agent stops. A separate judge takes each check, and nothing flows back.</p>
+            <ol class="mc-beat-steps" data-list="story">
+              <li data-at="0" class="is-on"><b>What scored</b><span>Its DV01 matches the judge’s own recomputation. But no sheet holds a single formula, so the amounts can’t be traced to their sources.</span></li>
+              <li data-at=".51"><b>Red lines</b><span>It never booked the loan’s FX loss to the cash-flow hedge reserve. Both red lines hold, and no penalty is triggered.</span></li>
+              <li data-at=".72"><b>The score</b><span>3 checks met, 6 partly met, 11 missed: 57.25 of 172 points. One pilot run’s score, not a ranking.</span></li>
+            </ol>
             <p class="mc-stat"><b data-n="score" data-from="0" data-to="0.333" data-decimals="3" data-no-translate>0.333</b><span>score</span></p>
           </article>
           <article class="mc-beat" data-beat="4" id="metacase" aria-labelledby="beat-metacase">
+            <p class="mc-beat-label"><span data-no-translate>05</span>The record</p>
             <h3 id="beat-metacase"><span class="ln">One run,</span> <span class="ln">bound into a Metacase.</span></h3>
-            <p>Task, agent, trajectory and grade, in one book.</p>
-            <p class="mc-beat-cta"><a class="text-link" href="evolution.html">Continue to Self-evolving <span aria-hidden="true">→</span></a></p>
+            <p>Task, pair, trajectory and grade go into one book: what was known, what was done and how it was checked.</p>
+            <ol class="mc-beat-steps" data-list="story">
+              <li data-at="0" class="is-on"><b>Bound</b><span>A file, the harness, a thread of the trajectory and the score land on the open page.</span></li>
+              <li data-at=".58"><b>Closed</b><span>The book shuts on the whole run: what held and what failed, both kept.</span></li>
+              <li data-at=".69"><b>Signed</b><span>Its tabs trace a solution signature, so the case can be found by how it was solved, not only by its topic.</span></li>
+            </ol>
+            <p class="mc-beat-cta"><a class="text-link" href="#epilogue">What the next run can borrow <span aria-hidden="true">↓</span></a></p>
           </article>
         </div>
         <div class="mc-film-rail" role="group" aria-label="Film chapters">
@@ -152,6 +185,23 @@
           <button class="mc-film-tick" type="button" data-k="4"><span class="mc-film-track" aria-hidden="true"><span class="mc-film-fill"></span></span><span class="mc-film-label">Metacase</span></button>
         </div>
       </div>
+    </section>
+
+    <section class="section container ruled mc-epilogue" id="epilogue" aria-labelledby="epilogue-title">
+      <span id="self-evolution" class="challenge-anchor" aria-hidden="true"></span>
+      <div class="section-heading">
+        <div>
+          <h2 id="epilogue-title">What the next run <em>can borrow</em></h2>
+        </div>
+        <p class="lead">The score is one line of the record. Read as a case, the run says more: what held, what was missed, and what a next attempt could change.</p>
+      </div>
+      <ol class="mc-lessons">
+        <li class="is-held"><span class="mc-lesson-tag">What held</span><h3>The red lines, and the check it ran on itself</h3><p>It invented no rule and never booked the loan’s FX loss to the hedge reserve. Its DV01 matched the judge’s. Reading its own files back is what caught the edit the crash had lost.</p></li>
+        <li class="is-missed"><span class="mc-lesson-tag">What was missed</span><h3>11 of 20 checks earned nothing</h3><p>The USSub disposal pack scored zero, D02 earned half marks, and every amount in the workbook was typed in, so none of them traces back to its source fields.</p></li>
+        <li class="is-next"><span class="mc-lesson-tag">What could change</span><h3>Keep the formulas, check sooner</h3><p>Build the workbook so each amount is calculated from its sources, and read a file back right after the script that writes it, not only at the end.</p></li>
+      </ol>
+      <p class="mc-handoff">Self-evolving starts from many records like this one and asks how to make the next run better.</p>
+      <div class="case-links"><a class="text-link" href="evolution.html">Continue to Self-evolving <span aria-hidden="true">→</span></a><a class="text-link" href="index.html#structure">How Metacases are found by how they were solved <span aria-hidden="true">→</span></a><a class="text-link" href="challenge.html#subtrack-professional">Subtrack 2: Business Analysis &amp; Deliverables <span aria-hidden="true">→</span></a></div>
     </section>
 
     <section class="section container ruled" id="replay" aria-labelledby="replay-title">
@@ -181,12 +231,6 @@
             <details class="hs-details"><summary>How a five-level check is judged: R75, the review schedule</summary><div class="table-scroll" tabindex="0"><table class="compare-table mc-rubric"><caption>The judge picks the closest level. This run reached level 4.</caption><thead><tr><th scope="col">Level</th><th scope="col">Share</th><th scope="col">What it looks like</th></tr></thead><tbody><tr><th scope="row" data-no-translate>1</th><td data-no-translate>0%</td><td>Promises all 16 review hours before the lock, beyond 6 a day or 12 in total</td></tr><tr><th scope="row" data-no-translate>2</th><td data-no-translate>25%</td><td>Within the total, but a whole must-do pack (A, B or C) is left out</td></tr><tr><th scope="row" data-no-translate>3</th><td data-no-translate>50%</td><td>A, B and C fit into two days at 6 hours or less, but the spare hour is treated as approval for all of pack D or E</td></tr><tr class=is-this><th scope="row" data-no-translate>4</th><td data-no-translate>75%</td><td>A, B and C on time, D and E after the lock; but later dates are treated as confirmed resources, or SGSub's pack is closed before its written reply arrives</td></tr><tr><th scope="row" data-no-translate>5</th><td data-no-translate>100%</td><td>Level 4, plus: D and E dated as pending resource confirmation; E closes only after SGSub's written reply arrives and is reviewed; the finance head's approval depends on the independent review</td></tr></tbody></table></div></details>
           </div>
       </details>
-    </div>
-
-    <div class="container mc-after">
-      <span id="self-evolution" class="challenge-anchor" aria-hidden="true"></span>
-      <p class="harness-evo-note mc-handoff">One run, one record. Self-evolving starts from many of them and asks how to make the next run better.</p>
-      <div class="case-links"><a class="text-link" href="evolution.html">Continue to Self-evolving <span aria-hidden="true">→</span></a><a class="text-link" href="challenge.html#subtrack-professional">Subtrack 2: Business Analysis &amp; Deliverables <span aria-hidden="true">→</span></a></div>
     </div>
 
     <div class="container harness-background-wrap">

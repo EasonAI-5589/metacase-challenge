@@ -376,7 +376,18 @@ export function createFilm(section, { dev = null } = {}) {
     camera.updateMatrixWorld();
   }
 
+  // The story steps under a beat's heading: each <li data-at> lights once the beat's local
+  // progress reaches its mark (the moments named in that beat's film-*.js timeline).
+  const storyMarks = articles.map(a => [...a.querySelectorAll('[data-list="story"] > [data-at]')].map(li => parseFloat(li.dataset.at) || 0));
+  function storyStep(i, lp) {
+    const marks = storyMarks[i];
+    if (!marks?.length) return;
+    let k = 0;
+    for (let j = 0; j < marks.length; j++) if (lp >= marks[j]) k = j;
+    uis[i].highlight('story', k);
+  }
   function callUpdate(i, lp, t, dt) {
+    storyStep(i, lp);
     try { beats[i].update(lp, t, dt, uis[i]); } catch (error) {
       console.warn(`Film beat ${i} update failed; it is frozen from here.`, error);
       beats[i].update = () => {};
