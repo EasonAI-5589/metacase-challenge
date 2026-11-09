@@ -43,11 +43,14 @@ html[lang="zh-CN"] .mc-beat > p.mc-beat-label { font-family: var(--font-sans); f
 .mc-film:not(.is-film) .mc-beat-steps { gap: 14px; }
 /* beside the picture the running text stays narrower than the heading, clear of the set */
 .mc-film.is-film .mc-beat > p:not(.mc-stat):not(.mc-beat-label):not(.mc-beat-keep), .mc-film.is-film .mc-beat-steps { max-width: min(520px, 36vw); }
-/* where this part of the run is kept: the homepage's five Metacase stages */
-.mc-film .mc-beat > p.mc-beat-keep { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; width: fit-content; margin: 24px 0 0; padding: 10px 16px; border: 1px solid color-mix(in oklab, var(--a) 40%, transparent); border-radius: 12px; background: color-mix(in oklab, var(--a) 12%, var(--bg-canvas)); font-size: 18px; line-height: 1.45; color: var(--text-primary); }
-.mc-beat-keep > span { color: var(--text-secondary); }
-.mc-beat-keep b { padding: 2px 12px; border-radius: 999px; background: color-mix(in oklab, var(--a) 22%, transparent); border: 1px solid color-mix(in oklab, var(--a) 60%, transparent); color: var(--a); font-size: 19px; font-weight: 650; }
+/* where this part of the run is kept: the homepage's five Metacase stages. The box is only as
+ * wide as its longest line: the English lead and chip sit on one line and the note on the next
+ * (the <br class="keep-br"> in the markup); Chinese reads as one line and hides that break. */
+.mc-film .mc-beat > p.mc-beat-keep { display: inline-block; width: fit-content; margin: 24px 0 0; padding: 10px 16px; border: 1px solid color-mix(in oklab, var(--a) 40%, transparent); border-radius: 12px; background: color-mix(in oklab, var(--a) 12%, var(--bg-canvas)); font-size: 18px; line-height: 1.45; color: var(--text-primary); }
+.mc-beat-keep > span { color: var(--text-secondary); margin-right: 10px; }
+.mc-beat-keep b { display: inline-block; vertical-align: middle; margin-right: 10px; padding: 2px 12px; border-radius: 999px; background: color-mix(in oklab, var(--a) 22%, transparent); border: 1px solid color-mix(in oklab, var(--a) 60%, transparent); color: var(--a); font-size: 19px; font-weight: 650; }
 .mc-beat-keep i { font-style: normal; font-weight: 600; }
+html[lang="zh-CN"] .mc-beat-keep br { display: none; }
 .mc-stat { display: grid; gap: 8px; justify-items: start; margin: 30px 0 0; }
 .mc-stat b { font-size: clamp(52px, 5.6vw, 92px); font-weight: 600; line-height: .86; letter-spacing: -0.04em; color: var(--a); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .mc-stat span { font-size: 13.5px; line-height: 1.4; color: var(--text-secondary); }
@@ -220,6 +223,9 @@ html.film-pinned .page-rail a { pointer-events: none; }
 .harness-page .mc-rubric-fold > .hs-details > summary { font-size: clamp(16px, 1.6vw, 18px); }
 /* the epilogue: three cards, then the hand-off to Self-evolving */
 .harness-page #epilogue h2 em { background: none; -webkit-background-clip: border-box; background-clip: border-box; color: var(--track-1); -webkit-text-fill-color: currentColor; }
+/* Chinese keeps the cyan half of the epilogue title on one line, so the line breaks before it
+ * instead of splitting the two-character word that starts it. */
+html[lang="zh-CN"] #epilogue-title em { white-space: nowrap; }
 .mc-lessons { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin: 36px 0 0; padding: 0; list-style: none; }
 .mc-lessons li { --a: var(--track-1); display: grid; align-content: start; gap: 10px; padding: 22px 22px 24px; border: 1px solid var(--line); border-top: 2px solid var(--a); border-radius: 14px; background: var(--surface); }
 .mc-lessons li.is-missed { --a: oklch(70% 0.15 25); }
