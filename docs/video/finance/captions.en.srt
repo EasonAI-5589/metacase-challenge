@@ -131,5 +131,5 @@ Of 20 positive criteria, 3 are met, 6 partly met, and 11 not met. No penalties w
 The recorded reward is 0.333: 57.25 of 172 weighted points. One pilot run's rubric score, not accuracy, and not a ranking.
 
 34
-00:04:47,198 --> 00:04:54,050
+00:04:47,198 --> 00:04:53,860
 A professional task, an agent run, and an independent check. Explore more on the Metacase Challenge site.

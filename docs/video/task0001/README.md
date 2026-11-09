@@ -1,5 +1,26 @@
 # Task 0001 DeepAgents execution walkthrough
 
+## Metacase v4 edition (2026-11-09)
+
+The site now shows **v4**, made from the v3.2 source below without changing its narration,
+pacing, 37 shots, recorded data or numbers:
+
+- The homepage robot (`mc-kit.js` `robot()`) holding the arena's Claude Code blaster replaces
+  the pixel pet, using the sprites rendered for the Finance v3 replay; a sight laser from the
+  muzzle replaces the baton. The guide continuity audit passes on all 8,558 frames.
+- The header, opening and closing titles use the Metacase mark and wordmark, the four hero
+  crests with "Hosted by NTU GIFTS with HKU, SUFE and Tsinghua PBCSF", and
+  `easonai-5589.github.io/metacase-challenge`. The 11 original render functions stay
+  byte-identical; `site/brand.js` fades the crest row on the original clock.
+- The evaluation-harness labels in the execution diagram say "Challenge" instead of
+  InferenceNet. Captions are English only.
+- Layout QA (124 SVG/canvas stills) reports no caption or diagram overflow. Frames were
+  rendered with the source's SVG/canvas exporter in headless Chrome on macOS and encoded with
+  FFmpeg; ffprobe checked the exact MP4 bytes on the Windows render host.
+
+Editable source: [`video-demo/sources/task0001/`](../../../video-demo/sources/task0001/).
+The sections below describe the v3.2 base.
+
 This version explains each round through a graphical execution flow, with
 reading holds, a moving pixel guide and baton, local highlights, particles,
 English synthetic narration and burned-in English/Chinese captions. The original
@@ -9,7 +30,7 @@ the editable animation, rather than the main video view.
 
 - [Video](../../../assets/video/agent-replay-task0001.mp4)
 - [Poster](../../../assets/video/agent-replay-task0001-poster.jpg)
-- [English SRT](captions.en.srt), [Chinese SRT](captions.zh.srt), [bilingual SRT](captions.bilingual.srt)
+- [English SRT](captions.en.srt)
 - [Machine-readable provenance and checksums](provenance.json)
 
 ## Content and source

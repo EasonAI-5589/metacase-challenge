@@ -112,6 +112,14 @@
       "font_file_sha256": "38dffcaf1fac89492f7c56c600a14daf36ae42f7c21985cd4134ae113124a58f",
       "source_base": "Operating-system font directory; font not redistributed"
     },
+    "SpaceMono": {
+      "family": "Space Mono",
+      "probe": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
+      "probe_glyphs_present": true,
+      "source": "fonts/SpaceMono-400.ttf",
+      "font_file_sha256": "680157aa975a626716d8a6a5905452ece83512a3a2ab7d72729fcefab338a1c2",
+      "source_base": "editable source root"
+    },
     "Sym": {
       "family": "Segoe UI Symbol",
       "probe": "→←↑↓✓×−",

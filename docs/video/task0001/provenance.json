@@ -15,24 +15,23 @@
   "audio_is_synthetic": true,
   "voice": "en-US-AriaNeural",
   "burned_captions": [
-    "en",
-    "zh"
+    "en"
   ],
   "source_commit": "884e89e58f62a185cd06572979fbd1548ea67e4b",
   "recorded_run_seconds": 121.038,
   "replay_data_sha256": "14446bc5bbc421aa59664d062a7cec2c8c6a9f160fbe538612e204b9b42d1841",
-  "version": "deepagents-flow-v3.2",
+  "version": "metacase-v4",
   "task_id": "0001",
   "model": "GPT-5.6 Sol",
   "harness": "DeepAgents",
   "run_id": "sol-deepagents-full1000-20260911-chain-03",
-  "source_path": "video-demo/task0001",
+  "source_path": "video-demo/sources/task0001/Metacase-task0001-deepagents-flow-source-v4.zip",
   "original_animation_seconds": 71.4,
   "original_phase_count": 32,
   "replay_data_unchanged": true,
   "chapter_navigation_includes_opening": true,
   "presentation": "Diagram-first tool loop; original code and stdout remain optional evidence in the editable animation.",
-  "tool_boundary": "Four executed run_python calls; fifth requested call rejected by InferenceNet budget guard. Sixth model call submits the program, which is executed separately by the evaluator.",
+  "tool_boundary": "Four executed run_python calls; fifth requested call rejected by challenge budget guard. Sixth model call submits the program, which is executed separately by the evaluator.",
   "historical_tools": "Historical virtual-note tools are shown as inactive context; no actual file-tool or subagent calls are claimed.",
   "chapters": [
     {
@@ -63,24 +62,16 @@
   ],
   "files": {
     "assets/video/agent-replay-task0001.mp4": {
-      "bytes": 36244746,
-      "sha256": "978e3ae49c6d0d293d2cc08d6f75422aa35668a4534d0d8ce20950116daf05b0"
+      "bytes": 32544646,
+      "sha256": "71520a0b9c85f171373d3878d86ab4bea9d05548a88ca2fefd87b42bc6403960"
     },
     "assets/video/agent-replay-task0001-poster.jpg": {
-      "bytes": 255240,
-      "sha256": "9c7804d17e2371b57f663d8a45180d02b2874936e3b0f3d29d7c49771e652291"
+      "bytes": 246441,
+      "sha256": "8ad713016df35e1360e0467464cacfd6c986bbb030996027ba3d5fc00e8983e4"
     },
     "docs/video/task0001/captions.en.srt": {
       "bytes": 4737,
       "sha256": "b8b284af819b6c327db8bf75b42aded0d3bf0085d9186c007f493fb5e277f88f"
-    },
-    "docs/video/task0001/captions.zh.srt": {
-      "bytes": 4301,
-      "sha256": "fbcf8c114f5adbb3952ff69869f9053d6c04ece1242dd81e1471679f3393b369"
-    },
-    "docs/video/task0001/captions.bilingual.srt": {
-      "bytes": 7824,
-      "sha256": "c273734166293bae498cec0d3d0a292f0d62dc6f16c2eb449304db89674e632d"
     }
   },
   "pitch_preserved": true,
@@ -100,14 +91,36 @@
     "Sequential result/outro foregrounds avoid overlapping titles"
   ],
   "animation_sources_sha256": {
-    "site/harness-flow.js": "cd5ee274e224b5c08e913a061df2bb8a04963eb8db49eef5ad24473f8321bd1d",
+    "shotlist.json": "f6cc8fc9820c548cf52ed8543f827aee131db4bdf4bbd7b479de244e6fc72848",
+    "site/brand.js": "72051b61c888df6830a28e6011e2b0e934b95b7a4b1915e89b45f3d8994898e4",
+    "site/enhancement.css": "51d77da7460ffdd41147ad23db9368a0a71962e427c03b0e758248d0acbe074e",
+    "site/enhancement.js": "1ac42295273db6977fd557880d432532189bb85f476e63652861c49b2bdcb878",
     "site/harness-flow.css": "2f531228b6bf24d868a58b344ffcd77277c3496a229eaa6485d8b80951224ff1",
-    "site/original-guide.js": "9246340ec582e46bdc2339a8824deba064ec2fa30dbb3be9c6839ee815b95e68",
-    "site/enhancement.js": "a660659f9c2256c050b8918125578bdb51df571faea7c1144cbd9aae9932a817",
-    "site/timeline.json": "9dce3e3d6b10f4cfc51183ce62be61761ac49742b5adf40a9b079f4490281861",
-    "shotlist.json": "adbef4a4bfd4269053c29db0508000f72d21a3308963ce8b0d7f495017b9a81c"
+    "site/harness-flow.js": "dadd589377ab528d1a98f2efedef2501406b95b1e6f216e1400a79fad366ddd8",
+    "site/index.html": "2af2f0f872353880524bbeb6646dba4b098965642d2ab81d9a13c51cd353138c",
+    "site/original-guide.js": "426b86614b821da98ff67a0d02afa26af55addcc546a0bbd2d8ecb1be5930df0",
+    "site/pet-overlay.css": "54c4d5e3041c9502097d9cfa480a60e8c594369344b3b7e947aeccc1352d366e",
+    "site/robot/sprites.js": "05029db00420ba6888231cfc85043b8c7059b74c38db3718b1930fadd8e33046",
+    "site/timeline.json": "a8630785503771cae5a7f62c6a913ffc54ccb9c036c25aed479100f58a4c1f47"
   },
   "validation": {
+    "source_and_phase_preservation": "PASS; 11 original render functions byte-identical; enhanced index.html 2af2f0f872353880…",
+    "guide_continuity": "PASS; 8558 frames; 0 failures",
+    "layout_qa": "complete; 124 stills; caption/diagram overflow 0",
+    "render": "svg-canvas frames in headless Chrome (macOS); FFmpeg libx264 encode; ffprobe verification of the exact MP4 bytes on the Windows render host",
+    "full_audio_video_decode": "PASS; FFmpeg decoded the delivered MP4 with no errors",
+    "scope": "Automated checks of the v4 sources and the delivered MP4; no full human viewing or listening review is claimed."
+  },
+  "base_version": "deepagents-flow-v3.2",
+  "v4_changes": [
+    "Homepage robot with the Claude Code blaster replaces the pixel pet; a sight laser replaces the baton",
+    "Metacase mark, wordmark, crests and site in the header, opening and closing titles",
+    "Evaluation-harness labels say 'Challenge' instead of InferenceNet",
+    "English captions only"
+  ],
+  "guide_character": "the homepage robot (mc-kit.js robot()) holding the arena Claude Code blaster (Kenney blaster-e.glb, CC0); 362 sprites from the finance v3 renderer, a sight laser replaces the baton",
+  "render_manifest_fingerprint": "517983e1fb6695d76c1471c9da95fc5fa25d37aa86ecb8a1198093f9b40d74ee",
+  "v3_2_validation": {
     "source_and_phase_preservation": "PASS; 11 original render functions, 32 source phases, 37 shots",
     "all_output_frames_and_boundary_clock_checks": "PASS; exact exporter arithmetic, no phase mismatch",
     "guide_motion": "PASS; 8,558 frames and 36 boundaries, source geometry and timing checks",
