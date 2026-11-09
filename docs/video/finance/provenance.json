@@ -1,8 +1,8 @@
 {
-  "version": "finance-guide-aligned-v2",
+  "version": "finance-metacase-v3",
   "task_id": "FIN-T1-003",
   "run": "fin",
-  "status": "approved for publication on 2026-10-20",
+  "status": "approved for publication",
   "model": "qwen3.7-max",
   "harness": "Claude Code 2.1.114",
   "runner": "Harbor 0.20.0",
@@ -11,8 +11,8 @@
   "model_requests": 28,
   "tool_calls": 54,
   "reward": 0.332849,
-  "duration_seconds": 294.866,
-  "frames": 8846,
+  "duration_seconds": 294.666,
+  "frames": 8840,
   "fps": "30/1",
   "resolution": [
     1920,
@@ -29,7 +29,7 @@
       "color_range": "tv",
       "color_space": "bt709",
       "r_frame_rate": "30/1",
-      "nb_frames": "8846"
+      "nb_frames": "8840"
     },
     {
       "codec_name": "aac",
@@ -38,15 +38,14 @@
       "sample_rate": "48000",
       "channels": 1,
       "r_frame_rate": "0/0",
-      "nb_frames": "13823"
+      "nb_frames": "13814"
     }
   ],
   "voice": "en-US-AriaNeural (same voice as the approved PR #27 replay), rate +12% to match its 1.12 pacing",
   "audio_is_synthetic": true,
   "audio_processing": "per-shot neural TTS clips placed on the shot timeline, loudnorm I=-16.5 LUFS, AAC 48 kHz mono",
   "burned_captions": [
-    "en",
-    "zh"
+    "en"
   ],
   "renderer": "offline Skia (skia-python) frame renderer; no browser, no CDP; H.264 High via libx264",
   "runtime": {
@@ -58,7 +57,7 @@
       "pybind11": "3.1.0",
       "fonttools": "4.51.0",
       "Brotli": "1.0.9",
-      "Pillow": "12.0.0"
+      "Pillow": null
     },
     "ffmpeg": "ffmpeg version N-119917-g8087777e66-20250617 Copyright (c) 2000-2025 the FFmpeg developers",
     "ffprobe": "ffprobe version N-119917-g8087777e66-20250617 Copyright (c) 2007-2025 the FFmpeg developers",
@@ -174,7 +173,311 @@
       "copy": "Existing finance role values, task ID, English/Chinese title and ending text retained; particle words use finance evidence."
     }
   },
+  "guide_character": {
+    "character": "the homepage robot (mc-kit.js robot(0xf7f5f0, 0x8ff6ff)) holding the arena's Claude Code blaster (Kenney blaster-e.glb, CC0)",
+    "renderer": "robot/sprite.html (three.js, homepage lights) -> 362 transparent sprites, -90..+90 degrees aim in 1-degree steps, eyes open and mid-blink",
+    "sprites_index": {
+      "path": "robot/sprites/sprites.json",
+      "sha256": "a0c0189cb4c86c692c1bf138eeb5cfa66f7e72d7357bc588d2da23b1fd0261c8"
+    },
+    "pointer": "a sight laser from the muzzle to the unchanged cue target; hidden in the parked pose",
+    "routes_and_cues": "unchanged from guide-aligned v2 (93 cues)"
+  },
+  "english_only": {
+    "captions": "English only; no Chinese captions are burned in or delivered",
+    "on_screen_text": "Chinese source strings are shown by English names via story/fin_en.py GLOSSARY; numbers, codes, dates and amounts unchanged",
+    "glossary": [
+      {
+        "zh": "60_七月结账专项复核委托",
+        "en": "60_July_close_review_brief"
+      },
+      {
+        "zh": "61_七月待入账意见登记",
+        "en": "61_July_pending_entries"
+      },
+      {
+        "zh": "62_期初结存",
+        "en": "62_opening_balances"
+      },
+      {
+        "zh": "63_复核工时安排",
+        "en": "63_review_hours"
+      },
+      {
+        "zh": "12_衍生品交易与逐日估值明细",
+        "en": "12_derivatives_daily_MTM"
+      },
+      {
+        "zh": "15_套期指定与再平衡台账",
+        "en": "15_hedge_designation_ledger"
+      },
+      {
+        "zh": "16_中后台估值底稿",
+        "en": "16_middle_office_valuation"
+      },
+      {
+        "zh": "17_对手方估值单",
+        "en": "17_counterparty_valuation"
+      },
+      {
+        "zh": "18_合并折算底稿",
+        "en": "18_consolidation_translation"
+      },
+      {
+        "zh": "20_境外子公司权益变动明细台账",
+        "en": "20_subsidiary_equity_ledger"
+      },
+      {
+        "zh": "22_外币财务报表折算差额勾稽底稿_复核前草稿",
+        "en": "22_FX_translation_recon_draft"
+      },
+      {
+        "zh": "24_境外子公司汇率来源核对单",
+        "en": "24_FX_rate_source_check"
+      },
+      {
+        "zh": "31_内部会计政策_版本",
+        "en": "31_internal_policy_v"
+      },
+      {
+        "zh": "32_套期关系指定文档",
+        "en": "32_hedge_designation_doc"
+      },
+      {
+        "zh": "34_外债合同摘录",
+        "en": "34_foreign_debt_contract"
+      },
+      {
+        "zh": "35_中后台估值说明",
+        "en": "35_middle_office_valuation_note"
+      },
+      {
+        "zh": "36_规则条文摘录_会计准则部分",
+        "en": "36_rules_accounting_standards"
+      },
+      {
+        "zh": "38_规则条文摘录_套期有效性定量门槛沿革",
+        "en": "38_rules_effectiveness_history"
+      },
+      {
+        "zh": "39_规则条文摘录_净投资套期工具持有主体补充",
+        "en": "39_rules_NIH_holder_supplement"
+      },
+      {
+        "zh": "40_风险管理委员会决议",
+        "en": "40_risk_committee_resolution"
+      },
+      {
+        "zh": "42_再平衡备忘稿",
+        "en": "42_rebalancing_memo_draft"
+      },
+      {
+        "zh": "44_境外子公司往来函件_HKSub折算口径疑问来函",
+        "en": "44_HKSub_translation_query"
+      },
+      {
+        "zh": "45_集团财务部复函_HKSub折算口径统一说明",
+        "en": "45_group_reply_HKSub_translation"
+      },
+      {
+        "zh": "46_境外子公司请示函_USSub部分处置股权",
+        "en": "46_USSub_disposal_request"
+      },
+      {
+        "zh": "47_集团财务部批复_USSub部分处置股权",
+        "en": "47_USSub_disposal_approval"
+      },
+      {
+        "zh": "48_套期关系文件完整性排查清单",
+        "en": "48_hedge_docs_checklist"
+      },
+      {
+        "zh": "49_套期关系正式指定文档",
+        "en": "49_hedge_formal_designation"
+      },
+      {
+        "zh": "53_规则条文摘录_外币折算功能货币判断与净资产构成补充",
+        "en": "53_rules_functional_currency"
+      },
+      {
+        "zh": "FIN-T1-003_月结调整与复核底稿",
+        "en": "FIN-T1-003_month-end_workpapers"
+      },
+      {
+        "zh": "FIN-T1-003_七月结账整改与复核安排",
+        "en": "FIN-T1-003_July_close_review_plan"
+      },
+      {
+        "zh": "月结调整与复核底稿",
+        "en": "month-end_workpapers"
+      },
+      {
+        "zh": "七月结账整改与复核安排",
+        "en": "July_close_review_plan"
+      },
+      {
+        "zh": "60_…委托",
+        "en": "60_…brief"
+      },
+      {
+        "zh": "…底稿",
+        "en": "…workpapers"
+      },
+      {
+        "zh": "集团七月结账整改与复核安排",
+        "en": "Group July close: corrections and review plan"
+      },
+      {
+        "zh": "7月账务8月5日18:00锁账，共享中心已提交一批待入账意见",
+        "en": "July books lock at 18:00 on 5 Aug; the shared-service centre has submitted pending entries"
+      },
+      {
+        "zh": "逐项处理待入账意见，算清金额与报表影响，形成可批准的替换分录",
+        "en": "Resolve each pending entry: amounts, statement effects, approvable replacement entries"
+      },
+      {
+        "zh": "同步更正HKSub 6月比较信息；为USSub股权转让做交割前预演",
+        "en": "Correct HKSub's June comparatives; rehearse the USSub equity transfer before closing"
+      },
+      {
+        "zh": "只有1名独立复核人，8月4日、5日每日最多6小时",
+        "en": "One independent reviewer only: at most 6 hours a day on 4 and 5 Aug"
+      },
+      {
+        "zh": "不得把建议或计划写成已获批准或已经执行",
+        "en": "Never present a proposal or plan as approved or carried out"
+      },
+      {
+        "zh": "七月结账专项复核委托及适用范围",
+        "en": "July close special review: engagement and scope"
+      },
+      {
+        "zh": "发文日期：2026-08-03，经财务负责人签批",
+        "en": "Issued 2026-08-03, signed off by the head of finance"
+      },
+      {
+        "zh": "7月结账锁账时间为 2026-08-05 18:00",
+        "en": "July close: the books lock at 2026-08-05 18:00"
+      },
+      {
+        "zh": "61号 D01 至 D06 均为待入账意见，全部尚未过账",
+        "en": "No. 61: D01 to D06 are all pending entries; none is posted"
+      },
+      {
+        "zh": "互换继续按原关系计入现金流量套期储备",
+        "en": "swap stays in CF hedge reserve under original hedge"
+      },
+      {
+        "zh": "美元借款7月汇兑损失计入现金流量套期储备",
+        "en": "July FX loss on USD loan to CF hedge reserve"
+      },
+      {
+        "zh": "套期关系终止应把期初储备一次转损益",
+        "en": "hedge ended: recycle opening reserve to P&L at once"
+      },
+      {
+        "zh": "仅更新22号资产负债精度，18号权益和利润金额不动…",
+        "en": "update No. 22 BS precision only; No. 18 equity/profit unchanged…"
+      },
+      {
+        "zh": "按归母累计折算差额乘15/70预提处置收益",
+        "en": "accrue disposal gain: parent's cum. translation diff. × 15/70"
+      },
+      {
+        "zh": "以17号对手方估值替换16号采用值，差额全部作为…",
+        "en": "replace No. 16 value with No. 17 counterparty value; full diff. as…"
+      },
+      {
+        "zh": "未过账",
+        "en": "unposted"
+      },
+      {
+        "zh": "套期关系指定",
+        "en": "Hedge designations"
+      },
+      {
+        "zh": "有效性评估",
+        "en": "Effectiveness tests"
+      },
+      {
+        "zh": "折算与储备",
+        "en": "Translation & reserves"
+      },
+      {
+        "zh": "调整分录",
+        "en": "Adjusting entries"
+      },
+      {
+        "zh": "复核排程",
+        "en": "Review schedule"
+      },
+      {
+        "zh": "借：其他综合收益——现金流量套期储备",
+        "en": "Dr: OCI — cash flow hedge reserve"
+      },
+      {
+        "zh": "借：其他综合收益——净投资套期储备",
+        "en": "Dr: OCI — net investment hedge reserve"
+      },
+      {
+        "zh": "借：公允价值变动损益",
+        "en": "Dr: Fair value gains and losses"
+      },
+      {
+        "zh": "贷：外币借款",
+        "en": "Cr: Foreign-currency borrowings"
+      },
+      {
+        "zh": "净投资套期储备",
+        "en": "net investment hedge reserve"
+      },
+      {
+        "zh": "接受作为暂行处理意见，科目名称修正为：",
+        "en": "Accepted as an interim treatment, with the account renamed:"
+      },
+      {
+        "zh": "三、各项意见处置详情",
+        "en": "3. Disposition of each pending entry"
+      },
+      {
+        "zh": "七月结账专项整改完成",
+        "en": "July close remediation complete"
+      },
+      {
+        "zh": "16号估值底稿",
+        "en": "No. 16 valuation workpaper"
+      },
+      {
+        "zh": "交易编号",
+        "en": "trade_id"
+      },
+      {
+        "zh": "估值日",
+        "en": "valuation_date"
+      },
+      {
+        "zh": "当日MTM_元",
+        "en": "daily_MTM_CNY"
+      },
+      {
+        "zh": "DV01_元",
+        "en": "DV01_CNY"
+      }
+    ],
+    "not_drawn": [
+      "task-card Chinese subtitle",
+      "opening Chinese subtitle",
+      "Chinese quote lines under 'What the brief asks'"
+    ]
+  },
+  "brand": {
+    "mark_and_wordmark": "Metacase mark (.lg-anim timing) and 'Metacase Challenge' wordmark from the website homepage",
+    "institutions": "NTU, HKU, SUFE and Tsinghua crests as on the homepage hero; 'Hosted by NTU GIFTS with HKU, SUFE and Tsinghua PBCSF'",
+    "site": "easonai-5589.github.io/metacase-challenge",
+    "attribution": "brand/ATTRIBUTION.txt"
+  },
   "source_relationship": {
+    "base_edition": "finance-guide-aligned-v2 (source zip SHA-256 e0fc91dc2d46a3a4f5882b0f0a668e4c021f3849a03e9a87dbf09342525b3bc3)",
     "upstream_edition": "sufe-claude-relay-v2",
     "upstream_source_directory": "research/sufe-video-claude-relay-20261018/",
     "supplied_archive_sha256": "0e6576985e25ef5ab8cb512f13b4068f4a13c7680570215d1027a03651befbb7",
@@ -184,7 +487,7 @@
       "sha256": "2eb943a7297c57b95d8f5a7f2cdb4f06133737236a691a425730dbc2b300e1b0"
     },
     "preserved": "Original story, financial evidence, request metadata, voice caches, captions and original-source snapshot.",
-    "changed": "Reference-matched entrance/exit, fixed right-facing guide without turns, pointer/focus alignment, and bounded resumable Windows rendering.",
+    "changed": "v3: homepage robot with the Claude Code blaster as guide; English only; Metacase bookends and header; shot f33 re-voiced for the Metacase site (same voice and rate), 8846 -> 8840 frames.",
     "source_snapshot_phase": "packaging",
     "source_paths_base": "portable editable source root; source files use forward slashes"
   },
@@ -192,21 +495,13 @@
     "geometry_report": "docs/video/finance/guide-geometry-qa.json",
     "font_selection": "docs/video/finance/font-selection.json",
     "render_receipt": "docs/video/finance/render-receipt.json",
-    "render_input_fingerprint": "21d31af100e6b1deea457bff35c38b788119bd6b72a446cc252692b5dcacba65",
-    "post_render_packaging_changes": {
-      "engine/package.py": {
-        "render_time_sha256": "9f42e2e76b5dd0b44c1ae10ceb54c31444915629d0977c2a7fd2c60b527b2748",
-        "packaging_time_sha256": "7a62e786b1734b500e4c317e93bc221a4c49d9496ee5f0887f6f4a012351bdcf",
-        "reason": "Correct font-loop variable shadowing of the delivery media name; no frame or audio code changed."
-      }
-    },
+    "render_input_fingerprint": "5b4bd38c65796a424e888cbeb3c2807aaa543fbbebcae85a410eafa815383b11",
+    "post_render_packaging_changes": {},
     "geometry_passed": true,
-    "frames_checked": 8846,
+    "frames_checked": 8840,
     "cue_boundaries_checked": 93,
     "video_checks": "Full render frame count, frame rate and dimensions verified with ffprobe before packaging.",
-    "review_scope": "Automated geometry and asset checks; these records do not claim full human viewing or listening.",
-    "full_audio_video_decode": "passed",
-    "encoded_frames_verified": 8846
+    "review_scope": "Automated geometry and asset checks; these records do not claim full human viewing or listening."
   },
   "chapters": [
     {
@@ -232,7 +527,7 @@
     {
       "name": "RESULT",
       "start_seconds": 266.063,
-      "end_seconds": 294.37
+      "end_seconds": 294.18
     }
   ],
   "shots": [
@@ -243,7 +538,6 @@
       "start_seconds": 0.0,
       "end_seconds": 8.334,
       "narration_en": "One model, one harness, one month-end close. Follow how the agent works inside Claude Code, and how its files are checked.",
-      "caption_zh": "一个模型、一套 Harness、一次月末结账。看 Agent 如何在 Claude Code 里工作，交付物又如何被检验。",
       "trace_seconds": null
     },
     {
@@ -253,7 +547,6 @@
       "start_seconds": 8.334,
       "end_seconds": 17.427,
       "narration_en": "The July books lock at 6 p.m. on 5 August. Six proposed entries are waiting, and each one must be accepted, replaced or rejected.",
-      "caption_zh": "七月账务 8 月 5 日 18:00 锁账。六条待入账意见正在等待处理，每一条都要接受、替换或拒绝。",
       "trace_seconds": null
     },
     {
@@ -263,7 +556,6 @@
       "start_seconds": 17.427,
       "end_seconds": 25.471,
       "narration_en": "Each decision needs amounts and statement effects. Only one independent reviewer is available, for at most six hours a day.",
-      "caption_zh": "每项处理都要算清金额和报表影响；独立复核人只有 1 名，每天最多 6 小时。",
       "trace_seconds": null
     },
     {
@@ -273,7 +565,6 @@
       "start_seconds": 25.471,
       "end_seconds": 35.044,
       "narration_en": "55 source files go in: ledgers, valuations, policies and letters. Two files must come out: a Word report and an Excel workbook.",
-      "caption_zh": "输入 55 份材料：台账、估值、政策与函件。产出两份文件：一份 Word 报告，一份 Excel 底稿。",
       "trace_seconds": null
     },
     {
@@ -283,7 +574,6 @@
       "start_seconds": 35.044,
       "end_seconds": 41.225,
       "narration_en": "The scoring rubric is not in the container. The agent works without seeing how it will be judged.",
-      "caption_zh": "评分标准不在容器里。Agent 在看不到评判方式的情况下工作。",
       "trace_seconds": null
     },
     {
@@ -293,7 +583,6 @@
       "start_seconds": 41.675,
       "end_seconds": 53.045,
       "narration_en": "Claude Code runs the loop. The model chooses an action. Claude Code turns it into a tool call. The command runs inside Docker, and the output returns to the model.",
-      "caption_zh": "Claude Code 负责运行循环：模型选择动作，Claude Code 把它变成工具调用，命令在 Docker 里执行，输出再回到模型。",
       "trace_seconds": [
         0.0,
         5.2
@@ -306,7 +595,6 @@
       "start_seconds": 53.045,
       "end_seconds": 63.321,
       "narration_en": "The first request lists the input folder and creates the output folder. The second asks for two files: the register of proposed entries and the review engagement letter.",
-      "caption_zh": "第一次请求列出输入目录、建好输出目录；第二次请求读取两份文件：待入账意见登记表和复核委托函。",
       "trace_seconds": [
         5.2,
         9.6
@@ -319,7 +607,6 @@
       "start_seconds": 63.321,
       "end_seconds": 74.378,
       "narration_en": "Bash runs both inside the container. The register returns six rows, D01 to D06, all unposted. The Word letter returns raw binary.",
-      "caption_zh": "Bash 在容器里执行这两条命令。登记表返回六行：D01 到 D06，均未过账；Word 委托函返回的却是一串二进制。",
       "trace_seconds": [
         9.6,
         10.4
@@ -332,7 +619,6 @@
       "start_seconds": 74.378,
       "end_seconds": 83.192,
       "narration_en": "That observation shapes the next step. Request three reads the letter again with a Python Word library, and this time the text comes through.",
-      "caption_zh": "这个观察决定了下一步：第三次请求改用 Python 的 Word 库重新读取委托函，这次正文正常返回。",
       "trace_seconds": [
         13.0,
         14.9
@@ -345,7 +631,6 @@
       "start_seconds": 83.192,
       "end_seconds": 92.375,
       "narration_en": "One response can carry several tool calls. Request four reads four source files at once, and Claude Code returns all four results together.",
-      "caption_zh": "一次响应可以携带多个工具调用。第四次请求同时读取四份材料，Claude Code 把四个结果一起送回。",
       "trace_seconds": [
         24.1,
         27.2
@@ -358,7 +643,6 @@
       "start_seconds": 92.375,
       "end_seconds": 99.52,
       "narration_en": "Request five writes a plan with TodoWrite: read the sources, analyze each entry, then build the workbook and the report.",
-      "caption_zh": "第五次请求用 TodoWrite 写下计划：读材料、逐条分析各项意见，再做底稿和报告。",
       "trace_seconds": [
         31.5,
         33.8
@@ -371,7 +655,6 @@
       "start_seconds": 99.52,
       "end_seconds": 110.243,
       "narration_en": "Over the next requests it keeps reading: designation documents, policies, standards and letters. By request 12, it has opened 27 of the 55 files.",
-      "caption_zh": "接下来的请求里它持续阅读：套期指定文件、内部政策、准则摘录和往来函件。到第 12 次请求，它已打开 55 份材料中的 27 份。",
       "trace_seconds": [
         36.6,
         73.1
@@ -384,7 +667,6 @@
       "start_seconds": 110.243,
       "end_seconds": 118.443,
       "narration_en": "Request 13 updates the plan and marks all six analyses done. That status is the agent's own claim, not a check.",
-      "caption_zh": "第 13 次请求更新计划，把六项分析全部标为已完成。这只是 Agent 自己的标记，不是检验结果。",
       "trace_seconds": [
         101.5,
         103.4
@@ -397,7 +679,6 @@
       "start_seconds": 118.443,
       "end_seconds": 125.354,
       "narration_en": "To size the swap's July change, it queries the daily valuation file for 30 June and 31 July.",
-      "caption_zh": "为量化利率互换七月的价值变动，它查询逐日估值明细，取 6 月 30 日和 7 月 31 日两天。",
       "trace_seconds": [
         118.4,
         121.0
@@ -410,7 +691,6 @@
       "start_seconds": 125.354,
       "end_seconds": 134.123,
       "narration_en": "−1.28 million, then −4.40 million. The July change is −3.12 million yuan.",
-      "caption_zh": "6 月末 −1,277,351.45 元，7 月末 −4,395,835.74 元，七月变动 −3,118,484.29 元。",
       "trace_seconds": [
         121.0,
         121.0
@@ -423,7 +703,6 @@
       "start_seconds": 134.123,
       "end_seconds": 141.699,
       "narration_en": "Next the model writes a long Python script. Bash runs it, and the workbook appears with three sheets, then two more.",
-      "caption_zh": "接着模型写出一段很长的 Python 脚本。Bash 执行后，底稿先出现三张表，随后再补上两张。",
       "trace_seconds": [
         147.3,
         205.4
@@ -436,7 +715,6 @@
       "start_seconds": 141.699,
       "end_seconds": 148.308,
       "narration_en": "Then a script to enrich two sheets prints \"enhanced\" twice, and stops with a NameError: a misspelled variable.",
-      "caption_zh": "随后，一段补充两张表的脚本先打印两次 enhanced，接着因变量名拼错，以 NameError 中止。",
       "trace_seconds": [
         214.1,
         240.3
@@ -449,7 +727,6 @@
       "start_seconds": 148.308,
       "end_seconds": 155.337,
       "narration_en": "The script crashed before saving, so neither change reached the file. Sheet one still holds three rows.",
-      "caption_zh": "脚本在保存之前就崩溃了，两处修改都没有写进文件。第一张表仍然只有 3 行。",
       "trace_seconds": [
         240.3,
         240.3
@@ -462,7 +739,6 @@
       "start_seconds": 155.337,
       "end_seconds": 163.28,
       "narration_en": "The agent doesn't notice yet. It enriches sheets three and four, then writes the Word report, one section for each entry.",
-      "caption_zh": "Agent 此时还没察觉。它补充了第三、四张表，然后写 Word 报告：每条意见一节。",
       "trace_seconds": [
         242.7,
         338.3
@@ -475,7 +751,6 @@
       "start_seconds": 163.28,
       "end_seconds": 168.947,
       "narration_en": "Then it reads its own files back. The check shows sheet one with only three rows.",
-      "caption_zh": "然后它读回自己的文件。检查结果显示，第一张表只有 3 行。",
       "trace_seconds": [
         341.3,
         343.7
@@ -488,7 +763,6 @@
       "start_seconds": 168.947,
       "end_seconds": 175.858,
       "narration_en": "It looks once more, then states it plainly: the sheet one and two enhancements weren't saved, because of the earlier error.",
-      "caption_zh": "它又查了一次，然后明确说出原因：第一、二张表的补充因为之前的错误没有保存。",
       "trace_seconds": [
         365.1,
         378.3
@@ -501,7 +775,6 @@
       "start_seconds": 175.858,
       "end_seconds": 183.668,
       "narration_en": "It runs the edit again. This time the receipt reads \"All enhancements saved\", and both sheets now hold 39 rows.",
-      "caption_zh": "它重新执行这次修改。这次回执是 All enhancements saved，两张表都变成 39 行。",
       "trace_seconds": [
         378.2,
         401.3
@@ -514,7 +787,6 @@
       "start_seconds": 183.668,
       "end_seconds": 191.728,
       "narration_en": "A final check, the plan is ticked off, and the agent stops: 28 model requests, 54 tool calls, about seven minutes.",
-      "caption_zh": "最后再检查一遍，计划全部打勾，Agent 结束：28 次模型请求、54 次工具调用，约 7 分钟。",
       "trace_seconds": [
         396.6,
         414.7
@@ -527,7 +799,6 @@
       "start_seconds": 192.178,
       "end_seconds": 203.236,
       "narration_en": "Here is the whole run. 50 Bash commands and 4 TodoWrite updates, all through Claude Code. It never used the Read, Edit or Write tools; all file work went through Bash.",
-      "caption_zh": "这是整次运行：50 次 Bash、4 次 TodoWrite，全部经由 Claude Code。它没有使用 Read、Edit、Write 工具，所有文件操作都走 Bash。",
       "trace_seconds": [
         414.7,
         414.7
@@ -540,7 +811,6 @@
       "start_seconds": 203.236,
       "end_seconds": 212.697,
       "narration_en": "Each result is added to the model's context. By the last request, the prompt has grown from about 27 thousand to about 100 thousand tokens.",
-      "caption_zh": "每个结果都会追加进模型的上下文。到最后一次请求，提示长度从约 2.7 万 token 增长到约 10 万。",
       "trace_seconds": [
         414.7,
         414.7
@@ -553,7 +823,6 @@
       "start_seconds": 212.697,
       "end_seconds": 219.447,
       "narration_en": "When the agent stops, Harbor copies the tests into the same container. Only then does scoring begin.",
-      "caption_zh": "Agent 停止后，Harbor 才把测试复制进同一个容器。评分这时才开始。",
       "trace_seconds": [
         414.7,
         414.7
@@ -566,7 +835,6 @@
       "start_seconds": 219.897,
       "end_seconds": 222.734,
       "narration_en": "An independent check now takes over.",
-      "caption_zh": "接下来，由独立检验接手。",
       "trace_seconds": null
     },
     {
@@ -576,7 +844,6 @@
       "start_seconds": 222.734,
       "end_seconds": 233.78,
       "narration_en": "RewardKit opens a separate judge session for each of 27 criteria. The judge model is deepseek-v4.1-flash. Nothing flows back to the agent.",
-      "caption_zh": "RewardKit 为 27 条评分项各开一个独立的裁判会话，裁判模型是 deepseek-v4.1-flash。评分结果不会回传给 Agent。",
       "trace_seconds": null
     },
     {
@@ -586,7 +853,6 @@
       "start_seconds": 233.78,
       "end_seconds": 244.804,
       "narration_en": "One number holds. The workbook's DV01 matches the judge's recomputation from the five-basis-point scenarios. The agent copied it from the valuation sheet.",
-      "caption_zh": "有一个数字对上了：底稿里的 DV01 与裁判按正负 5BP 情景复算的结果一致。这个值是 Agent 从估值底稿里取用的。",
       "trace_seconds": null
     },
     {
@@ -596,7 +862,6 @@
       "start_seconds": 244.804,
       "end_seconds": 256.955,
       "narration_en": "D02 is subtler. The agent didn't book the loan's loss to the cash-flow hedge reserve, so the red line holds. But accepting it as a provisional net-investment hedge earns only half marks.",
-      "caption_zh": "D02 更微妙：Agent 没有把借款汇兑损失记入现金流量套期储备，红线未触发；但它把该意见作为净投资套期的暂行处理接受，只拿到一半分。",
       "trace_seconds": null
     },
     {
@@ -606,7 +871,6 @@
       "start_seconds": 256.955,
       "end_seconds": 265.613,
       "narration_en": "And none of the five sheets contains a formula. The amounts are typed-in values, so the calculation chain can't be traced to the source fields.",
-      "caption_zh": "此外，五张表里一个公式都没有。金额都是直接写入的数值，计算链无法追溯到来源字段。",
       "trace_seconds": null
     },
     {
@@ -616,7 +880,6 @@
       "start_seconds": 266.063,
       "end_seconds": 275.056,
       "narration_en": "Of 20 positive criteria, 3 are met, 6 partly met, and 11 not met. No penalties were triggered, and both red lines held.",
-      "caption_zh": "20 个正向评分项中，3 项满足、6 项部分满足、11 项未满足；5 个扣分项均未触发，两条红线都守住了。",
       "trace_seconds": null
     },
     {
@@ -626,7 +889,6 @@
       "start_seconds": 275.056,
       "end_seconds": 286.928,
       "narration_en": "The recorded reward is 0.333: 57.25 of 172 weighted points. One pilot run's rubric score, not accuracy, and not a ranking.",
-      "caption_zh": "记录的奖励值为 0.333，即加权得分 57.25 / 172。这是一次试跑的评分结果，不是准确率，也不是排名。",
       "trace_seconds": null
     },
     {
@@ -634,48 +896,39 @@
       "chapter": "RESULT",
       "kind": "outro",
       "start_seconds": 286.928,
-      "end_seconds": 294.37,
+      "end_seconds": 294.18,
       "narration_en": "A professional task, an agent run, and an independent check. Explore more on the Metacase Challenge site.",
-      "caption_zh": "专业任务、Agent 运行、独立检验。更多内容见 Metacase Challenge 网站。",
       "trace_seconds": null
     }
   ],
   "files": {
     "assets/video/finance-story-demo.mp4": {
-      "bytes": 49148540,
-      "sha256": "9555f279a5348385ae7e30117d653a8b77eb394bc3f6f9da3964256ee5183d82"
+      "bytes": 47380527,
+      "sha256": "f2db875349f23e8729dd45637e7ce436e2127f9016f4d2d5858c6b44d454a156"
     },
     "assets/video/finance-story-demo-poster.jpg": {
-      "bytes": 327255,
-      "sha256": "e0cfd58609802e79bca745638ae356e5283a768631c41b47b90ac650e4be653b"
+      "bytes": 308665,
+      "sha256": "330fa4abbb8dd899ea933893746f1c54690f775029b8f96b263f256bf66df5dd"
     },
     "docs/video/finance/captions.en.srt": {
-      "bytes": 5358,
-      "sha256": "712dedd5bb8e79286cf6b4c1f68a6588826d52098a9537e4e07d806a774dce5b"
-    },
-    "docs/video/finance/captions.zh.srt": {
-      "bytes": 5238,
-      "sha256": "7148ce61ec1f7d2b5027c384e870abcce6d40f86010fdf84eb72fa2b2240bff1"
-    },
-    "docs/video/finance/captions.bilingual.srt": {
-      "bytes": 9450,
-      "sha256": "fe244158da776ab646764a6290399dbf1bcd1b6a8e3f1bb8d79a31532a80f417"
+      "bytes": 5354,
+      "sha256": "6e6daa1a94d31949fed4a0521495a0325bcc71b48250f7901888cd8aff5f710d"
     },
     "docs/video/finance/guide-geometry-qa.json": {
-      "bytes": 55238,
-      "sha256": "94c626d557d938e5a14568b4f7036137ea3af207f4ad52e4c37d5c443311511b"
+      "bytes": 55389,
+      "sha256": "0106cf1fb3018a161bbb98f1e80947bc1993193e1837df7331290d6022799755"
     },
     "docs/video/finance/font-selection.json": {
-      "bytes": 5448,
-      "sha256": "a082d541c7a645741dd79bcd47ef714f80991856b8e4ea8fd637d43a913704d9"
+      "bytes": 5802,
+      "sha256": "e6fe25883be706f188a78a45f7df0fcd807aba4aa678a0a8e5cd2233e840c195"
     },
     "docs/video/finance/render-receipt.json": {
-      "bytes": 14120,
-      "sha256": "5730f9ba5ffc0ebdd6baaf69ea2d3db7690d0e2c22f48a44669fdd268710a0d5"
+      "bytes": 15092,
+      "sha256": "fd9f2870afd07d0f097a9615a3048bf3b7e023cd92e7ec3dae3b46219d519684"
     },
     "docs/video/finance/README.md": {
-      "bytes": 4486,
-      "sha256": "5250d1ae6d005ae131031bc9b7d5aeac8512a008cc0777e3ea8ce7dba7658a54"
+      "bytes": 5079,
+      "sha256": "5bc8727afa025ffadd6eda84909042dec1c8da7400e01152a93df12163f3b4e4"
     }
   },
   "sources": {
@@ -694,41 +947,55 @@
     },
     "voice_cache_index": {
       "path": "build/fin/voice.json",
-      "sha256": "e70cbd22f31d49343f9381d4fbe754af2c1ec594861aef3380dc0130fa2c3f04"
+      "sha256": "f7213b33bdf1ea26857e22af754533bc1b1bc10e9bcfd5824c3ff5d0b3340fc0"
     }
   },
   "editable_source": {
     "directory": ".",
     "files_sha256": {
-      "engine/check_guide.py": "9531001e6b8fc905ade618b7f3e7b7a2dfcba1f5f2f8804e81972c903888bbcd",
-      "engine/compose.py": "36cff19b93a40369471e6e3c61b569d4172e8ef7ca40de878c99817d6523f6d2",
-      "engine/fonts.py": "79ab36c54d4362770e63b670304ae7e4118d8e96c88f1530c94ed77c32e415eb",
-      "engine/gfx.py": "fb2a0dd582a9e0dc0beec8fccf7008a39804e12404d102cdad72687aaa784ed5",
-      "engine/guide.py": "3be4b340d7863b3aa58d00f8d9d20ac0bbf8f05a871f56f364ae43ba317067a6",
+      "engine/bookends_export.py": "6f8bc0e8e1a4ade337628558d91cad02b227e7318b41964ffbd7bded4e41bba6",
+      "engine/brand.py": "78945514fae4d3d96c620fa11a44c9c783d617cdbdd364895835906a266e557b",
+      "engine/check_guide.py": "56126eda800ffbffc68bacbf8c84b97fb9ab9942bdee9f7819ea52c19c053e35",
+      "engine/compose.py": "51bdbbd053e6e93f4b11391cfc5e32860217062c04ea9528e28a58b1e87c57ce",
+      "engine/fonts.py": "c4056c6e92309134873e2131a0d67149d4f0659eb0f7de009c5e1b243fed32e2",
+      "engine/gfx.py": "c48c1e549c457a3720e316ed595bae00b70398838a2ff95afd4f7ccc267443fe",
+      "engine/guide.py": "73f0b5b6077872a1d381766d1c4e7119a2dd0c7f22e498aeb6b659d88f1de069",
       "engine/guide_targets.py": "e9579e7ce9b1427bfd08177867d60693c30d5b5d17c54c536a4ec46b59165573",
-      "engine/package.py": "7a62e786b1734b500e4c317e93bc221a4c49d9496ee5f0887f6f4a012351bdcf",
-      "engine/panels.py": "b362eea2736703609560c0d5416be4895b0bd96b6b3d11a5cf453c593afdda41",
-      "engine/reference_bookends.py": "0c577b6d01c5c6802ba70cf524f4e8aa5327ea5d190b91cb405acc4d26a0cc97",
+      "engine/package.py": "d4c9fd2ca18adc1e726c52a1048d1303c13abe1c955df6542df1df45966b5bab",
+      "engine/panels.py": "a1317ff4321edb356492854e669d1641be8c7f7ae8fdc1c7090ad79b8b044fb2",
+      "engine/reference_bookends.py": "035472375254bbaf22c115de070bf5a274ef48356783374be5243dee014df281",
       "engine/reference_pet.py": "d17cca8578c259620666433559b50fecebe1a0f3fd55558659e109d6adad307f",
+      "engine/reference_robot.py": "13fa63e354cfebd25a2393827b98388dd96599ce66681ba672b43dc24779c272",
       "engine/render.py": "0caa52bd55c2df8ce5e6b8a9ea5e6d355bf2fb05b04200fcf9e8158441da84cb",
       "engine/rundata.py": "1952628818e51d809072f316dc430788a2514c11ce1fc1abebd13acb9c5e5dd8",
-      "engine/scenes.py": "41a14374e5209badb88625d0c1b34aa1aece18a500b341e609e2c4cdf305c85c",
-      "engine/scenes_x.py": "3970c7826d0719a1958926ab9bcbac566114a0c1bc082577fb1f0b99fb637e82",
+      "engine/scenes.py": "e739548effaa3208486ab8be14d75a09a42f9c6ae153eb60c6f790dabc898c19",
+      "engine/scenes_x.py": "5239fa3d059d1568a0485dd414b013d9542f2e24c1f41a732a9a806ba40a9c0d",
       "engine/sheet.py": "f48757b5f58661fa2f0087f66d6202ea5fc3ce7283ccc45d6eb43585ce9d31ae",
-      "engine/timeline.py": "230b3d80ea5f95264418e1dff69dd97a39630cf0f3bacff76975ae89cae87cb3",
-      "engine/ui.py": "00b887cd04f10a2a9ffb03d55a1dce3c2579b853fcecc6d3a10d8b7934f59ca6",
+      "engine/timeline.py": "ee152d2d78eea1379d5c58b40655092749245c4cf3c4b060ba750cdd94ad4286",
+      "engine/ui.py": "48e188a981782176f0ef07a74d09d46d9345fcb0907c7fbfb4c3869f31054406",
       "engine/voice.py": "015a1b19d04024c3ddbb5b76d0e8eb05b630d6a9e394bfe45e5b2fa06f7dbfbc",
-      "story/fin.py": "15136eac786f2681d8b7aa25e1fac7d91cba3e6afe03b3640fb5e2570d0a8fcd",
+      "story/fin.py": "953072b71831921d8dcaa3d842c9dce6e77fe90e982b7827264fed56dc117e98",
+      "story/fin_en.py": "2d677f8f09ebd7a29b393f84040cf0c95f9446e166a0ca4e1bb58c669989aac9",
+      "README-v3.md": "5bc8727afa025ffadd6eda84909042dec1c8da7400e01152a93df12163f3b4e4",
       "README-guide-aligned.md": "cf7d1768e0a37e57ca85c59ec9b7f9db459305e1c41e98e19846c56f51c055d8",
-      "requirements-render.txt": "35d63721155ff873f6ccc54bad59f89d17a2f33c5ee689dd5717955bc8ae0526"
+      "requirements-render.txt": "35d63721155ff873f6ccc54bad59f89d17a2f33c5ee689dd5717955bc8ae0526",
+      "robot/sprite.html": "d3b8f03bc88623ff7df46cec0a1bf6cea46685bd4d1bc8d3a6f9c29b4df0f1e2",
+      "robot/render_sprites.mjs": "ff7b5cbdc630dda90e2a22d2e0ed115170099ce015950814b0fd2770a0f6ac9d",
+      "robot/sprites/sprites.json": "a0c0189cb4c86c692c1bf138eeb5cfa66f7e72d7357bc588d2da23b1fd0261c8",
+      "fonts/SpaceMono-400.ttf": "680157aa975a626716d8a6a5905452ece83512a3a2ab7d72729fcefab338a1c2",
+      "brand/ATTRIBUTION.txt": "c2b2fd2d7a87b88499de4c6f852f4b8528dec8b7133d83659e2ca756d2215201",
+      "brand/hku-university-crest.png": "f91c5a39fdeede2a4b681fe8516762e9789338fd612643db46cf3c0dfa4f422f",
+      "brand/ntu-university-official.png": "45535780334a04c2384d82468ab49c2c8f6d5a77f717246dc42f0c6ff6451503",
+      "brand/sufe-university-official.png": "fcea85a9d55fd19cb12f8158d8e254ab4237d74731824ea07b729cdc51637072",
+      "brand/tsinghua-university-crest.png": "035bdcc5172a44f5854be0688fc0325fe785075cb2ce592312012cdc2b9cb8b2"
     },
     "requirements": "requirements-render.txt",
-    "instructions": "README-guide-aligned.md",
+    "instructions": "README-v3.md",
     "rebuild": [
       "python -X utf8 engine/render.py fin --workers 2",
       "python -X utf8 engine/package.py fin"
     ],
-    "offline": "Uses the 34 supplied narration MP3 clips and voice.json; do not run voice.py for this rebuild."
+    "offline": "Uses the 34 cached narration MP3 clips (f33 re-voiced for v3) and voice.json; do not run voice.py for this rebuild."
   },
   "boundaries": [
     "Editorial replay of an existing recorded pilot run; no new agent run, no re-scoring.",

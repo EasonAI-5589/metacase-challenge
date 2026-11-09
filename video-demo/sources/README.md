@@ -4,12 +4,21 @@
 
 | 视频 | 网站上的成片 | 源工程 | 状态 |
 |---|---|---|---|
-| task0001 计量复现（GPT-5.6 Sol · DeepAgents） | `assets/video/agent-replay-task0001.mp4` | [`task0001/InferenceNet-task0001-deepagents-flow-source-v3-2.zip`](task0001/InferenceNet-task0001-deepagents-flow-source-v3-2.zip) | 完整 |
-| FIN-T1-003 月结审核（qwen3.7-max · Claude Code） | `assets/video/finance-story-demo.mp4` | [`finance/InferenceNet-FIN-T1-003-guide-aligned-v2-source.zip`](finance/InferenceNet-FIN-T1-003-guide-aligned-v2-source.zip) | 完整 |
+| task0001 计量复现（GPT-5.6 Sol · DeepAgents） | `assets/video/agent-replay-task0001.mp4`（v4） | [`task0001/Metacase-task0001-deepagents-flow-source-v4.zip`](task0001/Metacase-task0001-deepagents-flow-source-v4.zip)；底稿 v3.2 同目录 | 完整 |
+| FIN-T1-003 月结审核（qwen3.7-max · Claude Code） | `assets/video/finance-story-demo.mp4`（v3） | [`finance/Metacase-FIN-T1-003-guide-aligned-v3-source.zip`](finance/Metacase-FIN-T1-003-guide-aligned-v3-source.zip)；底稿 v2 同目录 | 完整 |
 | HR-T3-114 培训与采购验收（qwen3.7-max · Claude Code） | `assets/video/hr-agent-replay.mp4` | 引擎在 Finance 包的 `original-source/engine/` 里 | 缺故事板、运行数据和旁白缓存 |
 | SFF 舞台片 | `docs/video/sff-homepage/` | [`../sff-homepage/`](../sff-homepage/)（已在仓库） | 拍摄脚本完整，母版不在 git |
 
 成片与源工程的对应关系都按 SHA-256 核对过，完整哈希见 [`SHA256SUMS`](SHA256SUMS)。
+
+## 2026-11-09：Metacase 版（Finance v3、task0001 v4）
+
+按 [issue #64](https://github.com/EasonAI-5589/metacase-challenge/issues/64) 改为网站现在的品牌：引导角色换成首页机器人持 Claude Code 枪，只留英文，片头片尾和标头换成 Metacase 并带机构行。两个新包都是在下面的底稿上增量修改，每一步的改动和验收见包内 `README-v3.md`（Finance）和 `README.txt` 开头的 v4 一节（task0001）。
+
+- **Finance v3**：Skia 引擎在 Windows 上渲染（与 v2 同一台机器、同样的 Consolas 字体），`engine/check_guide.py` 全部 8,840 帧通过。片头片尾单独导出在 `docs/video/finance/sff/`。重新生成机器人素材用 `robot/sprite.html` 和 `robot/render_sprites.mjs`，需要和网站仓库放在同一父目录下用本地服务打开。
+- **task0001 v4**：用包内的 SVG/canvas 导出器在 macOS 的无头 Chrome 上渲染，FFmpeg 编码，ffprobe 在 Windows 渲染机上校验成片。引导连续性审计 8,558 帧通过，11 个原始渲染函数逐字节未变，版面检查 124 张静帧无溢出。
+
+下面各节描述的是底稿版本。
 
 ## task0001 · v3.2
 
