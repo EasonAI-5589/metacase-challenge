@@ -6,9 +6,9 @@
   <meta name="color-scheme" content="dark light">
   <meta name="referrer" content="no-referrer">
   <title>Inside a Metacase — Metacase Challenge</title>
-  <meta name="description" content="What a Metacase is made of: the task, the agent (model and harness), the trajectory and the grading, followed through one real run.">
+  <meta name="description" content="One group month-end close, recorded as a Metacase: the evidence and constraints at the decision point, the strategy, the execution trajectory, the independent verification and what can be reused.">
   <meta property="og:title" content="Metacase Challenge — Inside a Metacase">
-  <meta property="og:description" content="What a Metacase is made of: the task, the agent (model and harness), the trajectory and the grading, followed through one real run.">
+  <meta property="og:description" content="One group month-end close, recorded as a Metacase: the evidence and constraints at the decision point, the strategy, the execution trajectory, the independent verification and what can be reused.">
   <meta property="og:type" content="website">
   <link rel="icon" type="image/svg+xml" href="assets/favicon-v2.svg">
   <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -18,16 +18,16 @@
   <link rel="stylesheet" href="data.css">
   <link rel="stylesheet" href="agent.css?v=20260917-case-data">
   <link rel="stylesheet" href="evolution.css?v=20261013-coverage">
-  <link rel="stylesheet" href="harness.css?v=20261109-film">
+  <link rel="stylesheet" href="harness.css?v=20261109-casecopy">
   <script src="site.js?v=20261109-film" defer></script>
   <link rel="stylesheet" href="language.css">
-  <script src="language.js?v=20261109-story12" defer></script>
+  <script src="language.js?v=20261110-casecopy8" defer></script>
   <link rel="stylesheet" href="v2.css?v=20261109-film">
   <link rel="stylesheet" href="skin.css?v=20261108-metacase-page">
   <link rel="stylesheet" href="subpage-toy.css?v=20261109-clip">
   <script type="module" src="subpage-toy.js?v=20261108-metacase-page"></script>
   <link rel="stylesheet" href="scene.css?v=20261022-v2-ambient">
-  <link rel="stylesheet" href="metacase-film.css?v=20261109-story14">
+  <link rel="stylesheet" href="metacase-film.css?v=20261110-casecopy7">
   <script type="module" src="metacase-film.js?v=20261109-story12"></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
   <script src="backdrop.js?v=20261109-film" defer></script>
@@ -95,10 +95,10 @@
 
   <main id="main" class="agent-case harness-page">
     <section class="page-hero container" data-backdrop="orbit" aria-labelledby="page-title">
-      <p class="kicker"><span data-no-translate>FIN-T1-003</span> · one recorded run</p>
-      <h1 id="page-title">What a Metacase <em>is made of.</em></h1>
-      <p class="lead">When an AI agent takes on a real piece of work, a final score shows only how it ended. A Metacase keeps the whole story: what the agent was given, how it worked, how it was checked and what others can learn from it. The easiest way to see what that means is to follow one.</p>
-      <p class="lead mc-hero-story">So here is one. A company’s July accounts close at 6 p.m. on 5 August, and six entries in its books are still undecided. An AI agent is asked to sort them out before the deadline.</p>
+      <p class="kicker"><span data-no-translate>FIN-T1-003</span> · one recorded pilot run</p>
+      <h1 id="page-title">One month-end close, <em>recorded as a Metacase.</em></h1>
+      <p class="lead">A final score reports only how a run ended. A Metacase preserves the goal, evidence and constraints at the point of decision, the strategy adopted, the execution trajectory, the independent verification and what a later attempt can reuse. This page sets out one such record, stage by stage.</p>
+      <p class="lead mc-hero-story">A group’s July books lock at 18:00 on 5 August. Six proposed entries remain unposted, and each must be accepted, replaced or rejected, with one independent reviewer available for 12 hours, short of the 16 that experts estimate are needed. The standards and rules cited are public.</p>
       <div class="hero-actions">
         <a class="button primary" href="https://submit.inferencenet.cn/submit/harness/" target="_blank" rel="noopener">Submit an agent / harness <span aria-hidden="true">↗</span></a>
         <a class="button" href="#replay">Watch the whole run <span aria-hidden="true">↓</span></a>
@@ -107,11 +107,11 @@
 
     <nav class="subnav" aria-label="On this page">
       <ol class="container">
-        <li><a href="#task"><span class="subnav-number">01</span>Task</a></li>
-        <li><a href="#agent"><span class="subnav-number">02</span>Agent</a></li>
-        <li><a href="#trajectory"><span class="subnav-number">03</span>Trajectory</a></li>
-        <li><a href="#grading"><span class="subnav-number">04</span>Grading</a></li>
-        <li><a href="#metacase"><span class="subnav-number">05</span>Metacase</a></li>
+        <li><a href="#context"><span class="subnav-number">01</span>Context</a></li>
+        <li><a href="#strategy"><span class="subnav-number">02</span>Strategy</a></li>
+        <li><a href="#actions"><span class="subnav-number">03</span>Actions</a></li>
+        <li><a href="#outcomes"><span class="subnav-number">04</span>Outcomes</a></li>
+        <li><a href="#reflection"><span class="subnav-number">05</span>Reflection</a></li>
       </ol>
     </nav>
 
@@ -120,93 +120,95 @@
         <canvas class="mc-film-canvas" aria-hidden="true"></canvas>
         <div class="mc-film-scrim" aria-hidden="true"></div>
         <div class="mc-film-copy">
-          <article class="mc-beat" data-beat="0" id="task" aria-labelledby="beat-task">
-            <p class="mc-beat-label"><span data-no-translate>01</span>The brief</p>
-            <h3 id="beat-task"><span class="ln">55 files in.</span> <span class="ln">The answer key stays out.</span></h3>
-            <p>Like a new analyst on a deadline, the agent gets a pile of documents and one job: decide what to do with each of the six entries.</p>
+          <article class="mc-beat" data-beat="0" id="context" aria-labelledby="beat-context">
+            <p class="mc-beat-label"><span data-no-translate>01</span>Context &amp; evidence</p>
+            <h3 id="beat-context"><span class="ln">Six open items,</span> <span class="ln">conflicting evidence.</span></h3>
+            <p>The role is lead reviewer in group treasury, an estimated 18 expert hours. Facts freeze at 18:00 on 3 August; markets are measured at 31 July.</p>
             <ol class="mc-beat-steps" data-list="story">
-              <li data-at="0" class="is-on"><b>The files</b><span>Ledgers, valuations, company policies and letters: 55 files it can read but not change.</span></li>
-              <li data-at=".535"><b>The job</b><span>For each entry: accept it, fix it or reject it. The answers go into a written report and a spreadsheet.</span></li>
-              <li data-at=".6"><b>The answer key</b><span>A finance expert’s 27 checks are locked away. The agent never sees how it will be marked.</span></li>
+              <li data-at="0" class="is-on"><b>Evidence</b><span>The hedge objective is now 70%; the designation still says 100%. One memo post-dates the cutoff; one designation was filed after the fact.</span></li>
+              <li data-at=".27"><b>Open items</b><span>Six unposted proposals: hedge reserves, comparatives, a disposal gain, a counterparty value. Each needs a decision and its statement effect.</span></li>
+              <li data-at=".535"><b>Constraint</b><span>One independent reviewer, six hours a day on 4–5 August: 12 hours against the 16 experts estimate. No proposal may be presented as approved or done.</span></li>
+              <li data-at=".655"><b>Sealed rubric</b><span>The 27 scoring criteria stay outside the container. The agent works without seeing how it will be judged.</span></li>
             </ol>
-            <p class="mc-beat-keep"><span>Kept in the Metacase as</span> <b>Context &amp; evidence</b><br class="keep-br"><i>what was known at the start</i></p>
-            <p class="mc-stat"><b data-n="files" data-from="0" data-to="55" data-no-translate>55</b><span>files</span></p>
+            <p class="mc-beat-keep"><span>Kept in the Metacase as</span> <b>Goal · Evidence · Constraints</b><br class="keep-br"><i>what was known at the decision point</i></p>
+            <p class="mc-stat"><b data-n="files" data-from="0" data-to="55" data-no-translate>55</b><span>source documents</span></p>
           </article>
-          <article class="mc-beat" data-beat="1" id="agent" aria-labelledby="beat-agent">
-            <p class="mc-beat-label"><span data-no-translate>02</span>The pair</p>
-            <h3 id="beat-agent"><span class="ln">Pick a model.</span> <span class="ln">Arm it with a harness.</span></h3>
-            <p>An agent has two parts: a model that decides what to do, and a harness, the software that gives it tools and carries out each step.</p>
+          <article class="mc-beat" data-beat="1" id="strategy" aria-labelledby="beat-strategy">
+            <p class="mc-beat-label"><span data-no-translate>02</span>Prior practice &amp; strategy</p>
+            <h3 id="beat-strategy"><span class="ln">Competing treatments,</span> <span class="ln">limited review hours.</span></h3>
+            <p>The materials supply the rules and prior practice in force at the time. The record keeps the agent’s plan and stated reasons, not private reasoning.</p>
             <ol class="mc-beat-steps" data-list="story">
-              <li data-at="0" class="is-on"><b>The rack</b><span>Ten harnesses could run the same model, each with its own tools and rules.</span></li>
-              <li data-at=".404"><b>The pick</b><span>This run pairs the model qwen3.7-max with the Claude Code harness.</span></li>
-              <li data-at=".755"><b>Agent = Model + Harness</b><span>Swap the harness and the same model works differently, so every result belongs to the pair.</span></li>
+              <li data-at="0" class="is-on"><b>Rules and practice</b><span>CAS 24 allows rebalancing only if the objective is unchanged; the 80%–125% test is abolished. Policy B and the approved June close set the baseline.</span></li>
+              <li data-at=".22"><b>Candidate treatments</b><span>The preparer continues the hedge; a treasury draft rebalances. With the objective changed and no redesignation made, the agent books the change to profit or loss.</span></li>
+              <li data-at=".44"><b>Review trade-off</b><span>Packs A, B and C, 11 hours, must precede the lock. The agent places them on 4–5 August and schedules packs D and E after it.</span></li>
+              <li data-at=".66"><b>Recorded plan</b><span>A nine-item TodoWrite plan marks all six analyses complete at 103 seconds, before the swap’s daily valuations are queried: a self-report, not a check.</span></li>
             </ol>
-            <p class="mc-beat-keep"><span>Kept in the Metacase as</span> <b>Actions &amp; execution</b><br class="keep-br"><i>who did the work</i></p>
-            <p class="mc-stat is-slot"><b data-n="pair" data-roll data-no-translate>Claude Code</b><span>harness</span></p>
+            <p class="mc-beat-keep"><span>Kept in the Metacase as</span> <b>Practice · Options · Trade-offs</b><br class="keep-br"><i>the options weighed, and the reasons on record</i></p>
+            <p class="mc-stat"><b data-n="hours" data-from="0" data-to="12" data-suffix=" / 16" data-no-translate>12 / 16</b><span>review hours available / required</span></p>
           </article>
-          <article class="mc-beat" data-beat="2" id="trajectory" aria-labelledby="beat-trajectory">
-            <p class="mc-beat-label"><span data-no-translate>03</span>The work</p>
-            <h3 id="beat-trajectory"><span class="ln">One crash,</span> <span class="ln">caught by itself.</span></h3>
-            <p>For about seven minutes it reads, plans, calculates and writes. Every step is recorded, the mistakes too.</p>
+          <article class="mc-beat" data-beat="2" id="actions" aria-labelledby="beat-actions">
+            <p class="mc-beat-label"><span data-no-translate>03</span>Actions &amp; execution</p>
+            <h3 id="beat-actions"><span class="ln">Same amount,</span> <span class="ln">different account.</span></h3>
+            <p>qwen3.7-max runs in the Claude Code harness for about seven minutes: 28 model requests and 54 tool calls, all logged.</p>
             <ol class="mc-beat-steps" data-list="story">
-              <li data-at="0" class="is-on"><b>Reading</b><span>One letter opens as gibberish, so it finds another way to read it. Soon it has gone through 27 of the 55 files.</span></li>
-              <li data-at=".41"><b>Writing</b><span>It works out that one contract lost about 3.12 million yuan in value in July, and builds the spreadsheet.</span></li>
-              <li data-at=".52"><b>The crash</b><span>A typo in its own code stops the next step before anything is saved. It doesn’t notice.</span></li>
-              <li data-at=".62"><b>The catch</b><span>Later it reads its own files back, sees rows are missing, works out why and fixes it.</span></li>
+              <li data-at="0" class="is-on"><b>Evidence gathering</b><span>From the register and review brief it moves to designations, policies, valuations and rule excerpts: 27 files by request 12, 29 in all, by name in its commands.</span></li>
+              <li data-at=".41"><b>Measurement and judgement</b><span>Daily valuations give −3,118,484.29 yuan for July, as in the draft. With the hedge ended on 30 June, the agent moves it from reserve to profit or loss.</span></li>
+              <li data-at=".52"><b>Failure</b><span>A script prints “enhanced” twice, then halts on a NameError; neither edit reaches the file. The agent carries on and writes the report.</span></li>
+              <li data-at=".62"><b>Read-back</b><span>Reading its files back, it finds sheet one at three rows, states the cause and reapplies the edits. Integrity is restored; the conclusions are unchanged.</span></li>
             </ol>
-            <p class="mc-beat-keep"><span>Kept in the Metacase as</span> <b>Actions &amp; execution</b><br class="keep-br"><i>every step, in order</i></p>
+            <p class="mc-beat-keep"><span>Kept in the Metacase as</span> <b>Steps · Tools · Intermediate work</b><br class="keep-br"><i>every step, in order</i></p>
             <p class="mc-stat"><b data-n="calls" data-from="0" data-to="54" data-no-translate>54</b><span>tool calls</span></p>
           </article>
-          <article class="mc-beat" data-beat="3" id="grading" aria-labelledby="beat-grading">
-            <p class="mc-beat-label"><span data-no-translate>04</span>The marking</p>
-            <h3 id="beat-grading"><span class="ln">27 checks,</span> <span class="ln">judged one by one.</span></h3>
-            <p>Marking starts only after the agent stops, and a separate judge does it. Nothing goes back to the agent.</p>
+          <article class="mc-beat" data-beat="3" id="outcomes" aria-labelledby="beat-outcomes">
+            <p class="mc-beat-label"><span data-no-translate>04</span>Outcomes &amp; verification</p>
+            <h3 id="beat-outcomes"><span class="ln">27 criteria,</span> <span class="ln">verified one by one.</span></h3>
+            <p>Harbor adds the tests to the same container only after the agent stops. RewardKit runs one session per criterion on another model; nothing flows back.</p>
             <ol class="mc-beat-steps" data-list="story">
-              <li data-at="0" class="is-on"><b>Right</b><span>A key risk figure in its spreadsheet matches the judge’s own calculation.</span></li>
-              <li data-at=".51"><b>Red lines</b><span>Breaking either of two rules, such as inventing a rule that isn’t in the files, would have meant zero. It broke neither.</span></li>
-              <li data-at=".72"><b>The score</b><span>3 checks met, 6 partly met, 11 missed: 57.25 of 172 points.</span></li>
+              <li data-at="0" class="is-on"><b>A verified figure</b><span>DV01 of −132,480.55 yuan/BP matches the judge’s recomputation from ±5 bp scenarios, but the agent took the figure from the valuation sheet.</span></li>
+              <li data-at=".51"><b>Graded judgement</b><span>D02’s draft is itself a red line: FX loss in the cash-flow hedge reserve. The agent avoids it, yet a provisional net-investment hedge earns half marks.</span></li>
+              <li data-at=".62"><b>Traceability</b><span>All five sheets hold typed values, so amounts cannot be traced to source fields by formula. The judge session marks traceability not met (R19, 0 of 3).</span></li>
+              <li data-at=".72"><b>Score structure</b><span>Of 20 positive criteria: 3 met, 6 partly met, 11 not met; no penalties or red lines. 57.25 of 172: one pilot run’s score, not accuracy or a ranking.</span></li>
             </ol>
-            <p class="mc-beat-keep"><span>Kept in the Metacase as</span> <b>Outcomes &amp; verification</b><br class="keep-br"><i>the grade, and why</i></p>
-            <p class="mc-stat"><b data-n="score" data-from="0" data-to="0.333" data-decimals="3" data-no-translate>0.333</b><span>score</span></p>
+            <p class="mc-beat-keep"><span>Kept in the Metacase as</span> <b>Deliverable · Result · Checks · Limits</b><br class="keep-br"><i>the result, and the limits of the check</i></p>
+            <p class="mc-stat"><b data-n="score" data-from="0" data-to="0.333" data-decimals="3" data-no-translate>0.333</b><span>rubric score, one pilot run</span></p>
           </article>
-          <article class="mc-beat" data-beat="4" id="metacase" aria-labelledby="beat-metacase">
-            <p class="mc-beat-label"><span data-no-translate>05</span>The record</p>
-            <h3 id="beat-metacase"><span class="ln">One run,</span> <span class="ln">bound into a Metacase.</span></h3>
-            <p>Everything goes into one record that people and other agents can open later. That record is a Metacase.</p>
+          <article class="mc-beat" data-beat="4" id="reflection" aria-labelledby="beat-reflection">
+            <p class="mc-beat-label"><span data-no-translate>05</span>Reflection &amp; reuse</p>
+            <h3 id="beat-reflection"><span class="ln">Where judgement held,</span> <span class="ln">and where it failed.</span></h3>
+            <p>The record ties each loss to what the agent saw and did, so a later attempt starts from a specific failure rather than a score.</p>
             <ol class="mc-beat-steps" data-list="story">
-              <li data-at="0" class="is-on"><b>Bound</b><span>The files, the pair, the steps and the score land on one page.</span></li>
-              <li data-at=".58"><b>Closed</b><span>What worked and what failed are both kept.</span></li>
-              <li data-at=".69"><b>Signed</b><span>Its tabs trace how the problem was solved, so a similar problem can find this case later, even in another field.</span></li>
+              <li data-at="0" class="is-on"><b>What held</b><span>The end of the original hedge and the July measurement stand, the pre-lock review plan largely holds, and neither red line was crossed.</span></li>
+              <li data-at=".58"><b>What failed</b><span>Professional-standards criteria earned 2.5 of 44 points. Four on cross-month scope and redesignation lost 34, and the USSub dry run lost all 20.</span></li>
+              <li data-at=".69"><b>Conditions and signature</b><span>Applies where documents conflict at a cutoff and review is scarce. Signature: conflicting evidence, item-by-item disposition, constrained review.</span></li>
             </ol>
-            <p class="mc-beat-keep"><span>Kept in the Metacase as</span> <b>Reflection &amp; reuse</b><br class="keep-br"><i>what the next attempt can borrow</i></p>
-            <p class="mc-beat-cta"><a class="text-link" href="#epilogue">What the next run can borrow <span aria-hidden="true">↓</span></a></p>
+            <p class="mc-beat-keep"><span>Kept in the Metacase as</span> <b>What held · What failed · When it applies</b><br class="keep-br"><i>what the next attempt can borrow or change</i></p>
+            <p class="mc-beat-cta"><a class="text-link" href="#items">Disposition and score, item by item <span aria-hidden="true">↓</span></a></p>
           </article>
         </div>
         <div class="mc-film-rail" role="group" aria-label="Film chapters">
-          <button class="mc-film-tick" type="button" data-k="0"><span class="mc-film-track" aria-hidden="true"><span class="mc-film-fill"></span></span><span class="mc-film-label">Task</span></button>
-          <button class="mc-film-tick" type="button" data-k="1"><span class="mc-film-track" aria-hidden="true"><span class="mc-film-fill"></span></span><span class="mc-film-label">Agent</span></button>
-          <button class="mc-film-tick" type="button" data-k="2"><span class="mc-film-track" aria-hidden="true"><span class="mc-film-fill"></span></span><span class="mc-film-label">Trajectory</span></button>
-          <button class="mc-film-tick" type="button" data-k="3"><span class="mc-film-track" aria-hidden="true"><span class="mc-film-fill"></span></span><span class="mc-film-label">Grading</span></button>
-          <button class="mc-film-tick" type="button" data-k="4"><span class="mc-film-track" aria-hidden="true"><span class="mc-film-fill"></span></span><span class="mc-film-label">Metacase</span></button>
+          <button class="mc-film-tick" type="button" data-k="0"><span class="mc-film-track" aria-hidden="true"><span class="mc-film-fill"></span></span><span class="mc-film-label">Context</span></button>
+          <button class="mc-film-tick" type="button" data-k="1"><span class="mc-film-track" aria-hidden="true"><span class="mc-film-fill"></span></span><span class="mc-film-label">Strategy</span></button>
+          <button class="mc-film-tick" type="button" data-k="2"><span class="mc-film-track" aria-hidden="true"><span class="mc-film-fill"></span></span><span class="mc-film-label">Actions</span></button>
+          <button class="mc-film-tick" type="button" data-k="3"><span class="mc-film-track" aria-hidden="true"><span class="mc-film-fill"></span></span><span class="mc-film-label">Outcomes</span></button>
+          <button class="mc-film-tick" type="button" data-k="4"><span class="mc-film-track" aria-hidden="true"><span class="mc-film-fill"></span></span><span class="mc-film-label">Reflection</span></button>
         </div>
       </div>
     </section>
 
-    <section class="section container ruled mc-epilogue" id="epilogue" aria-labelledby="epilogue-title">
-      <span id="self-evolution" class="challenge-anchor" aria-hidden="true"></span>
+    <section class="section container ruled mc-items" id="items" aria-labelledby="items-title">
       <div class="section-heading">
         <div>
-          <h2 id="epilogue-title">What the next run <em>can borrow</em></h2>
+          <h2 id="items-title">Evidence, disposition <em>and score</em></h2>
         </div>
-        <p class="lead">A score tells you how one run went. A Metacase also tells you why, and that is the part the next person or agent can use.</p>
+        <p class="lead">The seven scoring groups sum to 172 points. Where the points were lost says more about professional capability than the total does: a correct conclusion is not yet a complete treatment.</p>
       </div>
-      <ol class="mc-lessons">
-        <li class="is-held"><span class="mc-lesson-tag">What held</span><h3>It kept to the rules and checked its own work</h3><p>It made nothing up, and one of its key figures matched the judge’s. Re-reading its own files caught the change the crash had lost.</p></li>
-        <li class="is-missed"><span class="mc-lesson-tag">What was missed</span><h3>11 of the 20 scoring checks earned nothing</h3><p>One whole part of the task scored zero. Its spreadsheet numbers were written in as fixed values rather than calculated, so no one can trace where they came from.</p></li>
-        <li class="is-next"><span class="mc-lesson-tag">What could change</span><h3>Keep the formulas, check sooner</h3><p>Calculate each number from its source, and re-read every file as soon as it is written, not only at the end.</p></li>
-      </ol>
-      <p class="mc-handoff">Self-evolving starts from many records like this one and asks how to make the next run better.</p>
-      <div class="case-links"><a class="text-link" href="evolution.html">Continue to Self-evolving <span aria-hidden="true">→</span></a><a class="text-link" href="index.html#structure">How Metacases are found by how they were solved <span aria-hidden="true">→</span></a><a class="text-link" href="challenge.html#subtrack-professional">Subtrack 2: Business Analysis &amp; Deliverables <span aria-hidden="true">→</span></a></div>
+      <div class="table-scroll" tabindex="0"><table class="compare-table mc-rubric"><caption>Where the documents disagree, and how this run handled it</caption><thead><tr><th scope="col">Documents</th><th scope="col">What they show</th><th scope="col">Why it matters</th><th scope="col">This run</th></tr></thead><tbody><tr><th scope="row">Nos. 40, 32</th><td>The risk committee cuts L-001’s hedge objective from full to 70% from 30 June; the designation document still records a full hedge.</td><td>CAS 24 allows rebalancing only while the objective is unchanged, so the original relationship cannot simply continue.</td><td>Termination from 30 June identified (R10).</td></tr><tr><th scope="row">No. 42</th><td>A treasury rebalancing memo dated 4 August, after the fact cutoff and not countersigned, claims no redesignation is needed.</td><td>A draft dated after the cutoff is not a fact at the decision point.</td><td>Not adopted; D01 rejected and replaced.</td></tr><tr><th scope="row">No. 49</th><td>HR-03’s designation paper was filed in July 2026, after the fact, and gives 18 September against the ledger’s 16 September.</td><td>A later filing cannot establish contemporaneous designation.</td><td>Gap and date difference identified; R51 at level 3.</td></tr><tr><th scope="row">No. 38</th><td>The 80%–125% effectiveness range was abolished under the 2017 standard, though internal rules may still carry it.</td><td>Applying it as a qualification test would invent a rule, which is red line G1.</td><td>Red line G1 held.</td></tr><tr><th scope="row">No. 16</th><td>The manual adjustment total reads −13,220.44 yuan; its components sum to −13,220.46. The forecast-curve column shows Shibor3M; the frozen rerun used FR007.</td><td>The error lies in the manual column; the adopted value should not be reduced again.</td><td>The 0.02 gap goes undisclosed (R41, R42); curve handling at level 4 (R74).</td></tr><tr><th scope="row">Nos. 16, 17</th><td>The counterparty values the swap at −4,431,207.65 yuan on its own curve, against −4,395,835.74 adopted: a gap of 35,371.91.</td><td>Counterparty values are for reconciliation only, and the gap cannot all be treated as a credit adjustment.</td><td>D06 rejected, yet R12 not met.</td></tr></tbody></table></div>
+      <div class="table-scroll" tabindex="0"><table class="compare-table mc-rubric"><caption>Seven scoring groups · 172 points · this run 57.25</caption><thead><tr><th scope="col">Group</th><th scope="col">Draft proposal</th><th scope="col">Agent’s disposition</th><th scope="col">Points</th><th scope="col">What decided it</th></tr></thead><tbody><tr><th scope="row">D01, D03 · HR-01 hedge</th><td>Keep the swap’s 3,118,484.29 yuan in the cash-flow hedge reserve; release the opening reserve of 283,416.56 to profit or loss.</td><td>D01 rejected and replaced, to fair-value gains and losses. D03 rejected, reserve held at −283,416.56.</td><td data-no-translate>27.5 / 64</td><td>Termination and July measurement met. Four criteria scored zero and cost 34 points: the 29 June to 31 July change of −3,233,274.52, the 350 million proposed designation, 70% coverage versus the hedge ratio, and the 150 million undesignated portion.</td></tr><tr><th scope="row">D06 · swap valuation</th><td>Replace the adopted value with the counterparty’s; book 35,371.91 yuan as a credit valuation adjustment.</td><td>Rejected; nothing booked in July.</td><td data-no-translate>12.25 / 38</td><td>DV01 met, curve correction at level 4. Gap attribution, the adjustment total and the 0.02 discrepancy scored zero.</td></tr><tr><th scope="row">D02 · HR-03 USD loan</th><td>Book the July FX loss of 4,480,000 yuan to the cash-flow hedge reserve.</td><td>Accepted provisionally, relabelled to the net-investment hedge reserve.</td><td data-no-translate>7.5 / 20</td><td>Red line held. Amount, document gap and date difference identified, with approval required before the lock; disposition at level 3, eligibility at level 2.</td></tr><tr><th scope="row">D04 · HKSub comparatives</th><td>Update balance-sheet precision only and put the difference in the translation reserve.</td><td>Accepted as corrected, rate 0.898513, 9,997 yuan to the translation reserve.</td><td data-no-translate>2.5 / 10</td><td>Only the balance-sheet rate correction is made; equity and profit are not fully restated.</td></tr><tr><th scope="row">D05 · USSub disposal</th><td>Accrue a 6,000,000 yuan disposal gain in July at 15/70.</td><td>Rejected for July; dry run only.</td><td data-no-translate>0 / 20</td><td>The stake falls from 70% to 55% with control retained. The judge cites IAS 21 §48C against the dry run, and the designation cap is tested against full net assets of USD 120 million; both at the lowest level.</td></tr><tr><th scope="row">Review schedule</th><td>16 hours by expert estimate, 12 available.</td><td>A, B and C (11 hours) on 4–5 August; D and E after the lock.</td><td data-no-translate>7.5 / 10</td><td>Level 4 of 5.</td></tr><tr><th scope="row">General</th><td>Not applicable.</td><td>Typed values; functional-currency determination not assigned to the entity.</td><td data-no-translate>0 / 10</td><td>No formula chain (R19). Policy B, which the agent read, reserves the determination to each entity (R25).</td></tr></tbody></table></div>
+      <p class="mc-rubric-note">By dimension: conclusions 22.5 of 50, calculations 19.5 of 41, analysis 7.5 of 27, professional standards 2.5 of 44, source fidelity 5.25 of 7, instruction following 0 of 3.</p>
+      <p class="mc-rubric-note">Files opened are counted by file names appearing in commands. The full text of IAS 21 is absent from those commands although the review schedule lists it as a prerequisite for pack D; this is a lead to examine, not an established cause.</p>
+      <p class="mc-rubric-note">Scoring took 59 min 17 s and 280 API requests across 27 judge sessions. The reference solution, run separately, scored 1.000, which shows the criteria can be met; it says nothing about any other run.</p>
+      <div class="table-scroll" tabindex="0"><table class="compare-table mc-rubric"><caption>What carries beyond this case, and where the evidence stops</caption><thead><tr><th scope="col">Dimension</th><th scope="col">What this case shows</th><th scope="col">Limits of the evidence</th></tr></thead><tbody><tr><th scope="row">Real-world depth</th><td>Six decisions span two hedge relationships, three overseas subsidiaries and several currencies. They draw on CAS 24, IFRS 9 and IAS 21 as well as a risk-committee resolution, policy versions, an unsigned draft and a back-filed designation, all under a lock time and a review budget.</td><td>Each rule and constraint can be checked against the task materials. The 18 expert hours and 16 review hours are estimates set in the task.</td></tr><tr><th scope="row">Generalisability</th><td>The same task package, sandbox and rubric apply to any Model + Harness pair. The format also carries a human-resources task, HR-T3-114 (17 files, 34 scored criteria), where tool checks likewise failed to prevent professional errors.</td><td>Two tasks with one agent run each are pilot observations; scores from different tasks and judges should not be pooled.</td></tr><tr><th scope="row">Path to practice</th><td>The deliverables are the Word report and Excel workpapers a finance team already reviews. The agent measured July correctly, found documentation gaps, scheduled the review and did not present proposals as approved; missing formulas and unreconciled components can become pre-submission checks.</td><td>A score of 0.333 does not support unreviewed deployment: professional standards and completeness of treatment still need a qualified reviewer.</td></tr><tr><th scope="row">Research relevance</th><td>Harness self-evolution methods such as ModularRSI, Self-Harness and Meta-Harness improve a harness from traces, scores and failures, and report on benchmarks such as Terminal-Bench and SWE-bench Verified. This case supplies the same kinds of evidence on a professional finance deliverable, scored criterion by criterion.</td><td>Subtrack 2 has not yet undergone harness optimisation. Our ModularRSI study raised strict replication from 64% to 67% on econometric replication tasks; that result does not extend to this case.</td></tr></tbody></table></div>
+      <div class="case-links"><a class="text-link" href="evolution.html#compare">Compare the self-evolution methods <span aria-hidden="true">→</span></a><a class="text-link" href="professional-tasks.html">See both pilot tasks <span aria-hidden="true">→</span></a></div>
     </section>
 
     <section class="section container ruled" id="replay" aria-labelledby="replay-title">
