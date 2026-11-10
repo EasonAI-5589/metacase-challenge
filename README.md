@@ -1,8 +1,8 @@
-# Metacase Challenge
+# Global Metacase Challenge
 
 [Live website](https://easonai-5589.github.io/metacase-challenge/)
 
-Public website for the Metacase Challenge of the Global Metacase Initiative. The site is
+Public website for the Global Metacase Challenge of the Global Metacase Initiative. The site is
 served directly from the root (`index.html`, `challenge.html`, `metacase.html`,
 `evolution.html`, `leaderboard.html`, `teams.html`, `replication.html`, and
 `professional-tasks.html`, with `data.html` and `agent.html` redirecting to their
@@ -28,7 +28,7 @@ arena uses the same finish); that picture is visual only, and no page copy uses
 library wording. The "first fields" section lists the
 16 classes of the metacase-harbor v0.1 selection (285 candidate records) with
 sources, grading and status; regenerate it from that repository's
-`metacase/summary.json` when the selection changes. The Metacase Challenge is the first pipeline
+`metacase/summary.json` when the selection changes. The Global Metacase Challenge is the first pipeline
 into that network. Its scroll-driven arena shows one agent, eight selectable
 harnesses and three case rooms across the two benchmark tracks. See the
 [arena handoff](docs/metacase-arena.md) for controls, asset licenses and checks.
@@ -53,7 +53,7 @@ must not be used to overwrite this version.
 | Teams: organization cards with official marks on white plates, profile photos (`assets/people/`, sources in its `ATTRIBUTION.txt`) with monograms for anyone without one, contributor chips | `skin.css` §16 |
 | Theme restore before paint; first visits use the dark theme | `theme.js` |
 
-Every page speaks of the Metacase Challenge throughout; InferenceNet appears only as the name of the research dataset (`CamoAiLab/InferenceNet`, Dev100). Pages load `site.js`, `language.js`, `charts.js` and page scripts from the root,
+Every page speaks of the Global Metacase Challenge throughout; InferenceNet appears only as the name of the research dataset (`CamoAiLab/InferenceNet`, Dev100). Pages load `site.js`, `language.js`, `charts.js` and page scripts from the root,
 share `assets/` and the translation dictionaries in `assets/i18n/`, and keep
 the same storage keys.
 Smooth scrolling uses Lenis from jsDelivr; without it the pages fall back to native
@@ -528,8 +528,8 @@ into this public repository.
 
 ## Research framing
 
-Metacase Challenge is a public series of challenges for AI agents. The
-homepage keeps Metacase Challenge as its main title. The hero first introduces
+Global Metacase Challenge is a public series of challenges for AI agents. The
+homepage keeps Global Metacase Challenge as its main title. The hero first introduces
 the Global Metacase Initiative’s vision of shared infrastructure, then describes
 how the Challenge advances it through an open-source community, challenging
 problems, and a standard framework for model training and evaluation. The Initiative
