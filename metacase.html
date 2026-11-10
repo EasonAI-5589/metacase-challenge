@@ -21,7 +21,7 @@
   <link rel="stylesheet" href="harness.css?v=20261109-casecopy">
   <script src="site.js?v=20261109-film" defer></script>
   <link rel="stylesheet" href="language.css">
-  <script src="language.js?v=20261110-casecopy12" defer></script>
+  <script src="language.js?v=20261110-casecopy17" defer></script>
   <link rel="stylesheet" href="v2.css?v=20261109-film">
   <link rel="stylesheet" href="skin.css?v=20261108-metacase-page">
   <link rel="stylesheet" href="subpage-toy.css?v=20261109-clip">
@@ -98,9 +98,9 @@
       <p class="kicker"><span data-no-translate>FIN-T1-003</span> · one recorded pilot run</p>
       <h1 id="page-title">A Metacase <em>in finance</em></h1>
       <div class="mc-hero-story">
-        <p>A group’s July books lock at 18:00 on 5 August. The shared-service centre has registered six pending entries: draft adjustments, not yet posted, to a swap’s hedge reserve and valuation, a dollar loan’s FX loss, and the comparatives and a disposal gain of two overseas subsidiaries. Each must be accepted, replaced or rejected, with its statement effect.</p>
-        <p>The difficulty is that the evidence conflicts. Among 55 documents, the hedge objective has been cut to 70% while the designation still records 100%, and one memo post-dates the fact cutoff. Some drafts are themselves wrong, and posting them as filed would put the error into the statements.</p>
-        <p>Checking every item would take an estimated 16 hours, and the one independent reviewer has 12. So the agent, as the specialist in charge, has two jobs: prepare each entry for approval, and decide which items a person reviews before the lock. No proposal may be presented as approved.</p>
+        <p>A group’s July books lock at 18:00 on 5 August with six draft entries unposted: a swap’s hedge reserve and valuation, a dollar loan’s FX loss, and two overseas subsidiaries’ comparatives and disposal gain. Each must be accepted, replaced or rejected, with its statement effect.</p>
+        <p>The 55 documents conflict: the hedge objective is now 70% but the designation still says 100%, one memo post-dates the cutoff, and some drafts are themselves wrong.</p>
+        <p>A full check would take an estimated 16 hours, and the one independent reviewer has 12. People alone cannot finish it, so an agent is brought in: to prepare each entry for approval and decide what a person reviews before the lock. Nothing may be presented as approved.</p>
       </div>
       <div class="hero-actions">
         <a class="button primary" href="https://submit.inferencenet.cn/submit/harness/" target="_blank" rel="noopener">Submit an agent / harness <span aria-hidden="true">↗</span></a>
@@ -125,7 +125,7 @@
         <div class="mc-film-copy">
           <article class="mc-beat" data-beat="0" id="context" aria-labelledby="beat-context">
             <p class="mc-beat-label"><span data-no-translate>01</span>Context &amp; evidence</p>
-            <h3 id="beat-context"><span class="ln">The agent takes stock</span> <span class="ln">of items and evidence.</span></h3>
+            <h3 id="beat-context"><span class="ln">Scoping the evidence,</span> <span class="ln">open items and constraints.</span></h3>
             <p>The role is lead reviewer in group treasury, an estimated 18 expert hours. Facts freeze at 18:00 on 3 August; markets are measured at 31 July.</p>
             <ol class="mc-beat-steps" data-list="story">
               <li data-at="0" class="is-on"><b>Evidence</b><span>The hedge objective is now 70%; the designation still says 100%. One memo post-dates the cutoff; one designation was filed after the fact.</span></li>
@@ -137,7 +137,7 @@
           </article>
           <article class="mc-beat" data-beat="1" id="strategy" aria-labelledby="beat-strategy">
             <p class="mc-beat-label"><span data-no-translate>02</span>Prior practice &amp; strategy</p>
-            <h3 id="beat-strategy"><span class="ln">The agent picks a route</span> <span class="ln">and rations the review.</span></h3>
+            <h3 id="beat-strategy"><span class="ln">Weighing hedge treatments,</span> <span class="ln">prioritising review hours.</span></h3>
             <p>The materials supply the rules and prior practice in force at the time. The record keeps the agent’s plan and stated reasons, not private reasoning.</p>
             <ol class="mc-beat-steps" data-list="story">
               <li data-at="0" class="is-on"><b>Rules and practice</b><span>CAS 24 allows rebalancing only if the objective is unchanged; the 80%–125% test is abolished. Policy B and the approved June close set the baseline.</span></li>
@@ -150,7 +150,7 @@
           </article>
           <article class="mc-beat" data-beat="2" id="actions" aria-labelledby="beat-actions">
             <p class="mc-beat-label"><span data-no-translate>03</span>Actions &amp; execution</p>
-            <h3 id="beat-actions"><span class="ln">The agent does the work</span> <span class="ln">and repairs a failure.</span></h3>
+            <h3 id="beat-actions"><span class="ln">Evidence, then measurement;</span> <span class="ln">read-back repairs the file.</span></h3>
             <p>qwen3.7-max runs in the Claude Code harness for about seven minutes: 28 model requests and 54 tool calls, all logged.</p>
             <ol class="mc-beat-steps" data-list="story">
               <li data-at="0" class="is-on"><b>Evidence gathering</b><span>From the register and review brief it moves to designations, policies, valuations and rule excerpts: 27 files by request 12, 29 in all, by name in its commands.</span></li>
@@ -163,7 +163,7 @@
           </article>
           <article class="mc-beat" data-beat="3" id="outcomes" aria-labelledby="beat-outcomes">
             <p class="mc-beat-label"><span data-no-translate>04</span>Outcomes &amp; verification</p>
-            <h3 id="beat-outcomes"><span class="ln">The agent stops;</span> <span class="ln">27 criteria are checked.</span></h3>
+            <h3 id="beat-outcomes"><span class="ln">Out-of-loop verification:</span> <span class="ln">27 criteria, judged singly.</span></h3>
             <p>Harbor adds the tests to the same container only after the agent stops. RewardKit runs one session per criterion on another model; nothing flows back.</p>
             <ol class="mc-beat-steps" data-list="story">
               <li data-at="0" class="is-on"><b>A verified figure</b><span>DV01 of −132,480.55 yuan/BP matches the judge’s recomputation from ±5 bp scenarios, but the agent took the figure from the valuation sheet.</span></li>
@@ -176,7 +176,7 @@
           </article>
           <article class="mc-beat" data-beat="4" id="reflection" aria-labelledby="beat-reflection">
             <p class="mc-beat-label"><span data-no-translate>05</span>Reflection &amp; reuse</p>
-            <h3 id="beat-reflection"><span class="ln">Where the agent held,</span> <span class="ln">and where it failed.</span></h3>
+            <h3 id="beat-reflection"><span class="ln">Reviewing every disposition,</span> <span class="ln">and the limits of reuse.</span></h3>
             <p>The record ties each loss to what the agent saw and did, so a later attempt starts from a specific failure rather than a score.</p>
             <ol class="mc-beat-steps" data-list="story">
               <li data-at="0" class="is-on"><b>What held</b><span>The end of the original hedge and the July measurement stand, the pre-lock review plan largely holds, and neither red line was crossed.</span></li>
