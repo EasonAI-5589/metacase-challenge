@@ -209,7 +209,7 @@
   "Both sheets now hold 39 rows and the plan is ticked off. The run ends after 28 model requests and 54 tool calls: 50 commands and 4 plan updates.": "两张表均增至 39 行，计划全部勾选。本次运行共 28 次模型请求、54 次工具调用，其中命令 50 次、计划更新 4 次。",
   "Figures, documents, counts and scores come from one recorded pilot run (qwen3.7-max in Claude Code 2.1.114, Harbor 0.20.0). The stage is an illustration of that record, and the task’s business records are synthetic.": "文中的数字、文件、计数和得分均来自一次真实试跑记录（qwen3.7-max，Claude Code 2.1.114，Harbor 0.20.0）。舞台画面是对该记录的示意，任务中的业务记录为合成数据。",
   "Original record": "查看原始记录",
-  "Run Replay — Metacase Challenge": "运行回放 — Metacase Challenge",
+  "Run Replay — Global Metacase Challenge": "运行回放 — Global Metacase Challenge",
   "Configure an agent and replay a recorded run": "配置智能体并回放一次真实运行",
   "Replay a recorded run.": "回放一次真实运行。",
   "An agent receives 55 documents and six unposted entries, and must decide each one before the books lock. Choose its model and harness, then scroll or click to advance through what happened.": "智能体收到 55 份资料和六条未过账的待入账意见，须在锁账前逐条作出裁定。请选择模型与 Harness，再向下滚动或点击，逐步查看这次运行中发生的每一步。",

@@ -291,7 +291,7 @@ if (chapter) {
     $('[data-mc-carried]').hidden = !browsing;
     $('[data-mc-event]').textContent = state.phase === 1 ? h.description[l] : p.event[l];
     $('[data-mc-index]').textContent = String(state.phase + 1).padStart(2,'0');
-    $('[data-mc-name]').textContent = l ? 'METACASE 挑战赛' : 'THE METACASE CHALLENGE';
+    $('[data-mc-name]').textContent = l ? '全球 METACASE 挑战赛' : 'THE GLOBAL METACASE CHALLENGE';
     $('[data-mc-scroll-hint]').textContent = manual() ? (l?'用下方进度条探索':'EXPLORE WITH THE SLIDER') : (l?'滚动，进入下一幕':'SCROLL TO EXPLORE');
     $('[data-mc-loadout-label]').textContent = browsing ? STEP_LABELS[3][l] : inDomain && equipped ? (l ? '悬浮武器 / HARNESS' : 'DEPLOYED / HARNESS') : (l ? '背负武器 / HARNESS' : 'WEAPON / HARNESS');
     $('[data-mc-wheel-label]').textContent = manual()
