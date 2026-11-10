@@ -1,14 +1,14 @@
 /* film-task.js — beat 0 of the Metacase film: Task.
  * FIN-T1-003's 55 read-only files rain into a glass container (the Docker container the agent
  * will work in) and settle into stacks by type: 18 CSV, 28 DOCX, 8 PDF/HTML, 1 LOG. The lid
- * swings shut. Outside the glass, a finance expert hands the 27-check rubric to a vault: it
- * floats in, the door slams, the wheel spins and the bolts click home.
+ * swings shut. Outside the glass, the reviewer sends a tablet reading 8/5 18:00, the hour the
+ * books lock, into a vault: it floats in, the door slams, the wheel spins and the bolts click home.
  * Every state is a function of lp, so scrubbing backwards replays it; t only adds idle life.
- *   lp .00–.02  the open container under its intake beam; the vault open, the rubric in hand
+ *   lp .00–.02  the open container under its intake beam; the vault open, the tablet in hand
  *      .02–.52  the rain: a few files, then a downpour; each one squashes, flashes and rings
  *               its stack; the last, the single LOG, falls alone
  *      .535–.62 the lid falls shut, bounces twice, the glass edges flash
- *      .55–.665 the expert lifts the rubric; it arcs into the vault trailing light
+ *      .55–.665 the reviewer lifts the tablet; it arcs into the vault trailing light
  *      .655–.76 the door winds up, swings, slams; the vault jolts
  *      .74–.80  the wheel spins down and clicks: bolts out, lamp on, a shock ring, rim flash
  *      .80–1    held; the framework dollies on to the next set from .82 */
@@ -189,7 +189,7 @@ export async function build({ THREE, kit, set, labelTexture, reduce, hand, util,
   const shock = new THREE.Mesh(new THREE.RingGeometry(.74, .8, 72).rotateX(-Math.PI / 2), additive(AMBER));
   shock.position.set(VX, .03, VZ); shock.visible = false; set.add(shock);
 
-  /* ---- the expert who wrote the rubric, and the rubric: a tablet with 27 on its face ---- */
+  /* ---- the independent reviewer, and a tablet with the lock's date and hour on its face ---- */
   const EX = .95, EZ = 1.12, EYAW = .32, ES = 1.12;
   const expert = kit.person(2);
   expert.root.position.set(EX, 0, EZ); expert.root.rotation.y = EYAW; expert.root.scale.setScalar(ES); set.add(expert.root);
@@ -201,8 +201,9 @@ export async function build({ THREE, kit, set, labelTexture, reduce, hand, util,
   add(tablet, rbox(TW, THT, .06, .05), mat(0xf7f5f0), 0, 0, 0);
   const tabEdgeMat = glow(AMBER, 1.4);
   flat(rbox(TW + .05, THT + .05, .026, .03), tabEdgeMat, 0, 0, -.014, tablet);
-  const rubricTex = labelTexture('film-task-rubric', [
-    { text: '27', size: 420, weight: 800, color: '#b9770f', track: -8 },
+  const rubricTex = labelTexture('film-task-lock', [
+    { text: '8/5', size: 270, weight: 800, color: '#b9770f', track: -4 },
+    { text: '18:00', size: 230, weight: 800, color: '#b9770f', track: -2 },
   ], { width: 1024, height: 740 });
   const face = new THREE.Mesh(new THREE.PlaneGeometry(TW * .94, THT * .94), new THREE.MeshStandardMaterial({ map: rubricTex, transparent: true, roughness: .8 }));
   face.position.z = .031; tablet.add(face);

@@ -23,18 +23,22 @@ import { createPost } from './mc-toon.js?v=20261102-toy';
 import { loadArenaWeapons } from './arena-models.js?v=20261028-cascade';
 import { clamp, smooth, ramp, lerp, glowSprite } from './mc-stage.js?v=20261105-grip';
 
-const N = 5, SPACING = 12, DOLLY = .10, ARC = .5, PULL = 1.5, STREAK = 2.4;
+const N = 5, LONG = 5, SPACING = 12, DOLLY = .10, ARC = .5, PULL = 1.5, STREAK = 2.4;
 export const ACCENTS = [0x45b5b0, 0xf2b545, 0x7d6ad8, 0xf2b545, 0x45b5b0];
 // The copy sits below the picture (instead of beside it) under this query; CSS uses the same one.
 export const STACKED = '(max-width: 600px), (max-aspect-ratio: 11/10)';
 const DEFAULT_CAMERA = { from: { pos: [-3, 3.2, 10], look: [0, 1, 0], fov: 34 }, to: { pos: [3, 2.6, 8.5], look: [0, 1, 0], fov: 34 } };
 const BEATS = [
-  () => import('./film-task.js?v=20261109-film'),
-  () => import('./film-agent.js?v=20261109-film'),
+  () => import('./film-task.js?v=20261110-plan1'),
+  () => import('./film-agent.js?v=20261110-plan1'),
   () => import('./film-trajectory.js?v=20261109-film'),
   () => import('./film-grading.js?v=20261109-film'),
-  () => import('./film-metacase.js?v=20261109-film'),
+  () => import('./film-metacase.js?v=20261110-reflect2'),
 ];
+// The last beat runs every item of the case, so it takes LONG beats of scroll; g counts beats.
+const SPAN = N - 1 + LONG;
+const gOf = p => { const u = clamp(p) * SPAN; return u <= N - 1 ? u : N - 1 + (u - (N - 1)) / LONG; };
+const pOf = g => clamp((g <= N - 1 ? g : N - 1 + (g - (N - 1)) * LONG) / SPAN);
 const easeOut = x => 1 - Math.pow(1 - clamp(x), 3);
 const smoother = x => { const p = clamp(x); return p * p * p * (p * (p * 6 - 15) + 10); };
 const util = { clamp, smooth, ramp, lerp, easeOut, glowSprite };
@@ -149,12 +153,12 @@ export function createFilm(section, { dev = null } = {}) {
   const range = () => Math.max(1, section.offsetHeight - pinH);
   function progress() {
     if (held != null) return held;
-    if (dev) return clamp((dev.beat + dev.lp) / N);
+    if (dev) return pOf(dev.beat + dev.lp);
     return clamp((filmTop - section.getBoundingClientRect().top) / range());
   }
   // The scroll position at which the film shows beat k at local progress lp.
   function scrollFor(k, lp = .05) {
-    return scrollY + section.getBoundingClientRect().top - filmTop + clamp((k + lp) / N) * range();
+    return scrollY + section.getBoundingClientRect().top - filmTop + pOf(k + lp) * range();
   }
   function scrollToY(y, smoothly) {
     const lenis = window.__lenis;
@@ -468,7 +472,7 @@ export function createFilm(section, { dev = null } = {}) {
     pin.classList.add('is-dip');
     dipTimer = setTimeout(() => {
       dipTimer = 0;
-      const g = progress() * N, kk = clamp(Math.floor(g), 0, N - 1);
+      const g = gOf(progress()), kk = clamp(Math.floor(g), 0, N - 1);
       stillKey = copyBeat(kk, clamp(g - kk));
       renderStill(stillKey);
       pin.classList.remove('is-dip');
@@ -504,7 +508,7 @@ export function createFilm(section, { dev = null } = {}) {
     const ms = now - last;
     const dt = Math.min(.05, Math.max(0, ms / 1000)); last = now; clock += dt;
     const t = heldT ?? clock;
-    const p = progress(), g = p * N;
+    const p = progress(), g = gOf(p);
     const k = dev ? dev.beat : clamp(Math.floor(g), 0, N - 1);
     const lp = dev ? clamp(dev.lp) : clamp(g - k);
     const gg = dev ? dev.beat + lp : g;
@@ -545,14 +549,14 @@ export function createFilm(section, { dev = null } = {}) {
 
   // ?film=x: bring the pin on screen at that point of the film (and keep it there).
   if (held != null) {
-    const place = () => scrollToY(scrollFor(Math.min(N - 1, Math.floor(held * N)), held * N - Math.min(N - 1, Math.floor(held * N))), false);
+    const place = () => { const g = gOf(held), k = Math.min(N - 1, Math.floor(g)); scrollToY(scrollFor(k, g - k), false); };
     place();
     addEventListener('load', () => requestAnimationFrame(place), { once: true });
   }
 
   const api = {
     section,
-    get state() { const g = progress() * N; return { p: g / N, beat: active, lp: clamp(g - clamp(Math.floor(g), 0, N - 1)), ready, renderer: section.dataset.renderer, quality: lowFx ? 'low' : 'full' }; },
+    get state() { const g = gOf(progress()); return { p: progress(), beat: active, lp: clamp(g - clamp(Math.floor(g), 0, N - 1)), ready, renderer: section.dataset.renderer, quality: lowFx ? 'low' : 'full' }; },
     scrollFor,
     setLocal(beat, lp) { if (dev) { dev.beat = beat; dev.lp = lp; wake(); } },
   };

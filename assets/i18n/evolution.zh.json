@@ -1171,13 +1171,10 @@
   "These six terms match the Harness page, which explains how harnesses such as DeepAgents and DeepSeek Harness, and extensions such as Superpowers, are built. The question here is how to improve a harness once you have one.": "这六个术语与 Harness 页一致；那里介绍了 DeepAgents、DeepSeek Harness 等 Harness，以及 Superpowers 等扩展是怎样构建的。这里关心的是：有了 Harness 之后，如何改进它。",
   "ModularRSI, Self-Harness and Meta-Harness come from different groups and are separate methods. Each mechanism summary follows the paper and its official repository, tracing one iteration of the method’s improvement loop.": "ModularRSI、Self-Harness 和 Meta-Harness 出自不同团队，是三种独立的方法。每段机制摘要都依据论文及其官方代码仓库，梳理该方法改进循环中的一次迭代。",
   "See how one run is recorded and graded": "看一次运行如何被记录和评分",
-  "These six terms are used as on the Metacase page, which follows one run from task to graded record and keeps the harness breakdowns in its further reading. The question here is how to improve a harness once you have one.": "这六个术语的用法与 Metacase 页一致；那一页跟随一次运行从任务走到已评分的记录，并在延伸阅读里保留了各个 Harness 的拆解。这里关心的是：有了一个 Harness 之后，怎样改进它。",
   "Metacase: what the agent is made of": "Metacase：智能体由什么构成",
-  "Metacase page: how DeepAgents is built": "Metacase 页：DeepAgents 是怎样搭起来的",
-  "Both call runnable harnesses, which the Metacase page maps in its further reading:": "两者都会调用可运行的 Harness，Metacase 页的延伸阅读梳理了这些系统：",
-  "Metacase page: runnable systems and 2025–2026 timeline": "Metacase 页：可运行系统与 2025–2026 时间线",
-  "Metacase page: one run in four stages, via Harbor": "Metacase 页：借助 Harbor，把一次运行分成四个环节",
   "). Partial replication requires coefficient and standard-error relative errors both ≤ 5%; significance requires the correct sign and the same p-value band (0.01, 0.05 or 0.1). All 100 tasks remain in the denominator.": "）。部分复现要求系数和标准误的相对误差都 ≤ 5%；显著性要求系数方向正确，且 p 值落在同一档（0.01、0.05 或 0.1）。全部 100 道题均计入分母。",
   "This page starts from many recorded runs; the Metacase page follows one run from task to graded record.": "本页从许多条运行记录出发；Metacase 页则跟随一次运行，从任务走到已评分的记录。",
-  "See one run as a record": "看一次运行如何成为记录"
+  "See one run as a record": "看一次运行如何成为记录",
+  "These six terms are used as on the Metacase page, which follows one run from task to graded record. The question here is how to improve a harness once you have one.": "这六个术语的用法与 Metacase 页一致；那一页跟随一次运行从任务走到已评分的记录。这里关心的是：有了一个 Harness 之后，怎样改进它。",
+  "Both call runnable harnesses.": "两者都会调用可运行的 Harness。"
 }
