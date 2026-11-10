@@ -5,7 +5,7 @@ No narration, no music.
 
 Link: <https://easonai-5589.github.io/metacase-challenge/docs/video/home-film/metacase-home-film-1080p60.mp4>
 
-`metacase-home-film-1080p60.mp4` is the copy for the web: the 1080p60 master re-encoded at 3.08 Mbps (two-pass) to stay under GitHub's 100 MB file limit (95,613,068 bytes, SHA-256 `c5910f543b2582dd6471b98ec37e83fc0a5fd7f79901bc19252daf1f713655fc`). The master (CRF 14, 265,895,039 bytes, SHA-256 `7c28bf77bd8832ec83a86ff79023b2d0f106337d1844600b80f67a753bea415b`) is a working file and is not in git.
+`metacase-home-film-1080p60.mp4` is the copy for the web: the 1080p60 master re-encoded at 3.08 Mbps (two-pass) to stay under GitHub's 100 MB file limit (95,625,905 bytes, SHA-256 `46c7510c5b915ece475cad9644c71f3ab7a09c364bf24939a80e3202a9221db1`). It is the third-cut master (CRF 14, 265,895,039 bytes, SHA-256 `7c28bf77bd8832ec83a86ff79023b2d0f106337d1844600b80f67a753bea415b`) up to 231.6 s, followed by the ending shot re-rendered on 2026-11-11. The master is a working file and is not in git.
 
 ## What it is
 
@@ -37,4 +37,4 @@ The pipeline that renders it (`video-demo/home-film/`) is not in git yet.
 
 ## Status
 
-Third cut, 2026-11-10. It applies the team's review of the first cut: every piece of text stays up long enough to read (four words a second at most), captions sit bottom-centre under the subject, nothing standing in a scene covers printed text, and the results shot is held. Silent.
+Third cut, 2026-11-10; ending replaced 2026-11-11. The last chapter now names one organization, NTU GIFTS: the team card shows the founding organization only (no collaborating organizations, no people), and the end card carries the NTU GIFTS logo and "Hosted by NTU GIFTS". Everything before 231.6 s is unchanged. It applies the team's review of the first cut: every piece of text stays up long enough to read (four words a second at most), captions sit bottom-centre under the subject, nothing standing in a scene covers printed text, and the results shot is held. Silent.
