@@ -46,7 +46,7 @@ if (chapter) {
     ['Interpret rules → understand organizations → analyze behavior → support decisions.', '理解规则 → 分析组织 → 研究行为 → 支持决策。'],
   ];
   const phases = [
-    { tag:['01 / THE ENTRANCE','01 / 挑战赛入口'], title:['Three portals.<br><em>Three tracks.</em>','三扇门，<br><em>三条赛道。</em>'], body:['Economics, Finance and Social Science. Step through a portal to reach its track: the tasks, the data and how runs are scored.', '经济、金融与社科。穿过一扇门，就进入对应的赛道：题目、数据和评分方式都在那里。'], code:['THREE TRACKS · SIXTEEN CASE CATEGORIES','三条赛道 · 16 个二级目录'], label:['ENTER','入口'], event:['Pick a portal, or scroll to walk through all three with one agent.', '选一扇门直接进入，或继续滚动，跟着一个 Agent 走过三条赛道。'] },
+    { tag:['01 / THE ENTRANCE','01 / 挑战赛入口'], title:['Three portals.<br><em>Three tracks.</em>','三扇门，<br><em>三条赛道。</em>'], body:['Economics, Finance and Society. Step through a portal to reach its track: the tasks, the data and how runs are scored.', '经济、金融与社会。穿过一扇门，就进入对应的赛道：题目、数据和评分方式都在那里。'], code:['THREE TRACKS · SIXTEEN CASE CATEGORIES','三条赛道 · 16 个二级目录'], label:['ENTER','入口'], event:['Pick a portal, or scroll to walk through all three with one agent.', '选一扇门直接进入，或继续滚动，跟着一个 Agent 走过三条赛道。'] },
     { tag:['02 / CHARACTER & HARNESS WHEEL','02 / 角色与 HARNESS 装备轮'], title:['Model is the character.<br><em>Harness is the weapon.</em>','模型是角色，<br><em>Harness 是武器。</em>'], body:['Pick a provider, then its model and reasoning effort, and spin the armory wheel to equip one of six harness weapons.', '先选厂商，再选具体模型与推理强度，最后转动武器轮盘，为它装备六款 Harness 之一。'], code:['PROVIDER · MODEL · EFFORT · HARNESS','厂商 · 模型 · 推理强度 · HARNESS'], label:['EQUIP','装备'], event:['', ''] },
     ...ARENA_DOMAINS.map((domain, i) => ({
       tag: [`0${i + 3} / ${domain.id.toUpperCase()}`, `0${i + 3} / ${domain.name[1]}`],
@@ -298,7 +298,7 @@ if (chapter) {
       ? (l ? '选择厂商 · 点击外圈槽位装备武器' : 'PICK A PROVIDER · CLICK A SLOT TO EQUIP')
       : (l ? '选择厂商 · 滚动或点击外圈装备武器' : 'PICK A PROVIDER · SCROLL OR CLICK TO EQUIP');
     $('[data-mc-episode-label]').textContent = l ? 'METACASE / 轨迹' : 'METACASE / TRACE';
-    $('[data-mc-illustrative]').textContent = l ? '经济 · 金融 · 社科 / 三大方向，18 个二级目录。' : 'Economics · Finance · Social Science / 3 domains, 18 case categories.';
+    $('[data-mc-illustrative]').textContent = l ? '经济 · 金融 · 社会 / 三大方向，18 个二级目录。' : 'Economics · Finance · Society / 3 domains, 18 case categories.';
     $('[data-mc-slider-label]').textContent = l ? '探索完整解题轨迹' : 'Explore the complete episode';
     $('.mc-timeline').setAttribute('aria-label', l ? '解题轨迹章节' : 'Episode chapters');
     $('.mc-fallback p').textContent = l ? '一个 Agent，多种 Harness。从原始证据走向可复用经验。滚动或使用进度条探索。' : 'One agent. Many harnesses. Follow the path from evidence to experience by scrolling or using the slider.';

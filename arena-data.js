@@ -112,7 +112,7 @@ export const ARENA_DOMAINS = Object.freeze([
     ],
   },
   {
-    id: 'soc', name: ['Social Science', '社科'], color: 0x7d6ad8,
+    id: 'soc', name: ['Society', '社会'], color: 0x7d6ad8,
     summary: ['Understand people, institutions and the decisions between them.', '理解个体、组织与制度，形成有依据的决策。'],
     danmaku: [
       ['soc.law · Regulatory Pipelines, Sentencing & Compliance', 'soc.law · 监管数据管道、刑期推演与合规审查'],
@@ -122,7 +122,7 @@ export const ARENA_DOMAINS = Object.freeze([
       ['soc.psychology · Behavioral & Cognitive Experiment Analysis', 'soc.psychology · 行为与认知实验统计检验与科学计算'],
       ['soc.policy · Environmental Policy Data & Service Remediation', 'soc.policy · 环境公共政策数据管道与服务整改'],
       ['Deterministic Verifiers + Multi-Dimensional Rubrics', '确定性代码核验 + 多维业务 Rubric 细粒度归因'],
-      ['200 Candidate Records · 6 Social Science Classes', '200 条社科候选记录 · 6 个二级目录'],
+      ['200 Candidate Records · 6 Society Classes', '200 条社会领域候选记录 · 6 个二级目录'],
     ],
     entries: [
       { id: 'soc.law', name: ['Law, regulation & compliance', '法律、监管与合规'], description: ['Multi-file regulatory data-lake pipelines, quantitative sentencing and case reasoning, and compliance review deliverables.', '多文件监管数据湖管道、刑期/数额与多罪名案例推演及合规审查报告交付。'] },
