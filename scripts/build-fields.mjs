@@ -23,7 +23,7 @@ const SLOTS = 6; // three classes on the left page, three on the right
 const FIELDS = [
   { id: 'econ', name: 'Economics', color: 'var(--track-1)' },
   { id: 'fin', name: 'Finance', color: 'var(--track-2)' },
-  { id: 'soc', name: 'Social science', color: 'var(--mc-violet)' },
+  { id: 'soc', name: 'Society', color: 'var(--mc-violet)' },
 ];
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const slug = id => id.replace(/\./g, '-');
@@ -36,7 +36,7 @@ const describe = s => NAMED.reduce((t, [a, b]) => t.replace(a, b), s.replace(/\s
 // invented: the counts come from summary.json, the link from the Challenge page's track anchors.
 const CHECK_LINE = 'Every task is scored against references the agent never sees.';
 const UI = { [CHECK_LINE]: '每道题都对照 Agent 看不到的参考答案评分。', 'Field summary': '领域概览' };
-const FIELD_ZH = { econ: '经济', fin: '金融', soc: '社科' };
+const FIELD_ZH = { econ: '经济', fin: '金融', soc: '社会' };
 const countLine = (tasks, n) => [`${tasks} tasks · ${n} classes`, `${tasks} 道题 · ${n} 个类别`];
 const enterLine = (field) => [`Enter the ${field.name} track`, `进入${FIELD_ZH[field.id]}赛道`];
 

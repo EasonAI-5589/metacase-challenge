@@ -22,7 +22,7 @@ implementation boundaries and acceptance criteria.
 The homepage (`index.html`) introduces the Global Metacase Initiative, explains a complete
 Metacase, demonstrates retrieval by problem-solving structure, and shows the
 reusable network of Metacases across its first three fields (economics, finance,
-social science). The brand is **Metacase** (wordmark on every page). The 3D
+society). The brand is **Metacase** (wordmark on every page). The 3D
 scenes draw the network as a library (bookcases, volumes, a reading room; the
 arena uses the same finish); that picture is visual only, and no page copy uses
 library wording. The "first fields" section lists the
