@@ -262,7 +262,7 @@ export async function build({ THREE, kit, set, accent, loadWeapons, hand, util, 
   const MOUTH = new THREE.Vector3(0, CAN.y + CAN.h, CAN.z);
 
   /* ---- the agent: it has stopped; now it waits for its verdict, Claude Code lowered ---- */
-  const bot = robot(PALETTE.cream, 0x8ff6ff);
+  const bot = hand.dressedRobot?.() ?? robot(PALETTE.cream, 0x8ff6ff); // agent-run.html's loadout
   const BOT = { x: 2.95, z: -1.45 };
   const botYaw = Math.atan2(-BOT.x - .3, 1.2 - BOT.z);
   bot.root.position.set(BOT.x, 0, BOT.z); bot.root.scale.setScalar(1.15); bot.root.rotation.y = botYaw; set.add(bot.root);

@@ -120,7 +120,7 @@ const TRACE_PRINT = (g, r, W, H) => {
 /* ---- the model's pieces, as the arena draws its characters (arena-scene.js) ---- */
 // The chest plate: the provider's mark (filled, on its 0..24 grid), its name, and the model and
 // reasoning effort chosen in the loadout. 512 × 320.
-function paintPlate(g, m, variant, effort) {
+export function paintPlate(g, m, variant, effort) {
   g.fillStyle = 'rgba(6, 10, 20, 0.92)'; g.strokeStyle = m.color; g.lineWidth = 8;
   g.beginPath(); g.roundRect(16, 16, 480, 288, 48); g.fill(); g.stroke();
   g.save(); g.translate(42, 76); g.scale(7, 7); g.fillStyle = m.color; g.fill(new Path2D(m.logo), m.rule || 'nonzero'); g.restore();
@@ -135,7 +135,7 @@ function paintPlate(g, m, variant, effort) {
 const box = (g, w, h, d, m, x, y, z, r) => block(g, w, h, d, m, x, y - h / 2, z, r);
 const drum = (g, rt, rb, h, m, x, y, z, seg) => cyl(g, rt, rb, h, m, x, y - h / 2, z, seg);
 const hoop = (g, r, tube, m, x, y, z) => add(g, new THREE.TorusGeometry(r, tube, 8, 48), m, x, y, z, false);
-const CRESTS = [
+export const CRESTS = [
   (g, trim, glow) => { box(g, .26, .08, .06, trim, 0, .41, .18, .02); [-.09, 0, .09].forEach((x, k) => box(g, .05, k === 1 ? .16 : .11, .05, k === 1 ? glow : trim, x, .47 + (k === 1 ? .02 : 0), .18, .015)); }, // a three-pronged crown
   (g, trim, glow) => { hoop(g, .26, .025, trim, 0, .56, 0).rotation.x = .18; ball(g, .055, glow, 0, .38, .2, 16); },                                                                     // a halo
   (g, trim, glow) => { [-1, 1].forEach(s => { box(g, .05, .28, .08, s < 0 ? trim : glow, s * .18, .48, .06, .02).rotation.z = -s * .38; }); box(g, .22, .06, .06, glow, 0, .36, .2, .02); }, // twin wings and a brow

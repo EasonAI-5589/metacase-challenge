@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <meta name="referrer" content="no-referrer">
+  <title>Run Replay — Metacase Challenge</title>
+  <meta name="description" content="Configure an agent with a model and a harness, then replay one recorded run of a group month-end close, step by step.">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon-v2.svg">
+  <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <script src="theme.js?v=20261101-shuttle"></script>
+  <link rel="stylesheet" href="styles.css?v=20261019-motion">
+  <link rel="stylesheet" href="site.css?v=20261019-motion">
+  <script src="site.js?v=20261109-film" defer></script>
+  <link rel="stylesheet" href="language.css">
+  <script src="language.js?v=20261110-runreplay" defer></script>
+  <link rel="stylesheet" href="v2.css?v=20261109-film">
+  <link rel="stylesheet" href="skin.css?v=20261108-metacase-page">
+  <link rel="stylesheet" href="agent-run.css?v=20261110-runreplay">
+  <script type="module" src="agent-run.js?v=20261110-runreplay"></script>
+  <script src="v2.js?v=20261109-film" defer></script>
+</head>
+<body class="v2-content v2-page-agent-run" data-tone="1">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="lg-dk" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:oklch(80% 0.12 195)"/><stop offset="1" style="stop-color:oklch(82% 0.14 75)"/></linearGradient>
+    <linearGradient id="lg-lt" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:oklch(52% 0.10 200)"/><stop offset="1" style="stop-color:oklch(58% 0.14 60)"/></linearGradient>
+    <linearGradient id="gl-dk" gradientUnits="userSpaceOnUse" x1="7.6" y1="24.5" x2="16" y2="9.9"><stop offset="0" style="stop-color:oklch(80% 0.12 195)"/><stop offset="1" style="stop-color:#EEF2F7"/></linearGradient>
+    <linearGradient id="gr-dk" gradientUnits="userSpaceOnUse" x1="24.4" y1="24.5" x2="16" y2="9.9"><stop offset="0" style="stop-color:oklch(82% 0.14 75)"/><stop offset="1" style="stop-color:#EEF2F7"/></linearGradient>
+    <linearGradient id="gl-lt" gradientUnits="userSpaceOnUse" x1="7.6" y1="24.5" x2="16" y2="9.9"><stop offset="0" style="stop-color:oklch(52% 0.10 200)"/><stop offset="1" style="stop-color:#0E1420"/></linearGradient>
+    <linearGradient id="gr-lt" gradientUnits="userSpaceOnUse" x1="24.4" y1="24.5" x2="16" y2="9.9"><stop offset="0" style="stop-color:oklch(58% 0.14 60)"/><stop offset="1" style="stop-color:#0E1420"/></linearGradient>
+  </defs>
+  <!-- Primary · Derivation: ∴ with the two premises drawn up into the conclusion -->
+  <symbol id="logo-p" viewBox="0 0 32 32">
+    <path d="M7.6 24.5 16 9.9" fill="none" style="stroke:var(--logo-gl)" stroke-width="2" stroke-linecap="round"/>
+    <path d="M24.4 24.5 16 9.9" fill="none" style="stroke:var(--logo-gr)" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="7.6" cy="24.5" r="3" style="fill:var(--logo-t1)"/>
+    <circle cx="24.4" cy="24.5" r="4.2" style="fill:var(--logo-t2)"/>
+    <circle cx="16" cy="9.9" r="5.4" style="fill:var(--logo-node)"/>
+  </symbol>
+  <!-- Compact · Therefore: the bare symbol, for 20px and below -->
+  <symbol id="logo-c" viewBox="0 0 32 32">
+    <circle cx="7.6" cy="24.5" r="3.8" style="fill:var(--logo-t1)"/>
+    <circle cx="24.4" cy="24.5" r="5" style="fill:var(--logo-t2)"/>
+    <circle cx="16" cy="9.9" r="6" style="fill:var(--logo-node)"/>
+  </symbol>
+  <!-- Seal · Verified: ∴ inside an evaluation ring, for badges, awards and certificates -->
+  <symbol id="logo-s" viewBox="0 0 32 32">
+    <circle cx="16" cy="16" r="14.6" fill="none" style="stroke:var(--logo-g)" stroke-width="1.4"/>
+    <g transform="translate(16 16) scale(.6) translate(-16 -16)">
+      <path d="M7.6 24.5 16 9.9M24.4 24.5 16 9.9" fill="none" style="stroke:var(--logo-node)" stroke-width="2.4" stroke-linecap="round" opacity=".55"/>
+      <circle cx="7.6" cy="24.5" r="3.4" style="fill:var(--logo-t1)"/>
+      <circle cx="24.4" cy="24.5" r="4.4" style="fill:var(--logo-t2)"/>
+      <circle cx="16" cy="9.9" r="5.8" style="fill:var(--logo-node)"/>
+    </g>
+  </symbol>
+</svg>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <nav class="nav container" aria-label="Main navigation">
+      <a class="wordmark" href="index.html"><svg class="v2-mark lg-anim" width="26" height="26" viewBox="0 0 32 32" aria-hidden="true"><circle class="halo" cx="16" cy="9.9" r="5.4" fill="none" style="stroke:var(--logo-node)" stroke-width="1"/><path class="e-l" d="M7.6 24.5 16 9.9" fill="none" style="stroke:var(--logo-gl)" stroke-width="2" stroke-linecap="round" pathLength="1"/><path class="e-r" d="M24.4 24.5 16 9.9" fill="none" style="stroke:var(--logo-gr)" stroke-width="2" stroke-linecap="round" pathLength="1"/><circle class="d-l" cx="7.6" cy="24.5" r="3" style="fill:var(--logo-t1)"/><circle class="d-r" cx="24.4" cy="24.5" r="4.2" style="fill:var(--logo-t2)"/><circle class="d-t" cx="16" cy="9.9" r="5.4" style="fill:var(--logo-node)"/></svg><span data-no-translate>Metacase <span class="net">Challenge</span></span></a>
+      <div class="nav-links open" id="nav-links">
+        <a href="index.html">Home</a>
+        <a href="challenge.html">Challenge</a>
+        <a href="metacase.html">Metacase</a>
+        <a href="agent-run.html" aria-current="page">Run Replay</a>
+        <a href="evolution.html">Self-evolving</a>
+        <a href="leaderboard.html">Leaderboard</a>
+        <a href="teams.html">Teams</a>
+      </div>
+      <div class="nav-controls">
+        <button class="theme-toggle" data-theme-toggle aria-label="Switch to dark theme" aria-pressed="true" type="button" hidden>
+          <span class="theme-icon" aria-hidden="true"></span><span data-theme-label>Dark</span>
+        </button>
+        <button class="menu-toggle" type="button" aria-controls="nav-links" aria-expanded="true" hidden>Menu <span aria-hidden="true">−</span></button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="ar-app" data-phase="pick" aria-label="Configure an agent and replay a recorded run">
+      <div class="ar-pin">
+      <canvas class="ar-canvas" aria-hidden="true"></canvas>
+      <div class="ar-scrim" aria-hidden="true"></div>
+      <div class="ar-fade" aria-hidden="true"></div>
+
+      <div class="ar-pick" data-lenis-prevent>
+        <p class="ar-kicker"><span data-no-translate>FIN-T1-003</span> · Group month-end close</p>
+        <h1>Configure an agent. <em>Replay a recorded run.</em></h1>
+        <p class="ar-lead">An agent receives 55 documents and six unposted entries, and must decide each one before the books lock. Choose its model and harness, then scroll or click to advance through what happened.</p>
+        <fieldset class="ar-field">
+          <legend>Model</legend>
+          <div class="ar-options" data-ar="models"></div>
+        </fieldset>
+        <fieldset class="ar-field">
+          <legend>Version</legend>
+          <div class="ar-options ar-options--chips" data-ar="versions"></div>
+        </fieldset>
+        <fieldset class="ar-field">
+          <legend>Harness loadout</legend>
+          <div class="ar-options" data-ar="harnesses"></div>
+        </fieldset>
+        <div class="ar-status" data-ar="status" role="status">
+          <b data-ar="status-title"></b>
+          <span data-ar="status-body"></span>
+        </div>
+        <div class="ar-pick-actions">
+          <button class="button primary" type="button" data-ar="start"><span data-ar="start-label">Start the run</span> <span aria-hidden="true">→</span></button>
+          <span class="ar-hint">or scroll down</span>
+          <button class="ar-link" type="button" data-ar="reset" hidden>Use the recorded configuration</button>
+        </div>
+      </div>
+
+      <div class="ar-run">
+        <article class="ar-step" data-ar="step" aria-live="polite">
+          <header class="ar-step-head">
+            <span class="ar-tag" data-ar="tag"></span>
+            <span data-ar="count"></span>
+            <span data-ar="when"></span>
+          </header>
+          <div class="ar-step-scroll" tabindex="-1" data-lenis-prevent>
+            <h2 data-ar="title"></h2>
+            <p class="ar-step-body" data-ar="body"></p>
+            <blockquote class="ar-say" data-ar="say" hidden>
+              <small>The agent, in its own words</small>
+              <p data-ar="say-text" data-no-translate></p>
+            </blockquote>
+            <div class="ar-facts" data-ar="facts"></div>
+            <details class="ar-log" data-ar="log" hidden>
+              <summary>Original record</summary>
+              <div class="ar-trace" data-ar="log-body"></div>
+            </details>
+            <p class="ar-note" data-ar="note" hidden></p>
+          </div>
+        </article>
+
+        <aside class="ar-hud" aria-label="Run record">
+          <p class="ar-prov">Recorded run: <b data-ar="pairing" data-no-translate></b></p>
+          <p class="ar-prov ar-prov--pick" data-ar="your-pick" hidden>Your configuration, <span data-ar="your-pick-name" data-no-translate></span>, has no recorded run and is shown for appearance only.</p>
+          <dl class="ar-stats">
+            <div><dt>Model requests</dt><dd><span data-stat="req" data-no-translate>0</span> <small data-no-translate></small></dd></div>
+            <div><dt>Tool calls</dt><dd><span data-stat="calls" data-no-translate>0</span> <small data-no-translate></small></dd></div>
+            <div><dt>Files opened</dt><dd><span data-stat="files" data-no-translate>0</span> <small data-no-translate></small></dd></div>
+            <div><dt>Prompt tokens</dt><dd data-stat="tok" data-no-translate>27k</dd></div>
+            <div><dt>Elapsed</dt><dd data-stat="t" data-no-translate>0.0 s</dd></div>
+          </dl>
+        </aside>
+
+        <div class="ar-bar">
+          <div class="ar-rail" data-ar="rail" role="group" aria-label="Steps of the run"></div>
+          <div class="ar-controls">
+            <button class="ar-link" type="button" data-ar="repick">Change configuration</button>
+            <button class="button" type="button" data-ar="back"><span aria-hidden="true">←</span> Back</button>
+            <button class="button primary" type="button" data-ar="next"><span data-ar="next-label">Next step</span> <span aria-hidden="true">→</span></button>
+            <div class="ar-ending" data-ar="ending" hidden>
+              <button class="button" type="button" data-ar="again">Replay from the start</button>
+              <a class="button primary" href="metacase.html">Read the full Metacase <span aria-hidden="true">→</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </section>
+    <p class="ar-footnote">Figures, documents, counts and scores come from one recorded pilot run (qwen3.7-max in Claude Code 2.1.114, Harbor 0.20.0). The stage is an illustration of that record, and the task’s business records are synthetic.</p>
+    <div class="container">
+      <nav class="page-footer-nav" aria-label="Page sequence">
+        <a href="metacase.html"><small>Previous</small><span><span aria-hidden="true">←</span> Metacase</span></a>
+        <a href="evolution.html"><small>Next</small><span>Self-evolving <span aria-hidden="true">→</span></span></a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="v2-footer">
+    <div class="wrap">
+      <div class="cols">
+        <div class="brandcol">
+          <a class="lock" href="index.html"><svg aria-hidden="true"><use href="#logo-p"/></svg><span data-no-translate>Metacase <span class="net">Challenge</span></span></a>
+          <p>AI Agents for Business, Finance and Social Science.</p>
+        </div>
+        <div><h4>Pages</h4><ul>
+          <li><a href="challenge.html">Challenge</a></li><li><a href="metacase.html">Metacase</a></li><li><a href="agent-run.html">Run Replay</a></li>
+          <li><a href="evolution.html">Self-evolving</a></li><li><a href="leaderboard.html">Leaderboard</a></li>
+          <li><a href="teams.html">Teams</a></li></ul></div>
+        <div><h4>Resources</h4><ul>
+          <li><a href="https://huggingface.co/datasets/CamoAiLab/InferenceNet" target="_blank" rel="noopener">Research dataset source</a></li>
+          <li><a href="https://github.com/HKU-Business-AI-Center/Econometrics-Agent" target="_blank" rel="noopener">Econometrics-Agent code</a></li>
+          <li><a href="https://github.com/EasonAI-5589/metacase-challenge" target="_blank" rel="noopener">Website source</a></li></ul></div>
+        <div><h4>Contact</h4><ul>
+          <li><a href="teams.html#contact">Contact us</a></li>
+          <li><a href="teams.html">Meet the team</a></li></ul></div>
+      </div>
+      <div class="footer-mark" aria-hidden="true" data-no-translate><span data-parallax="-0.08">Metacase<span> Challenge</span></span></div>
+      <div class="bottom"><span data-no-translate>© 2026 Global Metacase Initiative · NTU GIFTS</span><span class="mono" data-no-translate>∴ METACASE · CHALLENGE</span></div>
+    </div>
+  </footer>
+</body>
+</html>

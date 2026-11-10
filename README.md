@@ -109,6 +109,7 @@ of future updates unless explicitly requested again.
 | Home: two challenges, two agent demos, Initiative priorities and participation | `index.html`, `index.css` |
 | Challenge: research data, Dev100 and its demo within the replication subtrack; business tasks, timeline, awards and participation | `challenge.html`, `challenge.css`, `assets/i18n/challenge.zh.json` |
 | Subtrack 1 overview: econometric replication, Dev100 scope, workflow and research pages | `replication.html`, `assets/i18n/replication.zh.json`; reuses `styles.css`, `site.css` |
+| Run Replay: configure a model and harness, then advance through the one recorded FIN-T1-003 run by scrolling or clicking; the scroll position is the only progress | `agent-run.html`, `agent-run.js`, `agent-run-stage.js`, `agent-run-data.js`, `agent-run.css`, `assets/i18n/agent-run.zh.json`; reuses `film-grading.js` for the judging steps |
 | Business Analysis & Deliverables: Finance and HR cases, rubric scoring and pilot evidence | `professional-tasks.html`, `professional-tasks.css`, `assets/i18n/professional-tasks.zh.json`, `assets/data/professional-tasks-pilot.json` |
 | Former Data URL: compatibility redirect to Challenge's research data introduction | `data.html`; `data.css` remains available for Harness |
 | Former Agent URL: redirects to improvement directions | `agent.html`; `agent.css` remains shared by Harness and Self-evolving |
