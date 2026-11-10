@@ -7,7 +7,7 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
 // The explicit public-file allowlist (plus the whole reviewed `assets/` tree).
 // Private test pages (`_*.html`), DESIGN.md, README.md and scripts/ are never listed.
-export const pages = ['index.html', 'challenge.html', 'replication.html', 'metacase.html', 'evolution.html', 'leaderboard.html', 'teams.html', 'professional-tasks.html'];
+export const pages = ['index.html', 'challenge.html', 'replication.html', 'metacase.html', 'evolution.html', 'leaderboard.html', 'teams.html', 'professional-tasks.html', 'agent-run.html'];
 const redirects = { 'data.html': 'challenge.html#replication-data', 'agent.html': 'evolution.html#improvement-directions', 'harness.html': 'metacase.html' };
 export const publicFiles = [
   ...pages, ...Object.keys(redirects),
@@ -17,6 +17,7 @@ export const publicFiles = [
   'v2.js', 'home.js', 'backdrop.js', 'scene.js', 'arena.js', 'arena-scene.js', 'arena-motion.js', 'arena-models.js', 'arena-data.js', 'arena-campus.js', 'arena-subtracks.js',
   'metacase.js', 'metacase-world.js', 'metacase-library.js', 'metacase-courier.js', 'metacase-anatomy.js', 'metacase-archive.js', 'metacase-run.js', 'metacase-cards.js', 'mc-stage.js', 'mc-toon.js', 'mc-kit.js', 'mc-rail.js', 'mc-classart.js', 'portal-warp.js', 'subpage-toy.js', 'subpage-toy-scenes.js',
   'metacase-film.js', 'film-task.js', 'film-agent.js', 'film-trajectory.js', 'film-grading.js', 'film-metacase.js',
+  'agent-run.css', 'agent-run.js', 'agent-run-data.js', 'agent-run-stage.js',
   '.nojekyll',
 ];
 for (const file of publicFiles) {
@@ -117,7 +118,7 @@ for (const file of scanned) {
   if (/\/Users\/|127\.0\.0\.1|localhost|local\/runs|sources\.lock\.json/.test(source)) throw new Error(`Private workspace reference in ${file}`);
   if (/\/mnt\/|\b(?:\d{1,3}\.){3}\d{1,3}\b|\b[A-Z]:[\\/]/.test(source)) throw new Error(`Server path or address in ${file}`);
   if (/\bTODO\b|lorem ipsum/i.test(source)) throw new Error(`Placeholder text in ${file}`);
-  const translatedAsset = file === 'language.js' || file === 'arena.js' || file === 'arena-data.js' || file === 'arena-scene.js' || /^assets\/i18n\/(index|challenge|replication|data|agent|metacase|evolution|leaderboard|teams|professional-tasks)\.zh\.json$/.test(file);
+  const translatedAsset = file === 'language.js' || file === 'agent-run-data.js' || file === 'arena.js' || file === 'arena-data.js' || file === 'arena-scene.js' || /^assets\/i18n\/(agent-run|index|challenge|replication|data|agent|metacase|evolution|leaderboard|teams|professional-tasks)\.zh\.json$/.test(file);
   if (/[一-鿿]/.test(source) && !translatedAsset) throw new Error(`CJK text outside the reviewed translation layer in ${file}`);
   if (file.startsWith('assets/i18n/')) {
     const dictionary = JSON.parse(source);
