@@ -47,6 +47,9 @@ const TOKENS = [
   { key: 'medal', color: 0xf2b545, land: [0, 1.2], from: [9, 5.5, -3], bend: [5, 6.5, -.5], s: .125, spin: [1.4, 3.2, .2], yaw: -.15 },
 ];
 // The seven scoring groups, in the order of the table below the film: identifiers and figures only.
+// the seventh group has no proposal number: a word, in the page's language
+let GENERAL = 'General';
+try { if (localStorage.getItem('inferencenet-language') === 'zh') GENERAL = '通用'; } catch (e) {}
 const GROUPS = [
   { id: 'D01, D03', pts: 27.5, max: 64, flash: true },
   { id: 'D06', pts: 12.25, max: 38, flash: true },
@@ -54,7 +57,7 @@ const GROUPS = [
   { id: 'D04', pts: 2.5, max: 10 },
   { id: 'D05', pts: 0, max: 20, flash: true },
   { id: 'A–E', pts: 7.5, max: 10 },
-  { id: 'R19, R25', pts: 0, max: 10, flash: true },
+  { id: GENERAL, pts: 0, max: 10, flash: true },
 ];
 const TOTAL = 172, RING_PTS = 2, RING_DY = .082, RING_Y0 = .12;
 const RISE_A = .425, FILL_A = .46, FILL_STEP = .0543, POUR_A = .54;
