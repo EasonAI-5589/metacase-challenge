@@ -33,7 +33,7 @@ const BEATS = [
   () => import('./film-agent.js?v=20261110-plan1'),
   () => import('./film-trajectory.js?v=20261109-film'),
   () => import('./film-grading.js?v=20261109-film'),
-  () => import('./film-metacase.js?v=20261110-reflect2'),
+  () => import('./film-metacase.js?v=20261111-copypass'),
 ];
 // The last beat runs every item of the case, so it takes LONG beats of scroll; g counts beats.
 const SPAN = N - 1 + LONG;
@@ -203,6 +203,17 @@ export function createFilm(section, { dev = null } = {}) {
     }
     pendingLists.clear();
   }
+  // Each chapter's text column is as wide as its "kept as" box, which keeps its own natural width.
+  function fitColumns() {
+    document.querySelectorAll('.mc-film.is-film .mc-beat').forEach(beat => {
+      const keep = beat.querySelector('.mc-beat-keep'), w = keep ? keep.offsetWidth : 0;
+      if (w > 0) beat.style.setProperty('--keep-w', w + 'px'); else beat.style.removeProperty('--keep-w');
+    });
+  }
+  requestAnimationFrame(fitColumns); addEventListener('load', fitColumns);
+  addEventListener('resize', fitColumns);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitColumns);
+  if (window.MutationObserver) new MutationObserver(() => requestAnimationFrame(fitColumns)).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
 
   let active = -2;
   const ids = articles.map(a => a.dataset.step || '');
