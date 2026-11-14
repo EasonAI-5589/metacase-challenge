@@ -8,9 +8,19 @@
 | FIN-T1-003 月结审核（qwen3.7-max · Claude Code） | `assets/video/finance-story-demo.mp4`（v3） | [`finance/Metacase-FIN-T1-003-guide-aligned-v3-source.zip`](finance/Metacase-FIN-T1-003-guide-aligned-v3-source.zip)；底稿 v2 同目录 | 完整 |
 | HR-T3-114 培训与采购验收（qwen3.7-max · Claude Code） | `assets/video/hr-agent-replay.mp4`（v3） | [`hr/Metacase-HR-T3-114-v3-source.zip`](hr/Metacase-HR-T3-114-v3-source.zip) | 完整（故事板和运行数据由 v2 成片复原） |
 | HR-T3-114 培训与采购验收（gemini-3.8-flash · DeepSeek Harness） | `assets/video/hr-t3-114-gemini-dsh-replay.mp4`（v1） | [`soc/Metacase-HR-T3-114-gemini-dsh-v1-source.zip`](soc/Metacase-HR-T3-114-gemini-dsh-v1-source.zip) | 完整（新运行、新分镜；旁白缓存在包内） |
+| econ-0157 交错双重差分复现（gpt-6-astra · Terminus-2） | `assets/video/econ-0157-replay.mp4`（v1） | [`econ/Metacase-econ-0157-v1-source.zip`](econ/Metacase-econ-0157-v1-source.zip) | 完整（新分镜；旁白缓存在包内） |
 | SFF 舞台片 | `docs/video/sff-homepage/` | [`../sff-homepage/`](../sff-homepage/)（已在仓库） | 拍摄脚本完整，母版不在 git |
 
 成片与源工程的对应关系都按 SHA-256 核对过，完整哈希见 [`SHA256SUMS`](SHA256SUMS)。
+
+## 2026-11-14：econ-0157（econ v1）
+
+经济学 Metacase 页用的回放视频。
+
+- **内容**：gpt-6-astra 在 Terminus-2 2.0.0 里复现 Lai and Li (2024) 的一个估计值，评分脚本给出 1.000。4 分 58.7 秒，28 个镜头，只展示这一次运行。
+- **引擎**：在 HR v3 的引擎上修改，差异见包内 `ENGINE-CHANGES.patch`。写死的文字改为从分镜读取；分镜自带画面（`story/econ_scenes.py`）和提示点；工具调用按实际作用上色；引导角色换成 Terminus-2 的 `blaster-m.glb` 并加了仰角上限；字标改为「Global Metacase Challenge」。
+- **验收**：`engine/check_guide.py econ` 8,962 帧、78 个提示点全部通过；`tools/screen_text.py` 每 3 帧扫描，没有中文和其他模型名上屏，停留时间只有片头主办方一行不足；`tools/laser_text.py` 没有发现机器人或激光停在卡片文字上。记录在 `docs/video/econ/`。
+- **内容边界**：运行数据只保留步骤时间、工具名、退出码和每条命令的第一行，没有密钥。`avar.ado` 在这次运行里没有取到，视频只展示取到的两个源文件。重新渲染的命令见包内 `README-econ-v1.md`。
 
 ## 2026-11-14：HR-T3-114 新运行版（soc v1）
 

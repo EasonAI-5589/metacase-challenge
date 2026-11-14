@@ -1,0 +1,56 @@
+{
+ "run": "econ",
+ "frame_step": 3,
+ "padding_px": 2.0,
+ "findings": [
+  {
+   "kind": "laser",
+   "shot": "e00",
+   "target": "(720, 530)",
+   "text": "DiD",
+   "seconds": 0.4
+  },
+  {
+   "kind": "laser",
+   "shot": "e10",
+   "target": "card0",
+   "text": "  eventstudyinteract.ado",
+   "seconds": 0.1
+  },
+  {
+   "kind": "laser",
+   "shot": "e10",
+   "target": "card0",
+   "text": "wc -c: 6497 bytes",
+   "seconds": 0.1
+  },
+  {
+   "kind": "laser",
+   "shot": "e11",
+   "target": "card0",
+   "text": "later: DataCite · Crossref",
+   "seconds": 0.1
+  },
+  {
+   "kind": "robot",
+   "shot": "e00",
+   "target": "(720, 530)",
+   "text": "717",
+   "seconds": 1.7
+  },
+  {
+   "kind": "robot",
+   "shot": "e00",
+   "target": "(720, 530)",
+   "text": "DiD",
+   "seconds": 1.7
+  },
+  {
+   "kind": "robot",
+   "shot": "e01",
+   "target": "(960, 370)",
+   "text": "ticked when the run record shows it settled",
+   "seconds": 0.4
+  }
+ ]
+}

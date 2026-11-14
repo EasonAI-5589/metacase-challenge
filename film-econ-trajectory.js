@@ -3,7 +3,7 @@
  * request pings out of its head; every tool call leaves the harness's muzzle as a ribbon of light,
  * pulls a tile out of the stacks and comes back, and leaves a thread behind, so the run draws its
  * own trajectory over the set. Two stacks hold the panel (.dta). Two hold what it fetched from
- * the estimator's public source: eventstudyinteract.ado and avar.ado, and reghdfe's Mata code.
+ * the estimator's public source: eventstudyinteract.ado and reghdfe's Mata code (its fetch of avar.ado returned 'not found').
  * Two hold what it looked for and did not get: the searches for the script the task names, and
  * three replication archives it opened (DOI), none of them the study's; ribbons to those come
  * back as grey noise. The context rises beside it as a tower of rings, 1k to 49k tokens.

@@ -1,0 +1,700 @@
+{
+  "version": "econ-0157-metacase-v1",
+  "task_id": "econ-0157",
+  "run": "econ",
+  "status": "built for the economics Metacase page; not yet watched end to end by a person",
+  "model": "gpt-6-astra",
+  "harness": "Terminus-2 2.0.0",
+  "runner": "Harbor 0.24.0",
+  "provider": "OpenRouter",
+  "job": "pilot-20261114-or__A32__terminus-2__openai-gpt-6-astra",
+  "grader": "evaluate.py (deterministic; calls no model)",
+  "recorded_agent_seconds": 500.5,
+  "model_requests": 40,
+  "tool_calls": 52,
+  "reward": 1.0,
+  "duration_seconds": 298.733,
+  "frames": 8962,
+  "fps": "30/1",
+  "resolution": [
+    1920,
+    1080
+  ],
+  "streams": [
+    {
+      "codec_name": "h264",
+      "profile": "High",
+      "codec_type": "video",
+      "width": 1920,
+      "height": 1080,
+      "pix_fmt": "yuv420p",
+      "color_range": "tv",
+      "color_space": "bt709",
+      "color_transfer": "bt709",
+      "color_primaries": "bt709",
+      "r_frame_rate": "30/1",
+      "nb_frames": "8962"
+    },
+    {
+      "codec_name": "aac",
+      "profile": "LC",
+      "codec_type": "audio",
+      "sample_rate": "48000",
+      "channels": 1,
+      "r_frame_rate": "0/0",
+      "nb_frames": "14005"
+    }
+  ],
+  "voice": "edge-tts, en-US-AriaNeural, rate +12% (as in the Finance and HR videos)",
+  "audio_is_synthetic": true,
+  "audio_processing": "per-shot neural TTS clips placed on the shot timeline, loudnorm I=-16.5 LUFS, AAC 48 kHz mono",
+  "burned_captions": [
+    "en"
+  ],
+  "renderer": "offline Skia (skia-python) frame renderer; no browser, no CDP; H.264 High via libx264",
+  "runtime": {
+    "python": "3.12.16",
+    "platform": "Darwin",
+    "packages": {
+      "skia-python": "144.1",
+      "numpy": "2.5.4",
+      "pybind11": "3.1.0",
+      "fonttools": "4.68.0",
+      "Brotli": "1.2.1",
+      "Pillow": "13.0.0"
+    },
+    "ffmpeg": "ffmpeg version 9.0.2 Copyright (c) 2000-2026 the FFmpeg developers",
+    "ffprobe": "ffprobe version 9.0.2 Copyright (c) 2007-2026 the FFmpeg developers",
+    "phase": "packaging runtime"
+  },
+  "guide_alignment": {
+    "reference_edition": "task0001 v3.2",
+    "reference_file": "replay-deepagents-v3-2/site/original-guide.js",
+    "reference_sha256": "9246340ec582e46bdc2339a8824deba064ec2fa30dbb3be9c6839ee815b95e68",
+    "implementation": "engine/reference_pet.py",
+    "implementation_sha256": "d17cca8578c259620666433559b50fecebe1a0f3fd55558659e109d6adad307f",
+    "svg_path_elements": [
+      {
+        "name": "tail",
+        "path": "M4 13H1v-2h-2V9h2v2h3Z",
+        "color": "#c98a6c"
+      },
+      {
+        "name": "foot_0_0",
+        "path": "M5 15h4v6H5Z",
+        "color": "#805143"
+      },
+      {
+        "name": "foot_0_1",
+        "path": "M6 16h2v4H6Z",
+        "color": "#db9878"
+      },
+      {
+        "name": "foot_1_0",
+        "path": "M11 15h4v6h-4Z",
+        "color": "#805143"
+      },
+      {
+        "name": "foot_1_1",
+        "path": "M12 16h2v4h-2Z",
+        "color": "#db9878"
+      },
+      {
+        "name": "foot_2_0",
+        "path": "M17 15h4v6h-4Z",
+        "color": "#805143"
+      },
+      {
+        "name": "foot_2_1",
+        "path": "M18 16h2v4h-2Z",
+        "color": "#db9878"
+      },
+      {
+        "name": "body_0",
+        "path": "M5 4h3V2h3v2h6V2h3v3h2v3h2v9H2V8h3Z",
+        "color": "#7f5142"
+      },
+      {
+        "name": "body_1",
+        "path": "M5 5h4V3h2v2h6V3h2v3h2v3h2v7H3V9h2Z",
+        "color": "#eda67d"
+      },
+      {
+        "name": "body_2",
+        "path": "M6 5h3V3h2v2h6V3h2v3h2v3H5V7h1Z",
+        "color": "#ffc69a"
+      },
+      {
+        "name": "body_3",
+        "path": "M5 9h16v6H5Z",
+        "color": "#f7b78d"
+      },
+      {
+        "name": "body_4",
+        "path": "M3 14h20v2H3Z",
+        "color": "#ca8469"
+      },
+      {
+        "name": "mouth",
+        "path": "M12 13h1v1h2v-1h1v2h-4Z",
+        "color": "#965c48"
+      },
+      {
+        "name": "cheeks",
+        "path": "M6 13h2v1H6Zm14 0h2v1h-2Z",
+        "color": "#e9997a"
+      }
+    ],
+    "svg_path_element_count": 14,
+    "moving_mouth_alternative": "M12 13h3v2h-3Z",
+    "path_count_note": "14 SVG elements; the mouth has two authored animation states.",
+    "source_svg_viewbox": [
+      0,
+      0,
+      24,
+      22
+    ],
+    "output_svg_unit_pixels": 4.0,
+    "scale_relative_to_task0001_css_pet": 1.5,
+    "reference_files_sha256": {
+      "reference/task0001-v3.2/enhancement.css": "19a0c2227b44218c5790ee3ae66b1d9f62004554edf4195ae14b1a33379e2a9c",
+      "reference/task0001-v3.2/enhancement.js": "a660659f9c2256c050b8918125578bdb51df571faea7c1144cbd9aae9932a817",
+      "reference/task0001-v3.2/index.html": "d229957a3c3b48d3369d817d33427d2845a47e4011e07dff9d103d0bf83a93d7",
+      "reference/task0001-v3.2/original-guide.js": "9246340ec582e46bdc2339a8824deba064ec2fa30dbb3be9c6839ee815b95e68",
+      "reference/task0001-v3.2/pet-overlay.css": "8128bb8336a2202c308873635a9bd1f577734789768d14689e83b1b5ff664616",
+      "reference/task0001-v3.2/timeline.json": "9dce3e3d6b10f4cfc51183ce62be61761ac49742b5adf40a9b079f4490281861"
+    },
+    "orientation_policy": "Fixed right-facing reference pet; no mirroring or turning.",
+    "entrance_exit_policy": "Entrance and exit follow the task0001 v3.2 reference animation and timing relationship.",
+    "scope": "Original pet paths, colors and unmirrored pose equations translated to Skia, plus the reference whole opening and ending presentation. Finance retains its 93-cue narration and financial facts.",
+    "bookends": {
+      "source": "reference/task0001-v3.2/index.html",
+      "source_sha256": "d229957a3c3b48d3369d817d33427d2845a47e4011e07dff9d103d0bf83a93d7",
+      "implementation": "engine/reference_bookends.py",
+      "opening": "84 seeded floating glyphs and original role icons converge; original logo back-easing and staggered title reveal.",
+      "ending": "Original spotlight, logo, rule and sequential copy reveal; the compositor keeps result and ending foregrounds mutually exclusive.",
+      "timing": "Original 5000/5200 ms presentation clocks fit the existing finance opening/ending durations; narration, captions and audio are unchanged.",
+      "copy": "Existing finance role values, task ID, English/Chinese title and ending text retained; particle words use finance evidence."
+    }
+  },
+  "guide_character": {
+    "character": "the homepage robot holding the arena's Terminus-2 blaster (Kenney blaster-m.glb, CC0)",
+    "renderer": "robot/sprite.html?weapon=blaster-m.glb (three.js, homepage lights) -> 362 transparent sprites, -90..+90 degrees aim in 1-degree steps, eyes open and mid-blink",
+    "sprites_index": {
+      "path": "robot/sprites-terminus/sprites.json",
+      "sha256": "e49947522e99045207ed752758f20bef2155e1e1201ebc755f5b4fa73fe7eb2f"
+    },
+    "aim_limit_degrees": 80,
+    "pointer": "a sight laser from the muzzle to the cue target; hidden in the parked pose",
+    "routes_and_cues": "78 cues; targets in story/econ.py GUIDE and engine/guide_targets.py"
+  },
+  "what_each_figure_rests_on": {
+    "run_record": "requests 40, tool calls 52 (39 commands, 10 waits, 1 interrupt, 2 completion marks), step times, exit codes, tokens, every quoted command and terminal line, the quoted assistant sentences, the docstring of the delivered main.py, deliverable sizes (106 and 3,910 bytes)",
+    "grader_receipt": "reference and submitted values, errors, reward 1.0 (verifier/reward-details.json)",
+    "page_copy": "the framing of the two difficulties; that the authors' script estimates the effect without covariates (-66.33) and with five (-69.35); 'three Stata programs, one more than four thousand lines long'; 'graded in 0.2 s'; the column-2 recomputation after the run (-69.35, standard error 22.68, 4.6% and 9.5% off)",
+    "not_from_this_run": "the column-2 figures: after the run, column 2's five covariates were put into the agent's delivered program (page copy 6.5). The video labels them 'recomputed afterwards'. They were not recomputed while building the video.",
+    "editorial": [
+      "The left panel 'SETTINGS TO MATCH' is a reading of the record, ticked at the trace second each setting is first settled; Terminus-2 keeps no plan and the agent wrote none.",
+      "Tool calls are coloured by what the call did (command, wait, interrupt, completion mark), read from the recorded keystrokes (tools/build_econ_data.py).",
+      "Shots in the AGENT chapter follow the run's clock; the search for the authors' script, which is interleaved with the other steps from +33.7 s to +103 s, is told in one shot placed at +80.1 to +104.3 s.",
+      "'four other sets of covariates' are sets the agent chose itself; the video shows their size, not their members, except lngdpp."
+    ]
+  },
+  "network_access": {
+    "statement_in_video": "The container has network access (shot e10); the agent obtained the estimator's public source and not the authors' script (shots e10, e11, e29).",
+    "obtained": [
+      "eventstudyinteract.ado from raw.githubusercontent.com/lsun20/EventStudyInteract (6,497 bytes, +23.7 s)",
+      "reghdfe.mata from raw.githubusercontent.com/sergiocorreia/reghdfe (+73.0 s)"
+    ],
+    "requested_but_not_obtained": "avar.ado (+149.5 s): the saved file is 14 bytes, the size of a 'not found' response. The video therefore shows two source files, not three.",
+    "searched_without_finding": "the authors' script 3a_analysis_ncse.do: GitHub code search, Google, Bing, DuckDuckGo, grep.app, Harvard Dataverse, DataCite, Crossref",
+    "inspected_and_declined": [
+      "doi:10.7910/DVN/DJ989N (file list only)",
+      "doi:10.7910/DVN/SFYMSY (file list only)"
+    ]
+  },
+  "english_only": {
+    "captions": "English only",
+    "check": "tools/screen_text.py drew every 3rd frame: no string with Chinese characters reaches the screen"
+  },
+  "brand": {
+    "mark_and_wordmark": "Metacase mark and the 'Global Metacase Challenge' wordmark, as on the live site",
+    "institutions": "NTU, HKU, SUFE and Tsinghua crests and the host line of the homepage hero, unchanged from the Finance and social-science videos",
+    "site": "easonai-5589.github.io/metacase-challenge",
+    "attribution": "brand/ATTRIBUTION.txt"
+  },
+  "validation": {
+    "geometry_report": "docs/video/econ/guide-geometry-qa.json",
+    "text_timing": "docs/video/econ/text-timing.json",
+    "text_cover": "docs/video/econ/text-cover-qa.json",
+    "font_selection": "docs/video/econ/font-selection.json",
+    "render_receipt": "docs/video/econ/render-receipt.json",
+    "render_input_fingerprint": "c04d2ec6facf781115c312488a83e061315affbe4dead54fde3ba7e499999585",
+    "geometry_passed": true,
+    "frames_checked": 8962,
+    "cue_boundaries_checked": 78,
+    "text_cover_findings": 7,
+    "video_checks": "Full render frame count, frame rate and dimensions verified with ffprobe before packaging.",
+    "review_scope": "Automated geometry and text checks plus stills of every shot; these records do not claim full human viewing or listening."
+  },
+  "chapters": [
+    {
+      "name": "TASK",
+      "start_seconds": 0.0,
+      "end_seconds": 84.683
+    },
+    {
+      "name": "AGENT",
+      "start_seconds": 85.133,
+      "end_seconds": 211.262
+    },
+    {
+      "name": "HARNESS",
+      "start_seconds": 211.712,
+      "end_seconds": 229.515
+    },
+    {
+      "name": "CHECK",
+      "start_seconds": 229.965,
+      "end_seconds": 267.914
+    },
+    {
+      "name": "RESULT",
+      "start_seconds": 268.364,
+      "end_seconds": 298.227
+    }
+  ],
+  "shots": [
+    {
+      "id": "e00",
+      "chapter": "TASK",
+      "kind": "open",
+      "start_seconds": 0.0,
+      "end_seconds": 8.245,
+      "narration_en": "One model, one harness, one replication. Follow how the agent works inside Terminus-2, and how its number is checked.",
+      "trace_seconds": null
+    },
+    {
+      "id": "e01",
+      "chapter": "TASK",
+      "kind": "question",
+      "start_seconds": 8.245,
+      "end_seconds": 22.193,
+      "narration_en": "From 2013, central inspection teams entered China's government departments in five waves. Did competition for their civil-service posts change? A published paper answers with data on 717 departments.",
+      "trace_seconds": null
+    },
+    {
+      "id": "e02",
+      "chapter": "TASK",
+      "kind": "task",
+      "start_seconds": 22.193,
+      "end_seconds": 32.318,
+      "narration_en": "The task: reproduce one of its results as three numbers, how large the effect is, how uncertain that estimate is, and whether it is significant, with a script that reproduces them.",
+      "trace_seconds": null
+    },
+    {
+      "id": "e03",
+      "chapter": "TASK",
+      "kind": "reflect",
+      "start_seconds": 32.318,
+      "end_seconds": 43.427,
+      "narration_en": "The first difficulty: the result cannot simply be run. The task names a Stata command and the authors' script, but supplies neither, and the container has no Stata.",
+      "trace_seconds": null
+    },
+    {
+      "id": "e04",
+      "chapter": "TASK",
+      "kind": "task",
+      "start_seconds": 43.427,
+      "end_seconds": 61.624,
+      "narration_en": "Behind that command stand three Stata programs, one more than four thousand lines long. The agent has to rebuild the same algorithm in Python: cohort weights, the parts of the variance, dropped observations, degrees of freedom. Any departure may fall outside the 1% tolerance.",
+      "trace_seconds": null
+    },
+    {
+      "id": "e05",
+      "chapter": "TASK",
+      "kind": "specs",
+      "start_seconds": 61.624,
+      "end_seconds": 79.284,
+      "narration_en": "The second difficulty: the specification is incomplete. The authors' script estimates the effect twice: −66.33 without covariates, −69.35 with five. The task does not say which, and the wrong one scores zero.",
+      "trace_seconds": null
+    },
+    {
+      "id": "e07",
+      "chapter": "TASK",
+      "kind": "sealed",
+      "start_seconds": 79.284,
+      "end_seconds": 84.683,
+      "narration_en": "The agent gets one data file. The reference values are not in the container.",
+      "trace_seconds": null
+    },
+    {
+      "id": "e08",
+      "chapter": "AGENT",
+      "kind": "loop_intro",
+      "start_seconds": 85.133,
+      "end_seconds": 94.387,
+      "narration_en": "Terminus-2 runs the loop: the model writes keystrokes, Terminus-2 types them into a terminal, the commands run in the container, and the screen returns to the model.",
+      "trace_seconds": [
+        0.0,
+        8.5
+      ]
+    },
+    {
+      "id": "e10",
+      "chapter": "AGENT",
+      "kind": "fetch",
+      "start_seconds": 94.387,
+      "end_seconds": 109.58,
+      "narration_en": "The container has network access. At 24 seconds the agent takes the estimator's source from its author's GitHub repository, and later the regression program it depends on: general-purpose programs, with nothing specific to this study.",
+      "trace_seconds": [
+        8.5,
+        33.6
+      ]
+    },
+    {
+      "id": "e12",
+      "chapter": "AGENT",
+      "kind": "algo",
+      "start_seconds": 109.58,
+      "end_seconds": 118.385,
+      "narration_en": "The source gives the algorithm: estimate each cohort's effect, weight the effects by cohort shares, and add a variance term for the shares.",
+      "trace_seconds": [
+        33.6,
+        47.0
+      ]
+    },
+    {
+      "id": "e14",
+      "chapter": "AGENT",
+      "kind": "sample",
+      "start_seconds": 118.385,
+      "end_seconds": 128.827,
+      "narration_en": "76 departments are observed only once. The shares are computed before they are dropped; the regression then uses 3,170 observations.",
+      "trace_seconds": [
+        59.0,
+        74.0
+      ]
+    },
+    {
+      "id": "e15",
+      "chapter": "AGENT",
+      "kind": "dof",
+      "start_seconds": 128.827,
+      "end_seconds": 138.198,
+      "narration_en": "For the standard error it reads the regression program's source, past line 4,000, to confirm the correction for clustered errors.",
+      "trace_seconds": [
+        74.0,
+        80.1
+      ]
+    },
+    {
+      "id": "e11",
+      "chapter": "AGENT",
+      "kind": "search",
+      "start_seconds": 138.198,
+      "end_seconds": 147.007,
+      "narration_en": "Meanwhile it searches for the authors' script: GitHub, Google, Bing, Harvard Dataverse. It does not find it.",
+      "trace_seconds": [
+        80.1,
+        104.3
+      ]
+    },
+    {
+      "id": "e16",
+      "chapter": "AGENT",
+      "kind": "estimate",
+      "start_seconds": 147.007,
+      "end_seconds": 156.055,
+      "narration_en": "Then it runs its own estimator in Python: −66.33, with a standard error of 25.05.",
+      "trace_seconds": [
+        123.5,
+        124.5
+      ]
+    },
+    {
+      "id": "e13",
+      "chapter": "AGENT",
+      "kind": "cohorts",
+      "start_seconds": 156.055,
+      "end_seconds": 167.646,
+      "narration_en": "That number is a weighted sum. The five cohorts hold 14, 8, 65, 79 and 14 treated observations; their shares weight the five cohort effects.",
+      "trace_seconds": [
+        124.5,
+        124.5
+      ]
+    },
+    {
+      "id": "e17",
+      "chapter": "AGENT",
+      "kind": "altsets",
+      "start_seconds": 167.646,
+      "end_seconds": 178.339,
+      "narration_en": "It tries four other sets of covariates too. The estimates differ. It does not pick a set without support, and keeps the baseline.",
+      "trace_seconds": [
+        124.5,
+        140.9
+      ]
+    },
+    {
+      "id": "e18",
+      "chapter": "AGENT",
+      "kind": "validate",
+      "start_seconds": 178.339,
+      "end_seconds": 186.161,
+      "narration_en": "It checks the result another way: a regression with explicit department and year dummies gives the same five cohort effects.",
+      "trace_seconds": [
+        178.5,
+        185.0
+      ]
+    },
+    {
+      "id": "e19",
+      "chapter": "AGENT",
+      "kind": "stall",
+      "start_seconds": 186.161,
+      "end_seconds": 200.285,
+      "narration_en": "It goes on searching, finds two replication packages, and declines to use them. Then one lookup holds the terminal, and the commands queued behind it never run. The agent interrupts it, then writes and runs its files.",
+      "trace_seconds": [
+        245.4,
+        393.7
+      ]
+    },
+    {
+      "id": "e20",
+      "chapter": "AGENT",
+      "kind": "finish",
+      "start_seconds": 200.285,
+      "end_seconds": 211.262,
+      "narration_en": "Its script states what it could not verify: which covariates each column uses. Then it marks the task complete: 40 requests, 52 tool calls, about eight minutes.",
+      "trace_seconds": [
+        478.7,
+        500.5
+      ]
+    },
+    {
+      "id": "e21",
+      "chapter": "HARNESS",
+      "kind": "trace",
+      "start_seconds": 211.712,
+      "end_seconds": 221.695,
+      "narration_en": "Here is the whole run: 52 tool calls. The estimate was confirmed by 185 seconds; nearly five more minutes went on searching.",
+      "trace_seconds": [
+        500.5,
+        500.5
+      ]
+    },
+    {
+      "id": "e23",
+      "chapter": "HARNESS",
+      "kind": "handoff",
+      "start_seconds": 221.695,
+      "end_seconds": 229.515,
+      "narration_en": "When the agent stops, Harbor copies the grader and the reference values into the same container. Only then does scoring begin.",
+      "trace_seconds": [
+        500.5,
+        500.5
+      ]
+    },
+    {
+      "id": "e24",
+      "chapter": "CHECK",
+      "kind": "chapter",
+      "start_seconds": 229.965,
+      "end_seconds": 233.803,
+      "narration_en": "An independent check now takes over.",
+      "trace_seconds": null
+    },
+    {
+      "id": "e25",
+      "chapter": "CHECK",
+      "kind": "compare",
+      "start_seconds": 233.803,
+      "end_seconds": 245.516,
+      "narration_en": "The grader calls no model. The coefficient matches the reference. So does the standard error. The p-value is off by two ten-thousandths, within tolerance.",
+      "trace_seconds": null
+    },
+    {
+      "id": "e26",
+      "chapter": "CHECK",
+      "kind": "pbasis",
+      "start_seconds": 245.516,
+      "end_seconds": 252.766,
+      "narration_en": "The gap has a cause: the agent used the t distribution; the reference agrees with the normal.",
+      "trace_seconds": null
+    },
+    {
+      "id": "e27",
+      "chapter": "CHECK",
+      "kind": "specs",
+      "start_seconds": 252.766,
+      "end_seconds": 267.914,
+      "narration_en": "All three must pass, or the score is zero. After the run, column 2's five covariates were put into the agent's own program: −69.35, 4.6% off. That scores zero.",
+      "trace_seconds": null
+    },
+    {
+      "id": "e28",
+      "chapter": "RESULT",
+      "kind": "reward",
+      "start_seconds": 268.364,
+      "end_seconds": 276.33,
+      "narration_en": "The grader's verdict is one: all three comparisons pass. It is one pilot run, not accuracy and not a ranking.",
+      "trace_seconds": null
+    },
+    {
+      "id": "e29",
+      "chapter": "RESULT",
+      "kind": "reflect",
+      "start_seconds": 276.33,
+      "end_seconds": 290.618,
+      "narration_en": "The agent had network access, and obtained the estimator's public source, not the authors' script. It rebuilt a published method; it did not derive one. And its baseline was never checked against that script.",
+      "trace_seconds": null
+    },
+    {
+      "id": "e30",
+      "chapter": "RESULT",
+      "kind": "outro",
+      "start_seconds": 290.618,
+      "end_seconds": 298.227,
+      "narration_en": "A published estimate, an agent run, and an independent check. Explore more on the Global Metacase Challenge site.",
+      "trace_seconds": null
+    }
+  ],
+  "files": {
+    "assets/video/econ-0157-replay.mp4": {
+      "bytes": 47510593,
+      "sha256": "a82b0c2cebf1a8a86bbd52807db6fd8023043893a610d5f47673e8ac643c5511"
+    },
+    "assets/video/econ-0157-replay-poster.jpg": {
+      "bytes": 327508,
+      "sha256": "58372d4d5210518b3dc8fe2c4eecf0849ace7b9c824d5eced6255a8e7e04b9f9"
+    },
+    "docs/video/econ/README.md": {
+      "bytes": 9811,
+      "sha256": "857a802fe6c5319548a29362760078c06f7d7c4f99d45561afefd8a9f2318e6d"
+    },
+    "docs/video/econ/captions.en.srt": {
+      "bytes": 5078,
+      "sha256": "4eed0ef2c99633ad6dcfe870ad476068a9275fd1cc23a16451553d41c07756b3"
+    },
+    "docs/video/econ/cjk-onscreen.json": {
+      "bytes": 3,
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    "docs/video/econ/font-selection.json": {
+      "bytes": 4701,
+      "sha256": "c1b0082faa0c5ade04a2eae21caafa85004d2ce69b1f42436a4f1dc6724e7dca"
+    },
+    "docs/video/econ/guide-geometry-qa.json": {
+      "bytes": 45093,
+      "sha256": "1e2d9e2e7c9caca138f28c343c6c4bfda5ff3fdefe95d9cb9ad4e39a2db6dca7"
+    },
+    "docs/video/econ/render-receipt.json": {
+      "bytes": 13629,
+      "sha256": "83acec96efc3ba0a215131688a7a4fda080f02c66da8a168368edc9255d39230"
+    },
+    "docs/video/econ/text-cover-qa.json": {
+      "bytes": 928,
+      "sha256": "47fa9c5de6c15058fe959dda941af231752eabda8c6cfd83a493904c64da735f"
+    },
+    "docs/video/econ/text-timing.json": {
+      "bytes": 506,
+      "sha256": "b460f65dc1236e22f700b8de6d56378acb2ae1f084e241044e1d322294e095a1"
+    }
+  },
+  "sources": {
+    "run_export": {
+      "path": "data/econ.json",
+      "sha256": "a8f07f9d4951007fa48acfd0a7751ea42409a6f6e118ef3a6dcd3a9d281d0dff",
+      "note": "built from the trial's replay record by tools/build_econ_data.py; step times, tool names, exit status and the first line of each command"
+    },
+    "request_metadata": {
+      "path": "data/econ.requests.jsonl",
+      "sha256": "23111f6b5a8a759f9ca47eb627b5d785943ffad3fac4e23a01de4cf8527e0537",
+      "note": "time, token usage and tool names only"
+    },
+    "voice_cache_index": {
+      "path": "build/econ/voice.json",
+      "sha256": "e0664e331d1c6d5679edb6672c96694db590df37652f5382a83e4afc647affd0"
+    }
+  },
+  "editable_source": {
+    "directory": ".",
+    "files_sha256": {
+      "engine/bookends_export.py": "6f8bc0e8e1a4ade337628558d91cad02b227e7318b41964ffbd7bded4e41bba6",
+      "engine/brand.py": "6aa6cca67a66244e0fd7c54f4ea86eb5afca8b7488bb3346762ae88f6aa54d99",
+      "engine/check_guide.py": "164684aa019b65ef83fb6249c60a4847f778fe6a06d75e59268d991a189977a3",
+      "engine/compose.py": "5eb23b4732717d82d52d9bfeab0bcc0b54ddcf445555f2987b7e9c8ba7e31584",
+      "engine/fonts.py": "c4056c6e92309134873e2131a0d67149d4f0659eb0f7de009c5e1b243fed32e2",
+      "engine/gfx.py": "a57e6803b80fd290a5c48350d6b72b039ecff6e9dc73c3077234e42e867a7d3e",
+      "engine/guide.py": "73f0b5b6077872a1d381766d1c4e7119a2dd0c7f22e498aeb6b659d88f1de069",
+      "engine/guide_targets.py": "446382b5c256790a1abde05c1dcf31d76ae5cce34833a3ca5fa622df8e51ea87",
+      "engine/package.py": "d4c9fd2ca18adc1e726c52a1048d1303c13abe1c955df6542df1df45966b5bab",
+      "engine/package_econ.py": "3c9888df7a51e7abe7da35422846554080030203fa374b4272fdba7d8a301a4c",
+      "engine/package_hr.py": "5173f2bc0e076334f4eccb334b9f0024f47732a54322be27414e79e25763a73f",
+      "engine/panels.py": "38b6e2e6f445021296652f84cbe8249b20aa5e4277bfa925e4f9221269265afe",
+      "engine/reference_bookends.py": "94f292120ed7a51bae5fc70ff670b937b6c94ff379cfaf3862bc5e0a7cf81981",
+      "engine/reference_pet.py": "d17cca8578c259620666433559b50fecebe1a0f3fd55558659e109d6adad307f",
+      "engine/reference_robot.py": "100d452ca2563e263f160b5c3acb37519911bda4951e9b18433e94686b33602d",
+      "engine/render.py": "0caa52bd55c2df8ce5e6b8a9ea5e6d355bf2fb05b04200fcf9e8158441da84cb",
+      "engine/rundata.py": "beaae4f500cddb1ea1b12636e7a62a020df144d5f721a3e48e6cb3acd4963846",
+      "engine/scenes.py": "3f8d7e1f8a8a5ce53c347a93c7da658b60e077fdbfe8179aca7db190ed240d29",
+      "engine/scenes_x.py": "5e3e0aaea175607044a36eee6f8147a5207b0ad21c83417b2e328975ebb2cc3b",
+      "engine/sheet.py": "f48757b5f58661fa2f0087f66d6202ea5fc3ce7283ccc45d6eb43585ce9d31ae",
+      "engine/timeline.py": "ee152d2d78eea1379d5c58b40655092749245c4cf3c4b060ba750cdd94ad4286",
+      "engine/ui.py": "8d897eebc3f27162421d8df87f253f7afe331e9e291ba932108cc564f67c95ec",
+      "engine/voice.py": "015a1b19d04024c3ddbb5b76d0e8eb05b630d6a9e394bfe45e5b2fa06f7dbfbc",
+      "tools/build_econ_data.py": "34595a5dc2562609e9d94105a0371eaa673855bfa127fe53faa5c08183447d85",
+      "tools/collisions.py": "c954d3d9fe353fa107a969a7112012888853b3197750ad1889880fd622df6916",
+      "tools/laser_text.py": "1c38a594f09e02fbed7ab6a2dff051fd8b52be09565117bdb5f32e98379ed3d9",
+      "tools/make_source_zip.py": "8c75bccabe19c42e57875ba74da4a1cc3fd018a851ae68297e34ae27de931f02",
+      "tools/patch_engine.py": "089ce67a70d8433f318f514759862895b01cd577180a410091e215fbb383f3d5",
+      "tools/patch_engine2.py": "9eb5442a040519f25f502b020d08bf0fd3b6683e438032feaadcaa7ddee1f808",
+      "tools/patch_engine3.py": "574ea8f862f7b3372b0bda071e59ae59cb2921b0b1ead739782b6d43c257f8d9",
+      "tools/patch_engine4.py": "33a329b6e9418c24d397933aca7df5e933d12fad50a558017a88b059ac4c6ad6",
+      "tools/patch_robot.py": "b4497f4674a2775ef80f36f6e85ea91fae3c8e493b15ac0bc085f0e41d59f5d2",
+      "tools/portable_voice.py": "5e0fe665f50d13bd80f3e70c7ddaef09fec4c5c66c0be31f03246af859e9dee1",
+      "tools/revise1.py": "70bf0a47b33ef12061e7069fcdabdd2b80d795f24f56188e786d7c5d1b5cab1f",
+      "tools/revise2.py": "af73b00ff6d193fe378508908a832dbb16142b5826b19e08c1ae02c5f22bd1e5",
+      "tools/revise3.py": "9956664a8a9ac4f53cae37f0688fb1c664e91f5c5ad25cf6978328f7c5865ef4",
+      "tools/revise4.py": "74a4d681f24201d9483c533572ebb6303606d757946cd3d7a9001f3e354e7595",
+      "tools/revise5.py": "3a449c83742971f7d525cfe980c0b9785be895fcbf886669cbe247ce60c6597b",
+      "tools/screen_text.py": "278ac377e2feb12a4b1f72ed73bb2ed469dd54dce6ac8cc0b2423951688e6956",
+      "tools/sheets.py": "052b73506d4d508104def40d9280708b7f64def350981d8c21f8e05bc94b6dd1",
+      "tools/sprite_meta.py": "d5463b0cf98a409e7b6227f96933d1d2225afda1c3e7612a2b34eddf5fbf4efd",
+      "tools/stills.py": "2dbed6082bdddce78115b9413999488aadc449a2c48e424cae0dda7e157cbfd5",
+      "story/econ.py": "dd9c8e434f6800b18a194d75cf368857f0d8e39f753e0fc4642aa832f5f2bca9",
+      "story/econ_scenes.py": "5e439675c93dfbc17c5eda8a95c3a99fef0afe981be49a5c404455dfca9783d9",
+      "story/fin_en.py": "2d677f8f09ebd7a29b393f84040cf0c95f9446e166a0ca4e1bb58c669989aac9",
+      "data/econ.json": "a8f07f9d4951007fa48acfd0a7751ea42409a6f6e118ef3a6dcd3a9d281d0dff",
+      "data/econ.requests.jsonl": "23111f6b5a8a759f9ca47eb627b5d785943ffad3fac4e23a01de4cf8527e0537",
+      "README-econ-v1.md": "857a802fe6c5319548a29362760078c06f7d7c4f99d45561afefd8a9f2318e6d",
+      "requirements-render.txt": "35d63721155ff873f6ccc54bad59f89d17a2f33c5ee689dd5717955bc8ae0526",
+      "robot/sprites-terminus/sprites.json": "e49947522e99045207ed752758f20bef2155e1e1201ebc755f5b4fa73fe7eb2f",
+      "robot/sprite.html": "d053c022a34e4e66148c514b80f6ebb80d099d0b95a08551ddbf71565154c095",
+      "robot/render_sprites.mjs": "c8b40af8f7129bea4cc3bcfb2faef316adc3df3f9f58a4ce384be5c25171fc1e",
+      "fonts/SpaceMono-400.ttf": "680157aa975a626716d8a6a5905452ece83512a3a2ab7d72729fcefab338a1c2",
+      "brand/ATTRIBUTION.txt": "c2b2fd2d7a87b88499de4c6f852f4b8528dec8b7133d83659e2ca756d2215201",
+      "brand/hku-university-crest.png": "f91c5a39fdeede2a4b681fe8516762e9789338fd612643db46cf3c0dfa4f422f",
+      "brand/ntu-university-official.png": "45535780334a04c2384d82468ab49c2c8f6d5a77f717246dc42f0c6ff6451503",
+      "brand/sufe-university-official.png": "fcea85a9d55fd19cb12f8158d8e254ab4237d74731824ea07b729cdc51637072",
+      "brand/tsinghua-university-crest.png": "035bdcc5172a44f5854be0688fc0325fe785075cb2ce592312012cdc2b9cb8b2"
+    },
+    "requirements": "requirements-render.txt",
+    "instructions": "README-econ-v1.md",
+    "rebuild": [
+      "python -X utf8 engine/render.py econ --workers 2",
+      "python -X utf8 tools/screen_text.py econ",
+      "python -X utf8 tools/laser_text.py econ",
+      "python -X utf8 engine/package_econ.py"
+    ],
+    "offline": "Uses the 28 cached narration clips and build/econ/voice.json; run voice.py only after changing the narration."
+  },
+  "boundaries": [
+    "Editorial replay of one recorded pilot run; no new agent run, no re-scoring.",
+    "Only this run is shown; no other model or run is named.",
+    "The score is one pilot run's grader verdict, not accuracy and not a ranking.",
+    "The grader and the reference are absent during the agent run; Harbor copies tests into the same container afterwards.",
+    "The agent rebuilt a published estimator from its public source; the video does not claim an independent derivation."
+  ]
+}

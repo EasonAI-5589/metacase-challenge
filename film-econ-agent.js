@@ -8,7 +8,7 @@
  *               as a grey outline: it is not in the container. Six searches go out from the
  *               robot's head, the lamps on the board turn red one by one, and it reads 0 found
  *      .20–.27  back to the source: three cards stand up in front of the lit board, one for each
- *               public source file it reads (eventstudyinteract, reghdfe, avar); the stat
+ *               public source file it obtains (eventstudyinteract, reghdfe); the stat
  *               counts them, 1 to 3
  *      .27–.66  the choice: two paths draw out to the baseline (0 covariates) and to a covariate
  *               set no source confirms; the robot looks at each, the unverified one tips back
@@ -202,8 +202,8 @@ export async function build({ THREE, kit, set, labelTexture, loadWeapons, hand, 
   const foundTag = printed(boards[0].g, 'found', [{ text: '0 found', size: 96, weight: 800, color: '#ff9aa6', track: 2 }], 1.3, .3, 0, .5, .09, 512);
   foundTag.material.opacity = 0;
   const probes = Array.from({ length: SEARCH.n }, () => { const sp = util.glowSprite(0xbfc6d4, .34, 0); set.add(sp); return sp; });
-  // the three public source files it falls back on: a card each, standing up in front of the lit board
-  const SOURCES = [['eventstudy', 'interact'], ['reghdfe'], ['avar']].map((lines, k) => {
+  // the two public source files it obtained (its fetch of avar.ado returned 'not found'): a card each, in front of the lit board
+  const SOURCES = [['eventstudy', 'interact'], ['reghdfe']].map((lines, k) => {
     const hinge = new THREE.Group(); hinge.position.set(.85 + k * .95, .02, -1.25); rulesAndOptions.add(hinge);
     add(hinge, rbox(.88, .52, .05, .04), mat(NAVY), 0, .28, 0);
     const edge = glowClone(AMBER, 1.2);

@@ -1,0 +1,116 @@
+{
+  "fonts": {
+    "CJK400": {
+      "family": "PingFang SC",
+      "probe": "中文财务月末结账模型执行检验报告底稿",
+      "probe_glyphs_present": true,
+      "source": "system family: PingFang SC",
+      "source_base": "operating-system font, selected by family name; not redistributed"
+    },
+    "CJK500": {
+      "family": "PingFang SC",
+      "probe": "中文财务月末结账模型执行检验报告底稿",
+      "probe_glyphs_present": true,
+      "source": "system family: PingFang SC",
+      "source_base": "operating-system font, selected by family name; not redistributed"
+    },
+    "CJK600": {
+      "family": "PingFang SC",
+      "probe": "中文财务月末结账模型执行检验报告底稿",
+      "probe_glyphs_present": true,
+      "source": "system family: PingFang SC",
+      "source_base": "operating-system font, selected by family name; not redistributed"
+    },
+    "Inter400": {
+      "family": "Inter",
+      "probe": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
+      "probe_glyphs_present": true,
+      "source": "fonts/Inter-400.ttf",
+      "font_file_sha256": "9abf4292c69d1f60fc2fb6807cd92afb38853803d41cc2516be246247d41a73c",
+      "source_base": "editable source root"
+    },
+    "Inter500": {
+      "family": "Inter",
+      "probe": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
+      "probe_glyphs_present": true,
+      "source": "fonts/Inter-500.ttf",
+      "font_file_sha256": "42916d78f3ae175bb898f09994b634d44b5aa1ac937eb00d3b03ef5f13d8944e",
+      "source_base": "editable source root"
+    },
+    "Inter600": {
+      "family": "Inter",
+      "probe": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
+      "probe_glyphs_present": true,
+      "source": "fonts/Inter-600.ttf",
+      "font_file_sha256": "1e95adeaee63d7db5fccedd63b072d5a1d302ad0dc3f6d609dbd124ba59fa9f4",
+      "source_base": "editable source root"
+    },
+    "Inter700": {
+      "family": "Inter",
+      "probe": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
+      "probe_glyphs_present": true,
+      "source": "fonts/Inter-700.ttf",
+      "font_file_sha256": "81dcb42933ee0d63a50400fa32e18f27fab193d5366595b9abae04b002915542",
+      "source_base": "editable source root"
+    },
+    "Inter800": {
+      "family": "Inter",
+      "probe": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
+      "probe_glyphs_present": true,
+      "source": "fonts/Inter-800.ttf",
+      "font_file_sha256": "6c27b908a08d3954a0eff8172b1e11c5e937678a32d781d8e4c87e6d0a3c746a",
+      "source_base": "editable source root"
+    },
+    "Mono400": {
+      "family": ".SF NS Mono",
+      "probe": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
+      "probe_glyphs_present": true,
+      "source": "SFNSMono.ttf / Menlo",
+      "source_base": "operating-system font, selected by family name; not redistributed"
+    },
+    "Mono500": {
+      "family": ".SF NS Mono",
+      "probe": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
+      "probe_glyphs_present": true,
+      "source": "SFNSMono.ttf / Menlo",
+      "source_base": "operating-system font, selected by family name; not redistributed"
+    },
+    "Mono600": {
+      "family": ".SF NS Mono",
+      "probe": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
+      "probe_glyphs_present": true,
+      "source": "SFNSMono.ttf / Menlo",
+      "source_base": "operating-system font, selected by family name; not redistributed"
+    },
+    "Mono700": {
+      "family": ".SF NS Mono",
+      "probe": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
+      "probe_glyphs_present": true,
+      "source": "SFNSMono.ttf / Menlo",
+      "source_base": "operating-system font, selected by family name; not redistributed"
+    },
+    "Serif": {
+      "family": "Georgia",
+      "probe": "N",
+      "probe_glyphs_present": true,
+      "source": "system family: Georgia",
+      "source_base": "operating-system font, selected by family name; not redistributed"
+    },
+    "SpaceMono": {
+      "family": "Space Mono",
+      "probe": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
+      "probe_glyphs_present": true,
+      "source": "fonts/SpaceMono-400.ttf",
+      "font_file_sha256": "680157aa975a626716d8a6a5905452ece83512a3a2ab7d72729fcefab338a1c2",
+      "source_base": "editable source root"
+    },
+    "Sym": {
+      "family": "Menlo",
+      "probe": "→←↑↓✓×−",
+      "probe_glyphs_present": true,
+      "source": "system family: Menlo",
+      "source_base": "operating-system font, selected by family name; not redistributed"
+    }
+  },
+  "platform": "darwin"
+}

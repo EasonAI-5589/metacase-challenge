@@ -1,0 +1,16 @@
+{
+  "rule": "visible >= 0.3 s + words / 4",
+  "frame_step": 3,
+  "strings_checked": 3618,
+  "with_chinese_characters": [],
+  "names_this_video_must_not_show": [],
+  "below_reading_time": [
+    {
+      "shot": "e00",
+      "seconds": 2.2,
+      "need": 2.8,
+      "text": "HOSTED BY NTU GIFTS WITH HKU, SUFE AND TSINGHUA PBCSF"
+    }
+  ],
+  "note": "The one string below the rule is the host line of the opening card, drawn by the shared bookend code exactly as in the Finance and social-science videos."
+}

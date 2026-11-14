@@ -1,0 +1,111 @@
+1
+00:00:00,270 --> 00:00:07,925
+One model, one harness, one replication. Follow how the agent works inside Terminus-2, and how its number is checked.
+
+2
+00:00:08,515 --> 00:00:21,873
+From 2013, central inspection teams entered China's government departments in five waves. Did competition for their civil-service posts change? A published paper answers with data on 717 departments.
+
+3
+00:00:22,463 --> 00:00:31,998
+The task: reproduce one of its results as three numbers, how large the effect is, how uncertain that estimate is, and whether it is significant, with a script that reproduces them.
+
+4
+00:00:32,588 --> 00:00:42,107
+The first difficulty: the result cannot simply be run. The task names a Stata command and the authors' script, but supplies neither, and the container has no Stata.
+
+5
+00:00:43,697 --> 00:01:00,504
+Behind that command stand three Stata programs, one more than four thousand lines long. The agent has to rebuild the same algorithm in Python: cohort weights, the parts of the variance, dropped observations, degrees of freedom. Any departure may fall outside the 1% tolerance.
+
+6
+00:01:01,894 --> 00:01:17,964
+The second difficulty: the specification is incomplete. The authors' script estimates the effect twice: −66.33 without covariates, −69.35 with five. The task does not say which, and the wrong one scores zero.
+
+7
+00:01:19,554 --> 00:01:24,363
+The agent gets one data file. The reference values are not in the container.
+
+8
+00:01:25,403 --> 00:01:34,067
+Terminus-2 runs the loop: the model writes keystrokes, Terminus-2 types them into a terminal, the commands run in the container, and the screen returns to the model.
+
+9
+00:01:34,657 --> 00:01:48,060
+The container has network access. At 24 seconds the agent takes the estimator's source from its author's GitHub repository, and later the regression program it depends on: general-purpose programs, with nothing specific to this study.
+
+10
+00:01:49,850 --> 00:01:57,265
+The source gives the algorithm: estimate each cohort's effect, weight the effects by cohort shares, and add a variance term for the shares.
+
+11
+00:01:58,655 --> 00:02:08,107
+76 departments are observed only once. The shares are computed before they are dropped; the regression then uses 3,170 observations.
+
+12
+00:02:09,097 --> 00:02:16,478
+For the standard error it reads the regression program's source, past line 4,000, to confirm the correction for clustered errors.
+
+13
+00:02:18,468 --> 00:02:25,487
+Meanwhile it searches for the authors' script: GitHub, Google, Bing, Harvard Dataverse. It does not find it.
+
+14
+00:02:27,277 --> 00:02:34,535
+Then it runs its own estimator in Python: −66.33, with a standard error of 25.05.
+
+15
+00:02:36,325 --> 00:02:46,726
+That number is a weighted sum. The five cohorts hold 14, 8, 65, 79 and 14 treated observations; their shares weight the five cohort effects.
+
+16
+00:02:47,916 --> 00:02:56,419
+It tries four other sets of covariates too. The estimates differ. It does not pick a set without support, and keeps the baseline.
+
+17
+00:02:58,609 --> 00:03:04,841
+It checks the result another way: a regression with explicit department and year dummies gives the same five cohort effects.
+
+18
+00:03:06,431 --> 00:03:19,365
+It goes on searching, finds two replication packages, and declines to use them. Then one lookup holds the terminal, and the commands queued behind it never run. The agent interrupts it, then writes and runs its files.
+
+19
+00:03:20,555 --> 00:03:30,542
+Its script states what it could not verify: which covariates each column uses. Then it marks the task complete: 40 requests, 52 tool calls, about eight minutes.
+
+20
+00:03:31,982 --> 00:03:40,575
+Here is the whole run: 52 tool calls. The estimate was confirmed by 185 seconds; nearly five more minutes went on searching.
+
+21
+00:03:41,965 --> 00:03:49,195
+When the agent stops, Harbor copies the grader and the reference values into the same container. Only then does scoring begin.
+
+22
+00:03:50,235 --> 00:03:52,483
+An independent check now takes over.
+
+23
+00:03:54,073 --> 00:04:04,596
+The grader calls no model. The coefficient matches the reference. So does the standard error. The p-value is off by two ten-thousandths, within tolerance.
+
+24
+00:04:05,786 --> 00:04:10,846
+The gap has a cause: the agent used the t distribution; the reference agrees with the normal.
+
+25
+00:04:13,036 --> 00:04:26,394
+All three must pass, or the score is zero. After the run, column 2's five covariates were put into the agent's own program: −69.35, 4.6% off. That scores zero.
+
+26
+00:04:28,634 --> 00:04:36,010
+The grader's verdict is one: all three comparisons pass. It is one pilot run, not accuracy and not a ranking.
+
+27
+00:04:36,600 --> 00:04:48,998
+The agent had network access, and obtained the estimator's public source, not the authors' script. It rebuilt a published method; it did not derive one. And its baseline was never checked against that script.
+
+28
+00:04:50,888 --> 00:04:57,907
+A published estimate, an agent run, and an independent check. Explore more on the Global Metacase Challenge site.
