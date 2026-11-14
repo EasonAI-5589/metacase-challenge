@@ -10,7 +10,7 @@
 	}
 }
 
-submit.inferencenet.cn {
+submit.metacasechallenge.com {
 	tls {
 		issuer acme {
 			dir https://acme-v02.api.letsencrypt.org/directory
@@ -37,4 +37,14 @@ submit.inferencenet.cn {
 		}
 		format json
 	}
+}
+
+# Former address: keep it working for links already shared.
+submit.inferencenet.cn {
+	tls {
+		issuer acme {
+			dir https://acme-v02.api.letsencrypt.org/directory
+		}
+	}
+	redir https://submit.metacasechallenge.com{uri} permanent
 }

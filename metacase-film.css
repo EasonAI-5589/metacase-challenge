@@ -43,6 +43,14 @@ html[lang="zh-CN"] .mc-beat > p.mc-beat-label, html[lang="zh-CN"] .mc-items > p.
 .mc-film:not(.is-film) .mc-beat-steps { gap: 14px; }
 /* beside the picture the running text stays narrower than the heading, clear of the set */
 .mc-film.is-film .mc-beat > p:not(.mc-stat):not(.mc-beat-label):not(.mc-beat-keep), .mc-film.is-film .mc-beat-steps { max-width: min(600px, 41vw); }
+/* the text column takes the width of the chapter's "kept as" box (measured in metacase-film.js), so the right edges line up */
+@media (min-width: 601px) and (min-aspect-ratio: 11/10) {
+  .mc-film.is-film .mc-beat > p:not(.mc-stat):not(.mc-beat-label):not(.mc-beat-keep), .mc-film.is-film .mc-beat-steps { max-width: max(var(--keep-w, 0px), min(600px, 41vw)); }
+  /* English boxes break onto two lines and can be much narrower than the column: narrowing the text to them would add lines and push the chapter label under the subnav */
+  html[lang="zh-CN"] .mc-film.is-film .mc-beat > p:not(.mc-stat):not(.mc-beat-label):not(.mc-beat-keep), html[lang="zh-CN"] .mc-film.is-film .mc-beat-steps { max-width: var(--keep-w, min(600px, 41vw)); }
+}
+/* chapter 05: its steps differ most in length, so the box sits a little closer to the text */
+.mc-film.is-film .mc-beat[data-beat="4"] > p.mc-beat-keep { margin-top: 12px; }
 /* where this part of the run is kept: the homepage's five Metacase stages. The box is only as
  * wide as its longest line: the English lead and chip sit on one line and the note on the next
  * (the <br class="keep-br"> in the markup); Chinese reads as one line and hides that break. */
@@ -225,10 +233,6 @@ html.film-pinned .page-rail a { pointer-events: none; }
 .harness-page .mc-rubric-fold { padding-block: 0 clamp(24px, 4vw, 48px); }
 .harness-page .mc-rubric-fold > .hs-details > summary { font-size: clamp(16px, 1.6vw, 18px); }
 /* chapter five's body: the three conclusions, each with its cases, directly after the film */
-.harness-page #items { padding-top: 24px; }
-.harness-page #items .mc-rubric { margin-top: 28px; }
-.harness-page #items .mc-rubric-note { margin: 18px 0 0; }
-.harness-page #items .case-links { flex-direction: row; flex-wrap: wrap; gap: 10px 28px; margin-top: 22px; }
 
 /* reduced motion: composed stills that dip out and in (200 ms), copy that fades without moving */
 .mc-film.is-reduce .mc-film-canvas { transition: opacity .1s linear !important; }
@@ -241,7 +245,6 @@ html.film-pinned .page-rail a { pointer-events: none; }
 }
 
 /* chapter five's cases: every item runs in the film, in the story's one cell */
-.mc-items-head { margin: 0 0 4px; font-size: clamp(22px, 2vw, 28px); font-weight: 650; line-height: 1.25; letter-spacing: -0.015em; }
 .mc-step-case { counter-increment: none !important; align-content: start; }
 .mc-step-case b::before { content: none; }
 .mc-step-case b i { margin-left: 12px; font-style: normal; font-family: var(--font-mono); color: var(--text-primary); }

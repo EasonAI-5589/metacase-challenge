@@ -47,6 +47,6 @@ systemctl start inferencenet-backup.timer
 install -m 644 "$base/current/submission_service/deploy/Caddyfile" /etc/caddy/Caddyfile
 runuser -u caddy -- caddy validate --config /etc/caddy/Caddyfile
 systemctl reload caddy
-curl --fail --silent https://submit.inferencenet.cn/healthz
+curl --fail --silent https://submit.metacasechallenge.com/healthz
 systemctl start inferencenet-backup.service
 printf '\nInstalled %s\n' "$release"

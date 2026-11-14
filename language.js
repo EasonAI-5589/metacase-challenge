@@ -117,7 +117,7 @@
 
   // The submission site lives on another domain and cannot read this choice, so its links carry it.
   function markSubmitLinks() {
-    document.querySelectorAll('a[href^="https://submit.inferencenet.cn/"]').forEach(link => {
+    document.querySelectorAll('a[href^="https://submit.metacasechallenge.com/"]').forEach(link => {
       const url = new URL(link.href);
       url.searchParams.set('lang', language);
       link.href = url.href;
@@ -140,7 +140,7 @@
   function loadDictionary() {
     if (!dictionaryPromise) {
       const filename = location.pathname.split('/').pop() || 'index.html';
-      const page = ['index.html', 'challenge.html', 'metacase.html', 'metacase-economics.html', 'metacase-social-science.html', 'evolution.html', 'leaderboard.html', 'teams.html', 'professional-tasks.html', 'replication.html', 'agent-run.html'].includes(filename)
+      const page = ['index.html', 'challenge.html', 'metacase.html', 'metacase-economics.html', 'metacase-society.html', 'evolution.html', 'leaderboard.html', 'teams.html', 'professional-tasks.html', 'replication.html', 'agent-run.html'].includes(filename)
         ? filename.replace('.html', '') : 'index';
       const dictionaryURL = new URL(`assets/i18n/${page}.zh.json`, scriptURL);
       // Keep a page's release-tagged script and dictionary on the same version.

@@ -52,7 +52,7 @@ def create_app(config=None):
     app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1)
     app.config.update(DATA_DIR=os.environ.get("SUBMIT_DATA_DIR", "/srv/inferencenet-submit/data"),
                       STAGING_DIR=os.environ.get("SUBMIT_STAGING_DIR", "/srv/inferencenet-submit/staging"),
-                      ORIGIN=os.environ.get("SUBMIT_ORIGIN", "https://submit.inferencenet.cn"),
+                      ORIGIN=os.environ.get("SUBMIT_ORIGIN", "https://submit.metacasechallenge.com"),
                       SECURE_COOKIE=True, MAX_CONTENT_LENGTH=GIB, PACKAGE_LIMIT=GIB,
                       USER_STORAGE_LIMIT=5 * GIB, GLOBAL_STORAGE_LIMIT=100 * GIB,
                       MIN_FREE_BYTES=5 * GIB, MAX_FILES=2000, TESTING=False)

@@ -1,6 +1,6 @@
 # 当前自有服务器提交 API（2026-10-22）
 
-本页定义 `submit.inferencenet.cn` 的现行受理合同。它替代旧 API-DESIGN 中的 HF 登录、HF 主存储、跨仓回执及异步归档部分；材料结构和类型专属静态约束继续参考 SPEC。服务实现位于 `submission_service/`。
+本页定义 `submit.metacasechallenge.com` 的现行受理合同。它替代旧 API-DESIGN 中的 HF 登录、HF 主存储、跨仓回执及异步归档部分；材料结构和类型专属静态约束继续参考 SPEC。服务实现位于 `submission_service/`。
 
 ## 身份与页面
 
