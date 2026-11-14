@@ -117,7 +117,7 @@
 
   // The submission site lives on another domain and cannot read this choice, so its links carry it.
   function markSubmitLinks() {
-    document.querySelectorAll('a[href^="https://submit.inferencenet.cn/"]').forEach(link => {
+    document.querySelectorAll('a[href^="https://submit.metacasechallenge.com/"]').forEach(link => {
       const url = new URL(link.href);
       url.searchParams.set('lang', language);
       link.href = url.href;

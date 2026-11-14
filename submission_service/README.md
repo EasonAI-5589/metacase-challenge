@@ -1,8 +1,8 @@
 # Self-hosted submission intake
 
-Production: <https://submit.inferencenet.cn/submit/benchmark/>,
-<https://submit.inferencenet.cn/submit/harness/>,
-<https://submit.inferencenet.cn/submit/failure-case/>.
+Production: <https://submit.metacasechallenge.com/submit/benchmark/>,
+<https://submit.metacasechallenge.com/submit/harness/>,
+<https://submit.metacasechallenge.com/submit/failure-case/>.
 
 This is a Flask + Gunicorn service behind Caddy. It shares the existing v2 design
 tokens, fonts, theme/language storage keys and logo. It runs separately from the
