@@ -190,7 +190,7 @@ to be announced; only reviewed summaries belong in the public website.
 
 `teams.html` keeps organizations and people apart, in this order:
 Organizations (`#organizations`): the founding organization, NTU GIFTS, then the collaborating
-organizations in the order Lin William Cong gave: NTU NBS, NTU CCDS, HKU AI-Agents Lab, SUFE AIFLM Lab,
+organizations in the order Lin William Cong gave: NTU NBS, NTU CCDS, HKU AI-Agents Lab, SUFE AIFin Lab,
 SLAI (Shenzhen Loop Area Institute), Tsinghua PBCSF and Columbia CDFT. Organization cards carry
 official marks, names and descriptions only, never people; NTU GIFTS shows the GIFTS logo, SLAI the
 logo of its AI4S2 center, Tsinghua PBCSF the school's own lockup and Columbia CDFT the center's
@@ -508,7 +508,7 @@ unchanged NTU university logo asset. SUFE uses its official red-on-white charter
 dark themes; the Tsinghua PBCSF hexagonal mark, `assets/institutions/tsinghua-pbcsf-mark.png`,
 sits on the same white disc. The homepage Team block keeps organizations and people apart, as the
 Teams page does: the founding organization (NTU GIFTS) and the collaborating organizations (NTU NBS,
-NTU CCDS, HKU AI-Agents Lab, SUFE AIFLM Lab, SLAI, Tsinghua PBCSF, Columbia CDFT) are cards with the
+NTU CCDS, HKU AI-Agents Lab, SUFE AIFin Lab, SLAI, Tsinghua PBCSF, Columbia CDFT) are cards with the
 official mark on a white plate, the short name linking to the Teams entry and the full name, and no
 people. The people (Lin William Cong, Ye Luo, Liwen Zhang) and
 the student leaders follow in their own rows, with affiliations as text and no marks, and a link to
