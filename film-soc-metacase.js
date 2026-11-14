@@ -53,15 +53,19 @@ const TOKENS = [
   { key: 'medal', color: 0xf2b545, land: [0, 1.2], from: [9, 5.5, -3], bend: [5, 6.5, -.5], s: .125, spin: [1.4, 3.2, .2], yaw: -.15 },
 ];
 // The eight scoring groups, in the order of the page's cards: identifiers and figures only.
+// The scoring groups are named as in chapter 05's cards, in the page's language (the copy uses no rubric codes).
+let ZH = false;
+try { ZH = localStorage.getItem('inferencenet-language') === 'zh'; } catch (e) {}
+const WORD = (en, zh) => (ZH ? zh : en);
 const GROUPS = [
   { id: 'A', pts: 10, max: 10 },
   { id: 'B', pts: 17, max: 17 },
   { id: 'C', pts: 13, max: 13 },
-  { id: 'SAMPLE', pts: 39, max: 39 },
-  { id: 'R11', pts: 0, max: 3 },
-  { id: 'R14–R16', pts: 0, max: 9, flash: true },
-  { id: 'R13, R17', pts: 0, max: 6, flash: true },
-  { id: 'R1, R19, R26', pts: 0, max: 9, flash: true },
+  { id: WORD('Sample', '样本'), pts: 39, max: 39 },
+  { id: WORD('Behaviour', '行为达标'), pts: 0, max: 3 },
+  { id: WORD('Operations', '运营对照'), pts: 0, max: 9, flash: true },
+  { id: WORD('Attribution', '归因责任'), pts: 0, max: 6, flash: true },
+  { id: WORD('Traceability', '追溯关闭'), pts: 0, max: 9, flash: true },
 ];
 const NG = GROUPS.length;
 const TOTAL = 106, RING_PTS = 2, RING_DY = .082, RING_Y0 = .12;

@@ -313,7 +313,7 @@ export async function build({ THREE, kit, set, labelTexture, loadWeapons, hand, 
   add(plan, rbox(BW, BH, .14, .08), mat(NAVY), 0, BY + BH / 2, 0);
   const planEdge = glowClone(AMBER, 1);
   add(plan, rbox(BW + .08, BH + .08, .05, .09), planEdge, 0, BY + BH / 2, -.06, false);
-  const ROWS = ['source', 'baseline', 'report', 'covariates'], VALUES = ['3 files', '−66.33', 'baseline', 'unverified'];
+  const ROWS = ['source', 'baseline', 'report', 'covariates'], VALUES = ['2 files', '−66.33', 'baseline', 'unverified'];
   const rowY = i => BY + BH - .9 - i * .64;
   const boxMat = glowClone(STEEL, .5), barPlain = mat(0x33415f), tickMat = glowClone(AMBER, 1.5);
   const planRows = ROWS.map((text, i) => {

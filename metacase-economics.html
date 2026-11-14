@@ -21,14 +21,14 @@
   <link rel="stylesheet" href="harness.css?v=20261114-fields">
   <script src="site.js?v=20261109-film" defer></script>
   <link rel="stylesheet" href="language.css">
-  <script src="language.js?v=mc-761c1cfeee" defer></script>
+  <script src="language.js?v=mc-8784687275" defer></script>
   <link rel="stylesheet" href="v2.css?v=20261110-globalname">
   <link rel="stylesheet" href="skin.css?v=20261108-metacase-page">
   <link rel="stylesheet" href="subpage-toy.css?v=20261109-clip">
   <script type="module" src="subpage-toy.js?v=20261108-metacase-page"></script>
   <link rel="stylesheet" href="scene.css?v=20261022-v2-ambient">
   <link rel="stylesheet" href="metacase-film.css?v=20261111-copypass6">
-  <script type="module" src="metacase-film.js?v=20261111-copypass6"></script>
+  <script type="module" src="metacase-film.js?v=mc-ef2496b816"></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
   <script src="backdrop.js?v=20261109-film" defer></script>
   <script src="v2.js?v=20261109-film" defer></script>
@@ -104,8 +104,8 @@
       <h1 id="page-title">A Metacase <em>in economics</em></h1>
       <div class="mc-hero-story">
         <p>From 2013, central inspection teams entered China's government departments in five waves. Lai and Li (2024) ask whether competition for those departments' civil-service posts changed afterwards. The task reproduces one result as three numbers: the coefficient (how large the effect is), its standard error (how uncertain) and its p-value (whether significant).</p>
-        <p>The first difficulty is that it cannot simply be run. The task supplies only the data from the authors' replication package; their Stata script is withheld, and there is no Stata. The agent must rebuild the estimator in Python from three source programs, one over four thousand lines, within 1%.</p>
-        <p>The second is an incomplete specification: the task does not say which covariates, the other factors a regression controls for, to include. In the authors' script, none gives −66.33, the reference; five give −69.35, 4.6% away, which scores 0. Online, the agent found the estimator's public source, not that script.</p>
+        <p>The first difficulty is that it cannot simply be run. The task supplies only the authors' data; the matching Stata script is withheld, and there is no Stata in the container. The agent must read the three source programs behind the command, one over four thousand lines, and rebuild them within 1%.</p>
+        <p>The second is an incomplete specification: the task does not say which covariates, the other factors a regression controls for, to include. In the authors' script, none gives −66.33, the reference; five give −69.35, 4.6% away, which scores 0.</p>
       </div>
       <div class="hero-actions">
         <a class="button primary" href="https://submit.metacasechallenge.com/submit/harness/" target="_blank" rel="noopener">Submit an agent / harness <span aria-hidden="true">↗</span></a>
@@ -145,7 +145,7 @@
           <article class="mc-beat" data-beat="1" id="strategy" aria-labelledby="beat-strategy">
             <p class="mc-beat-label"><span data-no-translate>02</span>Prior practice &amp; strategy</p>
             <h3 id="beat-strategy"><span class="ln">Method from public source,</span> <span class="ln">specification from the task.</span></h3>
-            <p>Two levels of prior practice: the authors' script, never found, and the named estimation command, a public general-purpose program. Every choice is on record.</p>
+            <p>The estimation command the task names is a public, general-purpose program, and every choice is kept on record.</p>
             <ol class="mc-beat-steps" data-list="story">
               <li data-at="0" class="is-on"><b>Rules and practice</b><span>The command eventstudyinteract is the Sun–Abraham estimator: one effect per cohort, weighted by its share of treated observations. Unlike plain two-way fixed effects, it never uses inspected departments as controls.</span></li>
               <li data-at=".10"><b>Looking for the script</b><span>Not in the container. GitHub, Google, Bing, Harvard Dataverse, DataCite and Crossref yield two replication packages for other studies, neither with the script; the agent declines both.</span></li>
