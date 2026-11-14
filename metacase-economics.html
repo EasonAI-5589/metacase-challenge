@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <meta name="referrer" content="no-referrer">
+  <title>Inside a Metacase: economics — Metacase Challenge</title>
+  <meta name="description" content="One replication of a published staggered difference-in-differences estimate, recorded as a Metacase: the data and the open specification, the strategy, the execution trajectory, the deterministic check and what can be reused.">
+  <meta property="og:title" content="Metacase Challenge — Inside a Metacase: economics">
+  <meta property="og:description" content="One replication of a published staggered difference-in-differences estimate, recorded as a Metacase: the data and the open specification, the strategy, the execution trajectory, the deterministic check and what can be reused.">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon-v2.svg">
+  <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <script src="theme.js?v=20261101-shuttle"></script>
+  <link rel="stylesheet" href="styles.css?v=20261019-motion">
+  <link rel="stylesheet" href="site.css?v=20261019-motion">
+  <link rel="stylesheet" href="data.css">
+  <link rel="stylesheet" href="agent.css?v=20260917-case-data">
+  <link rel="stylesheet" href="evolution.css?v=20261013-coverage">
+  <link rel="stylesheet" href="harness.css?v=20261109-casecopy">
+  <script src="site.js?v=20261109-film" defer></script>
+  <link rel="stylesheet" href="language.css">
+  <script src="language.js?v=20261110-runreplay" defer></script>
+  <link rel="stylesheet" href="v2.css?v=20261109-film">
+  <link rel="stylesheet" href="skin.css?v=20261108-metacase-page">
+  <link rel="stylesheet" href="subpage-toy.css?v=20261109-clip">
+  <script type="module" src="subpage-toy.js?v=20261108-metacase-page"></script>
+  <link rel="stylesheet" href="scene.css?v=20261022-v2-ambient">
+  <link rel="stylesheet" href="metacase-film.css?v=20261110-reflect4">
+  <script type="module" src="metacase-film.js?v=20261110-reflect2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
+  <script src="backdrop.js?v=20261109-film" defer></script>
+  <script src="v2.js?v=20261109-film" defer></script>
+  <link rel="stylesheet" href="page-rail.css?v=20261105-rail">
+  <script src="page-rail.js?v=20261109-film" defer></script>
+  <script src="scene.js?v=20261022-v2-ambient" defer></script>
+</head>
+<body class="v2-content v2-page-metacase" data-tone="1">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="lg-dk" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:oklch(80% 0.12 195)"/><stop offset="1" style="stop-color:oklch(82% 0.14 75)"/></linearGradient>
+    <linearGradient id="lg-lt" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:oklch(52% 0.10 200)"/><stop offset="1" style="stop-color:oklch(58% 0.14 60)"/></linearGradient>
+    <linearGradient id="gl-dk" gradientUnits="userSpaceOnUse" x1="7.6" y1="24.5" x2="16" y2="9.9"><stop offset="0" style="stop-color:oklch(80% 0.12 195)"/><stop offset="1" style="stop-color:#EEF2F7"/></linearGradient>
+    <linearGradient id="gr-dk" gradientUnits="userSpaceOnUse" x1="24.4" y1="24.5" x2="16" y2="9.9"><stop offset="0" style="stop-color:oklch(82% 0.14 75)"/><stop offset="1" style="stop-color:#EEF2F7"/></linearGradient>
+    <linearGradient id="gl-lt" gradientUnits="userSpaceOnUse" x1="7.6" y1="24.5" x2="16" y2="9.9"><stop offset="0" style="stop-color:oklch(52% 0.10 200)"/><stop offset="1" style="stop-color:#0E1420"/></linearGradient>
+    <linearGradient id="gr-lt" gradientUnits="userSpaceOnUse" x1="24.4" y1="24.5" x2="16" y2="9.9"><stop offset="0" style="stop-color:oklch(58% 0.14 60)"/><stop offset="1" style="stop-color:#0E1420"/></linearGradient>
+  </defs>
+  <!-- Primary · Derivation: ∴ with the two premises drawn up into the conclusion -->
+  <symbol id="logo-p" viewBox="0 0 32 32">
+    <path d="M7.6 24.5 16 9.9" fill="none" style="stroke:var(--logo-gl)" stroke-width="2" stroke-linecap="round"/>
+    <path d="M24.4 24.5 16 9.9" fill="none" style="stroke:var(--logo-gr)" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="7.6" cy="24.5" r="3" style="fill:var(--logo-t1)"/>
+    <circle cx="24.4" cy="24.5" r="4.2" style="fill:var(--logo-t2)"/>
+    <circle cx="16" cy="9.9" r="5.4" style="fill:var(--logo-node)"/>
+  </symbol>
+  <!-- Compact · Therefore: the bare symbol, for 20px and below -->
+  <symbol id="logo-c" viewBox="0 0 32 32">
+    <circle cx="7.6" cy="24.5" r="3.8" style="fill:var(--logo-t1)"/>
+    <circle cx="24.4" cy="24.5" r="5" style="fill:var(--logo-t2)"/>
+    <circle cx="16" cy="9.9" r="6" style="fill:var(--logo-node)"/>
+  </symbol>
+  <!-- Seal · Verified: ∴ inside an evaluation ring, for badges, awards and certificates -->
+  <symbol id="logo-s" viewBox="0 0 32 32">
+    <circle cx="16" cy="16" r="14.6" fill="none" style="stroke:var(--logo-g)" stroke-width="1.4"/>
+    <g transform="translate(16 16) scale(.6) translate(-16 -16)">
+      <path d="M7.6 24.5 16 9.9M24.4 24.5 16 9.9" fill="none" style="stroke:var(--logo-node)" stroke-width="2.4" stroke-linecap="round" opacity=".55"/>
+      <circle cx="7.6" cy="24.5" r="3.4" style="fill:var(--logo-t1)"/>
+      <circle cx="24.4" cy="24.5" r="4.4" style="fill:var(--logo-t2)"/>
+      <circle cx="16" cy="9.9" r="5.8" style="fill:var(--logo-node)"/>
+    </g>
+  </symbol>
+</svg>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="reading-progress" aria-hidden="true"><span id="reading-progress"></span></div>
+  <header class="site-header">
+    <nav class="nav container" aria-label="Main navigation">
+      <a class="wordmark" href="index.html"><svg class="v2-mark lg-anim" width="26" height="26" viewBox="0 0 32 32" aria-hidden="true"><circle class="halo" cx="16" cy="9.9" r="5.4" fill="none" style="stroke:var(--logo-node)" stroke-width="1"/><path class="e-l" d="M7.6 24.5 16 9.9" fill="none" style="stroke:var(--logo-gl)" stroke-width="2" stroke-linecap="round" pathLength="1"/><path class="e-r" d="M24.4 24.5 16 9.9" fill="none" style="stroke:var(--logo-gr)" stroke-width="2" stroke-linecap="round" pathLength="1"/><circle class="d-l" cx="7.6" cy="24.5" r="3" style="fill:var(--logo-t1)"/><circle class="d-r" cx="24.4" cy="24.5" r="4.2" style="fill:var(--logo-t2)"/><circle class="d-t" cx="16" cy="9.9" r="5.4" style="fill:var(--logo-node)"/></svg><span data-no-translate>Metacase <span class="net">Challenge</span></span></a>
+      <div class="nav-links open" id="nav-links">
+        <a href="index.html">Home</a>
+        <a href="challenge.html">Challenge</a>
+        <a href="metacase.html" aria-current="page">Metacase</a>
+        <a href="agent-run.html">Run Replay</a>
+        <a href="evolution.html">Self-evolving</a>
+        <a href="leaderboard.html">Leaderboard</a>
+        <a href="teams.html">Teams</a>
+      </div>
+      <div class="nav-controls">
+        <button class="theme-toggle" data-theme-toggle aria-label="Switch to dark theme" aria-pressed="true" type="button" hidden>
+          <span class="theme-icon" aria-hidden="true"></span><span data-theme-label>Dark</span>
+        </button>
+        <button class="menu-toggle" type="button" aria-controls="nav-links" aria-expanded="true" hidden>Menu <span aria-hidden="true">−</span></button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main" class="agent-case harness-page">
+    <section class="page-hero container" data-backdrop="orbit" aria-labelledby="page-title">
+      <nav class="mc-fields" aria-label="Fields">
+        <a href="metacase-economics.html" aria-current="page" style="--tc: var(--track-1)"><small class="mono">Field 01</small><b>Economics</b></a>
+        <a href="metacase.html" style="--tc: var(--track-2)"><small class="mono">Field 02</small><b>Finance</b></a>
+        <a href="metacase-social-science.html" style="--tc: var(--mc-violet, #7d6ad8)"><small class="mono">Field 03</small><b>Social science</b></a>
+      </nav>
+      <p class="kicker"><span data-no-translate>econ-0157</span> · one recorded pilot run</p>
+      <h1 id="page-title">A Metacase <em>in economics</em></h1>
+      <div class="mc-hero-story">
+        <p>From 2013, central inspection teams entered China's government departments in successive waves. Did an inspection change how many candidates competed for each civil-service post? Lai and Li (The Journal of Law and Economics, 2024) answer with a panel of 717 recruiting departments over 2012–2017. The task is to reproduce one estimate from that paper, Table 2, column 1: a coefficient, its standard error and its p-value.</p>
+        <p>The difficulty is that inspections arrived in five cohorts: an ordinary two-way fixed-effects regression would use departments already inspected as controls for those inspected later, so differences in timing enter the estimate. The paper instead uses the Sun–Abraham interaction-weighted estimator with never-inspected departments as the control cohort. The specification leaves a second gap: the task names the authors' Stata script but does not supply it, and that script estimates the same effect twice, without covariates and with five.</p>
+        <p>The container has Python, no Stata, and open network access. The agent must find the original specification, rebuild the estimator in Python and settle on one of the two versions. A deterministic grader compares three numbers: the coefficient and the standard error must be within 1% of the reference, and the p-value within 0.01. Both specifications yield a result; reporting column 2 would put the coefficient 4.6% off, outside the tolerance, and score 0.</p>
+      </div>
+      <div class="hero-actions">
+        <a class="button primary" href="https://submit.inferencenet.cn/submit/harness/" target="_blank" rel="noopener">Submit an agent / harness <span aria-hidden="true">↗</span></a>
+        <a class="button" href="#replay">Watch the whole run <span aria-hidden="true">↓</span></a>
+      </div>
+    </section>
+
+    <nav class="subnav" aria-label="On this page">
+      <ol class="container">
+        <li><a href="#context"><span class="subnav-number">01</span>Context</a></li>
+        <li><a href="#strategy"><span class="subnav-number">02</span>Strategy</a></li>
+        <li><a href="#actions"><span class="subnav-number">03</span>Actions</a></li>
+        <li><a href="#outcomes"><span class="subnav-number">04</span>Outcomes</a></li>
+        <li><a href="#reflection"><span class="subnav-number">05</span>Reflection</a></li>
+      </ol>
+    </nav>
+
+    <section class="mc-film" id="film" data-case="econ" aria-label="One run, from task to Metacase">
+      <div class="mc-film-pin">
+        <canvas class="mc-film-canvas" aria-hidden="true"></canvas>
+        <div class="mc-film-scrim" aria-hidden="true"></div>
+        <div class="mc-film-copy">
+          <article class="mc-beat" data-beat="0" id="context" aria-labelledby="beat-context">
+            <p class="mc-beat-label"><span data-no-translate>01</span>Context &amp; evidence</p>
+            <h3 id="beat-context"><span class="ln">Scoping the data and the estimand,</span> <span class="ln">and what the task leaves open.</span></h3>
+            <p>The data are one Stata file. Before estimating anything, the agent has to establish which estimate the data support, which settings the task fixes and which it leaves out.</p>
+            <ol class="mc-beat-steps" data-list="story">
+              <li data-at="0" class="is-on"><b>Data</b><span>3,246 department-year observations on 717 departments over six years, with 30 labelled variables.</span></li>
+              <li data-at=".172"><b>Variables</b><span>The outcome comp is the applicant-to-hire ratio (labelled AHR); inspectmain marks a leading department that has been inspected. Three variables are marked for the Sun–Abraham estimator.</span></li>
+              <li data-at=".344"><b>Treatment and sample</b><span>Of the 717 departments, 119 are leading departments, and the treatment variable equals 1 only among them; 87 were inspected between 2013 and 2017, and 180 observations are treated.</span></li>
+              <li data-at=".516"><b>Open items</b><span>One coefficient with its standard error and p-value, and a standalone Python script that reproduces them.</span></li>
+              <li data-at=".688"><b>Constraint</b><span>The task fixes four settings: department and year fixed effects, cohorts by first inspection year, never-inspected departments as controls, and clustering by department. There is no Stata, and the agent has 30 minutes.</span></li>
+            </ol>
+            <p class="mc-beat-keep"><span>Kept in the Metacase as</span> <b>Goal · Evidence · Constraints</b><br class="keep-br"><i>what was known at the decision point</i></p>
+            <p class="mc-stat"><b data-n="files" data-no-translate>3,246</b><span>department-year observations</span></p>
+          </article>
+          <article class="mc-beat" data-beat="1" id="strategy" aria-labelledby="beat-strategy">
+            <p class="mc-beat-label"><span data-no-translate>02</span>Prior practice &amp; strategy</p>
+            <h3 id="beat-strategy"><span class="ln">Returning to the authors' code for the specification,</span> <span class="ln">then choosing the column.</span></h3>
+            <p>Prior practice is the paper's public replication package; the agent's choice is kept only in its step record and final statement.</p>
+            <ol class="mc-beat-steps" data-list="story">
+              <li data-at="0" class="is-on"><b>Rules and practice</b><span>At 103 seconds the agent downloads the package from the author's page and reads the script the task names. Table 2 comes from eventstudyinteract: cohort-specific effects are estimated first, then weighted by each cohort's share of treated observations.</span></li>
+              <li data-at=".172"><b>A path easily confused</b><span>In the script, plain two-way fixed effects belong to an appendix table, not to Table 2.</span></li>
+              <li data-at=".344"><b>Candidate specifications</b><span>Column 1 has no covariates. Column 2 adds five: two shares of posts without eligibility restrictions, two shares by education requirement, and log GDP per capita.</span></li>
+              <li data-at=".516"><b>Trade-off</b><span>The agent computes both columns, −66.33 and −69.35, and searches the web for the task's phrase “row-specific covariates per table column”. It reports column 1: the four settings the task lists, with no covariates.</span></li>
+              <li data-at=".688"><b>Limit of the record</b><span>This run kept no reasoning text. The reason for choosing column 1 appears only in the final statement: “without additional covariates”.</span></li>
+            </ol>
+            <p class="mc-beat-keep"><span>Kept in the Metacase as</span> <b>Practice · Options · Trade-offs</b><br class="keep-br"><i>the options weighed, and the reasons on record</i></p>
+            <p class="mc-stat"><b data-n="hours" data-no-translate>−66.33 / −69.35</b><span>estimates under column 1 / column 2</span></p>
+          </article>
+          <article class="mc-beat" data-beat="2" id="actions" aria-labelledby="beat-actions">
+            <p class="mc-beat-label"><span data-no-translate>03</span>Actions &amp; execution</p>
+            <h3 id="beat-actions"><span class="ln">Rebuilding the estimator from Stata source;</span> <span class="ln">reconciling each convention.</span></h3>
+            <p>gemini-3.8-flash runs in the Codex harness for about 13 minutes: 103 model requests and 102 tool calls, all logged.</p>
+            <ol class="mc-beat-steps" data-list="story">
+              <li data-at="0" class="is-on"><b>Source reading</b><span>The agent downloads the source of eventstudyinteract, avar, ivreg2 and reghdfe and reads how each estimates weights, clustered variance and degrees-of-freedom corrections.</span></li>
+              <li data-at=".172"><b>Cohort weights</b><span>The five cohorts hold 14, 8, 65, 79 and 14 treated observations, giving weights of 0.078, 0.044, 0.361, 0.439 and 0.078. Cohort effects of −38.2, +27.6, −49.2, −104.9 and −9.7 combine to −66.33.</span></li>
+              <li data-at=".344"><b>Sample definition</b><span>The library pyhdfe, used to remove fixed effects, returns 3,170 rows where the data hold 3,246. The agent finds 76 departments observed only once (singletons); Stata's reghdfe drops them by default. It applies the same setting, and the clusters fall from 717 to 641.</span></li>
+              <li data-at=".516"><b>Two parts of the variance</b><span>The variance of the combined effect adds two terms: one for the cohort effects, which alone gives a standard error of 24.890, and one for estimating the cohort weights. Together they give 25.053.</span></li>
+              <li data-at=".688"><b>Failures</b><span>A self-check halts on a NameError and passes once corrected. The harness rejects a command to delete temporary files, and the agent leaves them in place.</span></li>
+            </ol>
+            <p class="mc-beat-keep"><span>Kept in the Metacase as</span> <b>Steps · Tools · Intermediate work</b><br class="keep-br"><i>every step, in order</i></p>
+            <p class="mc-stat"><b data-n="calls" data-from="0" data-to="102" data-no-translate>102</b><span>tool calls</span></p>
+          </article>
+          <article class="mc-beat" data-beat="3" id="outcomes" aria-labelledby="beat-outcomes">
+            <p class="mc-beat-label"><span data-no-translate>04</span>Outcomes &amp; verification</p>
+            <h3 id="beat-outcomes"><span class="ln">Out-of-loop verification:</span> <span class="ln">a grader compares three numbers.</span></h3>
+            <p>Harbor adds the grader and the reference to the container only after the agent stops. The grader calls no model; it reads the result file and compares it with the reference.</p>
+            <ol class="mc-beat-steps" data-list="story">
+              <li data-at="0" class="is-on"><b>Verified figures</b><span>A coefficient of −66.3269 and a standard error of 25.0531. Compared at the full precision of the result file, the coefficient matches the reference to 12 decimal places and the standard error to seven.</span></li>
+              <li data-at=".215"><b>Basis of the p-value</b><span>The agent uses a t distribution with 640 degrees of freedom and reports 0.00831; the reference uses the normal distribution, 0.00811. The gap of 0.0002 lies within the tolerance of 0.01.</span></li>
+              <li data-at=".43"><b>Decision rule</b><span>A relative error of at most 1% in the coefficient and in the standard error, and an absolute error of at most 0.01 in the p-value, score 1. Anything else scores 0; there is no partial credit.</span></li>
+              <li data-at=".645"><b>The weight of a specification</b><span>The agent's result for column 2 is −69.35 with a standard error of 22.67. Reported instead, it would be 4.6% off in the coefficient and 9.5% in the standard error, and would score 0 under the same rule.</span></li>
+            </ol>
+            <p class="mc-beat-keep"><span>Kept in the Metacase as</span> <b>Deliverable · Result · Checks · Limits</b><br class="keep-br"><i>the result, and the limits of the check</i></p>
+            <p class="mc-stat"><b data-n="score" data-from="0" data-to="1.000" data-decimals="3" data-no-translate>1.000</b><span>grader verdict, one pilot run</span></p>
+          </article>
+          <article class="mc-beat" data-beat="4" id="reflection" aria-labelledby="beat-reflection">
+            <p class="mc-beat-label"><span data-no-translate>05</span>Reflection &amp; reuse</p>
+            <h3 id="beat-reflection"><span class="ln">Reviewing the choice of specification,</span> <span class="ln">and the limits of a replication.</span></h3>
+            <p>The record breaks one number into the settings it depends on, so a later attempt can check each of them rather than compare results.</p>
+            <ol class="mc-beat-steps" data-list="story">
+              <li data-at="0" class="is-on"><b>What held</b><span>The estimator, control cohort, fixed effects, clustering and treatment of singletons all match the source code, and the script reproduces the result when run alone.</span></li>
+              <li data-at=".107" class="mc-step-case"><b>Variable labels in the data</b><dl><div><dt>What they show</dt><dd>Three variables, including never_inspect, are marked for the Sun–Abraham estimator.</dd></div><div><dt>Why it matters</dt><dd>When treatment arrives in waves, units not yet treated will be treated later and cannot serve as controls throughout; with the wrong controls, differences in timing between cohorts are read as treatment effects.</dd></div><div><dt>This run</dt><dd>never_inspect used as the control cohort.</dd></div></dl></li>
+              <li data-at=".215" class="mc-step-case"><b>The authors' script, Table 2</b><dl><div><dt>What it shows</dt><dd>Columns 1 and 2 differ only in whether five covariates enter.</dd></div><div><dt>Why it matters</dt><dd>With the same estimator and the same data, that choice alone moves the coefficient by 3.02 and the standard error by 2.38.</dd></div><div><dt>This run</dt><dd>Both computed; column 1 reported.</dd></div></dl></li>
+              <li data-at=".323" class="mc-step-case"><b>Source of eventstudyinteract</b><dl><div><dt>What it shows</dt><dd>The variance of the combined effect has two terms, for the cohort effects and for the cohort weights.</dd></div><div><dt>Why it matters</dt><dd>The first term alone gives a standard error of 24.89 rather than 25.05: the variance is understated, the confidence interval too narrow and the t statistic too large.</dd></div><div><dt>This run</dt><dd>Both terms included.</dd></div></dl></li>
+              <li data-at=".43" class="mc-step-case"><b>Default setting of reghdfe</b><dl><div><dt>What it shows</dt><dd>The 76 departments observed once are dropped from the sample by default.</dd></div><div><dt>Why it matters</dt><dd>Dropping them sets the sample (3,246 or 3,170), the clusters (717 or 641) and the degrees-of-freedom correction; a change in any of the three moves the standard error and the p-value.</dd></div><div><dt>This run</dt><dd>Dropped, as in the source.</dd></div></dl></li>
+              <li data-at=".537" class="mc-step-case"><b>How the result is returned</b><dl><div><dt>What it shows</dt><dd>The authors' script returns its estimates without degrees of freedom; the reference p-value agrees with the normal distribution.</dd></div><div><dt>Why it matters</dt><dd>For the same t statistic of −2.647, the two bases differ by 0.0002. A p-value depends on the assumed distribution and its degrees of freedom, so a report should state its basis.</dd></div><div><dt>This run</dt><dd>The agent also computed the normal-basis value, 0.00811, which matches the reference, but reported the t-based one; the gap is within tolerance.</dd></div></dl></li>
+              <li data-at=".645"><b>What failed</b><span>The basis of the p-value differs from the reference and passes only on tolerance. The reason for choosing column 1 was not recorded, so that step cannot be reviewed. Temporary files were left in place. The self-check caught a coding error; it could not catch a choice of specification or of basis.</span></li>
+              <li data-at=".752"><b>Conditions and signature</b><span>Applies where source code defines the estimator and the task does not state the full specification. Signature: open specification, source comparison, numerical replication.</span></li>
+            </ol>
+            <p class="mc-beat-keep"><span>Kept in the Metacase as</span> <b>What held · What failed · When it applies</b><br class="keep-br"><i>what the next attempt can borrow or change</i></p>
+          </article>
+        </div>
+        <div class="mc-film-rail" role="group" aria-label="Film chapters">
+          <button class="mc-film-tick" type="button" data-k="0"><span class="mc-film-track" aria-hidden="true"><span class="mc-film-fill"></span></span><span class="mc-film-label">Context</span></button>
+          <button class="mc-film-tick" type="button" data-k="1"><span class="mc-film-track" aria-hidden="true"><span class="mc-film-fill"></span></span><span class="mc-film-label">Strategy</span></button>
+          <button class="mc-film-tick" type="button" data-k="2"><span class="mc-film-track" aria-hidden="true"><span class="mc-film-fill"></span></span><span class="mc-film-label">Actions</span></button>
+          <button class="mc-film-tick" type="button" data-k="3"><span class="mc-film-track" aria-hidden="true"><span class="mc-film-fill"></span></span><span class="mc-film-label">Outcomes</span></button>
+          <button class="mc-film-tick" type="button" data-k="4"><span class="mc-film-track" aria-hidden="true"><span class="mc-film-fill"></span></span><span class="mc-film-label">Reflection</span></button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section container mc-items" id="items" aria-labelledby="beat-reflection">
+      <p class="mc-beat-label"><span data-no-translate>05</span>Reflection &amp; reuse</p>
+      <h3 class="mc-items-head">Conditions and signature</h3>
+      <div class="table-scroll" tabindex="0"><table class="compare-table mc-rubric"><caption>What carries beyond this case, and where the evidence stops</caption><thead><tr><th scope="col">Dimension</th><th scope="col">What this case shows</th><th scope="col">Limits of the evidence</th></tr></thead><tbody><tr><th scope="row">Real-world depth</th><td>The question comes from a published paper: treatment in five cohorts, never-treated units as controls, clustering by department. Reproducing it takes more than a regression command: cohort weights, a two-part variance, dropped singletons and the basis of the p-value. In this pilot the covariates alone moved the coefficient by 4.6%, outside the tolerance.</td><td>Data and specification come from the authors' public replication package. The task reproduces one coefficient; the paper's event-study figures, mechanisms and robustness checks are outside it.</td></tr><tr><th scope="row">Generalisability</th><td>The same task package, container and grader apply to any Model + Harness pair. Other tasks in the econometric replication subtrack use the same comparison of coefficient, standard error and p-value.</td><td>This page shows one run. Whether the same pair gives a stable result on repeated runs has not been tested.</td></tr><tr><th scope="row">Path to practice</th><td>The deliverables are what a research assistant hands over: the numbers and a script that reproduces them. Computing every candidate specification before choosing, recording the reason for the choice, checking corrections against source code and reconciling the sample size can become a checklist for replication work.</td><td>A full score shows that this number was reproduced, not that the script is correct for other data or specifications. The basis of the p-value still differs from the reference.</td></tr><tr><th scope="row">Research relevance</th><td>One public script yields two specifications with the same sign and significance, yet the coefficients differ by 4.6%, enough to put a result outside the tolerance. The step record breaks one number into the settings it depends on, so a deviation in a replication can be traced to a specific choice; the choice of specification and the basis of the p-value are what a script's self-check cannot catch. Our ModularRSI study raised strict replication from 64% to 67% on tasks of this kind.</td><td>The task does not name the target column, a gap in the task text, and the reason for choosing column 1 was not recorded. The agent had network access and obtained the authors' public code: the record shows replication from published materials, not an independent derivation. This run did not use ModularRSI.</td></tr></tbody></table></div>
+      <p class="mc-rubric-note">Grader detail: relative error 0.00% in the coefficient and in the standard error; absolute error 0.0002 in the p-value.</p>
+      <p class="mc-rubric-note">External addresses are counted by the URLs appearing in commands: the author's page and replication package, the Boston College archive of Stata programs, and GitHub. Only the response headers of the journal's page were requested; the text of the paper was not read.</p>
+      <p class="mc-rubric-note">Grading took 0.3 seconds and called no model. The reference solution, run separately, scored 1.000 and an empty submission 0, which shows the grader separates the two; it says nothing about any other run.</p>
+      <div class="case-links"><a class="text-link" href="evolution.html#compare">Compare the self-evolution methods <span aria-hidden="true">→</span></a><a class="text-link" href="replication.html">See the econometric replication subtrack <span aria-hidden="true">→</span></a></div>
+    </section>
+
+    <section class="section container ruled" id="replay" aria-labelledby="replay-title">
+      <div class="section-heading">
+        <div>
+          <h2 id="replay-title">Watch the run <em>in full</em></h2>
+        </div>
+      </div>
+      <figure class="mc-video is-pending">
+        <div class="mc-video-slot" role="img" aria-label="econ-0157 replay"><span>Replay video in production</span></div>
+        <figcaption><span data-no-translate>econ-0157 · gemini-3.8-flash · Codex 0.169.0 · </span>video in production</figcaption>
+      </figure>
+    </section>
+
+    <div class="container mc-rubric-fold">
+      <details class="hs-details">
+        <summary>The grader, in full</summary>
+          <div class="mc-rubric-wrap" id="rubric">
+            <p class="mc-formula">Reward = 1 when all three comparisons pass; otherwise 0.</p>
+            <p class="mc-rubric-note">The grader sees two things: the result file the agent wrote (the only thing scored) and the reference values. It checks only that the reproducing script exists, and tries to run it only when the result file is missing.</p>
+            <div class="table-scroll" tabindex="0"><table class="compare-table mc-rubric"><caption>3 comparisons · all must pass</caption><thead><tr><th scope="col">Compared</th><th scope="col">Reference</th><th scope="col">Value in this run</th><th scope="col">Error</th><th scope="col">Tolerance</th><th scope="col">Verdict</th></tr></thead><tbody><tr><th scope="row">Coefficient</th><td data-no-translate>−66.326901</td><td data-no-translate>−66.326901</td><td>0.00% relative</td><td>Relative error of at most 1%</td><td class="mc-res is-met">Pass</td></tr><tr><th scope="row">Standard error</th><td data-no-translate>25.053116</td><td data-no-translate>25.053116</td><td>0.00% relative</td><td>Relative error of at most 1%</td><td class="mc-res is-met">Pass</td></tr><tr><th scope="row">p-value</th><td data-no-translate>0.008110</td><td data-no-translate>0.008310</td><td>0.0002 absolute</td><td>Absolute error of at most 0.01</td><td class="mc-res is-met">Pass</td></tr></tbody></table></div>
+            <div class="table-scroll" tabindex="0"><table class="compare-table mc-rubric"><caption>4 diagnostics · recorded, not scored</caption><thead><tr><th scope="col">Diagnostic</th><th scope="col">Meaning</th><th scope="col">This run</th></tr></thead><tbody><tr><th scope="row">Partial replication</th><td>Coefficient and standard error both within 5%</td><td class="mc-res is-met">Yes</td></tr><tr><th scope="row">Coefficient only</th><td>Coefficient within 5%</td><td class="mc-res is-met">Yes</td></tr><tr><th scope="row">Direction</th><td>Same sign as the reference</td><td class="mc-res is-met">Yes</td></tr><tr><th scope="row">Significance</th><td>Same sign, and the p-value in the same band (1%, 5%, 10% or not significant)</td><td class="mc-res is-met">Yes</td></tr></tbody></table></div>
+            <details class="hs-details"><summary>One script, two specifications: Table 2, columns 1 and 2</summary><div class="table-scroll" tabindex="0"><table class="compare-table mc-rubric"><thead><tr><th scope="col">Specification</th><th scope="col">Covariates</th><th scope="col">Coefficient</th><th scope="col">Standard error</th><th scope="col">Difference from the reference</th><th scope="col">This run</th></tr></thead><tbody><tr><th scope="row">Column 1 (reference)</th><td>None</td><td data-no-translate>−66.33</td><td data-no-translate>25.05</td><td>Coefficient 0.0%, standard error 0.0%</td><td class="mc-res is-met">Computed and reported</td></tr><tr><th scope="row">Column 2</th><td>Five</td><td data-no-translate>−69.35</td><td data-no-translate>22.67</td><td>Coefficient 4.6%, standard error 9.5%</td><td class="mc-res">Computed, not reported</td></tr></tbody></table></div></details>
+          </div>
+      </details>
+    </div>
+    <div class="container">
+      <nav class="page-footer-nav" aria-label="Page sequence">
+        <a href="challenge.html"><small>Previous</small><span><span aria-hidden="true">←</span> Challenge</span></a>
+        <a href="agent-run.html"><small>Next</small><span>Run Replay <span aria-hidden="true">→</span></span></a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="v2-footer">
+    <div class="wrap">
+      <div class="cols">
+        <div class="brandcol">
+          <a class="lock" href="index.html"><svg aria-hidden="true"><use href="#logo-p"/></svg><span data-no-translate>Metacase <span class="net">Challenge</span></span></a>
+          <p>AI Agents for Business, Finance and Social Science.</p>
+        </div>
+        <div><h4>Pages</h4><ul>
+          <li><a href="challenge.html">Challenge</a></li><li><a href="metacase.html">Metacase</a></li><li><a href="agent-run.html">Run Replay</a></li>
+          <li><a href="evolution.html">Self-evolving</a></li><li><a href="leaderboard.html">Leaderboard</a></li>
+          <li><a href="teams.html">Teams</a></li></ul></div>
+        <div><h4>Resources</h4><ul>
+          <li><a href="https://huggingface.co/datasets/CamoAiLab/InferenceNet" target="_blank" rel="noopener">Research dataset source</a></li>
+          <li><a href="https://github.com/HKU-Business-AI-Center/Econometrics-Agent" target="_blank" rel="noopener">Econometrics-Agent code</a></li>
+          <li><a href="https://github.com/EasonAI-5589/metacase-challenge" target="_blank" rel="noopener">Website source</a></li></ul></div>
+        <div><h4>Contact</h4><ul>
+          <li><a href="teams.html#contact">Contact us</a></li>
+          <li><a href="teams.html">Meet the team</a></li></ul></div>
+      </div>
+      <div class="footer-mark" aria-hidden="true" data-no-translate><span data-parallax="-0.08">Metacase<span> Challenge</span></span></div>
+      <div class="bottom"><span data-no-translate>© 2026 Global Metacase Initiative · NTU GIFTS</span><span class="mono" data-no-translate>∴ METACASE · CHALLENGE</span></div>
+    </div>
+  </footer>
+  <script>
+  (function () {
+    // Deep links. Runs where it sits, before the deferred scripts: a hash target inside a closed
+    // <details> is opened now, so the browser's own jump lands on it and site.js has nothing left
+    // to open (and so no smooth scroll to start). Translation and web fonts can still move the
+    // target afterwards, so an arrival the visitor has not touched is re-aligned once, instantly.
+    function byHash(hash) {
+      var id;
+      try { id = decodeURIComponent(hash.slice(1)); } catch (e) { return null; }
+      return id ? document.getElementById(id) : null;
+    }
+    function reveal(el) {
+      var opened = false;
+      for (var n = el; n; n = n.parentElement) {
+        if (n.tagName === 'DETAILS' && !n.open) { n.open = true; opened = true; }
+      }
+      return opened;
+    }
+    // Clear the sticky header and subnav. Some targets carry a scroll-margin smaller than both
+    // bars (#landscape landed under the subnav), so use whichever offset is larger.
+    function align(el) {
+      var header = document.querySelector('.site-header'), subnav = document.querySelector('.subnav');
+      var bars = (header ? header.offsetHeight : 64) + (subnav && getComputedStyle(subnav).position === 'sticky' ? subnav.offsetHeight : 0) + 8;
+      var offset = Math.max(bars, parseFloat(getComputedStyle(el).scrollMarginTop) || 0);
+      window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - offset, behavior: 'instant' });
+    }
+    function realignOnArrival(target, hash) {
+      // A reload or a history visit restores the visitor's own position instead.
+      var entry = window.performance && performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+      if (entry && (entry.type === 'reload' || entry.type === 'back_forward')) return;
+      var touched = false, inputs = ['wheel', 'touchstart', 'pointerdown', 'keydown'];
+      function cancel() { touched = true; }
+      function listen(on) {
+        for (var i = 0; i < inputs.length; i++) window[on ? 'addEventListener' : 'removeEventListener'](inputs[i], cancel, { passive: true });
+      }
+      function settle() {
+        requestAnimationFrame(function () {
+          listen(false);
+          // the film moves its beats' ids onto scroll markers once it runs: look the target up again
+          var el = byHash(hash) || target;
+          if (!touched && location.hash === hash && document.documentElement.contains(el)) align(el);
+        });
+      }
+      // A Chinese page also waits for language.js to apply the translation, which sets lang to zh-CN.
+      function translated() {
+        var root = document.documentElement, zh = false;
+        try { zh = localStorage.getItem('inferencenet-language') === 'zh'; } catch (e) {}
+        if (!zh || root.lang === 'zh-CN' || !window.MutationObserver) { settle(); return; }
+        var watch = new MutationObserver(function () { if (root.lang === 'zh-CN') { watch.disconnect(); settle(); } });
+        watch.observe(root, { attributes: true, attributeFilter: ['lang'] });
+      }
+      function loaded() {
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(translated); else translated();
+      }
+      listen(true);
+      if (document.readyState === 'complete') loaded(); else window.addEventListener('load', loaded);
+    }
+    // A pointer click leaves focus on the subnav link or film tick; the next key press (arrows or space
+    // to scroll) would then draw its focus ring over a chapter the page has already left. Keyboard
+    // activation (detail 0) keeps focus where it is.
+    document.addEventListener('click', function (e) {
+      var nav = e.detail > 0 && e.target.closest && e.target.closest('.subnav a, .mc-film-tick');
+      if (nav) requestAnimationFrame(function () { nav.blur(); });
+    });
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('a[href^="#"]');
+      var el = a && byHash(a.getAttribute('href'));
+      if (el) reveal(el);
+    }, true);
+    window.addEventListener('hashchange', function () {
+      var el = byHash(location.hash);
+      if (el && reveal(el)) requestAnimationFrame(function () { align(el); });
+    });
+    var hash = location.hash, target = byHash(hash);
+    if (target) { reveal(target); realignOnArrival(target, hash); }
+  })();
+  </script>
+</body>
+</html>

@@ -2574,5 +2574,12 @@
   "A nine-item TodoWrite plan marks all six analyses complete at 103 seconds, before the swap’s daily valuations are queried.": "TodoWrite 列出九项计划。第 103 秒六项分析即全部标记完成，此时互换的逐日估值尚未查询。",
   "18 hours by expert estimate, 12 available.": "专家评估需 18 小时，可用 12 小时。",
   "Choosing a hedge treatment,": "对照准则选定会计处理方案，",
-  "Each rule and constraint can be checked against the task materials. The 18 expert hours are an estimate set in the task.": "规则与约束均可对照任务材料核验；18 小时专家工时为任务设定的估计值。"
+  "Each rule and constraint can be checked against the task materials. The 18 expert hours are an estimate set in the task.": "规则与约束均可对照任务材料核验；18 小时专家工时为任务设定的估计值。",
+  "Field 01": "领域 01",
+  "Field 02": "领域 02",
+  "Field 03": "领域 03",
+  "Economics": "经济学",
+  "Finance": "金融",
+  "Social science": "社会科学",
+  "Fields": "领域"
 }

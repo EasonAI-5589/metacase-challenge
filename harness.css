@@ -274,3 +274,18 @@ html[data-theme="dark"] .hs-timeline{--hs-e:#eba57f;--hs-c:#93d093;--hs-v:#d2a5e
 .harness-page .mc-agents{grid-template-columns:minmax(0,1fr)}
 .harness-page .mc-agents .v2-stack-layers{grid-template-columns:repeat(3,minmax(0,1fr))}
 @media(max-width:900px){.harness-page .mc-agents .v2-stack-layers{grid-template-columns:minmax(0,1fr)}}
+
+/* Field tabs: the Metacase pages of the three fields are siblings; the current one carries aria-current. */
+.harness-page .mc-fields{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 30px}
+.harness-page .mc-fields a{position:relative;display:inline-flex;flex-direction:column;gap:2px;min-width:158px;padding:10px 18px 11px 20px;border-radius:12px;border:1px solid var(--line);background:color-mix(in oklab,var(--surface) 80%,transparent);color:var(--soft);text-decoration:none;transition:border-color .2s,color .2s,background .2s}
+.harness-page .mc-fields a::before{content:"";position:absolute;left:8px;top:11px;bottom:11px;width:3px;border-radius:2px;background:var(--tc);opacity:.45}
+.harness-page .mc-fields small{font:400 10.5px/1.5 var(--font-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.harness-page .mc-fields b{font-size:15px;font-weight:600;letter-spacing:-.01em}
+.harness-page .mc-fields a:hover{color:var(--ink);border-color:var(--strong-line)}
+.harness-page .mc-fields a[aria-current="page"]{color:var(--ink);border-color:var(--tc);background:color-mix(in oklab,var(--tc) 14%,var(--surface))}
+.harness-page .mc-fields a[aria-current="page"]::before{opacity:1}
+html[lang="zh-CN"] .harness-page .mc-fields small{letter-spacing:.03em}
+@media (max-width:600px){.harness-page .mc-fields a{min-width:0;flex:1 1 30%;padding:9px 12px 10px 16px}.harness-page .mc-fields b{font-size:14px}}
+
+/* A replay video still in production keeps its place on the page. */
+.harness-page .mc-video.is-pending .mc-video-slot{aspect-ratio:16/9;display:grid;place-items:center;border-radius:14px;border:1px dashed var(--strong-line);background:color-mix(in oklab,var(--surface) 70%,transparent);color:var(--muted);font:400 13px/1.5 var(--font-mono);letter-spacing:.1em;text-transform:uppercase}

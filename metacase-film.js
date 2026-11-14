@@ -28,13 +28,20 @@ export const ACCENTS = [0x45b5b0, 0xf2b545, 0x7d6ad8, 0xf2b545, 0x45b5b0];
 // The copy sits below the picture (instead of beside it) under this query; CSS uses the same one.
 export const STACKED = '(max-width: 600px), (max-aspect-ratio: 11/10)';
 const DEFAULT_CAMERA = { from: { pos: [-3, 3.2, 10], look: [0, 1, 0], fov: 34 }, to: { pos: [3, 2.6, 8.5], look: [0, 1, 0], fov: 34 } };
-const BEATS = [
-  () => import('./film-task.js?v=20261110-plan1'),
-  () => import('./film-agent.js?v=20261110-plan1'),
-  () => import('./film-trajectory.js?v=20261109-film'),
-  () => import('./film-grading.js?v=20261109-film'),
-  () => import('./film-metacase.js?v=20261110-reflect2'),
-];
+// One list of five beat modules per case; the film section names its case in data-case
+// (metacase.html: fin, metacase-economics.html: econ, metacase-social-science.html: soc).
+const CASE_BEATS = {
+  fin: [
+    () => import('./film-task.js?v=20261110-plan1'),
+    () => import('./film-agent.js?v=20261110-plan1'),
+    () => import('./film-trajectory.js?v=20261109-film'),
+    () => import('./film-grading.js?v=20261109-film'),
+    () => import('./film-metacase.js?v=20261110-reflect2'),
+  ],
+  econ: ['task', 'agent', 'trajectory', 'grading', 'metacase'].map(name => () => import(`./film-econ-${name}.js?v=20261114-fields`)),
+  soc: ['task', 'agent', 'trajectory', 'grading', 'metacase'].map(name => () => import(`./film-soc-${name}.js?v=20261114-fields`)),
+};
+const caseBeats = section => CASE_BEATS[section.dataset.case || 'fin'] || null;
 // The last beat runs every item of the case, so it takes LONG beats of scroll; g counts beats.
 const SPAN = N - 1 + LONG;
 const gOf = p => { const u = clamp(p) * SPAN; return u <= N - 1 ? u : N - 1 + (u - (N - 1)) / LONG; };
@@ -117,7 +124,7 @@ export function createFilm(section, { dev = null } = {}) {
     document.dispatchEvent(new CustomEvent('film:beat'));
     return { static: true };
   }
-  if (!canvas || !pin || !articles.length || !webglAvailable(!debug && !params.has('film-gl'))) return goStatic();
+  if (!canvas || !pin || !articles.length || !caseBeats(section) || !webglAvailable(!debug && !params.has('film-gl'))) return goStatic();
 
   section.classList.add('is-film');
   if (reduce) section.classList.add('is-reduce');
@@ -326,7 +333,9 @@ export function createFilm(section, { dev = null } = {}) {
     resize();
 
     const only = dev ? (dev.chain ? i => i <= dev.beat : i => i === dev.beat) : () => true;
-    const modules = await Promise.all(BEATS.map((load, i) => (only(i) ? load().catch(error => { console.warn(`Film beat ${i} could not be loaded.`, error); return null; }) : null)));
+    const modules = await Promise.all(caseBeats(section).map((load, i) => (only(i) ? load().catch(error => { console.warn(`Film beat ${i} could not be loaded.`, error); return null; }) : null)));
+    // A case whose beats are not there yet reads as the static column, not as an empty stage.
+    if (!dev && modules.every(m => !m)) { goStatic(); stop(); return; }
     for (let i = 0; i < N; i++) {
       if (!only(i)) continue;
       const set = new THREE.Group(); set.name = `beat-${i}`; set.position.x = i * SPACING; scene.add(set); sets[i] = set;
@@ -565,8 +574,8 @@ export function createFilm(section, { dev = null } = {}) {
 }
 
 /* The private dev page (_film-dev.html) borrows the page's own film markup and renders one beat. */
-export async function mountFilmDev(host, { beat = 0, lp = 0, t = null, chain = false } = {}) {
-  const html = await (await fetch('metacase.html', { cache: 'no-store' })).text();
+export async function mountFilmDev(host, { beat = 0, lp = 0, t = null, chain = false, page = 'metacase.html' } = {}) {
+  const html = await (await fetch(page, { cache: 'no-store' })).text();
   const section = new DOMParser().parseFromString(html, 'text/html').querySelector('.mc-film');
   const film = document.importNode(section, true);
   host.append(film);
