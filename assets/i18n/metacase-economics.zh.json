@@ -2593,7 +2593,7 @@
   "Method from public source,": "方法取自公开源码，",
   "specification from the task.": "规格依题面而定。",
   "Two levels of prior practice: the authors' script, never found, and the named estimation command, a public general-purpose program. Every choice is on record.": "可依循的有两层：作者的脚本，始终没有找到；题面点名的估计命令，是公开的通用程序。每一步取舍都留在记录里。",
-  "eventstudyinteract is the Sun–Abraham estimator: one effect per cohort, weighted by its share of treated observations. Unlike plain two-way fixed effects, it never uses inspected departments as controls.": "eventstudyinteract 实现 Sun–Abraham 交互加权估计：每批单独估计效应，再按各批的处理后观测占比加权，不会像普通双向固定效应那样拿已被巡视的部门作对照。",
+  "The command eventstudyinteract is the Sun–Abraham estimator: one effect per cohort, weighted by its share of treated observations. Unlike plain two-way fixed effects, it never uses inspected departments as controls.": "eventstudyinteract 实现 Sun–Abraham 交互加权估计：每批单独估计效应，再按各批的处理后观测占比加权，不会像普通双向固定效应那样拿已被巡视的部门作对照。",
   "Looking for the script": "寻找原脚本",
   "Not in the container. GitHub, Google, Bing, Harvard Dataverse, DataCite and Crossref yield two replication packages for other studies, neither with the script; the agent declines both.": "容器里没有。智能体检索 GitHub、Google、Bing、Harvard Dataverse、DataCite 与 Crossref，找到的两个复现包属于别的研究，都不含这份脚本，未予采用。",
   "Back to the source": "回到源码",
