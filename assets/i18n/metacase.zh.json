@@ -2562,5 +2562,10 @@
   "Economics": "经济学",
   "Finance": "金融",
   "Society": "社会",
-  "Fields": "领域"
+  "Fields": "领域",
+  "Replicating a published difference-in-differences estimate": "复现一项已发表的双重差分估计",
+  "Reviewing a group month-end close before the lock": "集团月结关账前的入账审核",
+  "Training evaluation and procurement acceptance": "训练成效评估与采购验收",
+  "Replicating a published DiD estimate": "复现一项已发表的双重差分估计",
+  "Reviewing a month-end close before the lock": "集团月结关账前的入账审核"
 }
