@@ -17,6 +17,7 @@ export const publicFiles = [
   'v2.js', 'home.js', 'backdrop.js', 'scene.js', 'arena.js', 'arena-scene.js', 'arena-motion.js', 'arena-models.js', 'arena-data.js', 'arena-campus.js', 'arena-subtracks.js',
   'metacase.js', 'metacase-world.js', 'metacase-library.js', 'metacase-courier.js', 'metacase-anatomy.js', 'metacase-archive.js', 'metacase-run.js', 'metacase-cards.js', 'mc-stage.js', 'mc-toon.js', 'mc-kit.js', 'mc-rail.js', 'mc-classart.js', 'portal-warp.js', 'subpage-toy.js', 'subpage-toy-scenes.js',
   'metacase-film.js', 'film-task.js', 'film-agent.js', 'film-trajectory.js', 'film-grading.js', 'film-metacase.js',
+  'film-soc-task.js', 'film-soc-agent.js', 'film-soc-trajectory.js', 'film-soc-grading.js', 'film-soc-metacase.js',
   'agent-run.css', 'agent-run.js', 'agent-run-data.js', 'agent-run-stage.js',
   '.nojekyll',
 ];

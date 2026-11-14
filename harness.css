@@ -296,5 +296,5 @@ html[lang="zh-CN"] .harness-page .mc-fields b{letter-spacing:0}
 /* A replay video still in production keeps its place on the page. */
 .harness-page .mc-video.is-pending .mc-video-slot{aspect-ratio:16/9;display:grid;place-items:center;border-radius:14px;border:1px dashed var(--strong-line);background:color-mix(in oklab,var(--surface) 70%,transparent);color:var(--muted);font:400 13px/1.5 var(--font-mono);letter-spacing:.1em;text-transform:uppercase}
 
-/* The field stays on its own line of the title in both languages ("in economics", "Metacase 展示"). */
+/* The field stays on its own line of the title in both languages. */
 .harness-page .page-hero h1 em{display:block}

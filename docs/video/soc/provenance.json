@@ -1,0 +1,649 @@
+{
+  "version": "hr-t3-114-gemini-dsh-v1",
+  "task_id": "HR-T3-114",
+  "run": "pilot-20261114-or__A40__dsh__google-gemini-3-8-flash",
+  "status": "draft for review; narration and on-screen text follow the approved page copy",
+  "model": "gemini-3.8-flash (google/gemini-3.8-flash through OpenRouter)",
+  "harness": "DeepSeek Harness (dsh) 0.2.2-rc.1",
+  "runner": "Harbor 0.24.0",
+  "judge": "RewardKit, one session per criterion, on a model other than the agent's (not named in the video)",
+  "recorded_agent_seconds": 1155.2,
+  "model_requests": 86,
+  "tool_calls": 85,
+  "reward": 0.745283,
+  "duration_seconds": 300.667,
+  "frames": 9020,
+  "fps": "30/1",
+  "resolution": [
+    1920,
+    1080
+  ],
+  "streams": [
+    {
+      "codec_name": "h264",
+      "profile": "High",
+      "codec_type": "video",
+      "width": 1920,
+      "height": 1080,
+      "pix_fmt": "yuv420p",
+      "color_range": "tv",
+      "color_space": "bt709",
+      "color_transfer": "bt709",
+      "color_primaries": "bt709",
+      "r_frame_rate": "30/1",
+      "nb_frames": "9020"
+    },
+    {
+      "codec_name": "aac",
+      "profile": "LC",
+      "codec_type": "audio",
+      "sample_rate": "48000",
+      "channels": 1,
+      "r_frame_rate": "0/0",
+      "nb_frames": "14095"
+    }
+  ],
+  "voice": "en-US-AriaNeural, rate +12% (edge-tts), the voice and rate of the site's finance and HR videos",
+  "audio_is_synthetic": true,
+  "audio_processing": "per-shot neural TTS clips placed on the shot timeline, loudnorm I=-16.5 LUFS, AAC 48 kHz mono",
+  "burned_captions": [
+    "en"
+  ],
+  "renderer": "offline Skia (skia-python) frame renderer; no browser, no CDP; H.264 High via libx264",
+  "runtime": {
+    "python": "3.12.16",
+    "platform": "Darwin",
+    "packages": {
+      "skia-python": "144.1",
+      "numpy": "2.5.4",
+      "pybind11": "3.1.0",
+      "fonttools": "4.68.0",
+      "Brotli": "1.2.1",
+      "Pillow": "13.0.0"
+    },
+    "ffmpeg": "ffmpeg version 9.0.2 Copyright (c) 2000-2026 the FFmpeg developers",
+    "ffprobe": "ffprobe version 9.0.2 Copyright (c) 2007-2026 the FFmpeg developers",
+    "phase": "packaging runtime"
+  },
+  "guide_character": {
+    "character": "the homepage robot (mc-kit.js robot(0xf7f5f0, 0x8ff6ff)) holding the arena's DeepSeek Harness weapon (Kenney blaster-q.glb, CC0; arena-models.js maps it to DeepSeek Harness)",
+    "renderer": "robot/sprite.html (three.js, homepage lights) -> 362 transparent sprites, -90..+90 degrees aim in 1-degree steps, eyes open and mid-blink (robot/make_sprites.sh)",
+    "sprites_index": {
+      "path": "robot/sprites/sprites.json",
+      "sha256": "28f10836e43b26cadc6d363fcbedda88b17a9738cbb22cee74d2dc4de807315a"
+    },
+    "pointer": "a sight laser from the muzzle to the cue target; hidden in the parked pose",
+    "routes_and_cues": "88 cues (engine/guide_targets.py, shots s00–s30)"
+  },
+  "english_only": {
+    "captions": "English only",
+    "on_screen_text": "written in English; the 17 input file names and the two deliverable names are shown by English names via story/hr_en.py GLOSSARY; numbers, codes and amounts unchanged",
+    "glossary": [
+      {
+        "zh": "三时点情境测验答题明细.csv",
+        "en": "scenario_test_answers_3_points.csv"
+      },
+      {
+        "zh": "中心周度运营指标.csv",
+        "en": "hub_weekly_operations.csv"
+      },
+      {
+        "zh": "主管范围与轮班花名册.csv",
+        "en": "supervisor_scope_shift_roster.csv"
+      },
+      {
+        "zh": "任务授权、伦理边界与决策权限.docx",
+        "en": "task_authority_ethics_decision_rights.docx"
+      },
+      {
+        "zh": "到课、补训与豁免事件.csv",
+        "en": "attendance_makeup_waivers.csv"
+      },
+      {
+        "zh": "历史基准与同期参照.xlsx",
+        "en": "historical_baseline_reference.xlsx"
+      },
+      {
+        "zh": "学习数据最小使用规范.docx",
+        "en": "learning_data_minimum_use.docx"
+      },
+      {
+        "zh": "带教约谈与行动承诺.csv",
+        "en": "coaching_talks_commitments.csv"
+      },
+      {
+        "zh": "异常处置机会暴露日志.csv",
+        "en": "incident_opportunity_log.csv"
+      },
+      {
+        "zh": "异常工单生命周期.csv",
+        "en": "incident_ticket_lifecycle.csv"
+      },
+      {
+        "zh": "现场处置行为编码.xlsx",
+        "en": "field_behaviour_coding.xlsx"
+      },
+      {
+        "zh": "训练单元和教学场次账.xlsx",
+        "en": "training_units_sessions.xlsx"
+      },
+      {
+        "zh": "训练服务方阶段申请.docx",
+        "en": "provider_stage_claim.docx"
+      },
+      {
+        "zh": "设备、气象和货型扰动.csv",
+        "en": "equipment_weather_cargo_disruptions.csv"
+      },
+      {
+        "zh": "证据完整性复核清单.xlsx",
+        "en": "evidence_completeness_checklist.xlsx"
+      },
+      {
+        "zh": "跨部门决策会纪要.docx",
+        "en": "cross_department_meeting_minutes.docx"
+      },
+      {
+        "zh": "采购工作包与结算规则.xlsx",
+        "en": "procurement_work_packages_settlement.xlsx"
+      },
+      {
+        "zh": "项目验收与整改决策备忘录.docx",
+        "en": "project_acceptance_remediation_memo.docx"
+      },
+      {
+        "zh": "训练成效与验收决策工作簿.xlsx",
+        "en": "training_impact_acceptance_workbook.xlsx"
+      }
+    ],
+    "check": "reconstruction/cjk_scan.py drew every 5th frame and lists strings with Chinese characters that reach the screen (cjk-onscreen.json)"
+  },
+  "brand": {
+    "mark_and_wordmark": "Metacase mark (.lg-anim timing) and the site's 'Global Metacase Challenge' wordmark",
+    "institutions": "NTU, HKU, SUFE and Tsinghua crests as on the homepage hero; 'Hosted by NTU GIFTS with HKU, SUFE and Tsinghua PBCSF'",
+    "site": "easonai-5589.github.io/metacase-challenge",
+    "attribution": "brand/ATTRIBUTION.txt"
+  },
+  "figures": {
+    "from_the_run_record": "requests, tool calls, step times, exit codes, token counts, file-opening order, deliverable sizes and sheet counts, the 34 criterion verdicts and the reward (data/hr.json, built by reconstruction/build_soc_data.py from the trial's replay record)",
+    "from_the_approved_copy": "the setting, the five unsettled items, the six thresholds, the amounts, the three behaviour measures, pooled and by-hub net changes, and the readings of R11, R13, R14–R17, R19–R26 (网页文案-经济与社科.md, sections 5 and 7)",
+    "editorial": [
+      "the nine run phases in the left panel are a reading of the recorded steps; the agent wrote no plan",
+      "is_error / exit_code come from the '[exit code: N]' line the harness appends to a failed command",
+      "document lines on the s09 card and the memo wording on the s26 card are English renderings of Chinese text"
+    ],
+    "not_shown": [
+      "rows of the task's input files",
+      "model thinking text",
+      "any other run or model"
+    ]
+  },
+  "validation": {
+    "geometry_report": "docs/video/soc/guide-geometry-qa.json",
+    "text_timing": "docs/video/soc/text-timing.json",
+    "font_selection": "docs/video/soc/font-selection.json",
+    "render_receipt": "docs/video/soc/render-receipt.json",
+    "render_input_fingerprint": "d333dd9d85540f6730cbd9e8eef69b7fe8b5753da9878a89ae1954dcc2154d3c",
+    "geometry_passed": true,
+    "frames_checked": 9020,
+    "cue_boundaries_checked": 88,
+    "video_checks": "Full render frame count, frame rate and dimensions verified with ffprobe before packaging.",
+    "review_scope": "Automated geometry, text and timing checks plus review of preview stills of every shot; these records do not claim full human viewing or listening."
+  },
+  "chapters": [
+    {
+      "name": "TASK",
+      "start_seconds": 0.0,
+      "end_seconds": 65.212
+    },
+    {
+      "name": "AGENT",
+      "start_seconds": 65.662,
+      "end_seconds": 170.865
+    },
+    {
+      "name": "HARNESS",
+      "start_seconds": 171.315,
+      "end_seconds": 201.287
+    },
+    {
+      "name": "CHECK",
+      "start_seconds": 201.737,
+      "end_seconds": 259.37
+    },
+    {
+      "name": "RESULT",
+      "start_seconds": 259.82,
+      "end_seconds": 300.176
+    }
+  ],
+  "shots": [
+    {
+      "id": "s00",
+      "chapter": "TASK",
+      "kind": "open",
+      "start_seconds": 0.0,
+      "end_seconds": 8.725,
+      "narration_en": "One model, one harness, one acceptance review. Follow how the agent works inside DeepSeek Harness, and how its two files are checked.",
+      "trace_seconds": null
+    },
+    {
+      "id": "s01",
+      "chapter": "TASK",
+      "kind": "hubs",
+      "start_seconds": 8.725,
+      "end_seconds": 18.655,
+      "narration_en": "A cold-chain operator has trained frontline supervisors at three hubs for six weeks. A fourth hub, deferred, kept its records for the same weeks as the reference.",
+      "trace_seconds": null
+    },
+    {
+      "id": "s02",
+      "chapter": "TASK",
+      "kind": "claim",
+      "start_seconds": 18.655,
+      "end_seconds": 28.753,
+      "narration_en": "On 8 June, a joint meeting decides three work packages the provider has claimed, 816,000 yuan in all. The provider rates all three as accepted.",
+      "trace_seconds": null
+    },
+    {
+      "id": "s03",
+      "chapter": "TASK",
+      "kind": "io",
+      "start_seconds": 28.753,
+      "end_seconds": 37.98,
+      "narration_en": "17 files go in: eight ledgers, five workbooks and four documents. A workbook that can be recomputed and a decision memo must come out.",
+      "trace_seconds": null
+    },
+    {
+      "id": "s04",
+      "chapter": "TASK",
+      "kind": "unsettled",
+      "start_seconds": 37.98,
+      "end_seconds": 49.532,
+      "narration_en": "Five things in those files are not yet settled: a name listed in the wrong role, three missing sign-outs, two practice attempts, 18 disputed observations, and a repair recorded a day apart.",
+      "trace_seconds": null
+    },
+    {
+      "id": "s05",
+      "chapter": "TASK",
+      "kind": "thresholds",
+      "start_seconds": 49.532,
+      "end_seconds": 59.032,
+      "narration_en": "The contract sets two thresholds for each package: delivery and learning time for A, test coverage and behaviour for B, operating results and close-out for C.",
+      "trace_seconds": null
+    },
+    {
+      "id": "s06",
+      "chapter": "TASK",
+      "kind": "sealed",
+      "start_seconds": 59.032,
+      "end_seconds": 65.212,
+      "narration_en": "The scoring rubric is not in the container. The agent works without seeing how it will be judged.",
+      "trace_seconds": null
+    },
+    {
+      "id": "s07",
+      "chapter": "AGENT",
+      "kind": "loop_intro",
+      "start_seconds": 65.662,
+      "end_seconds": 76.251,
+      "narration_en": "DeepSeek Harness runs the loop. The model chooses an action, the harness turns it into a shell command, the command runs inside the container, and the result returns to the model.",
+      "trace_seconds": [
+        0.0,
+        8.6
+      ]
+    },
+    {
+      "id": "s09",
+      "chapter": "AGENT",
+      "kind": "rules",
+      "start_seconds": 76.251,
+      "end_seconds": 87.543,
+      "narration_en": "It begins with the four documents. Two rules shape everything after: uploaded is not reviewed, and personal learning data may serve evaluation, coaching and acceptance, never discipline.",
+      "trace_seconds": [
+        18.2,
+        20.9
+      ]
+    },
+    {
+      "id": "s10",
+      "chapter": "AGENT",
+      "kind": "scope",
+      "start_seconds": 87.543,
+      "end_seconds": 99.627,
+      "narration_en": "Scope first: 84 names, one a warehouse coordinator listed in error, so 83. Then learning time: 82 of 83 reach the threshold, and three people's pending minutes are held out.",
+      "trace_seconds": [
+        40.5,
+        109.8
+      ]
+    },
+    {
+      "id": "s11",
+      "chapter": "AGENT",
+      "kind": "tests",
+      "start_seconds": 99.627,
+      "end_seconds": 115.829,
+      "narration_en": "Practice attempts are dropped from the tests. Mean scores rise from 59 to 94, and hold at 90 after ten weeks. With two verified incidents as the bar, 73 supervisors can be evaluated, 8 lack opportunity, and 2 are restricted.",
+      "trace_seconds": [
+        115.3,
+        182.3
+      ]
+    },
+    {
+      "id": "s12",
+      "chapter": "AGENT",
+      "kind": "measures",
+      "start_seconds": 115.829,
+      "end_seconds": 127.039,
+      "narration_en": "Behaviour attainment can be read three ways, and the agent computes all three: 73, 67, or 53 of 73. It adopts the second.",
+      "trace_seconds": [
+        191.2,
+        206.3
+      ]
+    },
+    {
+      "id": "s13",
+      "chapter": "AGENT",
+      "kind": "pooledrun",
+      "start_seconds": 127.039,
+      "end_seconds": 135.111,
+      "narration_en": "For operations, it nets the trained hubs against the deferred hub, but as one pooled figure: 4.33 points on the response rate.",
+      "trace_seconds": [
+        227.2,
+        274.6
+      ]
+    },
+    {
+      "id": "s08",
+      "chapter": "AGENT",
+      "kind": "montage",
+      "start_seconds": 135.111,
+      "end_seconds": 140.236,
+      "narration_en": "By now all 17 files have been opened, and the output folder is still empty.",
+      "trace_seconds": [
+        274.6,
+        423.9
+      ]
+    },
+    {
+      "id": "s14",
+      "chapter": "AGENT",
+      "kind": "write",
+      "start_seconds": 140.236,
+      "end_seconds": 147.963,
+      "narration_en": "Then it starts to build. The workbook generator is written in three passes and run: ten sheets.",
+      "trace_seconds": [
+        452.0,
+        837.6
+      ]
+    },
+    {
+      "id": "s15",
+      "chapter": "AGENT",
+      "kind": "error",
+      "start_seconds": 147.963,
+      "end_seconds": 158.904,
+      "narration_en": "The memo script stops on an index error: the first row of a table that has none. The agent finds the cause, rewrites the helper, and generates the memo again.",
+      "trace_seconds": [
+        1072.2,
+        1091.5
+      ]
+    },
+    {
+      "id": "s16",
+      "chapter": "AGENT",
+      "kind": "verify",
+      "start_seconds": 158.904,
+      "end_seconds": 170.865,
+      "narration_en": "It reads both files back: sheet count, dimensions, key figures. Ten sheets, but only three cells hold formulas. The output folder holds exactly the two required files.",
+      "trace_seconds": [
+        1091.5,
+        1155.2
+      ]
+    },
+    {
+      "id": "s18",
+      "chapter": "HARNESS",
+      "kind": "trace",
+      "start_seconds": 171.315,
+      "end_seconds": 183.299,
+      "narration_en": "Here is the whole run: 86 requests, 85 tool calls, all shell commands, about 19 minutes. Reading and recomputing take the first seven minutes; building the two files takes the rest.",
+      "trace_seconds": [
+        1155.2,
+        1155.2
+      ]
+    },
+    {
+      "id": "s19",
+      "chapter": "HARNESS",
+      "kind": "context",
+      "start_seconds": 183.299,
+      "end_seconds": 192.738,
+      "narration_en": "Each result is added to the model's context. By the last request, the prompt has grown from about 5 thousand to about 208 thousand tokens.",
+      "trace_seconds": [
+        1155.2,
+        1155.2
+      ]
+    },
+    {
+      "id": "s20",
+      "chapter": "HARNESS",
+      "kind": "handoff",
+      "start_seconds": 192.738,
+      "end_seconds": 201.287,
+      "narration_en": "When the agent stops, Harbor copies the rubric into the same container. Only then does scoring begin.",
+      "trace_seconds": [
+        1155.2,
+        1155.2
+      ]
+    },
+    {
+      "id": "s21",
+      "chapter": "CHECK",
+      "kind": "chapter",
+      "start_seconds": 201.737,
+      "end_seconds": 204.575,
+      "narration_en": "An independent check now takes over.",
+      "trace_seconds": null
+    },
+    {
+      "id": "s22",
+      "chapter": "CHECK",
+      "kind": "judges",
+      "start_seconds": 204.575,
+      "end_seconds": 214.102,
+      "narration_en": "RewardKit opens one judge session for each of 34 criteria. The judge is a different model from the agent, and nothing flows back to the agent.",
+      "trace_seconds": null
+    },
+    {
+      "id": "s23",
+      "chapter": "CHECK",
+      "kind": "accept",
+      "start_seconds": 214.102,
+      "end_seconds": 223.515,
+      "narration_en": "The acceptance decisions hold. Package A is conditional, B passes three of four units, C one of two, and every amount matches.",
+      "trace_seconds": null
+    },
+    {
+      "id": "s24",
+      "chapter": "CHECK",
+      "kind": "measures",
+      "start_seconds": 223.515,
+      "end_seconds": 236.302,
+      "narration_en": "The behaviour measure does not hold. The rubric counts all reviewed items: 73 of 73. The workbook reports 67. Both clear the threshold, so package B stands.",
+      "trace_seconds": null
+    },
+    {
+      "id": "s25",
+      "chapter": "CHECK",
+      "kind": "byhub",
+      "start_seconds": 236.302,
+      "end_seconds": 248.461,
+      "narration_en": "The workbook pools the three hubs. The rubric wants each one net of the deferred hub: 6.5, 4.5 and 2.0 points. And the workbook has no source index.",
+      "trace_seconds": null
+    },
+    {
+      "id": "s26",
+      "chapter": "CHECK",
+      "kind": "claims",
+      "start_seconds": 248.461,
+      "end_seconds": 259.37,
+      "narration_en": "The memo says the data irrefutably prove the training's value. The rubric asks for a descriptive association, limits on attribution, and a complete closure plan.",
+      "trace_seconds": null
+    },
+    {
+      "id": "s27",
+      "chapter": "RESULT",
+      "kind": "tally",
+      "start_seconds": 259.82,
+      "end_seconds": 268.768,
+      "narration_en": "Of 28 criteria to earn, 19 are met and 9 are not. None of the six penalties applies, and this task has no red lines.",
+      "trace_seconds": null
+    },
+    {
+      "id": "s28",
+      "chapter": "RESULT",
+      "kind": "reward",
+      "start_seconds": 268.768,
+      "end_seconds": 280.773,
+      "narration_en": "The recorded reward is 0.745: 79 points over 106. One pilot run on a synthetic task. Not accuracy, and not a ranking.",
+      "trace_seconds": null
+    },
+    {
+      "id": "s29",
+      "chapter": "RESULT",
+      "kind": "lessons",
+      "start_seconds": 280.773,
+      "end_seconds": 292.578,
+      "narration_en": "What held: scope, statuses, amounts and the data-use rule. What failed: a measure, a layout, and the limits of a claim. None of these losses is arithmetic that a script would catch.",
+      "trace_seconds": null
+    },
+    {
+      "id": "s30",
+      "chapter": "RESULT",
+      "kind": "outro",
+      "start_seconds": 292.578,
+      "end_seconds": 300.176,
+      "narration_en": "A professional task, an agent run, and an independent check. Explore more on the Global Metacase Challenge site.",
+      "trace_seconds": null
+    }
+  ],
+  "files": {
+    "assets/video/hr-t3-114-gemini-dsh-replay.mp4": {
+      "bytes": 51667458,
+      "sha256": "1c4b8c1c03d4547fe345e3263687b96428b8c31579ab567eab10d2931a777fa3"
+    },
+    "assets/video/hr-t3-114-gemini-dsh-replay-poster.jpg": {
+      "bytes": 342053,
+      "sha256": "95b8cbabd8b6e50b0d68e92c7ee9de508d311e85ce910e66da156ac1e881f14d"
+    },
+    "docs/video/soc/README.md": {
+      "bytes": 5989,
+      "sha256": "933cdf5c197128039ac0a41ca61c4859db4b601d74967926e57fa17d0a85e87f"
+    },
+    "docs/video/soc/captions.en.srt": {
+      "bytes": 5275,
+      "sha256": "0309592f113edc05641212e09f1de62e95d2314a76e3f93c94df697902e44d03"
+    },
+    "docs/video/soc/cjk-onscreen.json": {
+      "bytes": 2,
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    "docs/video/soc/font-selection.json": {
+      "bytes": 4701,
+      "sha256": "c1b0082faa0c5ade04a2eae21caafa85004d2ce69b1f42436a4f1dc6724e7dca"
+    },
+    "docs/video/soc/guide-geometry-qa.json": {
+      "bytes": 48811,
+      "sha256": "a57f6c505891e2682a1ff427cd0ed563060e54288d99a5400564563c0f7080ab"
+    },
+    "docs/video/soc/render-receipt.json": {
+      "bytes": 13313,
+      "sha256": "9e016d2cf880396fe0d199b7a8aef560251980c38999bcb0b34d918f8f505c99"
+    },
+    "docs/video/soc/text-timing.json": {
+      "bytes": 2540,
+      "sha256": "1c67caf7f28aeaac32a91b46caee060b02cb612ad58186b92c626a782a8ebd45"
+    }
+  },
+  "sources": {
+    "run_export": {
+      "path": "data/hr.json",
+      "sha256": "f53e9680da1b8e97a6f1deee0ded8d9f315a52d56a2e89d3bc6f1e4c5af17028",
+      "note": "derived from the trial's replay record; free text removed"
+    },
+    "request_metadata": {
+      "path": "data/hr.requests.jsonl",
+      "sha256": "f6e0c1af3a9e56f6ca4068bb60ad6f7abbd43a7505f71cc466302b9b75e2c76a",
+      "note": "timestamps, usage and tool names only"
+    },
+    "voice_cache_index": {
+      "path": "build/hr/voice.json",
+      "sha256": "1c44b2b41ea62d9dbbaf841c7c1d5c18ac9b693c98d204506e7385b9b3475970"
+    }
+  },
+  "editable_source": {
+    "directory": ".",
+    "files_sha256": {
+      "engine/bookends_export.py": "6f8bc0e8e1a4ade337628558d91cad02b227e7318b41964ffbd7bded4e41bba6",
+      "engine/brand.py": "f69cc432647388d4bf4da1a7f9379dab6f049d1a0f2dd6fc6f7458433a932a2a",
+      "engine/check_guide.py": "14cf436ce18c41cb68e86b2d46a6c590ec066634bd862978042998907f58dc47",
+      "engine/compose.py": "ff937b34a103fbb42c13685b4c494f1bae4486bfd4b53d15c51b9d8552a79f9e",
+      "engine/fonts.py": "c4056c6e92309134873e2131a0d67149d4f0659eb0f7de009c5e1b243fed32e2",
+      "engine/gfx.py": "9f6d8fccb8c71b1a3e9d40f9e3de6c83056ab22879e75520b9929aeece97dba8",
+      "engine/guide.py": "73f0b5b6077872a1d381766d1c4e7119a2dd0c7f22e498aeb6b659d88f1de069",
+      "engine/guide_targets.py": "8d7c21e7f44db43c2198d6ad3bf66c3e704a04166fe19d409a5fa5f2adff2136",
+      "engine/package.py": "d4c9fd2ca18adc1e726c52a1048d1303c13abe1c955df6542df1df45966b5bab",
+      "engine/package_soc.py": "a254f27273ee47302412a91df4225521c1aaccfcf20c85044b9bb6ee8ee18594",
+      "engine/panels.py": "4f27ff8bb2ad55cdec04de92786a925638126bb4739e62f54f1fc16974024ac3",
+      "engine/reference_bookends.py": "748d60cfb22169ddee2d7144bed03083369580cf63fbea2d276cd9de66eabd41",
+      "engine/reference_pet.py": "d17cca8578c259620666433559b50fecebe1a0f3fd55558659e109d6adad307f",
+      "engine/reference_robot.py": "13fa63e354cfebd25a2393827b98388dd96599ce66681ba672b43dc24779c272",
+      "engine/render.py": "0caa52bd55c2df8ce5e6b8a9ea5e6d355bf2fb05b04200fcf9e8158441da84cb",
+      "engine/rundata.py": "e02204f69e4504b8254e17f3c0e0b092d20a89123a9e7d50381c7f01b77ef995",
+      "engine/scenes.py": "515cf695a53914b818ac2d7efbce9245dc2e1632e01a5588174a1956290c2846",
+      "engine/scenes_soc.py": "51fe90c1fc49608d462017d6bd9a9bf2c5c907e6078c265c17c7199f93481259",
+      "engine/scenes_x.py": "3c343d4f932da9e78569edd57350859be959595efe06758ee7fd4e47c3f6c32b",
+      "engine/sheet.py": "f48757b5f58661fa2f0087f66d6202ea5fc3ce7283ccc45d6eb43585ce9d31ae",
+      "engine/timeline.py": "ee152d2d78eea1379d5c58b40655092749245c4cf3c4b060ba750cdd94ad4286",
+      "engine/ui.py": "68446754f33139b49ca848724261910a0e7f915c145f9959737b3322e8313d68",
+      "engine/voice.py": "015a1b19d04024c3ddbb5b76d0e8eb05b630d6a9e394bfe45e5b2fa06f7dbfbc",
+      "story/hr.py": "8fea8935f92a17df34ee7db5134f58b904c3ce5951b07666bded0b73f95f254f",
+      "story/hr_en.py": "e9de6ff9145c48403f0586c552485c6d0cac8eff4eb328d38432d066d134d139",
+      "story/fin_en.py": "2d677f8f09ebd7a29b393f84040cf0c95f9446e166a0ca4e1bb58c669989aac9",
+      "data/hr.json": "f53e9680da1b8e97a6f1deee0ded8d9f315a52d56a2e89d3bc6f1e4c5af17028",
+      "data/hr.requests.jsonl": "f6e0c1af3a9e56f6ca4068bb60ad6f7abbd43a7505f71cc466302b9b75e2c76a",
+      "README-soc-v1.md": "933cdf5c197128039ac0a41ca61c4859db4b601d74967926e57fa17d0a85e87f",
+      "requirements-render.txt": "a75181d6c480416ae8f3d9ab4226a45ed1a78b033f1ee5e0ed9a6d376e78b001",
+      "robot/sprite.html": "1f28ea1739b0b2aab285bd79f4c8644122a0631738f12637c700b181d37d676d",
+      "robot/render_sprites.mjs": "d4b7e8189809b5e2957209732f4c4e5c5381b743db6eaee3c0cbbf42b56b9715",
+      "robot/sprites/sprites.json": "28f10836e43b26cadc6d363fcbedda88b17a9738cbb22cee74d2dc4de807315a",
+      "fonts/SpaceMono-400.ttf": "680157aa975a626716d8a6a5905452ece83512a3a2ab7d72729fcefab338a1c2",
+      "brand/ATTRIBUTION.txt": "c2b2fd2d7a87b88499de4c6f852f4b8528dec8b7133d83659e2ca756d2215201",
+      "brand/hku-university-crest.png": "f91c5a39fdeede2a4b681fe8516762e9789338fd612643db46cf3c0dfa4f422f",
+      "brand/ntu-university-official.png": "45535780334a04c2384d82468ab49c2c8f6d5a77f717246dc42f0c6ff6451503",
+      "brand/sufe-university-official.png": "fcea85a9d55fd19cb12f8158d8e254ab4237d74731824ea07b729cdc51637072",
+      "brand/tsinghua-university-crest.png": "035bdcc5172a44f5854be0688fc0325fe785075cb2ce592312012cdc2b9cb8b2",
+      "reconstruction/build_soc_data.py": "06952fef65ca3201f8856eb934010f38a325c25764e333ab94f34eb3e2077368",
+      "reconstruction/cjk_scan.py": "2f776f9d343cd0eeb09bda028c6e8262a23b5b4c872efe12f8daf30352fc16db",
+      "reconstruction/portable_voice.py": "1bb3223a2a8c8e5990246760969f6d069580b1396f73af7a44d31f1fdce2dd90",
+      "reconstruction/stills_soc.py": "f5d6f37d41c91f8740380e850560d4055411cb9ad40417727e83c93d6e70b5b0",
+      "reconstruction/text_timing.py": "bd25fbfadfed49083a69869ad9870c2dd7ff0e67a780ff21605177a838422145"
+    },
+    "requirements": "requirements-render.txt",
+    "instructions": "README-soc-v1.md",
+    "rebuild": [
+      "python -X utf8 engine/render.py hr --workers 2",
+      "python -X utf8 engine/package_soc.py"
+    ],
+    "offline": "Uses the 30 cached narration MP3 clips and build/hr/voice.json; voice.py is needed only after a narration change."
+  },
+  "boundaries": [
+    "Editorial replay of one recorded pilot run; no new agent run, no re-scoring.",
+    "All entities and data of the task are synthetic. The reward is one pilot run's rubric score, not accuracy or a ranking.",
+    "This task has six penalty criteria and no red lines.",
+    "DeepSeek Harness and bash run inside the task's Docker container; the model is reached through an API.",
+    "The rubric and tests are absent during the agent run; Harbor copies tests into the same container afterwards.",
+    "Judge sessions are separate per criterion; scores never feed back into the recorded agent run."
+  ]
+}

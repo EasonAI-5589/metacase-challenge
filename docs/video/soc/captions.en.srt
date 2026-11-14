@@ -1,0 +1,119 @@
+1
+00:00:00,270 --> 00:00:08,405
+One model, one harness, one acceptance review. Follow how the agent works inside DeepSeek Harness, and how its two files are checked.
+
+2
+00:00:08,995 --> 00:00:18,335
+A cold-chain operator has trained frontline supervisors at three hubs for six weeks. A fourth hub, deferred, kept its records for the same weeks as the reference.
+
+3
+00:00:18,925 --> 00:00:28,433
+On 8 June, a joint meeting decides three work packages the provider has claimed, 816,000 yuan in all. The provider rates all three as accepted.
+
+4
+00:00:29,023 --> 00:00:37,660
+17 files go in: eight ledgers, five workbooks and four documents. A workbook that can be recomputed and a decision memo must come out.
+
+5
+00:00:38,250 --> 00:00:48,812
+Five things in those files are not yet settled: a name listed in the wrong role, three missing sign-outs, two practice attempts, 18 disputed observations, and a repair recorded a day apart.
+
+6
+00:00:49,802 --> 00:00:58,712
+The contract sets two thresholds for each package: delivery and learning time for A, test coverage and behaviour for B, operating results and close-out for C.
+
+7
+00:00:59,302 --> 00:01:04,892
+The scoring rubric is not in the container. The agent works without seeing how it will be judged.
+
+8
+00:01:05,932 --> 00:01:15,931
+DeepSeek Harness runs the loop. The model chooses an action, the harness turns it into a shell command, the command runs inside the container, and the result returns to the model.
+
+9
+00:01:16,521 --> 00:01:27,223
+It begins with the four documents. Two rules shape everything after: uploaded is not reviewed, and personal learning data may serve evaluation, coaching and acceptance, never discipline.
+
+10
+00:01:27,813 --> 00:01:39,307
+Scope first: 84 names, one a warehouse coordinator listed in error, so 83. Then learning time: 82 of 83 reach the threshold, and three people's pending minutes are held out.
+
+11
+00:01:39,897 --> 00:01:55,509
+Practice attempts are dropped from the tests. Mean scores rise from 59 to 94, and hold at 90 after ten weeks. With two verified incidents as the bar, 73 supervisors can be evaluated, 8 lack opportunity, and 2 are restricted.
+
+12
+00:01:56,099 --> 00:02:05,819
+Behaviour attainment can be read three ways, and the agent computes all three: 73, 67, or 53 of 73. It adopts the second.
+
+13
+00:02:07,309 --> 00:02:14,791
+For operations, it nets the trained hubs against the deferred hub, but as one pooled figure: 4.33 points on the response rate.
+
+14
+00:02:15,381 --> 00:02:19,916
+By now all 17 files have been opened, and the output folder is still empty.
+
+15
+00:02:20,506 --> 00:02:26,543
+Then it starts to build. The workbook generator is written in three passes and run: ten sheets.
+
+16
+00:02:28,233 --> 00:02:37,484
+The memo script stops on an index error: the first row of a table that has none. The agent finds the cause, rewrites the helper, and generates the memo again.
+
+17
+00:02:39,174 --> 00:02:50,545
+It reads both files back: sheet count, dimensions, key figures. Ten sheets, but only three cells hold formulas. The output folder holds exactly the two required files.
+
+18
+00:02:51,585 --> 00:03:02,979
+Here is the whole run: 86 requests, 85 tool calls, all shell commands, about 19 minutes. Reading and recomputing take the first seven minutes; building the two files takes the rest.
+
+19
+00:03:03,569 --> 00:03:12,418
+Each result is added to the model's context. By the last request, the prompt has grown from about 5 thousand to about 208 thousand tokens.
+
+20
+00:03:13,008 --> 00:03:19,167
+When the agent stops, Harbor copies the rubric into the same container. Only then does scoring begin.
+
+21
+00:03:22,007 --> 00:03:24,255
+An independent check now takes over.
+
+22
+00:03:24,845 --> 00:03:33,482
+RewardKit opens one judge session for each of 34 criteria. The judge is a different model from the agent, and nothing flows back to the agent.
+
+23
+00:03:34,372 --> 00:03:42,395
+The acceptance decisions hold. Package A is conditional, B passes three of four units, C one of two, and every amount matches.
+
+24
+00:03:43,785 --> 00:03:55,982
+The behaviour measure does not hold. The rubric counts all reviewed items: 73 of 73. The workbook reports 67. Both clear the threshold, so package B stands.
+
+25
+00:03:56,572 --> 00:04:07,341
+The workbook pools the three hubs. The rubric wants each one net of the deferred hub: 6.5, 4.5 and 2.0 points. And the workbook has no source index.
+
+26
+00:04:08,731 --> 00:04:18,250
+The memo says the data irrefutably prove the training's value. The rubric asks for a descriptive association, limits on attribution, and a complete closure plan.
+
+27
+00:04:20,090 --> 00:04:28,448
+Of 28 criteria to earn, 19 are met and 9 are not. None of the six penalties applies, and this task has no red lines.
+
+28
+00:04:29,038 --> 00:04:40,153
+The recorded reward is 0.745: 79 points over 106. One pilot run on a synthetic task. Not accuracy, and not a ranking.
+
+29
+00:04:41,043 --> 00:04:52,258
+What held: scope, statuses, amounts and the data-use rule. What failed: a measure, a layout, and the limits of a claim. None of these losses is arithmetic that a script would catch.
+
+30
+00:04:52,848 --> 00:04:59,856
+A professional task, an agent run, and an independent check. Explore more on the Global Metacase Challenge site.
