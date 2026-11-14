@@ -64,9 +64,9 @@ For the Build with us submission system, see the
 [file format](docs/submissions/SPEC.md), and [API design](docs/submissions/API-DESIGN.md).
 The four private Hugging Face repositories are initialized; the submission UI remains a local
 prototype in the original handoff. The self-hosted intake service now provides
-[Benchmark](https://submit.inferencenet.cn/submit/benchmark/),
-[Agent / Harness](https://submit.inferencenet.cn/submit/harness/), and
-[Failure Case](https://submit.inferencenet.cn/submit/failure-case/) submissions,
+[Benchmark](https://submit.metacasechallenge.com/submit/benchmark/),
+[Agent / Harness](https://submit.metacasechallenge.com/submit/harness/), and
+[Failure Case](https://submit.metacasechallenge.com/submit/failure-case/) submissions,
 with username/password accounts, private uploads, validation and versioned receipts.
 See the [current server API](docs/submissions/SELF-HOSTED.md) and
 [service/deployment guide](submission_service/README.md), with screenshots and
