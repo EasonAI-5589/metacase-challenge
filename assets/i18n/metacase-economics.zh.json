@@ -2652,7 +2652,7 @@
   "The script states its basis; the gap is within tolerance.": "脚本注明了口径；差异在容差内。",
   "The p-value's basis differs from the reference and passes only on tolerance. The authors' script was never found, so the baseline rests on the task's settings alone. The estimate stood at 185 seconds; five more minutes went on searching, and a stalled lookup nearly left the files unwritten.": "p 值口径与参考值不同，靠容差才通过。作者脚本始终没有找到，报告的基准规格只依据题面设定。估计在第 185 秒已验证完毕，此后又检索近五分钟，一次卡住的检索险些让交付文件没有写出。",
   "Applies where public code defines the estimator and the task leaves the specification open. Signature: open specification, source comparison, numerical replication, stating what was not verified.": "适用于估计量由公开代码界定、题面又未写全规格的复现任务。结构签名：规格待定、源码对照、数值复现、标注未核实之处。",
-  "(video to be produced)": "（视频待制作）",
+  "4 min 59 sec, with English captions": "4 分 59 秒，英文字幕",
   "The grader, in full": "评分脚本全文",
   "Reward = 1 when all three comparisons pass; otherwise 0.": "得分 = 1，条件是三项比对全部通过；任一项未通过即为 0。",
   "The grader sees two things: the result file the agent wrote (the only thing scored) and the reference values. It checks only that the reproducing script exists, and tries to run it only when the result file is missing.": "评分脚本只看两样东西：智能体写出的结果文件 157_result.json（唯一被评分的对象），以及参考值。可重跑脚本 main.py 只检查是否存在；仅当结果文件缺失时，才会尝试重跑它。",
