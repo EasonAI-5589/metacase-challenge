@@ -1,0 +1,182 @@
+{
+ "rule": "visible >= 0.3 s + words / 4",
+ "duration_s": 300.676,
+ "rows": [
+  {
+   "shot": "s04",
+   "cue": "('e', 0.2)",
+   "words": 8,
+   "left_s": 2.54,
+   "need_s": 2.3,
+   "ok": true
+  },
+  {
+   "shot": "s05",
+   "cue": "c",
+   "words": 0,
+   "left_s": 2.76,
+   "need_s": 0.3,
+   "ok": true
+  },
+  {
+   "shot": "s08",
+   "cue": "n",
+   "words": 5,
+   "left_s": 2.43,
+   "need_s": 1.55,
+   "ok": true
+  },
+  {
+   "shot": "s09",
+   "cue": "use",
+   "words": 15,
+   "left_s": 5.42,
+   "need_s": 4.05,
+   "ok": true
+  },
+  {
+   "shot": "s10",
+   "cue": "att",
+   "words": 21,
+   "left_s": 5.98,
+   "need_s": 5.55,
+   "ok": true
+  },
+  {
+   "shot": "s11",
+   "cue": "('s', 2.4)",
+   "words": 16,
+   "left_s": 5.43,
+   "need_s": 4.3,
+   "ok": true
+  },
+  {
+   "shot": "s12",
+   "cue": "pick",
+   "words": 9,
+   "left_s": 2.69,
+   "need_s": 2.55,
+   "ok": true
+  },
+  {
+   "shot": "s13",
+   "cue": "pool",
+   "words": 7,
+   "left_s": 4.22,
+   "need_s": 2.05,
+   "ok": true
+  },
+  {
+   "shot": "s14",
+   "cue": "save",
+   "words": 11,
+   "left_s": 3.13,
+   "need_s": 3.05,
+   "ok": true
+  },
+  {
+   "shot": "s15",
+   "cue": "ok",
+   "words": 11,
+   "left_s": 3.08,
+   "need_s": 3.05,
+   "ok": true
+  },
+  {
+   "shot": "s16",
+   "cue": "ls",
+   "words": 9,
+   "left_s": 3.66,
+   "need_s": 2.55,
+   "ok": true
+  },
+  {
+   "shot": "s18",
+   "cue": "turn",
+   "words": 2,
+   "left_s": 5.13,
+   "need_s": 0.8,
+   "ok": true
+  },
+  {
+   "shot": "s20",
+   "cue": "score",
+   "words": 14,
+   "left_s": 3.92,
+   "need_s": 3.8,
+   "ok": true
+  },
+  {
+   "shot": "s22",
+   "cue": "nf",
+   "words": 8,
+   "left_s": 2.59,
+   "need_s": 2.3,
+   "ok": true
+  },
+  {
+   "shot": "s23",
+   "cue": "amt",
+   "words": 8,
+   "left_s": 2.7,
+   "need_s": 2.3,
+   "ok": true
+  },
+  {
+   "shot": "s24",
+   "cue": "b",
+   "words": 10,
+   "left_s": 3.23,
+   "need_s": 2.8,
+   "ok": true
+  },
+  {
+   "shot": "s25",
+   "cue": "idx",
+   "words": 12,
+   "left_s": 3.38,
+   "need_s": 3.3,
+   "ok": true
+  },
+  {
+   "shot": "s26",
+   "cue": "('r', 0.6)",
+   "words": 7,
+   "left_s": 6.09,
+   "need_s": 2.05,
+   "ok": true
+  },
+  {
+   "shot": "s27",
+   "cue": "pen",
+   "words": 4,
+   "left_s": 4.35,
+   "need_s": 1.3,
+   "ok": true
+  },
+  {
+   "shot": "s28",
+   "cue": "pilot",
+   "words": 21,
+   "left_s": 5.72,
+   "need_s": 5.55,
+   "ok": true
+  },
+  {
+   "shot": "s29",
+   "cue": "c",
+   "words": 12,
+   "left_s": 3.42,
+   "need_s": 3.3,
+   "ok": true
+  },
+  {
+   "shot": "s30",
+   "cue": "site",
+   "words": 10,
+   "left_s": 3.15,
+   "need_s": 2.8,
+   "ok": true
+  }
+ ]
+}
