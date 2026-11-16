@@ -17,7 +17,7 @@ export const publicFiles = [
   'v2.js', 'home.js', 'backdrop.js', 'scene.js', 'arena.js', 'arena-scene.js', 'arena-motion.js', 'arena-models.js', 'arena-data.js', 'arena-campus.js', 'arena-subtracks.js',
   'metacase.js', 'metacase-world.js', 'metacase-library.js', 'metacase-courier.js', 'metacase-anatomy.js', 'metacase-archive.js', 'metacase-run.js', 'metacase-cards.js', 'mc-stage.js', 'mc-toon.js', 'mc-kit.js', 'mc-rail.js', 'mc-classart.js', 'portal-warp.js', 'subpage-toy.js', 'subpage-toy-scenes.js',
   'metacase-film.js', 'film-task.js', 'film-agent.js', 'film-trajectory.js', 'film-grading.js', 'film-metacase.js',
-  'film-econ-task.js', 'film-econ-agent.js', 'film-econ-trajectory.js', 'film-econ-grading.js', 'film-econ-metacase.js',
+  'film-econ-kit.js', 'film-soc-kit.js', 'film-econ-task.js', 'film-econ-agent.js', 'film-econ-trajectory.js', 'film-econ-grading.js', 'film-econ-metacase.js',
   'film-soc-task.js', 'film-soc-agent.js', 'film-soc-trajectory.js', 'film-soc-grading.js', 'film-soc-metacase.js',
   'agent-run.css', 'agent-run.js', 'agent-run-data.js', 'agent-run-stage.js',
   '.nojekyll',
@@ -120,7 +120,7 @@ for (const file of scanned) {
   if (/\/Users\/|127\.0\.0\.1|localhost|local\/runs|sources\.lock\.json/.test(source)) throw new Error(`Private workspace reference in ${file}`);
   if (/\/mnt\/|\b(?:\d{1,3}\.){3}\d{1,3}\b|\b[A-Z]:[\\/]/.test(source)) throw new Error(`Server path or address in ${file}`);
   if (/\bTODO\b|lorem ipsum/i.test(source)) throw new Error(`Placeholder text in ${file}`);
-  const translatedAsset = file === 'language.js' || file === 'film-metacase.js' || file === 'film-soc-metacase.js' || file === 'agent-run-data.js' || file === 'arena.js' || file === 'arena-data.js' || file === 'arena-scene.js' || /^assets\/i18n\/(agent-run|index|challenge|replication|data|agent|metacase|metacase-economics|metacase-society|evolution|leaderboard|teams|professional-tasks)\.zh\.json$/.test(file);
+  const translatedAsset = file === 'language.js' || file === 'film-metacase.js' || file === 'agent-run-data.js' || file === 'arena.js' || file === 'arena-data.js' || file === 'arena-scene.js' || /^assets\/i18n\/(agent-run|index|challenge|replication|data|agent|metacase|metacase-economics|metacase-society|evolution|leaderboard|teams|professional-tasks)\.zh\.json$/.test(file);
   if (/[一-鿿]/.test(source) && !translatedAsset) throw new Error(`CJK text outside the reviewed translation layer in ${file}`);
   if (file.startsWith('assets/i18n/')) {
     const dictionary = JSON.parse(source);

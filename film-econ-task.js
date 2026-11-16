@@ -1,454 +1,285 @@
-/* film-econ-task.js — beat 0 of the economics Metacase film: Task (econ-0157).
- * One Stata file, data_for_analysis.dta, pours its panel into a glass container (the Docker
- * container the agent will work in): 3,246 department-years that settle into six stacks, one per
- * year, 2012 to 2017 (605, 517, 490, 551, 540, 543 rows; one tile stands for about 50 rows).
- * While it rains the set names what the copy names: the outcome and the treatment variable, the
- * 180 treated observations (four tiles turn amber), the four settings the task states, and the
- * three numbers the task asks for
- * (three empty rings on the floor: the coefficient, its standard error, its p-value). The lid
- * swings shut. Outside the glass, the task setter sends a tablet reading 30 min, the agent's time
- * limit, into a vault: it floats in, the door slams, the wheel spins and the bolts click home.
- * Every state is a function of lp, so scrubbing backwards replays it; t only adds idle life.
- *   lp .00–.02  the open container under its intake beam; the vault open, the tablet in hand
- *      .02–.46  the rain: a few tiles, then a downpour; each one squashes, flashes and rings
- *               its stack; the last one falls alone
- *      .16      the variables tag rises: comp, inspectmain
- *      .30      four tiles turn amber and the tag 180 / 3,246 rises: the treated observations
- *      .40      the tag of the four settings the task states: FE, cohort, control, cluster
- *      .50      three empty rings light on the floor: what is to be delivered
- *      .535–.62 the lid falls shut, bounces twice, the glass edges flash
- *      .55–.665 the setter lifts the tablet; it arcs into the vault trailing light
- *      .655–.76 the door winds up, swings, slams; the vault jolts
- *      .74–.80  the wheel spins down and clicks: bolts out, lamp on, a shock ring, rim flash
- *      .80–1    held; the framework dollies on to the next set from .82 */
+/* film-econ-task.js — beat 0 of the economics Metacase film: Context & evidence (econ-0157).
+ * The case is laid out on the plotting table (film-econ-kit.js). The robot brings the one data
+ * file, data_for_analysis.dta, to a reader at the table's side, and the panel unrolls over the
+ * table as a field of tiles: six columns, one per year (2012 to 2017), and twelve rows of
+ * departments, counting up to 3,246 department-years. What the copy names then appears on the
+ * panel itself, in the copy's order:
+ *   lp .00–.05  the robot walks in with the file and feeds it to the reader
+ *      .05–.15  the panel unrolls from the reader's corner; the year labels stand up; the count runs
+ *      .16–.22  the variables: an upright axis named comp rises and every tile takes a height (the
+ *               outcome is a number in each cell); a legend names inspectmain, which turns 0 to 1
+ *      .30–.39  treatment and sample: the five cohort rows (first inspected 2013 … 2017) turn amber
+ *               from their first inspection year on, a staircase of staggered treatment; the
+ *               legend reads 180 / 3,246; the rows never inspected are framed teal: the control
+ *      .40–.49  the four settings the task states stand up along the back edge: FE (row and
+ *               column lines flash), cohort, control, cluster
+ *      .50–.66  what is open: three empty sockets for the numbers to deliver (coef, SE, p), a
+ *               30-minute dial, and a fifth post that stays dark under a question mark: the
+ *               covariates the task does not name
+ *      .66–.88  held; the robot walks on along the front edge towards the next set
+ * The staircase is schematic (five cohort rows of twelve); the true counts are the printed ones.
+ * Every state is a function of lp, so scrubbing backwards replays it; t only adds idle life. */
+import { plotTable, axis, printed, walker, aim, lin, sm, mix, outBack, outCubic, pulse, window01 } from './film-econ-kit.js?v=mc-401ead81de';
 
-// one type per year of the panel; rows is that year's department-years in the data
-const TYPES = [
-  { key: '2012', color: 0x9aa3b2, ink: '#454c5b', rows: 605 },
-  { key: '2013', color: 0x45b5b0, ink: '#1d6b67', rows: 517 },
-  { key: '2014', color: 0x5fc3d6, ink: '#1f6d7c', rows: 490 },
-  { key: '2015', color: 0x6aa8e8, ink: '#2a5c96', rows: 551 },
-  { key: '2016', color: 0x7d6ad8, ink: '#4a3c9c', rows: 540 },
-  { key: '2017', color: 0xa58be8, ink: '#5a3fa8', rows: 543 },
+const YEARS = [
+  { key: '2012', color: 0x9aa3b2, rows: 605 }, { key: '2013', color: 0x45b5b0, rows: 517 }, { key: '2014', color: 0x5fc3d6, rows: 490 },
+  { key: '2015', color: 0x6aa8e8, rows: 551 }, { key: '2016', color: 0x7d6ad8, rows: 540 }, { key: '2017', color: 0xa58be8, rows: 543 },
 ];
-// six stacks on the container floor, one per year; a tile stands for about 50 rows
-const STACKS = [
-  { type: 0, n: 12, x: -.8, z: -.42 }, { type: 1, n: 10, x: 0, z: -.42 }, { type: 2, n: 10, x: .8, z: -.42 },
-  { type: 3, n: 11, x: -.8, z: .42 }, { type: 4, n: 11, x: 0, z: .42 }, { type: 5, n: 11, x: .8, z: .42 },
-];
-const N = STACKS.reduce((n, s) => n + s.n, 0);       // 65 tiles
-const ROWS = TYPES.reduce((n, ty) => n + ty.rows, 0); // 3,246 rows
-// the treated observations (180 of 3,246, about four tiles): [stack, layer] of the tiles that turn amber
-const TREATED = [[3, 10], [4, 9], [4, 10], [5, 9]];
-const VARS_AT = .16, TREAT_AT = .30, SET_AT = .40, OPEN_AT = .50;
+const ROWS = YEARS.reduce((n, y) => n + y.rows, 0); // 3,246 department-years
+const NC = 6, NR = 12, N = NC * NR;
+const X0 = -.7, DX = .68, Z0 = -2.15, DZ = .36, TW = .58, TD = .28;
+const FIRST_COHORT_ROW = 7;            // rows 7..11: first inspected in 2013 … 2017; rows 0..6: never inspected
+const READER = { x: -1.7, z: -.2 };
+const EYE = 0xffd666, S = 1.4;
 
 // the timeline, in local progress
-const RAIN_A = -.025, RAIN_B = .425, FALL = .085, LAND = .78, LOG_AT = .455;
-const LID_A = .535, LID_B = .585;
-const LIFT_A = .55, FLY_A = .575, FLY_B = .665;
-const DOOR_ANT = .655, DOOR_A = .672, DOOR_B = .735;
-const SPIN_A = .742, CLICK = .79;
+const T = {
+  insertA: .03, insertB: .05,
+  rollA: .052, rollB: .145, pop: .02,
+  axisA: .16, barsA: .168, barsB: .205, legendA: .19,
+  treatA: .30, treatStep: .014, tagA: .335, frameA: .355,
+  posts: [.40, .42, .44, .46],
+  sockets: [.51, .53, .55], dialA: .57, queryA: .61,
+};
+const HALF = Math.PI / 2;
+// where the robot stands and which way it faces: [lp, x, z, yaw]
+const WALK = [
+  [0, -2.9, 1.6, 2.6], [.03, -2.5, -.2, 1.3], [.155, -2.5, -.2, 1.3], [.175, -2.5, -.2, 2.3], [.215, -2.5, -.2, 2.3],
+  [.275, -1.9, 1.1, 1.2], [.4, -1.9, 1.1, 1.2], [.42, -1.9, 1.1, 2.0], [.485, -1.9, 1.1, 2.0],
+  [.53, -1.5, 2.6, 1.15], [.6, -1.5, 2.6, 1.15], [.625, -1.5, 2.6, 1.8], [.74, -1.5, 2.6, 1.8], [.79, -1.5, 2.6, 1.15], [1, -1.5, 2.6, 1.15],
+];
 
-const ease3 = x => 1 - (1 - x) * (1 - x) * (1 - x);
-const backOut = x => { const c = 1.9, y = x - 1; return 1 + (c + 1) * y * y * y + c * y * y; };
-const pulse = (age, tau) => (age < 0 ? 0 : Math.exp(-age / tau));
-// a slam's rebound: two shrinking hops over `span`
-const hops = (age, span, amp) => (age < 0 || age > span ? 0 : amp * Math.abs(Math.sin(age / span * Math.PI * 2)) * (1 - age / span) ** 2);
-// a jolt: a quick decaying shake over `span`
-const jolt = (age, span, amp) => (age < 0 || age > span ? 0 : amp * Math.sin(age / span * Math.PI * 3) * (1 - age / span) ** 2);
-
-export async function build({ THREE, kit, set, labelTexture, reduce, hand, util, layout, camera: viewCamera }) {
-  const { PALETTE, add, block, cyl, ball, rbox, mat, glowMat } = kit;
-  const { clamp, smooth, lerp } = util;
-  const TEAL = PALETTE.teal, AMBER = PALETTE.amber, GILT = 0xd8b46a;
+export async function build({ THREE, kit, set, reduce, hand, util, layout, camera: viewCamera }) {
+  const { PALETTE, add, block, cyl, rbox, mat, glowMat } = kit;
+  const TEAL = PALETTE.teal, AMBER = PALETTE.amber, STEEL = 0x6f86c8, NAVY = 0x1c2740, DEEP = 0x111a2d;
+  const glow = (c, i) => glowMat(c, i).clone(); // kit materials are shared across beats: clone what this beat animates
+  const flat = (geo, material, x, y, z, parent = set) => add(parent, geo, material, x, y, z, false);
+  const P = o => printed({ THREE, kit, parent: set, ...o });
+  const MONO = '"Space Mono", ui-monospace, monospace';
   let seed = 20240157;
   const rnd = () => (seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296;
-  // kit materials are shared across beats: clone every one this beat animates
-  const glow = (c, i) => glowMat(c, i).clone();
-  const flat = (geo, material, x, y, z, parent = set) => add(parent, geo, material, x, y, z, false);
-  const additive = (color, opacity = 0) => new THREE.MeshBasicMaterial({ color, transparent: true, opacity, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide });
 
-  /* ---- the plinth: dark navy, a glowing rim that answers the lid and the lock ---- */
-  const PX = .5;
-  cyl(set, 3.95, 4.1, .3, 0x1c2740, PX, -.3, 0, 72);
-  cyl(set, 4.11, 3.85, .55, 0x111a2d, PX, -.85, 0, 72);
-  const rimMat = glow(TEAL, 1.1);
-  flat(new THREE.TorusGeometry(4.02, .03, 8, 160), rimMat, PX, .005, 0).rotation.x = Math.PI / 2;
+  const table = plotTable({ THREE, kit, set, accent: TEAL });
 
-  /* ---- the container: a base, a glass box with glowing teal edges, a hinged lid ---- */
-  const CX = -1.05, W = 2.5, D = 1.75, H = 1.7, Y0 = .2;
-  block(set, 2.8, Y0, 2.05, 0x1a2440, CX, 0, 0, .06);
-  flat(rbox(2.84, .035, 2.09, .015), glowMat(TEAL, .9), CX, Y0 - .03, 0);
-  const floorMat = mat(0x0f2a3c, { emissive: TEAL, intensity: .2 }).clone();
-  flat(rbox(W - .04, .012, D - .04, .005), floorMat, CX, Y0 + .006, 0);
-  const edgeMat = glow(TEAL, 1.5);
-  const rod = (w, h, d, x, y, z, parent = set) => flat(rbox(w, h, d, Math.min(w, h, d) * .45), edgeMat, x, y, z, parent);
-  for (const sx of [-1, 1]) for (const sz of [-1, 1]) rod(.07, H, .07, CX + sx * W / 2, Y0 + H / 2, sz * D / 2);
-  for (const y of [Y0 + .035, Y0 + H - .035]) {
-    for (const sz of [-1, 1]) rod(W + .07, .07, .07, CX, y, sz * D / 2);
-    for (const sx of [-1, 1]) rod(.07, .07, D, CX + sx * W / 2, y, 0);
+  /* ---- the panel: one instanced tile per cell ---- */
+  const tileGeo = rbox(TW, .1, TD, .03).clone(); tileGeo.translate(0, .05, 0);
+  const tiles = new THREE.InstancedMesh(tileGeo, new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: .7, emissive: 0xffffff, emissiveIntensity: 0 }), N);
+  tiles.castShadow = true; tiles.receiveShadow = true; tiles.frustumCulled = false; set.add(tiles);
+  const cell = [];
+  const far = Math.hypot(5 * DX + .4, Math.max(READER.z - Z0, Z0 + 11 * DZ - READER.z)); // the farthest cell from the reader's corner
+  for (let r = 0; r < NR; r++) for (let c = 0; c < NC; c++) {
+    const x = X0 + c * DX, z = Z0 + r * DZ, d = Math.hypot(x - (X0 - .4), z - READER.z);
+    const cohort = r - FIRST_COHORT_ROW;                 // 0..4 for the cohort rows
+    const treated = cohort >= 0 && c >= cohort + 1;      // from its first inspection year on
+    cell.push({
+      x, z, c, r, start: T.rollA + (T.rollB - T.rollA - T.pop) * d / far, h: 1.1 + rnd() * 2.6,
+      treatAt: treated ? T.treatA + cohort * T.treatStep + (c - cohort - 1) * .004 : 9, // 9: never
+      base: new THREE.Color(YEARS[c].color).multiplyScalar(r < FIRST_COHORT_ROW ? .78 : 1),
+    });
   }
-  const glassMat = new THREE.MeshStandardMaterial({ color: 0xd6fbf6, transparent: true, opacity: .06, roughness: .06, metalness: 0, depthWrite: false, side: THREE.DoubleSide });
-  const pane = (w, h, x, y, z, ry, rx = 0, parent = set) => { const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), glassMat); m.position.set(x, y, z); m.rotation.set(rx, ry, 0); parent.add(m); return m; };
-  pane(W, H, CX, Y0 + H / 2, D / 2, 0); pane(W, H, CX, Y0 + H / 2, -D / 2, 0);
-  pane(D, H, CX - W / 2, Y0 + H / 2, 0, Math.PI / 2); pane(D, H, CX + W / 2, Y0 + H / 2, 0, Math.PI / 2);
-  // the lid hinges on the back top edge; open, it leans back past upright
-  const lid = new THREE.Group(); lid.position.set(CX, Y0 + H, -D / 2); set.add(lid);
-  pane(W, D, 0, .02, D / 2, 0, -Math.PI / 2, lid);
-  rod(W + .07, .06, .06, 0, .03, D, lid);
-  for (const sx of [-1, 1]) rod(.06, .06, D, sx * W / 2, .03, D / 2, lid);
-  rod(.5, .05, .08, 0, .075, D - .03, lid);
-  // the task's id on the base
-  const idTex = labelTexture('film-econ-task-id', [{ text: 'econ-0157', size: 112, weight: 700, color: '#9ff3ee', font: '"Space Mono", ui-monospace, monospace', track: 16 }], { width: 1024, height: 160 });
-  const idPlate = new THREE.Mesh(new THREE.PlaneGeometry(1.4, .22), new THREE.MeshBasicMaterial({ map: idTex, transparent: true, depthWrite: false }));
-  idPlate.position.set(CX, .1, 1.03); set.add(idPlate);
-  // the intake beam the files fall through: a soft shaft, brightest face-on, gone at its edges
-  const beamMat = new THREE.ShaderMaterial({
-    uniforms: { color: { value: new THREE.Color(0x8ff6ff) }, opacity: { value: 0 } },
-    vertexShader: 'varying vec3 vN;varying vec3 vV;varying float vY;void main(){vec4 mv=modelViewMatrix*vec4(position,1.);vN=normalize(normalMatrix*normal);vV=normalize(-mv.xyz);vY=uv.y;gl_Position=projectionMatrix*mv;}',
-    fragmentShader: 'uniform vec3 color;uniform float opacity;varying vec3 vN;varying vec3 vV;varying float vY;void main(){float f=abs(dot(normalize(vN),normalize(vV)));gl_FragColor=vec4(color,pow(f,2.2)*pow(1.-vY,1.7)*smoothstep(0.,.06,vY)*opacity);}',
-    transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide,
+  const amberCol = new THREE.Color(0xffb62e), white = new THREE.Color(0xffffff), col = new THREE.Color();
+  // the year labels, tilted up at the foot of each column
+  const yearLabels = YEARS.map((y, c) => {
+    const m = P({ key: `year-${y.key}`, lines: [{ text: y.key, size: 150, weight: 700, color: '#cfe0f2', font: MONO }], w: .56, h: .2, x: X0 + c * DX, y: .1, z: 2.07, px: 384 });
+    m.rotation.x = -HALF + .9; return m;
   });
-  const beam = new THREE.Mesh(new THREE.CylinderGeometry(1.2, 1.3, 7.4, 48, 1, true), beamMat);
-  beam.position.set(CX, Y0 + 3.7, 0); beam.scale.z = .72; set.add(beam);
+  // row and column lines over the panel: the fixed effects and the clusters flash them
+  const lineMat = c => new THREE.LineBasicMaterial({ color: c, transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending });
+  const lines = (list, material) => { const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(list, 3)); const l = new THREE.LineSegments(g, material); l.frustumCulled = false; set.add(l); return l; };
+  const GX0 = X0 - DX / 2, GX1 = X0 + 5.5 * DX, GZ0 = Z0 - DZ / 2, GZ1 = Z0 + 11.5 * DZ, LY = .5;
+  const rowList = [], colList = [];
+  for (let r = 0; r <= NR; r++) rowList.push(GX0, LY, GZ0 + r * DZ, GX1, LY, GZ0 + r * DZ);
+  for (let c = 0; c <= NC; c++) colList.push(GX0 + c * DX, LY, GZ0, GX0 + c * DX, LY, GZ1);
+  const rowMat = lineMat(0x8ff6ff), colMat = lineMat(0x8ff6ff);
+  lines(rowList, rowMat); lines(colList, colMat);
 
-  /* ---- the rows: 65 small tiles in the homepage's tile finish — cream slab, glowing year edge,
-   * the year printed on top — drawn as instances ---- */
-  const TH = .06, PITCH = .066, PAD = .02;
-  const pads = STACKS.map(s => {
-    const m = mat(TYPES[s.type].color, { emissive: TYPES[s.type].color, intensity: .15 }).clone();
-    flat(rbox(.64, PAD, .48, .01), m, CX + s.x, Y0 + PAD / 2, s.z);
-    return m;
+  /* ---- the reader, its cable and the file ---- */
+  const reader = new THREE.Group(); reader.position.set(READER.x, 0, READER.z); set.add(reader);
+  block(reader, .5, .42, .62, 0x26324f, 0, 0, 0, .06);
+  const slotMat = glow(TEAL, .6);
+  flat(rbox(.06, .26, .4, .02), slotMat, -.255, .24, 0, reader);
+  const cableMat = glow(TEAL, .3);
+  const cable = flat(rbox(1, .03, .05, .012), cableMat, 0, .02, READER.z); // from the reader to the panel's edge
+  const cableA = READER.x + .25, cableB = GX0;
+  cable.position.x = (cableA + cableB) / 2; cable.scale.x = cableB - cableA;
+  const fileMat = glow(TEAL, .5);
+  const file = new THREE.Group(); set.add(file);
+  flat(rbox(.3, .38, .09, .03), mat(0xe9eef6), 0, 0, 0, file).castShadow = true;
+  flat(rbox(.22, .1, .1, .02), fileMat, 0, .08, 0, file);
+  const fileName = P({ key: 'file-name', lines: [{ text: 'data_for_analysis.dta', size: 50, weight: 700, color: '#ffffff', font: MONO }], w: 2.1, h: .29, x: READER.x - .2, y: 2.0, z: READER.z - .2, px: 640 });
+
+  /* ---- the variables: the outcome's axis and the treatment's legend ---- */
+  const compAxis = axis({ THREE, kit, len: 1.25, ticks: 4, color: 0x9fd8ff });
+  compAxis.group.rotation.z = HALF; compAxis.group.position.set(GX0 - .14, 0, GZ0 - .12); set.add(compAxis.group);
+  const compName = P({ key: 'comp', lines: [{ text: 'comp', size: 190, weight: 800, color: '#ffffff', font: MONO }], w: .78, h: .34, x: GX0 - .62, y: 1.32, z: GZ0 - .12, px: 384 });
+  const legend = new THREE.Group(); legend.position.set(4.0, 0, .35); set.add(legend);
+  flat(rbox(1.36, .74, .05, .03), mat(0x0d1524), 0, .45, 0, legend);
+  const legendEdge = glow(AMBER, 1);
+  flat(rbox(1.42, .8, .03, .03), legendEdge, 0, .45, -.014, legend);
+  const legendName = printed({ THREE, kit, parent: legend, key: 'inspectmain', lines: [{ text: 'inspectmain = 1', size: 60, weight: 700, color: '#f2b545', font: MONO }], w: 1.28, h: .22, x: 0, y: .64, z: .03, px: 640 });
+  const legendCount = printed({ THREE, kit, parent: legend, key: 'treated-count', lines: [{ text: '180 / 3,246', size: 104, weight: 800, color: '#ffffff' }], w: 1.28, h: .32, x: 0, y: .32, z: .03, px: 640 });
+
+  /* ---- the control group: a teal frame round the rows never inspected, and its name ---- */
+  const frameMat = glow(0x8ff6ff, 1.6);
+  const CZ0 = GZ0 - .03, CZ1 = GZ0 + FIRST_COHORT_ROW * DZ - .03, FY = .03;
+  const frame = new THREE.Group(); set.add(frame);
+  for (const z of [CZ0, CZ1]) flat(rbox(GX1 - GX0 + .12, .05, .05, .018), frameMat, (GX0 + GX1) / 2, FY, z, frame);
+  for (const x of [GX0 - .03, GX1 + .03]) flat(rbox(.05, .05, CZ1 - CZ0, .018), frameMat, x, FY, (CZ0 + CZ1) / 2, frame);
+  const controlName = P({ key: 'control-name', lines: [{ text: 'never inspected', size: 74, weight: 700, color: '#8ff0e6' }, { text: 'control group', size: 62, weight: 600, color: '#cfe0f2' }], w: 1.6, h: .5, x: 3.78, y: .2, z: -2.02, px: 640 });
+  controlName.rotation.x = -HALF + .95;
+
+  /* ---- the four settings the task states, and the one it does not ---- */
+  const POST_Z = -2.78, postX = [-.3, .85, 2.0, 3.15];
+  const posts = ['FE', 'cohort', 'control', 'cluster'].map((name, i) => {
+    const g = new THREE.Group(); g.position.set(postX[i], 0, POST_Z); set.add(g);
+    cyl(g, .03, .04, 1.0, 0x394560, 0, 0, 0, 10);
+    flat(rbox(1.0, .42, .05, .03), mat(0x0d1524), 0, 1.2, 0, g);
+    const edge = glow(TEAL, 1.1);
+    flat(rbox(1.06, .48, .03, .03), edge, 0, 1.2, -.014, g);
+    printed({ THREE, kit, parent: g, key: `setting-${name}`, lines: [{ text: name, size: 150, weight: 800, color: '#ffffff' }], w: .92, h: .36, x: 0, y: 1.2, z: .03, px: 512 });
+    return { g, edge, at: T.posts[i] };
   });
-  const body = new THREE.InstancedMesh(rbox(.56, TH, .4, .025), mat(0xf7f5f0), N);
-  const band = new THREE.InstancedMesh(rbox(.585, .022, .425, .01).clone().translate(0, -.012, 0), new THREE.MeshBasicMaterial({ color: 0xffffff }), N);
-  body.castShadow = body.receiveShadow = true; band.castShadow = false;
-  const labelGeo = new THREE.PlaneGeometry(.42, .21).rotateX(-Math.PI / 2).translate(0, TH / 2 + .002, .02);
-  const labels = TYPES.map((ty, k) => {
-    const tex = labelTexture(`film-econ-task-year-${k}`, [{ text: ty.key, size: 168, weight: 800, color: ty.ink, track: 6 }], { width: 512, height: 256 });
-    const m = new THREE.InstancedMesh(labelGeo, new THREE.MeshStandardMaterial({ map: tex, transparent: true, roughness: .8, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 }), STACKS.reduce((n, s) => n + (s.type === k ? s.n : 0), 0));
-    m.castShadow = false;
-    return m;
+  const open = new THREE.Group(); open.position.set(4.28, 0, POST_Z); set.add(open);
+  cyl(open, .03, .04, 1.0, 0x2a3350, 0, 0, 0, 10);
+  flat(rbox(1.0, .42, .05, .03), mat(0x0d1524), 0, 1.2, 0, open);
+  const openEdge = glow(STEEL, .35);
+  flat(rbox(1.06, .48, .03, .03), openEdge, 0, 1.2, -.014, open);
+  printed({ THREE, kit, parent: open, key: 'setting-covariates', lines: [{ text: 'covariates', size: 104, weight: 700, color: '#8e9ab3' }], w: .92, h: .3, x: 0, y: 1.2, z: .03, px: 512 });
+  const query = P({ key: 'query', lines: [{ text: '?', size: 300, weight: 800, color: '#f2b545' }], w: .5, h: .5, x: 4.28, y: 1.85, z: POST_Z, px: 256 });
+
+  /* ---- what is to be delivered: three empty sockets; and the time allowed ---- */
+  const ringGeo = new THREE.TorusGeometry(.25, .024, 8, 48); ringGeo.rotateX(HALF);
+  const sockets = ['coef', 'SE', 'p'].map((name, i) => {
+    const x = .55 + i * .76, z = 2.78, ringMat = glow(AMBER, .2);
+    const g = new THREE.Group(); g.position.set(x, 0, z); set.add(g);
+    flat(new THREE.CylinderGeometry(.24, .24, .012, 32), mat(0x0c1322), 0, .008, 0, g);
+    flat(ringGeo, ringMat, 0, .03, 0, g);
+    const name3 = P({ key: `socket-${name}`, lines: [{ text: name, size: 170, weight: 800, color: '#ffe2a8' }], w: .42, h: .2, x, y: .06, z: z + .02, px: 256 });
+    name3.rotation.x = -HALF + .7;
+    return { g, ringMat, label: name3, at: T.sockets[i] };
   });
-  for (const m of [body, band, ...labels]) { m.frustumCulled = false; set.add(m); }
-  // type colours normalised to their brightest channel, so every edge glows at the same level
-  const tint = TYPES.map(ty => { const c = new THREE.Color(ty.color), k = 1 / Math.max(c.r, c.g, c.b); return [c.r * k, c.g * k, c.b * k]; });
+  const dial = new THREE.Group(); dial.position.set(3.72, 0, 2.66); set.add(dial);
+  const face = new THREE.Group(); face.position.y = .1; face.rotation.x = -.95; dial.add(face); // leaning back
+  const dialMat = glow(AMBER, 1.2);
+  flat(new THREE.TorusGeometry(.36, .028, 8, 48), dialMat, 0, .36, 0, face);
+  flat(new THREE.CylinderGeometry(.35, .35, .03, 40), mat(0x0d1524), 0, .36, -.02, face).rotation.x = HALF;
+  const handPivot = new THREE.Group(); handPivot.position.set(0, .36, .02); face.add(handPivot);
+  flat(rbox(.028, .3, .02, .01), dialMat, 0, .15, 0, handPivot);
+  printed({ THREE, kit, parent: face, key: 'limit', lines: [{ text: '30', size: 190, weight: 800, color: '#ffffff' }, { text: 'min', size: 96, weight: 700, color: '#ffe2a8' }], w: .46, h: .4, x: 0, y: .36, z: .03, px: 384 });
 
-  // Order: layer by layer across the stacks, so all six rise together; the last tile falls alone.
-  const order = [], LAST = [5, STACKS[5].n - 1];
-  for (let l = 0; l < 12; l++) STACKS.forEach((s, j) => { if (l < s.n && !(j === LAST[0] && l === LAST[1])) order.push([j, l]); });
-  order.push(LAST);
-  const F = { start: new Float32Array(N), land: new Float32Array(N), stack: new Uint8Array(N), type: new Uint8Array(N), slot: new Uint8Array(N),
-    tx: new Float32Array(N), ty: new Float32Array(N), tz: new Float32Array(N), yaw: new Float32Array(N),
-    sx: new Float32Array(N), sy: new Float32Array(N), sz: new Float32Array(N), rx: new Float32Array(N), ry: new Float32Array(N), rz: new Float32Array(N), ph: new Float32Array(N), treated: new Uint8Array(N) };
-  const slots = TYPES.map(() => 0), firstStart = new Float32Array(6).fill(9), firstLand = new Float32Array(6).fill(9);
-  order.forEach(([j, l], i) => {
-    const s = STACKS[j];
-    // sparse first drops, then a downpour: start times bunch up towards the end
-    const a = i < N - 1 ? RAIN_A + (RAIN_B - RAIN_A) * Math.pow(i / (N - 2), .62) : LOG_AT;
-    F.start[i] = a; F.land[i] = a + FALL * LAND; F.stack[i] = j; F.type[i] = s.type; F.slot[i] = slots[s.type]++;
-    F.tx[i] = CX + s.x + (rnd() - .5) * .03; F.ty[i] = Y0 + PAD + TH / 2 + l * PITCH; F.tz[i] = s.z + (rnd() - .5) * .03; F.yaw[i] = (rnd() - .5) * .1;
-    F.sx[i] = F.tx[i] + (rnd() - .5) * 2.4; F.sy[i] = 4.5 + rnd() * 1.5; F.sz[i] = F.tz[i] + (rnd() - .5) * 1.6;
-    F.rx[i] = (rnd() - .5) * 2.8; F.ry[i] = (rnd() - .5) * 4.4; F.rz[i] = (rnd() - .5) * 2.4; F.ph[i] = rnd() * Math.PI * 2;
-    if (l === 0) { firstStart[j] = a; firstLand[j] = F.land[i]; }
-    if (TREATED.some(([tj, tl]) => tj === j && tl === l)) F.treated[i] = 1;
-  });
-  for (let i = 0; i < N; i++) band.setColorAt(i, new THREE.Color(1, 1, 1));
-  // a ring that blooms out of a stack whenever a file lands on it
-  const ringGeo = new THREE.RingGeometry(.3, .36, 40).rotateX(-Math.PI / 2);
-  const rings = STACKS.map(s => { const m = new THREE.Mesh(ringGeo, additive(TYPES[s.type].color)); m.position.set(CX + s.x, 0, s.z); m.visible = false; set.add(m); return m; });
+  /* ---- the robot ---- */
+  const bot = kit.robot(PALETTE.cream, EYE);
+  bot.root.scale.setScalar(S); set.add(bot.root);
+  const walk = walker(WALK), where = { x: 0, z: 0, yaw: 0, walking: 0 };
 
-  /* ---- what the copy names while it rains: the variables, the treated observations, the open items ---- */
-  const tag = (key, lines, w, h, x, y, z) => {
-    const tex = labelTexture(`film-econ-task-${key}`, lines, { width: 768, height: Math.round(768 * h / w), bg: 'rgba(9,14,28,.82)' });
-    const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ map: tex, transparent: true, opacity: 0, depthWrite: false, fog: false }));
-    m.position.set(x, y, z); m.renderOrder = 4; m.visible = false; set.add(m);
-    return m;
-  };
-  const MONO = '"Space Mono", ui-monospace, monospace', TAGX = .72, TAGY = 2.5, TAGZ = .55; // over the setter, clear of the rain
-  const varsTag = tag('vars', [
-    { text: 'comp', size: 150, weight: 700, color: '#9ff3ee', font: MONO, track: 2 },
-    { text: 'inspectmain', size: 104, weight: 700, color: '#ffffff', font: MONO, track: 1 },
-  ], 1.5, .78, TAGX, TAGY, TAGZ);
-  const treatTag = tag('treated', [
-    { text: '180 / 3,246', size: 132, weight: 800, color: '#ffd27a', track: 1 },
-    { text: 'treated', size: 88, weight: 600, color: '#f2b545', track: 6 },
-  ], 1.5, .78, TAGX, TAGY, TAGZ);
-  const setTag = tag('settings', [
-    { text: 'FE · cohort', size: 118, weight: 700, color: '#ffffff', track: 1 },
-    { text: 'control · cluster', size: 118, weight: 700, color: '#9ff3ee', track: 1 },
-  ], 1.5, .78, TAGX, TAGY, TAGZ);
-  // a spark over each treated tile
-  const treatSparks = TREATED.map(() => { const sp = util.glowSprite(AMBER, .5, 0); set.add(sp); return sp; });
-  // the deliverable: three empty places on the floor, in front of the container
-  const OPEN = [['coef', 'β'], ['se', 'SE'], ['p', 'p']].map(([key, text], k) => {
-    const x = CX - .78 + k * .78, z = 1.72;
-    const m = glow(AMBER, .2);
-    const ringMesh = flat(new THREE.TorusGeometry(.27, .02, 8, 48), m, x, .012, z); ringMesh.rotation.x = Math.PI / 2;
-    const tex = labelTexture(`film-econ-task-open-${key}`, [{ text, size: 190, weight: 800, color: '#ffd27a', track: 2 }], { width: 256, height: 256 });
-    const face = new THREE.Mesh(new THREE.PlaneGeometry(.36, .36), new THREE.MeshBasicMaterial({ map: tex, transparent: true, opacity: 0, depthWrite: false }));
-    face.rotation.x = -Math.PI / 2 + .3; face.position.set(x, .06, z); face.renderOrder = 2; set.add(face);
-    const bloom = new THREE.Mesh(ringGeo, additive(AMBER)); bloom.position.set(x, .02, z); bloom.visible = false; set.add(bloom);
-    return { m, face, bloom, ringMesh, at: OPEN_AT + k * .012 };
-  });
+  hand.task = { id: 'econ-0157', rows: ROWS, years: YEARS.map(y => ({ year: y.key, color: y.color, rows: y.rows })), checks: 3 };
 
-  /* ---- the vault: a heavy dark shell, an amber-lit inside, a door with a wheel and three bolts ---- */
-  const VX = 2.45, VZ = -.2, VW = 1.45, VH = 1.6, VD = 1.2, VT = .2, VF = .1;
-  const vault = new THREE.Group(); vault.position.set(VX, 0, VZ); vault.rotation.y = -.14; set.add(vault);
-  const steel = mat(0x252e48, { rough: .55 }), steelHi = mat(0x313d5e, { rough: .45 }), gilt = mat(GILT, { rough: .35 });
-  for (const sx of [-1, 1]) for (const sz of [-1, 1]) cyl(vault, .07, .09, VF, PALETTE.ink, sx * (VW / 2 - .18), 0, sz * (VD / 2 - .18), 12);
-  block(vault, VW, VT, VD, steel, 0, VF, 0, .08);
-  block(vault, VW, VT, VD, steel, 0, VF + VH - VT, 0, .08);
-  for (const sx of [-1, 1]) block(vault, VT, VH, VD, steel, sx * (VW / 2 - VT / 2), VF, 0, .08);
-  block(vault, VW, VH, VT, steel, 0, VF, -VD / 2 + VT / 2, .08);
-  const innerMat = glow(AMBER, .8);
-  block(vault, VW - 2 * VT, VH - 2 * VT, .03, innerMat, 0, VF + VT, -VD / 2 + VT + .015, .01).castShadow = false;
-  block(vault, VW - 2 * VT, .02, VD - VT, mat(0x3b2a14, { emissive: AMBER, intensity: .18 }), 0, VF + VT, VT / 2, .01).castShadow = false;
-  flat(rbox(VW + .04, .04, VD + .04, .02), glowMat(AMBER, .7), 0, VF + .03, 0, vault);
-  // the cradle the rubric comes to rest on
-  block(vault, .62, .12, .34, steelHi, 0, VF + VT, -.1, .03);
-  flat(rbox(.66, .025, .38, .01), glowMat(AMBER, 1.1), 0, VF + VT + .125, -.1, vault);
-  const trim = glowMat(AMBER, .8), OW = VW - 2 * VT, OH = VH - 2 * VT, oy = VF + VH / 2;
-  for (const sy of [-1, 1]) flat(rbox(OW + .07, .035, .035, .015), trim, 0, oy + sy * (OH / 2 + .02), VD / 2 + .005, vault);
-  for (const sx of [-1, 1]) flat(rbox(.035, OH + .07, .035, .015), trim, sx * (OW / 2 + .02), oy, VD / 2 + .005, vault);
-  const lampMat = mat(0x3a2d14, { emissive: AMBER, intensity: .15 }).clone();
-  cyl(vault, .1, .11, .05, PALETTE.ink, 0, VF + VH, VD / 2 - .2, 16);
-  ball(vault, .07, lampMat, 0, VF + VH + .09, VD / 2 - .2, 16);
-  const BOLT_Y = [-.45, 0, .45];
-  BOLT_Y.forEach(y => block(vault, .11, .13, .2, steelHi, -VW / 2 + .055, oy + y - .065, VD / 2 + .1, .03));
-  const innerGlow = util.glowSprite(AMBER, 1.9, .5); innerGlow.position.set(0, oy, VD / 2 - .25); vault.add(innerGlow);
-  // the door: hinged on the right edge, centred on the opening when shut
-  const DW = VW - .1, DH = VH - .1, DT = .14;
-  const hinge = new THREE.Group(); hinge.position.set(VW / 2 - .03, oy, VD / 2 + .01); vault.add(hinge);
-  const door = new THREE.Group(); door.position.x = -DW / 2 + .02; hinge.add(door);
-  add(door, rbox(DW, DH, DT, .07), steelHi, 0, 0, DT / 2);
-  add(door, rbox(DW - .26, DH - .26, .04, .03), steel, 0, 0, DT + .012);
-  for (const y of [-.48, .48]) cyl(hinge, .05, .05, .26, PALETTE.ink, 0, y - .13, .07, 12);
-  const wheel = new THREE.Group(); wheel.position.set(0, 0, DT + .06); door.add(wheel);
-  const ringMat = glow(AMBER, 1.6);
-  flat(new THREE.TorusGeometry(.28, .036, 10, 56), ringMat, 0, 0, 0, wheel);
-  add(wheel, new THREE.CylinderGeometry(.095, .095, .08, 24), steelHi, 0, 0, 0).rotation.x = Math.PI / 2;
-  ball(wheel, .05, ringMat, 0, 0, .05, 14);
-  for (let k = 0; k < 3; k++) {
-    const spoke = new THREE.Group(); spoke.rotation.z = k * Math.PI * 2 / 3; wheel.add(spoke);
-    block(spoke, .04, .38, .04, gilt, 0, 0, 0, .015);
-    ball(spoke, .048, ringMat, 0, .4, 0, 12);
-  }
-  const BOLT_X = -DW / 2 + .2;
-  const bolts = BOLT_Y.map(y => { const b = add(door, new THREE.CylinderGeometry(.045, .045, .3, 14), gilt, BOLT_X, y, DT + .03); b.rotation.z = Math.PI / 2; return b; });
-  // the shock ring of the lock
-  const shock = new THREE.Mesh(new THREE.RingGeometry(.74, .8, 72).rotateX(-Math.PI / 2), additive(AMBER));
-  shock.position.set(VX, .03, VZ); shock.visible = false; set.add(shock);
-
-  /* ---- the task setter, and a tablet with the agent's time limit on its face ---- */
-  const EX = .95, EZ = 1.12, EYAW = .32, ES = 1.12;
-  const expert = kit.person(2);
-  expert.root.position.set(EX, 0, EZ); expert.root.rotation.y = EYAW; expert.root.scale.setScalar(ES); set.add(expert.root);
-  const torso = expert.root.children[0];
-  const arms = torso.children.filter(c => c.isGroup && Math.abs(c.position.x) > .2 && c.position.y > .5);
-  const head = torso.children.find(c => c.isGroup && c.position.x === 0 && c.position.y > .6);
-  const tablet = new THREE.Group(); set.add(tablet);
-  const TW = .62, THT = .46;
-  add(tablet, rbox(TW, THT, .06, .05), mat(0xf7f5f0), 0, 0, 0);
-  const tabEdgeMat = glow(AMBER, 1.4);
-  flat(rbox(TW + .05, THT + .05, .026, .03), tabEdgeMat, 0, 0, -.014, tablet);
-  const rubricTex = labelTexture('film-econ-task-limit', [
-    { text: '30', size: 300, weight: 800, color: '#b9770f', track: -4 },
-    { text: 'min', size: 210, weight: 800, color: '#b9770f', track: 2 },
-  ], { width: 1024, height: 740 });
-  const face = new THREE.Mesh(new THREE.PlaneGeometry(TW * .94, THT * .94), new THREE.MeshStandardMaterial({ map: rubricTex, transparent: true, roughness: .8 }));
-  face.position.z = .031; tablet.add(face);
-  const tabGlow = util.glowSprite(AMBER, 1.2, .35); tabGlow.position.z = -.06; tablet.add(tabGlow);
-  // where it is held (set coordinates), where it goes, and the arc between
-  const P0 = new THREE.Vector3(0, .44, .31).multiplyScalar(ES).applyAxisAngle(new THREE.Vector3(0, 1, 0), EYAW).add(new THREE.Vector3(EX, 0, EZ));
-  vault.updateMatrix();
-  const P2 = new THREE.Vector3(0, VF + VT + .14 + THT * .42, -.1).applyMatrix4(vault.matrix);
-  const P0up = P0.clone(); P0up.y += .13;
-  const P1 = P0up.clone().lerp(P2, .5); P1.y += 1.25; P1.z += .55;
-  const bez = (out, s) => { const a = 1 - s; return out.set(a * a * P0up.x + 2 * a * s * P1.x + s * s * P2.x, a * a * P0up.y + 2 * a * s * P1.y + s * s * P2.y, a * a * P0up.z + 2 * a * s * P1.z + s * s * P2.z); };
-  const trail = Array.from({ length: 6 }, (_, k) => { const s = util.glowSprite(AMBER, .42 - k * .045, 0); set.add(s); return s; });
-
-  // Later beats may want the task's facts; data only, they build their own objects.
-  hand.task = { id: 'econ-0157', rows: ROWS, years: TYPES.map(ty => ({ year: ty.key, color: ty.color, rows: ty.rows })), checks: 3 };
-
-  /* ---- the camera: high and wide over the open container, then down to three-quarters ---- */
-  const camera = {
-    from: { pos: [-3.0, 10.6, 10.2], look: [-.2, .6, 0], fov: 38 },
-    to: { pos: [3.2, 4.4, 11.6], look: [-.05, .9, 0], fov: 30 },
-  };
-  const LOOK_Y = camera.to.look[1];
-  // Beside the copy the framework shifts the picture right, so the look target sits left of the
-  // composition; with the copy stacked below (same query as the framework) it centres on it.
+  /* ---- the camera: high over the whole table, then down to a three-quarter view from the right ---- */
+  const FROM = { pos: [-2.2, 9.0, 9.8], look: [.7, .1, -.1], fov: 38 }, TO = { pos: [1.5, 5.6, 12.2], look: [.55, .4, -.1], fov: 31 };
+  const camera = { from: { pos: [...FROM.pos], look: [...FROM.look], fov: FROM.fov }, to: { pos: [...TO.pos], look: [...TO.look], fov: TO.fov } };
   const stackedQuery = layout ? null : matchMedia('(max-width: 600px), (max-aspect-ratio: 11/10)');
   const isStacked = () => (layout ? layout.stacked : stackedQuery.matches);
-
-  const dummy = new THREE.Object3D(), camQuat = viewCamera.quaternion;
-  const cTeal = new THREE.Color(TEAL), cAmber = new THREE.Color(AMBER);
-  const stackCount = new Uint8Array(6), stackLast = new Float32Array(6), amber = [1, .72, .2];
-  const colors = band.instanceColor.array;
-  let lastL = -1, flying = 1, landed = 0, flashSum = 0, lastT = -1;
-
-  function placeFiles(L, T) {
-    stackCount.fill(0); stackLast.fill(-1);
-    landed = 0; flying = 0; flashSum = 0;
-    for (let i = 0; i < N; i++) {
-      const u = (L - F.start[i]) / FALL, ty = F.type[i];
-      let level = .78;
-      if (u <= 0) {
-        dummy.position.set(F.sx[i], F.sy[i], F.sz[i]); dummy.rotation.set(0, 0, 0); dummy.scale.set(0, 0, 0);
-      } else if (u < LAND) {
-        // the fall: drift in early, drop under gravity, tumble flat just before the stack
-        const f = u / LAND, h = 1 - (1 - f) * (1 - f), e = smooth(f), loose = 1 - f, drop = .4 * f + .6 * f * f, born = Math.min(1, f / .14);
-        dummy.position.set(
-          F.sx[i] + (F.tx[i] - F.sx[i]) * h + Math.sin(T * 2.3 + F.ph[i]) * .07 * loose,
-          F.sy[i] + (F.ty[i] - F.sy[i]) * drop,
-          F.sz[i] + (F.tz[i] - F.sz[i]) * h + Math.cos(T * 1.9 + F.ph[i]) * .05 * loose);
-        dummy.rotation.set(F.rx[i] * (1 - e) + Math.sin(T * 3.1 + F.ph[i]) * .25 * loose, F.yaw[i] + F.ry[i] * (1 - e), F.rz[i] * (1 - e) + Math.cos(T * 2.7 + F.ph[i]) * .25 * loose);
-        // each file arrives out of the beam: it swells from a spark, white-hot, then cools to its colour
-        dummy.scale.setScalar(.2 + .8 * ease3(born));
-        level = 1.15 + 3.5 * (1 - smooth(f / .3)); flying++;
-      } else {
-        // the landing: squash, a small hop and a wobble that die away
-        const s = Math.min(1, (u - LAND) / (1 - LAND)), k = (1 - s) ** 3, sq = k * Math.cos(s * Math.PI * 2.5) * .32;
-        dummy.position.set(F.tx[i], F.ty[i] + .07 * Math.sin(s * Math.PI) * (1 - s) - sq * TH / 2, F.tz[i]);
-        dummy.rotation.set(.12 * Math.sin(s * Math.PI * 2) * (1 - s) * (1 - s) * (F.ph[i] > 3 ? 1 : -1), F.yaw[i], 0);
-        dummy.scale.set(1 + sq * .4, 1 - sq, 1 + sq * .4);
-        const age = L - F.land[i], fl = pulse(age, .012);
-        level = .78 + 3.2 * fl; flashSum += fl;
-        landed++;
-        const j = F.stack[i]; stackCount[j]++; if (F.land[i] > stackLast[j]) stackLast[j] = F.land[i];
-      }
-      dummy.updateMatrix();
-      body.setMatrixAt(i, dummy.matrix); band.setMatrixAt(i, dummy.matrix); labels[ty].setMatrixAt(F.slot[i], dummy.matrix);
-      const c = tint[ty], tr = F.treated[i] ? smooth((L - Math.max(TREAT_AT, F.land[i])) / .03) : 0, lv = level + tr * (1.1 + .25 * Math.sin(T * 3 + i));
-      colors[i * 3] = (c[0] + (amber[0] - c[0]) * tr) * lv; colors[i * 3 + 1] = (c[1] + (amber[1] - c[1]) * tr) * lv; colors[i * 3 + 2] = (c[2] + (amber[2] - c[2]) * tr) * lv;
-    }
-    body.instanceMatrix.needsUpdate = band.instanceMatrix.needsUpdate = band.instanceColor.needsUpdate = true;
-    for (const m of labels) m.instanceMatrix.needsUpdate = true;
-    // each stack's pad wakes as its first file nears, and its ring blooms on every landing
-    for (let j = 0; j < 6; j++) {
-      const n = stackCount[j], age = L - stackLast[j];
-      pads[j].emissiveIntensity = n ? .55 + 1.6 * pulse(age, .012) : .12 + .75 * smooth((L - firstStart[j]) / (firstLand[j] - firstStart[j]));
-      const ring = rings[j];
-      if (n && age < .03) {
-        ring.visible = true; ring.position.y = Y0 + PAD + n * PITCH + .01;
-        ring.scale.setScalar(1 + ease3(age / .03) * 1.4); ring.material.opacity = .9 * (1 - age / .03);
-      } else ring.visible = false;
-    }
-  }
+  const dummy = new THREE.Object3D(), camQuat = viewCamera.quaternion, cTeal = new THREE.Color(TEAL), cAmber = new THREE.Color(AMBER);
 
   return {
     camera,
     update(lp, t, dt, ui) {
-      const L = reduce ? 1 : lp, T = reduce ? 0 : t;
-      if (L !== lastL || flying || T !== lastT) { placeFiles(L, T); lastL = L; lastT = T; }
-      // the copy's figure counts the rows that have landed, to 3,246
-      let rows = 0;
-      for (let j = 0; j < 6; j++) rows += Math.round(TYPES[STACKS[j].type].rows * stackCount[j] / STACKS[j].n);
-      ui.set('files', rows.toLocaleString('en-US'));
+      const L = reduce ? 1 : lp, T2 = reduce ? 0 : t;
 
-      /* the tags, one at a time: the variables, the treated observations, the four settings the task states */
-      [[varsTag, VARS_AT, TREAT_AT - .025], [treatTag, TREAT_AT, SET_AT - .025], [setTag, SET_AT, OPEN_AT + .03]].forEach(([m, at, out], k) => {
-        const up = smooth((L - at) / .03), o = up * (1 - smooth((L - out) / .025));
-        m.visible = o > .01; m.material.opacity = o;
-        m.position.y = TAGY - (1 - ease3(Math.min(1, Math.max(0, (L - at) / .04)))) * .3 + Math.sin(T * 1.3 + k) * .02;
-        m.quaternion.copy(camQuat);
-      });
-      let ts = 0;
+      /* the robot and the file it carries */
+      walk(L, where);
+      bot.root.position.set(where.x, 0, where.z); bot.root.rotation.y = where.yaw;
+      const carry = 1 - lin(L, T.insertA, T.insertB);
+      bot.grip(sm(lin(carry, 0, .5)));
+      bot.update(T2, where.walking);
+      const fly = sm(lin(L, T.insertA, T.insertB)), sx = Math.sin(where.yaw), cz = Math.cos(where.yaw);
+      const hx = where.x + sx * .42, hz = where.z + cz * .42, slotX = READER.x - .2;
+      file.position.set(mix(hx, slotX, fly), mix(.5, .26, fly) + Math.sin(Math.PI * fly) * .25, mix(hz, READER.z, fly));
+      file.rotation.y = where.yaw + HALF * fly * 0;
+      file.scale.setScalar(1 - .75 * sm(lin(L, T.insertB - .006, T.insertB + .004)));
+      file.visible = L < T.insertB + .004;
+      const fed = pulse(L, T.insertB, .004, .03), rolling = window01(L, T.insertB, T.insertB + .01, T.rollB, T.rollB + .03);
+      slotMat.emissiveIntensity = .6 + 4 * fed + 1.2 * rolling * (.6 + .4 * Math.sin(T2 * 9));
+      cableMat.emissiveIntensity = .3 + 3 * fed + 1.6 * rolling * (.6 + .4 * Math.sin(T2 * 9 + 1));
+      fileName.material.opacity = window01(L, T.insertB, T.insertB + .02, .25, .28); // gone once the robot walks on
+      fileName.quaternion.copy(camQuat);
+
+      /* the panel */
+      const bars = lin(L, T.barsA, T.barsB);
+      let shown = 0;
       for (let i = 0; i < N; i++) {
-        if (!F.treated[i]) continue;
-        const on = smooth((L - Math.max(TREAT_AT, F.land[i])) / .03), sp = treatSparks[ts++];
-        sp.visible = on > .01; sp.position.set(F.tx[i], F.ty[i] + .1, F.tz[i]);
-        sp.material.opacity = on * (.55 + .2 * Math.sin(T * 3 + i)); sp.scale.setScalar(.42 + .5 * pulse(L - Math.max(TREAT_AT, F.land[i]), .02));
+        const q = cell[i], a = lin(L, q.start, q.start + T.pop);
+        shown += a;
+        const pop = a <= 0 ? 0 : outBack(a, 1.4);
+        // the heights arrive as a wave from the axis' corner
+        const hk = sm(lin(bars, (q.c + q.r * .35) / 12, (q.c + q.r * .35) / 12 + .45));
+        const tk = sm(lin(L, q.treatAt, q.treatAt + .012)), hit = pulse(L, q.treatAt, .004, .02);
+        dummy.position.set(q.x, .012 + .05 * tk + .1 * hit, q.z);
+        dummy.scale.set(pop, pop * mix(.5, q.h, hk) * (1 + .12 * hit), pop);
+        dummy.rotation.set(0, 0, 0); dummy.updateMatrix();
+        tiles.setMatrixAt(i, dummy.matrix);
+        const born = pulse(L, q.start + T.pop * .5, .004, .016);
+        col.copy(q.base).lerp(amberCol, tk).lerp(white, Math.min(1, born * .7 + hit * .6));
+        tiles.setColorAt(i, col);
       }
-      /* the open items: three rings that light in turn and keep waiting */
-      for (const o of OPEN) {
-        const on = smooth((L - o.at) / .02), age = L - o.at;
-        o.m.emissiveIntensity = .2 + on * (1.2 + .35 * Math.sin(T * 2.4 + o.at * 90)) + 3 * pulse(age, .012);
-        o.face.material.opacity = on; o.m.opacity = on; o.ringMesh.visible = on > .01;
-        if (age >= 0 && age < .035) { o.bloom.visible = true; o.bloom.scale.setScalar(.8 + ease3(age / .035) * 1.3); o.bloom.material.opacity = .9 * (1 - age / .035); }
-        else o.bloom.visible = false;
+      tiles.instanceMatrix.needsUpdate = true; tiles.instanceColor.needsUpdate = true;
+      ui.set('files', Math.round(ROWS * shown / N).toLocaleString('en-US'));
+      yearLabels.forEach((m, c) => { m.material.opacity = sm(lin(L, T.rollA + .02 + c * .012, T.rollA + .05 + c * .012)); });
+
+      /* the variables */
+      const ax = outBack(lin(L, T.axisA, T.axisA + .03), 1.2);
+      compAxis.group.scale.setScalar(Math.max(.001, ax)); compAxis.group.visible = ax > 0;
+      compAxis.mat.emissiveIntensity = 1.2 + 2.5 * pulse(L, T.axisA + .02, .004, .03);
+      compName.material.opacity = sm(lin(L, T.axisA + .015, T.axisA + .04));
+      compName.quaternion.copy(camQuat);
+      const lg = outBack(lin(L, T.legendA, T.legendA + .03), 1.2);
+      legend.position.y = -1.6 * (1 - lg); legend.visible = lg > 0;
+      legendName.material.opacity = sm(lin(L, T.legendA + .01, T.legendA + .035));
+      legendCount.material.opacity = sm(lin(L, T.tagA, T.tagA + .02));
+      const tagHit = pulse(L, T.tagA, .004, .03);
+      legendEdge.emissiveIntensity = 1 + 2.4 * tagHit + .15 * Math.sin(T2 * 2);
+
+      /* the control group */
+      const fr = sm(lin(L, T.frameA, T.frameA + .02)), frHit = pulse(L, T.frameA + .012, .004, .03), ctlHit = pulse(L, T.posts[2] + .012, .004, .03);
+      frame.visible = fr > 0;
+      frameMat.emissiveIntensity = (1.6 + 3 * frHit + 3 * ctlHit) * fr;
+      controlName.material.opacity = sm(lin(L, T.frameA + .01, T.frameA + .035));
+
+      /* the settings */
+      for (const p of posts) {
+        const k = outBack(lin(L, p.at, p.at + .022), 1.3);
+        p.g.position.y = -1.9 * (1 - k); p.g.visible = k > 0;
+        p.edge.emissiveIntensity = 1.1 + 3 * pulse(L, p.at + .014, .004, .03) + .12 * Math.sin(T2 * 2 + p.at * 90);
       }
+      const fe = pulse(L, T.posts[0] + .012, .006, .035), cl = pulse(L, T.posts[3] + .012, .006, .035), co = pulse(L, T.posts[1] + .012, .006, .035);
+      rowMat.opacity = .85 * Math.max(fe, cl); colMat.opacity = .85 * fe;
+      const ok = outBack(lin(L, T.queryA, T.queryA + .025), 1.3);
+      open.position.y = -1.9 * (1 - ok); open.visible = ok > 0;
+      query.material.opacity = sm(lin(L, T.queryA + .02, T.queryA + .04)) * (.7 + .3 * Math.sin(T2 * 2.4));
+      query.position.y = 1.85 + Math.sin(T2 * 1.6) * .04; query.quaternion.copy(camQuat);
 
-      /* the container: beam while it rains, the lid's fall, edges that answer landings and the slam */
-      const rain = (.5 + .5 * smooth(L / .05)) * (1 - smooth((L - .5) / .07));
-      beamMat.uniforms.opacity.value = .55 * rain * (.9 + .1 * Math.sin(T * 3));
-      beam.visible = rain > .001;
-      const lc = clamp((L - LID_A) / (LID_B - LID_A)), lidAge = L - LID_B;
-      lid.rotation.x = L < LID_B ? -1.92 * (1 - lc * lc) : -hops(lidAge, .032, .13);
-      const lidFlash = pulse(lidAge, .018);
-      edgeMat.emissiveIntensity = 1.35 + .15 * Math.sin(T * 1.6) + .45 * Math.min(1, flashSum) + 3.2 * lidFlash;
-      floorMat.emissiveIntensity = .18 + .35 * landed / N + .45 * Math.min(1.5, flashSum) + 1.2 * lidFlash;
-
-      /* the setter: watches the rain, lifts the tablet, lets it go, watches the vault lock */
-      expert.update(T, 0);
-      const charge = smooth((L - LIFT_A) / (FLY_A - LIFT_A));
-      let arm;
-      if (L < FLY_A) arm = -1.0 + .03 * Math.sin(T * 1.7) - .3 * charge;
-      else if (L < FLY_A + .025) arm = lerp(-1.3, -1.6, smooth((L - FLY_A) / .025));
-      else arm = lerp(-1.6, 0, smooth((L - FLY_A - .025) / .05));
-      arms[0].rotation.x = arms[1].rotation.x = arm;
-      if (head) {
-        const watch = smooth((L - FLY_A) / .07), nod = Math.sin(clamp((L - CLICK - .004) / .035) * Math.PI);
-        head.rotation.y += lerp(-.55 + Math.sin(T * .45) * .12, .9, watch);
-        head.rotation.x = .28 * charge * (1 - watch) + .2 * nod;
+      /* the sockets and the dial */
+      for (const s of sockets) {
+        const k = sm(lin(L, s.at, s.at + .012)), hit = pulse(L, s.at, .004, .025);
+        s.ringMat.emissiveIntensity = .2 + 1.3 * k + 3.5 * hit + .25 * k * Math.sin(T2 * 2.2 + s.at * 60);
+        s.label.material.opacity = k;
+        const open2 = outBack(lin(L, s.at - .012, s.at + .006), 1.6);
+        s.g.scale.setScalar(Math.max(.001, open2)); s.g.visible = open2 > 0;
       }
+      const dk = outBack(lin(L, T.dialA, T.dialA + .025), 1.3);
+      dial.scale.setScalar(Math.max(.001, dk)); dial.visible = dk > 0;
+      dialMat.emissiveIntensity = 1.2 + 2.5 * pulse(L, T.dialA + .016, .004, .03);
+      handPivot.rotation.z = -.5 - T2 * .5;
 
-      /* the tablet: in hand, then an arc into the vault with a trail of light */
-      const fc = clamp((L - FLY_A) / (FLY_B - FLY_A)), fe = smooth(fc), flight = fc > 0 && fc < 1 ? Math.sin(fc * Math.PI) : 0;
-      if (fc <= 0) {
-        tablet.position.copy(P0); tablet.position.y += .13 * charge + Math.sin(T * 1.7) * .015;
-        tablet.rotation.set(-.24 * (1 - charge), EYAW, 0); tablet.scale.setScalar(1);
-      } else {
-        bez(tablet.position, fe);
-        if (fc >= 1) tablet.position.y += Math.sin(T * 2) * .01;
-        tablet.rotation.set(-.24 * (1 - fe) + .18 * flight, lerp(EYAW, vault.rotation.y, fe), -.32 * flight);
-        tablet.scale.setScalar(lerp(1, .84, fe));
-      }
-      const landedIn = pulse(L - FLY_B, .015);
-      tabEdgeMat.emissiveIntensity = 1.4 + .3 * Math.sin(T * 2) + 2.2 * charge * (1 - fc) + 3 * flight + 2 * landedIn;
-      tabGlow.material.opacity = .3 + .25 * charge + .4 * flight;
-      for (let k = 0; k < trail.length; k++) {
-        const s = fe - (k + 1) * .045;
-        trail[k].visible = flight > .01 && s > 0;
-        if (trail[k].visible) { bez(trail[k].position, s); trail[k].material.opacity = flight * .7 * (1 - k / trail.length); }
-      }
+      /* the table's edge answers the file, the staircase and the open item (cohort flash: amber) */
+      const edgeAmber = Math.max(co, tagHit, pulse(L, T.queryA + .02, .004, .04));
+      table.rimMat.color.copy(cTeal).lerp(cAmber, Math.min(1, edgeAmber)); table.rimMat.emissive.copy(table.rimMat.color);
+      table.rimMat.emissiveIntensity = 1.1 + .2 * Math.sin(T2 * 1.5) + 2.5 * fed + 1.6 * edgeAmber + 1.2 * frHit;
 
-      /* the vault: a creak while open, a wind-up, the swing, the slam; then the wheel and the click */
-      const O = 1.95;
-      let ang;
-      if (L < DOOR_ANT) ang = O + .03 * Math.sin(T * .8) * (1 - smooth((L - DOOR_ANT + .03) / .03));
-      else if (L < DOOR_A) ang = O + .12 * Math.sin(Math.PI * (L - DOOR_ANT) / (DOOR_A - DOOR_ANT));
-      else if (L < DOOR_B) { const c = (L - DOOR_A) / (DOOR_B - DOOR_A); ang = O * (1 - c * c); }
-      else ang = hops(L - DOOR_B, .03, .1);
-      hinge.rotation.y = ang;
-      const slam = L - DOOR_B;
-      vault.position.x = VX + jolt(slam, .022, .035);
-      innerMat.emissiveIntensity = .75 + .2 * Math.sin(T * 2.2) + 3 * landedIn;
-      innerGlow.material.opacity = .32 * clamp(ang / O * 1.6) * (1 + 1.5 * landedIn);
-      const spin = clamp((L - SPIN_A) / (CLICK - SPIN_A)), click = clamp((L - CLICK) / .012), ca = L - CLICK;
-      wheel.rotation.z = -Math.PI * 2.5 * ease3(spin) - .45 * backOut(click);
-      const bo = backOut(clamp((L - CLICK - .002) / .01));
-      for (const b of bolts) b.position.x = BOLT_X - .19 * bo;
-      const flare = pulse(ca, .014);
-      ringMat.emissiveIntensity = 1.5 + 1.4 * spin * (1 - click) + 5 * flare + (L > CLICK + .02 ? .25 * Math.sin(T * 2) : 0);
-      lampMat.emissiveIntensity = L < CLICK ? .15 : 1.8 + 3.5 * pulse(ca, .01) + .3 * Math.sin(T * 2.4);
-      if (ca >= 0 && ca < .035) {
-        const s = ca / .035; shock.visible = true;
-        shock.position.x = vault.position.x; shock.scale.setScalar(1 + 2.4 * ease3(s)); shock.material.opacity = (1 - s) ** 2.2;
-      } else shock.visible = false;
-
-      /* the plinth's rim: teal, flaring with the lid; amber for a moment when the lock clicks */
-      const lockFlash = pulse(ca, .03);
-      rimMat.color.copy(cTeal).lerp(cAmber, lockFlash); rimMat.emissive.copy(rimMat.color);
-      rimMat.emissiveIntensity = 1.1 + .2 * Math.sin(T * 1.5) + 2 * lidFlash + 2.6 * lockFlash;
-
-      /* a small kick of the camera on the slam and the click */
-      // stacked: the frame follows the rubric to the vault as it is locked away, so the punchline stays in
-      const stacked = isStacked(), vx = stacked ? .6 * smooth((L - .55) / .25) : 0;
-      camera.from.look[0] = (stacked ? .25 : -.2) + vx;
-      camera.to.look[0] = (stacked ? .42 : -.05) + vx;
-      camera.to.look[1] = LOOK_Y + jolt(slam, .02, .035) + jolt(ca, .016, .025) + jolt(lidAge, .016, .02);
+      /* stacked (the copy below the picture): the frame centres on the table */
+      const stacked = isStacked();
+      FROM.look[0] = stacked ? .6 : .7; TO.look[0] = stacked ? .7 : .55;
+      aim(camera.from, FROM.pos, FROM.look, FROM.fov, viewCamera.aspect); aim(camera.to, TO.pos, TO.look, TO.fov, viewCamera.aspect);
     },
   };
 }
