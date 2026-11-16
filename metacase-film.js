@@ -38,8 +38,8 @@ const CASE_BEATS = {
     () => import('./film-grading.js?v=20261109-film'),
     () => import('./film-metacase.js?v=20261111-copypass'),
   ],
-  econ: ['task', 'agent', 'trajectory', 'grading', 'metacase'].map(name => () => import(`./film-econ-${name}.js?v=mc-43427b7fc8`)),
-  soc: ['task', 'agent', 'trajectory', 'grading', 'metacase'].map(name => () => import(`./film-soc-${name}.js?v=mc-43427b7fc8`)),
+  econ: ['task', 'agent', 'trajectory', 'grading', 'metacase'].map(name => () => import(`./film-econ-${name}.js?v=mc-4f512c5f2e`)),
+  soc: ['task', 'agent', 'trajectory', 'grading', 'metacase'].map(name => () => import(`./film-soc-${name}.js?v=mc-4f512c5f2e`)),
 };
 const caseBeats = section => CASE_BEATS[section.dataset.case || 'fin'] || null;
 // The last beat runs every item of the case, so it takes LONG beats of scroll; g counts beats.

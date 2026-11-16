@@ -1,725 +1,386 @@
-/* film-soc-trajectory.js — beat 2 of the social-science Metacase film (HR-T3-114): Trajectory.
- * The armed robot works the task beside a low desk. Every model request pings out of its head;
- * every tool call leaves the harness's muzzle as a ribbon of light, pulls a file out of the
- * container's stacks and comes back, and leaves a thread behind, so the run draws its own
- * trajectory over the set: 86 requests, 85 tool calls. The context rises beside it as a tower of
- * rings, 5k to 208k tokens. It reads all 17 files before it writes anything, recomputes at the
- * terminal (82 / 83 · 59.06, 94.07, 90.27 · 73, 8, 2), and carries the workbook onto the pad in
- * parts. Then the script that builds the memo dies on an IndexError (the first row of an empty
- * table): the set shakes, the eye, the terminal, the threads and the half-written memo go red and
- * the memo cracks. The agent finds the cause, the fix sweeps the set cool from the floor up, the
- * memo snaps together, and it reads both files back: 10 sheets, 3 formula cells.
- *
- * lp timeline   0–.06 establish · .065–.33 reading (R1–R40, all 17 files pulled and lit) ·
- *               .337–.405 recomputation at the terminal, three results shown · .41–.48 the
- *               workbook lands in four parts · .462–.49 the memo rises on top · .48–.52 the run
- *               (charge, lean in) · .52 crash, shake to .58 · .62–.70 the cause and the fix (the
- *               error stays red) · .70–.757 the cool sweep, floor to top · .716 re-form ·
- *               .724–.805 read-back of both files, R86, 85 calls, 208k · .77–.79 the deliverables
- *               light, 10 sheets / 3 formulas · .80 the robot turns to camera · .82–1 the
- *               framework dollies on.
- * Everything is a function of lp; t only adds idle life (breathing, shimmer, flowing threads).
- * Adapted from film-trajectory.js (the finance film's beat 2); all entities and data are synthetic. */
+/* film-soc-trajectory.js — beat 2 of the society Metacase film (HR-T3-114): Actions & execution.
+ * The roll call. The armed robot works the task in the yard, and the people it counts are there:
+ *   lp .00–.21  evidence gathering: it reads the four documents, then every workbook and detail
+ *               file in the racks; each file it reads lifts and its status lamp lights (four stay
+ *               amber). The scoreboard by the fourth hub counts requests, tool calls and tokens.
+ *      .22–.38  recomputation: the racks sink; the 83 supervisors walk out to the 1,377-minute
+ *               line. 82 cross it, one stops at 1,170; three wear amber: 360 minutes each still
+ *               pending, left out of the count. The test means tip up in front.
+ *      .38–.50  stratification: they walk into three pens: 73 can be evaluated, 8 lack
+ *               opportunity, 2 are restricted by leave or transfer.
+ *      .44–.52  the press that builds the files rises; the workbook comes out, ten sheets
+ *      .52–.70  failure: the memo's script takes the first row of an empty table and the press
+ *               jams (red, a shake). The robot finds the empty tray, rewrites the script and runs
+ *               it again: the memo comes out.
+ *      .70–.86  read-back: the ten sheets fan out over the table and the robot scans them: ten
+ *               sheets, three cells with formulas, the rest typed values; R86, 85 calls, 208k.
+ *      .86–1    held; the framework dollies on to the next set.
+ * Everything is a function of lp; t only adds idle life (breathing, shimmer).
+ * All entities, people and figures of this case are synthetic. */
+import { yard, crowd, hub, sign, pen, cameraLine, pathAt, STATUS, lin, sm, ease, mix, backOut, hit } from './film-soc-kit.js?v=mc-1c165fc3e2';
+
+const TYPES = [{ key: 'DOCX', n: 4, color: 0xe9edf5, x: .45 }, { key: 'XLSX', n: 5, color: 0x7d6ad8, x: 1.4 }, { key: 'CSV', n: 8, color: 0x6aa8e8, x: 2.7 }];
+const PENDING = new Set([2, 5, 12, 15]);   // the files whose status is not "reviewed", as the task beat marked them
+const HUB_X = [.1, 1.45, 2.8, 4.15], HUB_Z = -2.45, RACK_Z = -.75;
+const TOK0 = 5, TOK1 = 208;                // the context in thousands of tokens: the first request and the last
+const RUN = { requests: 86, calls: 85 };
+// tool calls made by local progress (piecewise linear): reading, recomputing, sorting, building, fixing, reading back
+const CALLS = [[0, 0], [.015, 1], [.205, 41], [.38, 55], [.5, 62], [.52, 66], [.7, 76], [.8, 85], [1, 85]];
+const T = {
+  read: .02, docStep: .012, fileStep: .0105, racksOut: .208,
+  march: .225, marchSpan: .05, marchLen: .05, tally: .33, means: .345,
+  sort: .385, sortSpan: .04, sortLen: .05,
+  press: .44, sheets: .47, sheetStep: .0045, crash: .52, find: .575, fix: .62, rerun: .66, memo: .675,
+  fan: .712, scan: .735, scanEnd: .785, found: .775, turn: .8,
+};
+const LINE_Z = 1.0, FX0 = .2, FDX = .16, FZ0 = 1.25, FDZ = .2;      // the minutes line and the rows beyond it
+const PENS = [
+  { n: 73, word: 'can be evaluated', x: 1.3, z: -.15, w: 2.45, d: 1.35, cols: 13, color: STATUS.verified, tint: 0x4a7fd4 },
+  { n: 8, word: 'lack opportunity', x: 3.2, z: -.2, w: .95, d: .62, cols: 4, color: 0x6aa8e8, tint: 0x8fb8e8 },
+  { n: 2, word: 'leave or transfer', x: 4.2, z: -.2, w: .7, d: .5, cols: 2, color: 0x9aa3b2, tint: 0x8a93a3 },
+];
+const MX = 2.4, MZ = 1.55, TABLE_X = 3.65;
+const WALK = [[0, -.4, .75], [.205, -.4, .75], [.25, -.45, 1.0], [.44, -.45, 1.0], [.5, .55, 2.7], [1, .55, 2.7]];
+
 export async function build({ THREE, kit, set, accent, loadWeapons, hand, util, camera, reduce, labelTexture, layout }) {
-  const { PALETTE, GUN_HOLD, add, cyl, block, rbox, mat, glowMat } = kit;
-  const { clamp, smooth, ramp, lerp, glowSprite } = util;
-  const expoOut = x => (x >= 1 ? 1 : 1 - Math.pow(2, -10 * clamp(x)));
-  const inOut = x => { x = clamp(x); return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
-  const back = (x, s = 1.9) => { x = clamp(x) - 1; return 1 + (s + 1) * x * x * x + s * x * x; };
-  // up fast, down slow: 0 before a, 1 at peak, 0 again at b
-  const bump = (x, a, peak, b) => (x <= a || x >= b ? 0 : x < peak ? expoOut((x - a) / (peak - a)) : 1 - smooth((x - peak) / (b - peak)));
-  const hash = n => { const s = Math.sin(n * 127.1 + 311.7) * 43758.5453; return s - Math.floor(s); };
-  const C = hex => new THREE.Color(hex);
+  const { PALETTE, GUN_HOLD, add, cyl, block, ball, rbox, mat, glowMat } = kit;
+  const { glowSprite } = util;
+  const ctx = { THREE, kit };
   const V = (x = 0, y = 0, z = 0) => new THREE.Vector3(x, y, z);
   const additive = (color, opacity = 1, extra = {}) => new THREE.MeshBasicMaterial({ color, transparent: true, opacity, blending: THREE.AdditiveBlending, depthWrite: false, ...extra });
-
-  const COL = {
-    call: C(0xb9a9ff), result: C(0x8ff6ff), plan: C(0xf2b545), run: C(0xfff2f0), probe: C(0xe8f6ff), carry: C(0xa8f5c8), binary: C(0xbfc6d4),
-    red: C(0xff2a3d), cool: C(0x7ff6ff), violet: C(accent), sheet: C(0x3f9d6a), doc: C(0x4f8df0), steel: C(0xa9b8d8),
-  };
-
-  /* ---- the layout (set coordinates; the plinth top is y = 0) ---- */
-  const BOT = { x: -.35, z: .45, rot: .12, s: 1.35 };
-  const DESK = { x: .98, z: -.38, rot: -.42 };
-  const PAD = { x: 1.55, z: 1.3, top: .16 };
-  const TOK0 = 5, TOK1 = 208; // the context in thousands of tokens: the first request and the last
-  const TOWER = { x: 2.35, z: -.95, rings: 25, first: 1, y0: .2, dy: .1 };
-  const STACKS = [ // x, z, count, type: 8 CSV, 5 XLSX, 4 DOCX, as the task beat stacked them
-    [-2.45, .5, 4, 0], [-2.5, -.72, 4, 0], [-1.65, -1.78, 3, 1], [-.38, -2.25, 2, 1], [1.2, -1.98, 3, 2], [2.62, .4, 1, 2],
-  ];
-
-  /* ---- the run, as data: 86 requests, filled in below with the calls ---- */
-  const CRASH = .52;
-  const REQ = [];
+  const hash = n => { const s = Math.sin(n * 127.1 + 311.7) * 43758.5453; return s - Math.floor(s); };
+  const VIOLET = accent ?? 0x7d6ad8, RED = 0xff2a3d;
 
   const rig = new THREE.Group(); set.add(rig); // everything shakes together; the camera does not
 
-  /* ---- the plinth, its light pool and the shaft of light over the robot ---- */
-  cyl(rig, 3.3, 3.45, .3, 0x1c2740, 0, -.3, 0, 64);
-  cyl(rig, 3.46, 3.18, .5, 0x111a2d, 0, -.8, 0, 64);
-  const rim = add(rig, new THREE.TorusGeometry(3.38, .03, 8, 128), glowMat(accent, 1.2).clone(), 0, .005, 0, false);
-  rim.rotation.x = Math.PI / 2;
-  const radial = glowSprite(0xffffff, 1).material.map;
-  const pool = new THREE.Mesh(new THREE.CircleGeometry(3.1, 48), additive(0xffffff, 1, { map: radial }));
-  pool.rotation.x = -Math.PI / 2; pool.position.set(BOT.x * .5, .012, 0); rig.add(pool);
-  const shaftTex = (() => {
-    const c = document.createElement('canvas'); c.width = 4; c.height = 256; const g = c.getContext('2d'), gr = g.createLinearGradient(0, 0, 0, 256);
-    gr.addColorStop(0, 'rgba(255,255,255,0)'); gr.addColorStop(.5, 'rgba(255,255,255,.04)'); gr.addColorStop(.86, 'rgba(255,255,255,.3)'); gr.addColorStop(1, 'rgba(255,255,255,.85)');
-    g.fillStyle = gr; g.fillRect(0, 0, 4, 256); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t;
-  })();
-  const shaft = new THREE.Mesh(new THREE.CylinderGeometry(.35, 1.75, 7.5, 48, 1, true), additive(0xffffff, 1, { map: shaftTex, side: THREE.DoubleSide }));
-  shaft.position.set(BOT.x, 3.75, BOT.z - .1); rig.add(shaft);
+  /* ---- the yard, the hubs and the supervisors ---- */
+  const ground = yard({ THREE, kit, set: rig, accent: VIOLET });
+  const hubs = ['HUB-01', 'HUB-02', 'HUB-03', 'HUB-04'].map((name, i) => {
+    const h = hub({ ...ctx, name, color: [PALETTE.teal, PALETTE.sky, PALETTE.violet, 0][i], deferred: i === 3 });
+    h.group.position.set(HUB_X[i], 0, HUB_Z); h.group.scale.setScalar(.92); rig.add(h.group);
+    return h;
+  });
+  const people = crowd({ ...ctx, n: 83 }); rig.add(people.group);
+  // home (in front of the trained hubs), the place at the minutes line, the place in a pen
+  const P = [];
+  for (let i = 0; i < 83; i++) {
+    const g = i % 3, j = Math.floor(i / 3), col = j % 7, row = Math.floor(j / 7);
+    const p = { hx: HUB_X[g] - .51 + col * .17 + (row % 2) * .04, hz: -1.82 + row * .18, ph: hash(i) * 6.28 };
+    if (i < 82) { p.lx = FX0 + (i % 21) * FDX; p.lz = FZ0 + Math.floor(i / 21) * FDZ; } else { p.lx = FX0 + 1.52; p.lz = LINE_Z - .3; } // the last one stops short
+    const s = i < 73 ? 0 : i < 81 ? 1 : 2, q = PENS[s], k = i - [0, 73, 81][s], rows = Math.ceil(q.n / q.cols);
+    p.pen = s; p.px = q.x + ((k % q.cols) - (q.cols - 1) / 2) * .17; p.pz = q.z + (Math.floor(k / q.cols) - (rows - 1) / 2) * .19;
+    P.push(p);
+  }
+  const WAIT = [61, 62, 81];                     // three with 360 minutes pending: in the front row, side by side
+  WAIT.forEach((i, k) => { P[i].lx = FX0 + (18 + k) * FDX; P[i].lz = FZ0 + 3 * FDZ; P[i].wait = true; });
+  { const moved = [P[81].lx]; P[79].lx = FX0 + 19 * FDX; P[79].lz = FZ0 + 2 * FDZ; P[80].lx = FX0 + 20 * FDX; P[80].lz = FZ0 + 2 * FDZ; void moved; }
+  P[61].wait = P[62].wait = P[81].wait = true;
+
+  /* ---- the racks with the 17 files (as the task beat left them), each with its status lamp ---- */
+  const racks = new THREE.Group(); rig.add(racks);
+  TYPES.forEach(ty => {
+    const w = ty.n * .15 + .22;
+    block(racks, w, .1, .42, 0x26324c, ty.x, 0, RACK_Z, .03);
+    block(racks, w, .5, .04, 0x1a2338, ty.x, .1, RACK_Z - .19, .015);
+  });
+  const F = [];
+  TYPES.forEach((ty, k) => { for (let j = 0; j < ty.n; j++) { const i = F.length; F.push({ k, x: ty.x + (j - (ty.n - 1) / 2) * .15, at: i < 4 ? T.read + i * T.docStep : T.read + 4 * T.docStep + (i - 4) * T.fileStep }); } });
+  const files = new THREE.InstancedMesh(rbox(.11, .32, .24, .025), new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: .7 }), 17);
+  files.castShadow = true; files.frustumCulled = false; racks.add(files);
+  F.forEach((f, i) => files.setColorAt(i, new THREE.Color(TYPES[f.k].color)));
+  const lamps = new THREE.InstancedMesh(new THREE.SphereGeometry(.042, 12, 9), new THREE.MeshBasicMaterial({ color: 0xffffff, toneMapped: false }), 17);
+  lamps.frustumCulled = false; racks.add(lamps);
+
+  /* ---- the scoreboard by the fourth hub: requests, tool calls, tokens ---- */
+  const BIG = { size: 112, weight: 800, color: '#ffffff' }, SUB = { size: 62, weight: 700, color: '#c9bcff' };
+  const boardLines = (r, c, k) => [{ ...BIG, text: `R${r}` }, { ...SUB, text: `${c} tool calls` }, { ...SUB, text: `${k}k tokens` }];
+  const board = sign({ ...ctx, key: 'traj-board', w: 1.3, h: .9, color: VIOLET, post: 1.1, px: 512, lines: boardLines(0, 0, TOK0) });
+  board.group.position.set(-.3, 0, -2.5); board.group.rotation.y = .15; rig.add(board.group);
+  let shownReq = -1, shownCall = -1, shownTok = -1;
+
+  /* ---- the minutes line and what the recomputation finds ---- */
+  const roll = new THREE.Group(); roll.visible = false; rig.add(roll);
+  const lineMat = glowMat(PALETTE.amber, 1.3).clone();
+  add(roll, rbox(3.9, .03, .05, .012), lineMat, 1.9, .02, LINE_Z, false);
+  const lineSign = sign({ ...ctx, key: 'traj-line', w: 1.0, h: .38, color: PALETTE.amber, post: .32, px: 512, lines: [{ text: '1,377 min', size: 100, weight: 800, color: '#ffffff' }, { text: '85% of 1,620', size: 44, weight: 600, color: '#f2c96a' }] });
+  lineSign.group.position.set(3.85, 0, LINE_Z - .12); lineSign.group.rotation.y = -.3; roll.add(lineSign.group);
+  const tag = (key, lines, w, h, color) => { const s = sign({ ...ctx, key, w, h, color, px: 384, lines }); roll.add(s.group); return s; };
+  const shortTag = tag('traj-short', [{ text: '1,170', size: 96, weight: 800, color: '#ffffff' }], .5, .22, STATUS.disputed);
+  shortTag.group.position.set(P[82].lx, .5, P[82].lz);
+  const waitTag = tag('traj-wait', [{ text: '360 min pending', size: 54, weight: 800, color: '#ffd27a' }], .98, .2, STATUS.pending);
+  waitTag.group.position.set(FX0 + 19 * FDX, .52, FZ0 + 3 * FDZ);
+  const tally = sign({ ...ctx, key: 'traj-tally', w: 1.0, h: .4, color: STATUS.verified, px: 512, lines: [{ text: '82 / 83', size: 118, weight: 800, color: '#ffffff' }, { text: 'reach 1,377 min', size: 42, weight: 600, color: '#8fe6b4' }] });
+  tally.group.position.set(1.05, .02, 2.42); tally.group.rotation.x = -.95; roll.add(tally.group);
+  const means = sign({ ...ctx, key: 'traj-means', w: 2.0, h: .4, color: PALETTE.teal, px: 768, lines: [{ text: '59.06 · 94.07 · 90.27', size: 80, weight: 800, color: '#ffffff' }, { text: 'mean test scores', size: 38, weight: 600, color: '#9fdcd8' }] });
+  means.group.position.set(2.75, .02, 2.42); means.group.rotation.x = -.95; roll.add(means.group);
+
+  /* ---- the three pens ---- */
+  const pens = PENS.map((q, i) => {
+    const f = pen({ ...ctx, w: q.w, d: q.d, h: .24, color: q.color, gate: Math.min(.6, q.w * .5), gateSide: 1 });
+    f.group.position.set(q.x, 0, q.z); f.group.visible = false; rig.add(f.group);
+    const w = i ? .94 : 1.5;
+    const lines = n => [{ text: String(n), size: i ? 92 : 96, weight: 800, color: '#ffffff' }, { text: q.word, size: i ? 40 : 44, weight: 600, color: '#dfe6f5' }];
+    const s = sign({ ...ctx, key: `traj-pen-${i}`, w, h: .46, color: q.color, post: 1.2, px: i ? 384 : 640, lines: lines(0) });
+    s.group.position.set(q.x, 0, q.z - q.d / 2 - .12); s.group.visible = false; rig.add(s.group);
+    return { ...q, f, s, lines, shown: -1 };
+  });
+
+  /* ---- the press that builds the two files, its table, the workbook's ten sheets and the memo ---- */
+  const press = new THREE.Group(); press.position.set(MX, 0, MZ); press.visible = false; rig.add(press);
+  const pressMat = mat(0x4a5a82, { emissive: RED, intensity: 0 }).clone();
+  block(press, 1.0, .62, .6, pressMat, 0, 0, 0, .06);
+  block(press, .52, .12, .42, 0x2a3550, -.18, .62, 0, .03);
+  block(press, .4, .05, .46, 0x6a7ba6, .68, .34, 0, .02).rotation.z = -.25;
+  const trimMat = glowMat(VIOLET, .9).clone(); add(press, rbox(1.03, .035, .63, .012), trimMat, 0, .5, 0, false);
+  add(press, rbox(.46, .2, .02, .01), mat(0x0d1524, { emissive: VIOLET, intensity: .25 }), -.18, .28, .31, false);
+  const lampMat = glowMat(0x9aa3b2, 1.2).clone(); ball(press, .07, lampMat, .34, .7, .12, 12);
+  const cLamp = { idle: new THREE.Color(0x9aa3b2), ok: new THREE.Color(STATUS.verified), bad: new THREE.Color(RED) };
+  const tray = new THREE.Group(); press.add(tray);                     // the empty table the script trips on
+  const trayMat = glowMat(RED, 0).clone();
+  add(tray, rbox(.42, .03, .32, .012), mat(0x141c2e), 0, 0, 0, false);
+  for (const sz of [-1, 1]) add(tray, rbox(.44, .035, .02, .008), trayMat, 0, .01, sz * .16, false);
+  for (const sx of [-1, 1]) add(tray, rbox(.02, .035, .32, .008), trayMat, sx * .21, .01, 0, false);
+  const state = sign({ ...ctx, key: 'traj-state', w: 1.5, h: .36, color: RED, post: 0, px: 640, lines: [{ text: 'first row of an empty table', size: 50, weight: 800, color: '#ffffff' }] });
+  state.group.position.set(-.1, .02, .8); state.group.rotation.x = -.95; press.add(state.group);
+  const STATES = [[{ text: 'first row of an empty table', size: 50, weight: 800, color: '#ffffff' }], [{ text: 'script rewritten · run again', size: 50, weight: 800, color: '#ffffff' }]];
+  let stateShown = 0;
+  const table = new THREE.Group(); table.position.set(TABLE_X, 0, MZ); table.visible = false; rig.add(table);
+  block(table, 1.3, .07, .7, 0x56658c, 0, .3, 0, .03);
+  for (const sx of [-1, 1]) block(table, .08, .3, .6, 0x1a2338, sx * .55, 0, 0, .02);
+  // a printed face for the sheets (a grid under a header band) and for the memo (lines of text)
+  function paperTexture(grid) {
+    const c = document.createElement('canvas'); c.width = 256; c.height = 192;
+    const g = c.getContext('2d');
+    g.fillStyle = '#ffffff'; g.fillRect(0, 0, 256, 192);
+    if (grid) {
+      g.fillStyle = '#3f9d6a'; g.fillRect(0, 0, 256, 30);
+      g.strokeStyle = '#9fc4b0'; g.lineWidth = 2;
+      for (let y = 30; y < 192; y += 27) { g.beginPath(); g.moveTo(0, y); g.lineTo(256, y); g.stroke(); }
+      for (const x of [40, 112, 184]) { g.beginPath(); g.moveTo(x, 30); g.lineTo(x, 192); g.stroke(); }
+      g.fillStyle = '#8a97a8'; for (let r = 0; r < 6; r++) for (let k = 0; k < 3; k++) g.fillRect(50 + k * 72, 40 + r * 27, 30 + hash(r * 3 + k) * 26, 8);
+    } else {
+      g.fillStyle = '#4f6fb8'; g.fillRect(18, 16, 120, 14);
+      g.fillStyle = '#8a97a8'; for (let r = 0; r < 9; r++) g.fillRect(18, 46 + r * 16, 150 + hash(r) * 70, 6);
+    }
+    const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 4; return tex;
+  }
+  const SHEETS = 10, sheets = new THREE.InstancedMesh(rbox(.5, .014, .36, .005), new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: .8, map: paperTexture(true) }), SHEETS);
+  sheets.castShadow = true; sheets.frustumCulled = false; rig.add(sheets);
+  for (let i = 0; i < SHEETS; i++) sheets.setColorAt(i, new THREE.Color(i % 2 ? 0xf2fbf5 : 0xdff3e8));
+  const CELLS = [2, 5, 8];                       // three sheets carry one formula cell each
+  const cells = CELLS.map(() => { const m = new THREE.Mesh(new THREE.PlaneGeometry(.16, .06), new THREE.MeshBasicMaterial({ color: 0xffc23d, toneMapped: false, transparent: true, opacity: 0 })); m.rotation.order = 'YXZ'; rig.add(m); return m; });
+  const memoMat = new THREE.MeshStandardMaterial({ color: 0xe6edff, roughness: .8, emissive: RED, emissiveIntensity: 0, map: paperTexture(false) });
+  const memo = add(rig, rbox(.4, .014, .54, .005), memoMat, 0, 0, 0); memo.visible = false;
+  const found = sign({ ...ctx, key: 'traj-found', w: 1.5, h: .46, color: STATUS.verified, px: 640, lines: [{ text: '10 sheets', size: 100, weight: 800, color: '#ffffff' }, { text: '3 formula cells · the rest typed', size: 44, weight: 600, color: '#8fe6b4' }] });
+  found.group.position.set(TABLE_X - .2, .02, MZ + .8); found.group.rotation.x = -.95; found.group.visible = false; rig.add(found.group);
 
   /* ---- the robot (the model), armed with the harness ---- */
-  let bot = null;
-  const given = hand.robot;
-  try { if (typeof given === 'function') bot = given(); else if (typeof given?.make === 'function') bot = given.make(); } catch { bot = null; }
-  if (!bot?.root) bot = kit.robot(given?.color ?? PALETTE.cream, given?.eye ?? 0x8ff6ff);
-  const root = bot.root; root.rotation.order = 'YXZ'; root.scale.setScalar(BOT.s); rig.add(root);
-  // own materials, so this robot can take the red light without tinting the other beats' robots
-  const eyeMats = [], hullMats = [], hullHex = given?.color ?? PALETTE.cream;
+  let made = null;
+  try { made = hand.robot?.create?.() ?? null; } catch { made = null; }
+  let bot, gun;
+  if (made?.root) { bot = made.robot; gun = made.weapon; }
+  else {
+    bot = kit.robot(PALETTE.cream, 0xffd666);
+    try { const { weapons } = await loadWeapons(); gun = weapons[hand.armed?.weaponIndex ?? 0].clone(true); } catch { gun = kit.blaster(PALETTE.amber); }
+    gun.position.copy(GUN_HOLD.at); gun.rotation.copy(GUN_HOLD.turn); gun.scale.setScalar(.8); bot.root.add(gun); bot.grip?.(1);
+  }
+  // smaller than in the beat before: at the read-back's low camera it must not stand in front of a sign
+  const S = 1.15, root = bot.root; root.rotation.order = 'YXZ'; root.scale.setScalar(S); rig.add(root);
+  const eyeMats = [];
   { const seen = new Map();
     root.traverse(o => {
-      if (!o.isMesh || !o.material?.isMeshStandardMaterial) return;
-      const m = o.material;
-      if (!seen.has(m)) {
-        const c = m.clone(); seen.set(m, c);
-        if (m.emissiveIntensity >= 2) eyeMats.push({ m: c, base: c.color.clone(), i: c.emissiveIntensity });
-        else if (m.color.getHex() === hullHex) hullMats.push(c);
-      }
-      o.material = seen.get(m);
+      if (!o.isMesh || !o.material?.isMeshStandardMaterial || o.material.emissiveIntensity < 2) return;
+      if (!seen.has(o.material)) { const c = o.material.clone(); seen.set(o.material, c); eyeMats.push({ m: c, base: c.emissive.clone(), i: c.emissiveIntensity }); }
+      o.material = seen.get(o.material);
     }); }
-  const aerialMat = (() => { let found = null; bot.head?.traverse(o => { if (!found && o.isMesh && o.material?.emissive && o.material.color.getHex() === PALETTE.amber) found = o.material; }); return found; })();
-
-  let gun = null;
-  const armed = hand.armed || {};
-  try {
-    if (typeof armed.weapon === 'function') gun = armed.weapon();
-    else { const { weapons } = await loadWeapons(); gun = weapons[armed.weaponIndex ?? 0].clone(true); }
-  } catch { gun = null; }
-  if (!gun) gun = kit.blaster(armed.accent ?? PALETTE.amber);
-  gun.scale.setScalar(.55); gun.position.copy(GUN_HOLD.at); gun.rotation.copy(GUN_HOLD.turn); root.add(gun); bot.grip?.(1);
-  const gunAxis = V(0, 0, 1).applyEuler(GUN_HOLD.turn), gunRest = GUN_HOLD.at.clone();
+  const beamGeo = new THREE.CylinderGeometry(1, 1, 1, 8, 1, true);
+  const shot = new THREE.Mesh(beamGeo, additive(0xd9ccff, 0)); shot.visible = false; shot.frustumCulled = false; rig.add(shot);
   const muzzleFlash = glowSprite(0xd9ccff, .5, 0); rig.add(muzzleFlash);
-  // the rest pose, where the threads the calls leave behind start
-  root.position.set(BOT.x, 0, BOT.z); root.rotation.set(0, BOT.rot, 0); root.updateMatrix(); gun.updateMatrix();
-  const m4 = new THREE.Matrix4().multiplyMatrices(root.matrix, gun.matrix);
-  const MUZZLE = V(0, 0, .52).applyMatrix4(m4), MDIR = V(0, 0, 1).transformDirection(m4);
-
-  // request pings: rings that leave the head
-  const pings = [0, 1, 2].map(() => {
-    const m = new THREE.Mesh(new THREE.TorusGeometry(.5, .016, 6, 64), additive(COL.violet, 0));
-    m.rotation.x = Math.PI / 2; m.visible = false; rig.add(m); return m;
-  });
-  const thought = glowSprite(0xc9bcff, 1.4, 0); rig.add(thought);
-
-  /* ---- the low desk and its terminal ---- */
-  const desk = new THREE.Group(); desk.position.set(DESK.x, 0, DESK.z); desk.rotation.y = DESK.rot; rig.add(desk);
-  { const w = 1.1, d = .6, h = .5;
-    block(desk, w, .07, d, 0x8a5f3f, 0, h - .07, 0, .03);
-    [[-1, -1], [1, -1], [-1, 1], [1, 1]].forEach(([sx, sz]) => block(desk, .07, h - .07, .07, 0x5d3e2a, sx * (w / 2 - .08), 0, sz * (d / 2 - .08), .02)); }
-  const term = kit.terminal(PALETTE.violet); term.root.position.set(0, .5, -.04); term.root.scale.setScalar(2.35); desk.add(term.root);
-  term.root.children.forEach((c, k) => { if (k >= 2 && k <= 4) c.visible = false; }); // the screen draws its own code
-  const screenMat = new THREE.ShaderMaterial({
-    uniforms: { uScroll: { value: 0 }, uTime: { value: 0 }, uRed: { value: 0 }, uCool: { value: 0 }, uFlash: { value: 0 }, uGlitch: { value: 0 } },
-    vertexShader: 'varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',
-    fragmentShader: `varying vec2 vUv;uniform float uScroll,uTime,uRed,uCool,uFlash,uGlitch;
-      float h(float n){return fract(sin(n*91.7+7.3)*43758.5453);}
-      void main(){
-        float y=(1.-vUv.y)*7.+uScroll, row=floor(y), fy=fract(y);
-        float jit=(h(row+floor(uTime*22.))-.5)*uGlitch*.3;
-        float x=vUv.x+jit, ind=floor(h(row*3.1)*3.)*.08, len=.16+h(row*7.7)*.5, len2=.08+h(row*5.3)*.18;
-        float on=step(.3,fy)*step(fy,.72);
-        float a=on*step(.07+ind,x)*step(x,.07+ind+len);
-        float b=on*step(.11+ind+len,x)*step(x,.11+ind+len+len2);
-        vec3 base=mix(vec3(.62,.55,1.),vec3(.55,1.,.96),uCool), hi=vec3(.9,.95,1.);
-        vec3 ink=mix(base,vec3(1.,.16,.22),uRed), ink2=mix(hi,vec3(1.,.35,.3),uRed);
-        vec3 bg=mix(vec3(.03,.04,.09),vec3(.22,.01,.03),uRed)+vec3(.04,.1,.1)*uCool;
-        vec3 c=bg+(ink*a*1.8+ink2*b*1.1)*(1.-uRed*.72);
-        c*=.86+.14*sin(vUv.y*190.);
-        c+=vec3(.6,.7,1.)*uFlash*.5;
-        gl_FragColor=vec4(c,1.);}`,
-  });
-  term.screen.material = screenMat;
-  const errTex = labelTexture('film-soc-traj-indexerror', [{ text: 'IndexError', size: 186, weight: 700, color: '#ffffff', font: '"Space Mono", ui-monospace, monospace', track: 2 }], { width: 1024, height: 256 });
-  const errLabel = new THREE.Mesh(new THREE.PlaneGeometry(.4, .1), additive(0xff3348, 0, { map: errTex }));
-  errLabel.position.set(0, .225, .038); term.root.add(errLabel);
-  desk.updateMatrix(); term.root.updateMatrix();
-  const TERM = V(0, .24, .05).applyMatrix4(term.root.matrix).applyMatrix4(desk.matrix);
-  const termGlow = glowSprite(0xb9a9ff, 1.3, 0); termGlow.position.copy(TERM); rig.add(termGlow);
-
-  /* ---- the container's 17 files: the task beat's tiles, type colours and labels ---- */
-  const KEYS = ['CSV', 'XLSX', 'DOCX'], INKS = ['#1d6b67', '#94640f', '#4a3c9c'];
-  const TYPES = [0x45b5b0, 0xf2b545, 0x7d6ad8].map((hex, k) => {
-    const c = C(hand.task?.files?.[k]?.color ?? hex), m = 1 / Math.max(c.r, c.g, c.b);
-    return c.multiplyScalar(m); // normalised, so every edge glows at the same level
-  });
-  const SH = { w: .56, h: .13, d: .4, gap: .145 };
-  const sheets = [], perType = [0, 0, 0];
-  STACKS.forEach(([sx, sz, n, type], s) => {
-    const facing = Math.atan2(BOT.x - sx, BOT.z - sz), dir = V(Math.sin(facing), 0, Math.cos(facing));
-    for (let j = 0; j < n; j++) {
-      const k = sheets.length, jr = (hash(k * 2.3) - .5) * .12, jx = (hash(k * 5.1) - .5) * .035, jz = (hash(k * 1.7) - .5) * .035;
-      const base = V(sx + jx, .022 + SH.h / 2 + j * SH.gap, sz + jz);
-      sheets.push({ s, type, slot: perType[type]++, base, rot: facing + jr, dir, hits: [],
-        arrive: base.clone().addScaledVector(dir, .16).setY(base.y + .05), leave: base.clone().addScaledVector(dir, .36).setY(base.y + .14) });
-    }
-    const foot = add(rig, rbox(.66, .022, .5, .01), mat(TYPES[type].getHex(), { emissive: TYPES[type].getHex(), intensity: .2 }), sx, .011, sz, false);
-    foot.rotation.y = facing;
-  });
-  const paper = new THREE.InstancedMesh(rbox(SH.w, SH.h, SH.d, .025), mat(0xf7f5f0), sheets.length);
-  const edges = new THREE.InstancedMesh(rbox(SH.w + .025, .022, SH.d + .025, .01).clone().translate(0, -.012, 0), new THREE.MeshBasicMaterial({ color: 0xffffff }), sheets.length);
-  const labelGeo = new THREE.PlaneGeometry(.42, .21).rotateX(-Math.PI / 2).translate(0, SH.h / 2 + .002, .02);
-  const labels = KEYS.map((key, k) => new THREE.InstancedMesh(labelGeo, new THREE.MeshStandardMaterial({
-    map: labelTexture(`film-soc-task-type-${k}`, [{ text: key, size: key.length > 4 ? 118 : 168, weight: 800, color: INKS[k], track: 6 }], { width: 512, height: 256 }),
-    transparent: true, roughness: .8, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 }), Math.max(1, perType[k])));
-  paper.castShadow = paper.receiveShadow = true; edges.castShadow = false;
-  [paper, edges, ...labels].forEach(m => { m.frustumCulled = false; rig.add(m); });
-  labels.forEach(m => { m.castShadow = false; });
-  sheets.forEach((_, i) => edges.setColorAt(i, COL.violet));
-
-  /* ---- the context tower: one ring per 8k tokens or so, 5k to 208k ---- */
-  cyl(rig, .44, .5, .12, 0x26324d, TOWER.x, 0, TOWER.z, 32);
-  const towerRim = add(rig, new THREE.TorusGeometry(.45, .022, 8, 48), glowMat(accent, 1.4).clone(), TOWER.x, .125, TOWER.z, false); towerRim.rotation.x = Math.PI / 2;
-  const ringGeo = new THREE.TorusGeometry(.27, .038, 8, 40); ringGeo.rotateX(Math.PI / 2);
-  const rings = new THREE.InstancedMesh(ringGeo, new THREE.MeshBasicMaterial({ color: 0xffffff }), TOWER.rings);
-  rings.frustumCulled = false;
-  for (let j = 0; j < TOWER.rings; j++) rings.setColorAt(j, COL.violet);
-  rig.add(rings);
-  const core = new THREE.Mesh(new THREE.CylinderGeometry(.045, .045, 1, 10, 1, true), additive(COL.violet, .55));
-  core.position.set(TOWER.x, 0, TOWER.z); rig.add(core);
-  const cap = glowSprite(0xd2c8ff, .9, .8); rig.add(cap);
-  const ringStep = (TOK1 - TOK0) / (TOWER.rings - TOWER.first);
-  // the numbers live in the set: the context over its tower, the request count over the robot's head
-  const TAG = { size: 150, weight: 700, color: '#ffffff', track: -2 }, SUB = { size: 62, weight: 600, color: '#b9b0e8', track: 4 };
-  const tokTex = labelTexture('film-soc-traj-tokens', [{ ...TAG, text: `${TOK0}k` }, { ...SUB, text: 'tokens' }], { width: 512, height: 288 });
-  const tokTag = new THREE.Mesh(new THREE.PlaneGeometry(.92, .52), new THREE.MeshBasicMaterial({ map: tokTex, transparent: true, depthWrite: false, fog: false }));
-  tokTag.renderOrder = 4; rig.add(tokTag);
-  const reqTex = labelTexture('film-soc-traj-requests', [{ ...TAG, text: 'R0', color: '#e9e3ff' }], { width: 512, height: 200 });
-  const reqTag = new THREE.Mesh(new THREE.PlaneGeometry(.66, .26), new THREE.MeshBasicMaterial({ map: reqTex, transparent: true, depthWrite: false, fog: false, opacity: 0 }));
-  reqTag.renderOrder = 4; rig.add(reqTag);
-  let tagTok = -1, tagReq = -1;
-  // what the recomputation gives, shown over the terminal one result at a time
-  const CALC = [[.345, '82 / 83', 124], [.366, '59.06 · 94.07 · 90.27', 84], [.386, '73 · 8 · 2', 124]];
-  const calcTex = labelTexture('film-soc-traj-calc', [{ text: CALC[0][1], size: CALC[0][2], weight: 700, color: '#ffe9b0', track: 0 }], { width: 1024, height: 170 });
-  const calcTag = new THREE.Mesh(new THREE.PlaneGeometry(1.56, .26), new THREE.MeshBasicMaterial({ map: calcTex, transparent: true, depthWrite: false, fog: false, opacity: 0 }));
-  calcTag.renderOrder = 4; rig.add(calcTag);
-  let calcShown = 0;
-  // what the read-back finds in the workbook
-  const padTex = labelTexture('film-soc-traj-readback', [{ text: '10 sheets', size: 118, weight: 700, color: '#ffffff', track: 0 }, { text: '3 formulas', size: 92, weight: 600, color: '#a8f5c8', track: 1 }], { width: 640, height: 300 });
-  const padTag = new THREE.Mesh(new THREE.PlaneGeometry(1.05, .5), new THREE.MeshBasicMaterial({ map: padTex, transparent: true, depthWrite: false, fog: false, opacity: 0 }));
-  padTag.renderOrder = 4; padTag.rotation.x = -Math.PI / 2 + .45; padTag.position.set(PAD.x - .05, .2, PAD.z + 1.02); rig.add(padTag);
-
-  /* ---- the output pad, the workbook and its first sheet ---- */
-  cyl(rig, .62, .68, PAD.top, 0x26324d, PAD.x, 0, PAD.z, 40);
-  const padRim = add(rig, new THREE.TorusGeometry(.63, .024, 8, 64), glowMat(0x3f9d6a, 1.3).clone(), PAD.x, PAD.top + .004, PAD.z, false); padRim.rotation.x = Math.PI / 2;
-  const padGlow = glowSprite(0xff3a4a, 3, 0); padGlow.position.set(PAD.x, PAD.top + .35, PAD.z); rig.add(padGlow);
-  const WB = { w: .8, h: .05, d: .56, step: .064 };
-  const SLOTS = [0, 1, 2, 3, 4].map(k => V(PAD.x, PAD.top + WB.h / 2 + .012 + k * WB.step, PAD.z));
-  // the five empty places, drawn as faint outlines over the pad until a sheet takes each one
-  const ghostGeo = new THREE.EdgesGeometry(new THREE.BoxGeometry(WB.w, WB.h, WB.d));
-  const ghosts = SLOTS.map(p => { const g = new THREE.LineSegments(ghostGeo, additive(COL.sheet, 0)); g.position.copy(p); rig.add(g); return g; });
-  function sheetTexture(rows) {
-    const W = 512, H = 352, c = document.createElement('canvas'); c.width = W; c.height = H;
-    const g = c.getContext('2d'), top = 46, rh = 27, cols = [0, 64, 250, 384, W];
-    g.fillStyle = '#fbf8f1'; g.fillRect(0, 0, W, H);
-    g.fillStyle = '#3f9d6a'; g.fillRect(0, 0, W, top);
-    g.fillStyle = '#e9f6ee'; [16, 84, 268, 400].forEach((x, k) => g.fillRect(x, 17, [30, 120, 80, 70][k], 12));
-    for (let r = 0; r < rows; r++) {
-      const y = top + r * rh + 9;
-      g.fillStyle = '#b4bcc8'; g.fillRect(14, y, 34, 9);
-      g.fillStyle = '#5b6576'; g.fillRect(80, y, 70 + hash(r + 1) * 100, 9);
-      g.fillStyle = '#2f7d55'; g.fillRect(262 + hash(r + 9) * 40, y, 70, 9);
-      g.fillStyle = '#8a93a3'; g.fillRect(398 + hash(r + 4) * 30, y, 60, 9);
-    }
-    g.strokeStyle = '#dfe5dc'; g.lineWidth = 2;
-    for (let y = top; y <= H; y += rh) { g.beginPath(); g.moveTo(0, y); g.lineTo(W, y); g.stroke(); }
-    cols.forEach(x => { g.beginPath(); g.moveTo(x, top); g.lineTo(x, H); g.stroke(); });
-    const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 4;
-    return tex;
+  const spot = glowSprite(0xd9ccff, .5, 0); rig.add(spot);
+  const redGlow = glowSprite(RED, 3, 0); redGlow.position.set(MX, .7, MZ); rig.add(redGlow);
+  const UP = V(0, 1, 0), dir = V();
+  function stretch(m, a, b, r) {
+    dir.copy(b).sub(a);
+    const L = dir.length();
+    if (L < 1e-4) { m.visible = false; return; }
+    m.position.copy(a).addScaledVector(dir, .5);
+    m.quaternion.setFromUnitVectors(UP, dir.divideScalar(L));
+    m.scale.set(r, L, r); m.visible = true;
   }
-  // the memo: a page of text under a blue header; the crash left it at three lines
-  function docTexture(rows) {
-    const W = 512, H = 352, c = document.createElement('canvas'); c.width = W; c.height = H;
-    const g = c.getContext('2d');
-    g.fillStyle = '#fbf8f1'; g.fillRect(0, 0, W, H);
-    g.fillStyle = '#3b6fd8'; g.fillRect(0, 0, W, 46);
-    g.fillStyle = '#e6eeff'; g.fillRect(18, 17, 210, 12);
-    for (let r = 0; r < rows; r++) {
-      const y = 66 + r * 23, head = r % 5 === 0;
-      g.fillStyle = head ? '#2f4f9c' : '#7c8798';
-      g.fillRect(24, y, head ? 150 + hash(r + 2) * 60 : 300 + hash(r + 7) * 150, head ? 11 : 8);
-    }
-    const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 4;
-    return tex;
-  }
-  const wbTex = sheetTexture(11), fullTex = docTexture(12), partTex = docTexture(3); // the rerun fills sheet one; the crash left it at three rows
-  const wbPaper = mat(0xf7f5f0).clone(), wbTop = new THREE.MeshStandardMaterial({ map: wbTex, roughness: .8 });
-  function workSheet() {
-    const g = new THREE.Group();
-    add(g, rbox(WB.w, WB.h, WB.d, .02), wbPaper);
-    const edge = add(g, rbox(WB.w + .03, .02, WB.d + .03, .01), new THREE.MeshBasicMaterial({ color: COL.sheet.clone() }), 0, -.01, 0, false);
-    const top = new THREE.Mesh(new THREE.PlaneGeometry(WB.w - .05, WB.d - .05), wbTop); top.rotation.x = -Math.PI / 2; top.position.y = WB.h / 2 + .002; g.add(top);
-    g.userData.edge = edge; g.visible = false; rig.add(g);
-    return g;
-  }
-  // the memo, on top of the workbook: six shards that read as one page until the crash
-  const one = new THREE.Group(); one.position.copy(SLOTS[4]); rig.add(one);
-  const shardPaper = mat(0xf7f5f0).clone(), shardTop = new THREE.MeshStandardMaterial({ map: partTex, roughness: .8 });
-  const shardEdge = additive(COL.red, 0);
-  const shards = [];
-  for (let ri = 0; ri < 2; ri++) for (let ci = 0; ci < 3; ci++) {
-    const k = shards.length, w = WB.w / 3, d = WB.d / 2, g = new THREE.Group(), x = (ci - 1) * w, z = (ri - .5) * d;
-    add(g, rbox(w - .004, WB.h, d - .004, .012), shardPaper);
-    const rimG = new THREE.Mesh(rbox(w + .012, WB.h * .5, d + .012, .01), shardEdge); g.add(rimG); // the red cut, lit from inside
-    const geo = new THREE.PlaneGeometry(w - .006, d - .006), uv = geo.attributes.uv;
-    for (let v = 0; v < uv.count; v++) uv.setXY(v, (ci + uv.getX(v)) / 3, (1 - ri + uv.getY(v)) / 2);
-    const top = new THREE.Mesh(geo, shardTop); top.rotation.x = -Math.PI / 2; top.position.y = WB.h / 2 + .002; g.add(top);
-    g.position.set(x, 0, z); one.add(g);
-    const out = V(x, 0, z).normalize();
-    shards.push({ g, x, z, out: out.multiplyScalar(.08 + hash(k * 3.7) * .08), lift: .12 + hash(k * 9.1) * .22, rx: (hash(k * 2.9) - .5) * 1, rz: (hash(k * 4.3) - .5) * 1, ry: (hash(k * 6.1) - .5) * .6 });
-  }
-  const oneEdge = add(one, rbox(WB.w + .03, .02, WB.d + .03, .01), new THREE.MeshBasicMaterial({ color: COL.doc.clone() }), 0, -.01, 0, false);
-  one.visible = false;
-  const book = [one, workSheet(), workSheet(), workSheet(), workSheet()];
-  const bookRot = [0, .05, -.06, .035, -.03];
 
-  /* ---- 85 tool calls: an out leg from the muzzle and a return leg to the head ---- */
-  const LEAD = 1.4, OUT_D = .036, BACK_D = .03; // a ribbon's head reaches its target at 1/LEAD of the leg
-  const legs = [], calls = [];
-  const T_TERM = { type: 'term' }, T_PAD = k => ({ type: 'pad', k });
-  function call(time, to, o = {}) {
-    const leg = { a: time, d: o.d ?? OUT_D, out: true, to, color: o.color ?? COL.call, width: o.width ?? .042, glow: o.glow ?? 3, noise: 0, carry: o.carry ?? 0, run: !!o.run };
-    leg.hit = leg.a + leg.d / LEAD; legs.push(leg); calls.push(leg);
-    if (to.type === 'sheet') sheets[to.i].hits.push(leg.hit);
-    legs.push({ a: leg.hit, d: BACK_D, out: false, to, color: o.backColor ?? COL.result, width: .03, glow: o.noise ? 2.4 : 2, noise: o.noise ?? 0 });
-    return leg;
-  }
-  // which file each reading call pulls: a first pass over all 17, then rereads; never the same unread file twice
-  let seed = 11;
-  const rnd = () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; };
-  const unread = STACKS.map((_, s) => sheets.map((sh, i) => (sh.s === s ? i : -1)).filter(i => i >= 0));
-  const pick = s => { const list = unread[s]; return list.length ? list.splice(Math.floor(rnd() * list.length), 1)[0] : sheets.findIndex(sh => sh.s === s); };
-  const WALK = [4, 5, 4, 4, 2, 3, 2, 3, 2, 0, 1, 0, 1, 0, 1, 0, 1, 2, 0, 4, 1, 3, 0, 2, 5, 1, 0, 3, 2, 4, 1, 0, 2, 1, 3, 0, 4, 1, 2];
-  const readTargets = WALK.map(k => ({ type: 'sheet', i: pick(k) }));
-  const readSheets = readTargets.map(t => t.i);
-  const span = (a, b, k, n) => lerp(a, b, n > 1 ? k / (n - 1) : 0);
-  // the run in order: [the request's time, where its tool call goes, how it looks]; one call per request
-  const plan = [];
-  plan.push([.065, T_TERM, { color: COL.plan }]);                                               // listing the inputs
-  readTargets.forEach((to, k) => plan.push([span(.072, .33, k, WALK.length), to, {}]));        // the four documents first, then workbooks and detail files, then their status fields
-  for (let k = 0; k < 14; k++) plan.push([span(.337, .404, k, 14), T_TERM, k % 5 === 1 ? { color: COL.plan } : {}]); // recomputation
-  for (let k = 1; k <= 4; k++) plan.push([.398 + k * .0125, T_PAD(k - 1), { color: COL.carry, width: .05, carry: k }]); // the workbook, written in parts
-  plan.push([.462, T_TERM, {}], [.472, T_TERM, {}], [.482, T_PAD(4), {}], [.49, T_PAD(4), {}]); // the memo's script; the memo starts to fill
-  plan.push([CRASH - .028 / LEAD - .005, T_PAD(4), { color: COL.run, width: .075, glow: 3.6, d: .028, run: true }]); // the run that dies
-  plan.push([.622, T_PAD(4), { color: COL.probe, glow: 2.4 }]);                                 // what the crash left
-  plan.push([.641, T_TERM, { color: COL.plan }]);                                               // an empty table has no first row: the cause
-  const FIX_AT = plan.length; plan.push([.666, T_TERM, { color: COL.cool }]);                  // the fix
-  const RERUN_AT = plan.length; plan.push([.685, T_PAD(4), { color: COL.cool }]);              // the rerun: the memo re-forms
-  plan.push([.703, T_PAD(4), { color: COL.cool }]);
-  for (let k = 0; k < 17; k++) plan.push([span(.724, .8, k, 17), k % 3 === 2 ? { type: 'sheet', i: readSheets[(k * 7) % readSheets.length] } : T_PAD(k % 2 ? 4 : 3), { color: COL.probe, glow: 2.2 }]); // reading both files back
-  plan.forEach(([tr, to, o]) => { REQ.push(tr); call(tr + .005, to, o); });
-  REQ.push(.812);                                                                                 // the last request is the answer: no tool call
-  const FIXHIT = calls[FIX_AT].hit, REFORM = calls[RERUN_AT].hit, SWEEP = [FIXHIT, FIXHIT + .055];
-  const carryLegs = [null, ...calls.filter(l => l.carry)];
-  carryLegs.forEach(l => { if (l) { l.pos = V(); l.live = false; } });
-
-  const targetPoint = (out, to, leaving) => {
-    if (to.type === 'sheet') return out.copy(leaving ? sheets[to.i].leave : sheets[to.i].arrive);
-    if (to.type === 'term') return out.copy(TERM);
-    return out.copy(SLOTS[to.k]).setY(PAD.top + .06 + to.k * WB.step + (leaving ? .1 : 0));
-  };
-  // the shape of a ribbon: up out of the muzzle (or the file), over, and down onto the target (or the head)
-  const shape = (w0, w1, w2, w3, dir, out) => {
-    const dist = w0.distanceTo(w3);
-    if (out) { w1.copy(w0).addScaledVector(dir, .55 + dist * .12); w1.y += .5 + dist * .14; }
-    else { w1.copy(w0); w1.y += .7 + dist * .18; }
-    w2.copy(w3); w2.y += (out ? .95 : .55) + dist * .22;
-  };
-
-  // the ribbons in flight: a pool of tubes bent on the GPU between their tail and head
-  const RIB_VS = `uniform vec3 p0,p1,p2,p3;uniform float head,tail,width;varying float vS;
-    vec3 bez(float t){float u=1.-t;return u*u*u*p0+3.*u*u*t*p1+3.*u*t*t*p2+t*t*t*p3;}
-    vec3 dbez(float t){float u=1.-t;return 3.*u*u*(p1-p0)+6.*u*t*(p2-p1)+3.*t*t*(p3-p2);}
-    void main(){float s=position.x,a=position.y,t=mix(tail,head,s);vec3 c=bez(t),T=normalize(dbez(t)+vec3(1e-4,0.,0.));
-      vec3 N=normalize(cross(T,abs(T.y)>.9?vec3(1.,0.,0.):vec3(0.,1.,0.))),B=cross(T,N);vS=s;
-      gl_Position=projectionMatrix*modelViewMatrix*vec4(c+(cos(a)*N+sin(a)*B)*width*(.12+.88*s*s),1.);}`;
-  const RIB_FS = `uniform vec3 color;uniform float time,glow,noise;varying float vS;
-    float h(float n){return fract(sin(n*91.7)*43758.5453);}
-    void main(){float s0=max(vS,0.),fade=pow(s0,1.3),sh=.72+.28*sin(vS*30.-time*12.);
-      float hiss=mix(1.,step(.5,h(floor(vS*36.)+floor(time*30.)*1.7)),noise);
-      gl_FragColor=vec4(mix(color,vec3(1.),pow(s0,6.)*.8)*fade*sh*hiss*glow,1.);}`;
-  const tubeGeo = (S, R) => {
-    const p = [], idx = [];
-    for (let i = 0; i <= S; i++) for (let j = 0; j < R; j++) p.push(i / S, j / R * Math.PI * 2, 0);
-    for (let i = 0; i < S; i++) for (let j = 0; j < R; j++) { const a = i * R + j, b = i * R + (j + 1) % R, cc = (i + 1) * R + j, d = (i + 1) * R + (j + 1) % R; idx.push(a, cc, b, b, cc, d); }
-    return { p, idx };
-  };
-  const ribbonGeo = (() => { const { p, idx } = tubeGeo(44, 6), g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(p, 3)); g.setIndex(idx); return g; })();
-  const NSLOT = 16;
-  const slots = Array.from({ length: NSLOT }, () => {
-    const u = { p0: { value: V() }, p1: { value: V() }, p2: { value: V() }, p3: { value: V() }, head: { value: 0 }, tail: { value: 0 }, width: { value: .03 }, color: { value: C(0xffffff) }, time: { value: 0 }, glow: { value: 1 }, noise: { value: 0 } };
-    const m = new THREE.Mesh(ribbonGeo, new THREE.ShaderMaterial({ uniforms: u, vertexShader: RIB_VS, fragmentShader: RIB_FS, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending }));
-    m.frustumCulled = false; m.visible = false; rig.add(m);
-    const tip = glowSprite(0xffffff, .5, 0); rig.add(tip);
-    return { m, u, tip };
-  });
-  legs.sort((a, b) => a.a - b.a);
-  const bySlot = Array.from({ length: NSLOT }, () => []);
-  legs.forEach((l, i) => bySlot[i % NSLOT].push(l));
-
-  // the threads: every call leaves its path behind, so by the end the run has drawn its trajectory.
-  // One merged mesh; each thread appears once its ribbon has passed and then shimmers with t.
-  const threads = (() => {
-    const S = 34, R = 4, { p, idx } = tubeGeo(S, R), per = (S + 1) * R, n = calls.length;
-    const pos = new Float32Array(per * n * 3), P = [0, 1, 2, 3].map(() => new Float32Array(per * n * 3)), col = new Float32Array(per * n * 3), info = new Float32Array(per * n * 4), index = [];
-    const a = V(), b = V(), cc = V(), d = V(), tint = C(0);
-    calls.forEach((l, k) => {
-      a.copy(MUZZLE); targetPoint(d, l.to, false); shape(a, b, cc, d, MDIR, true);
-      if (l.to.type === 'sheet') tint.copy(TYPES[sheets[l.to.i].type]); else if (l.to.type === 'term') tint.copy(COL.violet); else tint.copy(COL.sheet);
-      if (l.carry) tint.copy(COL.carry);
-      for (let v = 0; v < per; v++) {
-        const o = k * per + v;
-        pos.set([p[v * 3], p[v * 3 + 1], 0], o * 3);
-        [a, b, cc, d].forEach((q, j) => P[j].set([q.x, q.y, q.z], o * 3));
-        col.set([tint.r, tint.g, tint.b], o * 3);
-        info.set([l.a + l.d, l.run ? .016 : .0085, l.run ? 1 : 0, hash(k * 1.9)], o * 4);
-      }
-      idx.forEach(i => index.push(i + k * per));
-    });
-    const g = new THREE.BufferGeometry();
-    g.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-    ['aP0', 'aP1', 'aP2', 'aP3'].forEach((name, j) => g.setAttribute(name, new THREE.BufferAttribute(P[j], 3)));
-    g.setAttribute('aCol', new THREE.BufferAttribute(col, 3)); g.setAttribute('aInfo', new THREE.BufferAttribute(info, 4)); g.setIndex(index);
-    const u = { uLp: { value: 0 }, uTime: { value: 0 }, uHot: { value: 0 }, uSweepY: { value: -1 }, uLive: { value: 1 } };
-    const m = new THREE.Mesh(g, new THREE.ShaderMaterial({
-      uniforms: u, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
-      vertexShader: `attribute vec3 aP0,aP1,aP2,aP3,aCol;attribute vec4 aInfo;uniform float uLp,uHot,uSweepY;varying vec3 vCol;varying float vA,vS,vSeed;
-        vec3 bez(float t){float u=1.-t;return u*u*u*aP0+3.*u*u*t*aP1+3.*u*t*t*aP2+t*t*t*aP3;}
-        vec3 dbez(float t){float u=1.-t;return 3.*u*u*(aP1-aP0)+6.*u*t*(aP2-aP1)+3.*t*t*(aP3-aP2);}
-        void main(){float s=position.x,a=position.y,age=uLp-aInfo.x,on=step(0.,age);
-          vec3 c=bez(s),T=normalize(dbez(s)+vec3(1e-4,0.,0.)),N=normalize(cross(T,abs(T.y)>.9?vec3(1.,0.,0.):vec3(0.,1.,0.))),B=cross(T,N);
-          float clear=smoothstep(0.,.3,uSweepY-c.y),red=uHot*(1.-clear),run=aInfo.z*on*(1.-clear);
-          float cool=uSweepY>-.5?exp(-pow((uSweepY-c.y)/.3,2.)):0.;
-          vCol=mix(mix(aCol,vec3(1.,.13,.2),max(red*.9,run)),vec3(.5,1.,1.),cool);
-          vA=on*(.26+1.4*exp(-max(age,0.)/.025)+red*.5+run*.9+cool*1.2);vS=s;vSeed=aInfo.w;
-          gl_Position=projectionMatrix*modelViewMatrix*vec4(c+(cos(a)*N+sin(a)*B)*aInfo.y*on,1.);}`,
-      fragmentShader: `uniform float uTime,uLive;varying vec3 vCol;varying float vA,vS,vSeed;
-        void main(){float pulse=smoothstep(.86,1.,fract(vS*1.4-uTime*.32+vSeed*7.))*uLive;
-          float ends=smoothstep(0.,.06,vS)*(1.-smoothstep(.92,1.,vS));
-          gl_FragColor=vec4(vCol*vA*ends*(.6+1.8*pulse),1.);}`,
-    }));
-    m.frustumCulled = false; rig.add(m);
-    return u;
-  })();
-
-  // impacts: a ring that blooms where a call lands
-  const NIMP = 6;
-  const impacts = Array.from({ length: NIMP }, () => {
-    const m = new THREE.Mesh(new THREE.RingGeometry(.2, .26, 40).rotateX(-Math.PI / 2), additive(0xffffff, 0, { side: THREE.DoubleSide }));
-    m.visible = false; rig.add(m); return m;
-  });
-
-  /* ---- the sweep, the glitch bars ---- */
-  const sweepTex = (() => {
-    const cv = document.createElement('canvas'); cv.width = cv.height = 256; const g = cv.getContext('2d'), gr = g.createRadialGradient(128, 128, 0, 128, 128, 128);
-    gr.addColorStop(0, 'rgba(255,255,255,0)'); gr.addColorStop(.7, 'rgba(255,255,255,.02)'); gr.addColorStop(.92, 'rgba(255,255,255,.2)'); gr.addColorStop(.975, 'rgba(255,255,255,1)'); gr.addColorStop(1, 'rgba(255,255,255,0)');
-    g.fillStyle = gr; g.fillRect(0, 0, 256, 256); const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; return t;
-  })();
-  const sweep = new THREE.Mesh(new THREE.CircleGeometry(3.5, 72), additive(COL.cool, 0, { map: sweepTex, side: THREE.DoubleSide }));
-  sweep.rotation.x = -Math.PI / 2; sweep.visible = false; rig.add(sweep);
-  const bars = new THREE.Group(); bars.position.set(.5, 1.2, .9); rig.add(bars);
-  const barGeo = new THREE.PlaneGeometry(1, 1);
-  const barList = Array.from({ length: 12 }, (_, k) => { const m = new THREE.Mesh(barGeo, additive(k % 2 ? 0x55e0ff : 0xff2a3d, 0)); m.visible = false; bars.add(m); return m; });
-
-  /* ---- scratch state for update: nothing is allocated per frame ---- */
-  const dummy = new THREE.Object3D(); dummy.rotation.order = 'YXZ';
-  const tmpC = new THREE.Color(), tmpC2 = new THREE.Color();
-  const muzzle = V(), mdir = V(), headPt = V(), w0 = V(), w1 = V(), w2 = V(), w3 = V(), hp = V();
-  const bez = (out, a, b, c2, d, t) => { const u = 1 - t; return out.set(0, 0, 0).addScaledVector(a, u * u * u).addScaledVector(b, 3 * u * u * t).addScaledVector(c2, 3 * u * t * t).addScaledVector(d, t * t * t); };
-  const yawTo = p => clamp(Math.atan2(p.x - BOT.x, p.z - BOT.z) - BOT.rot, -1.3, 1.3);
-  calls.forEach(l => { targetPoint(w0, l.to, false); l.yaw = yawTo(w0); });
-  // the context after request r has come back: reading is heavy early, so it climbs fast first
-  const tokAfter = r => (r < 0 ? TOK0 : TOK0 + (TOK1 - TOK0) * Math.pow((r + 1) / REQ.length, 1.15));
-  const tokens = lp => {
-    let r = -1; for (let i = 0; i < REQ.length; i++) if (REQ[i] <= lp) r = i;
-    if (r < 0) return TOK0;
-    return lerp(tokAfter(r - 1), tokAfter(r), ramp(lp, REQ[r] + .006, REQ[r] + .024));
-  };
-  // red from the crash until the sweep has risen past height y; the sweep's own flash as it passes
-  const sweepY = lp => (lp < SWEEP[0] ? -1 : lerp(-.05, 3.1, inOut((lp - SWEEP[0]) / (SWEEP[1] - SWEEP[0]))));
-  const hot = lp => ramp(lp, CRASH - .003, CRASH + .002) * (1 - .62 * ramp(lp, CRASH + .015, .615));
-  const redAt = (lp, y) => hot(lp) * (1 - smooth((sweepY(lp) - y) / .3));
-  // the error itself (the eye, the screen, the broken sheet) stays red until the fix reaches it
-  const errAt = (lp, y) => ramp(lp, CRASH - .003, CRASH + .002) * (1 - smooth((sweepY(lp) - y) / .3));
-  const coolAt = (lp, y) => (lp < SWEEP[0] || lp > SWEEP[1] + .02 ? 0 : Math.exp(-Math.pow((sweepY(lp) - y) / .32, 2)));
-  const CAM_YAW = yawTo(V(3.1, 0, 7.5));
-
-  // hand-off for the grading beat: data, not scene nodes
+  // hand-off for the later beats: data, not scene nodes
   hand.workbook = { sheets: 10, formulas: 3, color: 0x3f9d6a };
-  hand.trajectory = { requests: 86, calls: 85, tokens: `${TOK1}k`, crash: 'IndexError' };
+  hand.outputs = { files: ['workbook', 'memo'], color: 0x3f9d6a };
+  hand.trajectory = { requests: RUN.requests, calls: RUN.calls, tokens: `${TOK1}k`, crash: 'IndexError', strata: [73, 8, 2], reach: [82, 83] };
 
-  const shot = {
-    from: { pos: [-6.1, 4.3, 7.9], look: [-.25, .95, -.4], fov: 34 },
-    to: { pos: [3.15, 2.55, 7.45], look: [.3, 1.25, -.25], fov: 33 },
-  };
+  const cam = { from: { pos: [0, 0, 0], look: [0, 0, 0], fov: 34 }, to: { pos: [0, 0, 0], look: [0, 0, 0], fov: 34 } };
+  const line = cameraLine([
+    { at: 0, pos: [1.6, 3.7, 7.7], look: [2.0, .7, -.4], fov: 34 },
+    { at: .2, pos: [1.8, 3.5, 7.7], look: [2.05, .65, -.3], fov: 34 },
+    { at: .27, pos: [2.1, 4.8, 8.4], look: [2.2, .3, .9], fov: 34 },
+    { at: .37, pos: [2.2, 4.7, 8.4], look: [2.25, .3, .95], fov: 34 },
+    { at: .43, pos: [2.3, 4.6, 7.8], look: [2.4, .35, -.1], fov: 34 },
+    { at: .49, pos: [2.3, 4.4, 7.8], look: [2.4, .4, .1], fov: 34 },
+    { at: .55, pos: [2.3, 3.1, 7.4], look: [2.35, .75, 1.3], fov: 33 },
+    { at: .69, pos: [2.5, 3.0, 7.3], look: [2.4, .75, 1.3], fov: 33 },
+    { at: .75, pos: [2.55, 2.3, 8.0], look: [2.45, 1.15, 1.3], fov: 33 },
+    { at: 1, pos: [2.75, 2.2, 8.0], look: [2.5, 1.15, 1.3], fov: 33 },
+  ]);
+  line(0, cam);
+
+  const o = new THREE.Object3D(), m4 = new THREE.Matrix4(), muzzle = V(), target = V(), v = V();
+  const cGrey = new THREE.Color(0x6a7386), cOk = new THREE.Color(STATUS.verified), cWait = new THREE.Color(STATUS.pending), cRed = new THREE.Color(RED), cCool = new THREE.Color(0x7ff6ff);
+  const walker = { x: 0, z: 0, ry: 0, walk: 0 };
+  const callsAt = lp => { let i = 0; while (i < CALLS.length - 2 && lp > CALLS[i + 1][0]) i++; const a = CALLS[i], b = CALLS[i + 1]; return mix(a[1], b[1], lin(lp, a[0], b[0])); };
+
   const api = {
-    camera: shot,
+    camera: cam,
     dim: 0,
     update(lp, t, dt, ui) {
       if (reduce) lp = 1;
       const tt = reduce ? 0 : t, live = reduce ? 0 : 1;
-      // a portrait frame is narrow: aim a little right of the robot, so the tower and the pad stay in
-      const portrait = layout ? layout.stacked : camera.aspect < .9;
-      shot.from.look[0] = portrait ? .25 : .28; shot.to.look[0] = portrait ? .85 : .72;
 
-      /* the numbers: the copy counts the calls, the set shows the requests and the context */
-      let nReq = 0; for (let i = 0; i < REQ.length; i++) if (REQ[i] <= lp) nReq++;
-      let nCall = 0, latest = -1; for (let i = 0; i < calls.length; i++) if (calls[i].a <= lp) { nCall++; latest = i; }
-      const tok = tokens(lp);
+      /* the numbers: the copy counts the calls; the scoreboard shows requests, calls and context */
+      const cf = callsAt(lp), nCall = Math.floor(cf + 1e-6), nReq = lp >= .8 ? RUN.requests : Math.min(RUN.requests - 1, nCall + (lp > .004 ? 1 : 0));
+      const tok = Math.round(TOK0 + (TOK1 - TOK0) * Math.pow(nCall / RUN.calls, 1.15));
       ui.set('calls', nCall);
-      const kTok = Math.round(tok);
-      if (kTok !== tagTok) { tagTok = kTok; tokTex.userData.redraw([{ ...TAG, text: `${kTok}k` }, { ...SUB, text: 'tokens' }]); }
-      if (nReq !== tagReq) { tagReq = nReq; reqTex.userData.redraw([{ ...TAG, text: `R${nReq}`, color: '#e9e3ff' }]); }
-      // the crash: for a moment everything but the red goes dark
-      const black = bump(lp, CRASH - .001, CRASH + .002, CRASH + .03) * live;
-      api.dim = .88 * black;
-      const unlit = 1 - .85 * black;
+      if (nReq !== shownReq || nCall !== shownCall || tok !== shownTok) { shownReq = nReq; shownCall = nCall; shownTok = tok; board.redraw(boardLines(nReq, nCall, tok)); }
+      board.frameMat.emissiveIntensity = 1 + .15 * Math.sin(tt * 2) + hit(cf % 1, 0, .5) * .5 * (lp < .8 ? 1 : 0);
 
-      /* the shake: hard at the crash, one aftershock; the camera is untouched */
-      const shake = live * (ramp(lp, CRASH - .002, CRASH + .003) * (1 - ramp(lp, CRASH + .004, .585)) + .3 * bump(lp, .552, .558, .6));
-      rig.position.set(
-        shake * (Math.sin(tt * 53) * .7 + Math.sin(tt * 31 + lp * 400) * .5) * .08,
-        shake * Math.sin(tt * 47 + 1) * .04,
-        shake * (Math.sin(tt * 41 + 2) * .6 + Math.sin(lp * 610) * .4) * .05);
+      /* the crash: for a moment everything but the red goes dim, and the set shakes */
+      const crash = hit(lp, T.crash, .035) * live, jam = ease(lp, T.crash, T.crash + .004) * (1 - ease(lp, T.fix + .03, T.rerun));
+      api.dim = .7 * crash;
+      const shake = live * (ease(lp, T.crash - .002, T.crash + .003) * (1 - ease(lp, T.crash + .004, T.crash + .06)));
+      rig.position.set(shake * (Math.sin(tt * 53) * .7 + Math.sin(lp * 4000) * .5) * .06, shake * Math.sin(tt * 47 + 1) * .03, shake * Math.sin(tt * 41 + 2) * .04);
 
-      /* the robot: where it looks, how it leans */
-      let yaw = 0;
-      if (latest >= 0) { const cur = calls[latest], prev = latest ? calls[latest - 1].yaw : 0; yaw = lerp(prev, cur.yaw, inOut((lp - cur.a) / .012)); }
-      yaw = lerp(yaw, CAM_YAW, Math.max(.75 * bump(lp, CRASH, CRASH + .008, .61), ramp(lp, .795, .825)));
-      const red = errAt(lp, 1.15), recoil = bump(lp, CRASH, CRASH + .007, .575);
-      let ping = 0; for (let i = 0; i < REQ.length; i++) { const age = lp - REQ[i]; if (age >= 0 && age < .02) ping = Math.max(ping, Math.pow(1 - age / .02, 2)); }
-      const lean = .1 * bump(lp, .488, .512, CRASH + .001) - .26 * recoil + .14 * bump(lp, .615, .64, .69) + .06 * bump(lp, .775, .79, .82);
-      bot.update(tt, 0);
-      root.position.set(BOT.x, .12 * recoil - .035 * bump(lp, .488, .512, CRASH) + .03 * ping * (1 - ping) * 4, BOT.z);
-      root.rotation.set(lean, BOT.rot + clamp(yaw * .32, -.36, .36) + Math.sin(tt * .5) * .03 * live, 0);
-      bot.head.rotation.y = clamp(yaw * .5, -.62, .62) + Math.sin(tt * .8) * .07 * live + red * Math.sin(tt * 38) * .1 * live;
-      bot.head.rotation.x = .15 * bump(lp, .615, .64, .69) + .2 * bump(lp, .775, .79, .825) - .14 * recoil;
-      // the harness kicks on each shot
-      let kick = 0; if (latest >= 0) { const age = lp - calls[latest].a; kick = age < .018 ? Math.pow(1 - age / .018, 2) * (calls[latest].run ? 2 : 1) : 0; }
-      gun.position.copy(gunRest).addScaledVector(gunAxis, -.06 * kick);
-      gun.rotation.set(GUN_HOLD.turn.x, GUN_HOLD.turn.y, GUN_HOLD.turn.z - .25 * kick);
-      root.updateMatrix(); gun.updateMatrix();
-      m4.multiplyMatrices(root.matrix, gun.matrix);
-      muzzle.set(0, 0, .52).applyMatrix4(m4); mdir.set(0, 0, 1).transformDirection(m4);
-      headPt.set(0, .92, .08).applyMatrix4(root.matrix);
-      // before the run: the muzzle charges, white-hot
-      const charge = lp < CRASH - .02 ? ramp(lp, .478, CRASH - .02) : 0;
-      muzzleFlash.position.copy(muzzle); muzzleFlash.material.opacity = Math.max(kick, charge);
-      muzzleFlash.scale.setScalar(Math.min(.52, .3 + kick * .22 + charge * (.2 + Math.sin(tt * 40) * .03 * live))); // under the muzzle's height, so the floor never cuts it
-      // eyes and hull take the light of the moment
-      const cool = coolAt(lp, 1.15);
-      for (let k = 0; k < eyeMats.length; k++) {
-        const { m, base, i } = eyeMats[k];
-        tmpC.copy(base).lerp(COL.red, red); m.color.copy(tmpC); m.emissive.copy(tmpC);
-        m.emissiveIntensity = i * (1 + ping * .5 - red * .25 * (live ? .8 + .2 * Math.sin(tt * 40) : 1)) + cool * 2;
+      /* the racks: each file lifts while it is read, and its lamp keeps the status that was found */
+      const racksOut = ease(lp, T.racksOut, T.racksOut + .03);
+      racks.visible = racksOut < 1; racks.position.y = -1.2 * racksOut;
+      let reading = -1;
+      for (let i = 0; i < 17; i++) {
+        const f = F[i], len = i < 4 ? T.docStep : T.fileStep, k = lin(lp, f.at, f.at + len), lift = Math.sin(k * Math.PI);
+        if (k > 0 && k < 1) reading = i;
+        o.position.set(f.x, .26 + lift * .2, RACK_Z + lift * .08); o.rotation.set(lift * .5, 0, 0); o.scale.setScalar(1); o.updateMatrix(); files.setMatrixAt(i, o.matrix);
+        const read = lp >= f.at + len * .5;
+        o.position.set(f.x, .47 + lift * .2, RACK_Z + .1 + lift * .12); o.rotation.set(0, 0, 0);
+        o.scale.setScalar(read ? 1 + hit(lp, f.at + len * .5, .012) + (PENDING.has(i) ? .4 : 0) : .7); o.updateMatrix(); lamps.setMatrixAt(i, o.matrix);
+        lamps.setColorAt(i, read ? (PENDING.has(i) ? cWait : cOk) : cGrey);
       }
-      const hullRed = redAt(lp, 1.15);
-      tmpC.copy(COL.red).multiplyScalar(hullRed).lerp(COL.cool, cool * .6);
-      for (let k = 0; k < hullMats.length; k++) { hullMats[k].emissive.copy(tmpC); hullMats[k].emissiveIntensity = .35 * hullRed + .4 * cool; }
-      if (aerialMat) aerialMat.emissiveIntensity = 1.6 + ping * 4;
-      thought.position.copy(headPt).setY(headPt.y + .55); thought.material.opacity = ping * .8; thought.scale.setScalar(.6 + ping * .9);
-      reqTag.position.copy(headPt); reqTag.position.y += .98 + ping * .06; reqTag.quaternion.copy(camera.quaternion);
-      reqTag.material.opacity = ramp(lp, .05, .08) * (.62 + .38 * ping); reqTag.scale.setScalar(1 + .12 * ping);
-      reqTag.material.color.copy(tmpC.setRGB(1, 1, 1)).lerp(COL.red, red * .8);
-      // pings: the three latest requests, each a ring leaving the head
-      for (let k = 0; k < 3; k++) {
-        let age = 1; for (let i = k; i < REQ.length; i += 3) if (REQ[i] <= lp) age = lp - REQ[i];
-        const ring = pings[k]; ring.visible = age < .05;
-        if (!ring.visible) continue;
-        const u = age / .05;
-        ring.position.copy(headPt).setY(headPt.y + .05 + u * .3); ring.scale.setScalar(.35 + expoOut(u) * 1.2);
-        ring.material.opacity = Math.pow(1 - u, 1.4);
-        ring.material.color.copy(COL.violet).lerp(COL.red, redAt(lp, 1.3)).multiplyScalar(2.4);
-      }
+      files.instanceMatrix.needsUpdate = true; lamps.instanceMatrix.needsUpdate = true; lamps.instanceColor.needsUpdate = true;
 
-      /* the ribbons in flight */
-      for (let k = 1; k < 5; k++) carryLegs[k].live = false;
-      for (let s = 0; s < NSLOT; s++) {
-        const sl = slots[s]; let leg = null;
-        const list = bySlot[s]; for (let i = 0; i < list.length; i++) { const l = list[i]; if (lp >= l.a && lp < l.a + l.d) { leg = l; break; } }
-        if (!leg) { sl.m.visible = false; sl.tip.visible = false; continue; }
-        const u = (lp - leg.a) / leg.d, head = inOut(u * LEAD), tail = Math.pow(clamp((u - .3) / .7), 2);
-        if (leg.out) { w0.copy(muzzle); targetPoint(w3, leg.to, false); shape(w0, w1, w2, w3, mdir, true); }
-        else { targetPoint(w0, leg.to, true); w3.copy(headPt); shape(w0, w1, w2, w3, mdir, false); }
-        sl.u.p0.value.copy(w0); sl.u.p1.value.copy(w1); sl.u.p2.value.copy(w2); sl.u.p3.value.copy(w3);
-        sl.u.head.value = head; sl.u.tail.value = tail; sl.u.width.value = leg.width; sl.u.glow.value = leg.glow; sl.u.noise.value = leg.noise; sl.u.time.value = tt;
-        sl.u.color.value.copy(leg.color); if (leg.run) sl.u.color.value.lerp(COL.red, ramp(head, .5, 1)); // the run turns red as it lands
-        sl.m.visible = head - tail > .002;
-        bez(hp, w0, w1, w2, w3, head);
-        sl.tip.visible = sl.m.visible && head < 1; sl.tip.position.copy(hp);
-        sl.tip.material.color.copy(sl.u.color.value); sl.tip.material.opacity = 1;
-        sl.tip.scale.setScalar((leg.out ? .42 : .28) * (leg.run ? 2.4 : 1) * (.85 + .15 * Math.sin(tt * 30 + s)));
-        if (leg.carry) { leg.pos.copy(hp); leg.live = true; } // a carried sheet rides the head
+      /* the supervisors: home, to the line, into the pens */
+      const inPen = [0, 0, 0];
+      for (let i = 0; i < 83; i++) {
+        const p = P[i];
+        const a = T.march + i / 83 * T.marchSpan, k1 = ease(lp, a, a + T.marchLen);
+        const b = T.sort + i / 83 * T.sortSpan, k2 = ease(lp, b, b + T.sortLen);
+        let x = mix(mix(p.hx, p.lx, k1), p.px, k2), z = mix(mix(p.hz, p.lz, k1), p.pz, k2);
+        let y = Math.abs(Math.sin(tt * 1.3 + p.ph)) * .012, ry = Math.sin(tt * .5 + p.ph) * .3, tint = 0x4a7fd4, hat = PALETTE.amber;
+        const moving = (k1 > 0 && k1 < 1) || (k2 > 0 && k2 < 1);
+        if (moving) { y += Math.abs(Math.sin((k1 + k2) * 16 + p.ph)) * .05; ry = k2 > 0 ? Math.atan2(p.px - p.lx, p.pz - p.lz) : 0; }
+        if (k1 >= 1 && k2 <= 0) { if (i === 82) tint = STATUS.disputed; y += hit(lp, T.tally, .02) * .08 * (i === 82 ? 0 : 1); }
+        if (p.wait && k1 > .5 && k2 < .5) hat = 0xff8a2a;
+        if (k2 >= 1) { inPen[p.pen]++; tint = PENS[p.pen].tint; }
+        people.place(i, x, z, { y, ry, s: .72 }); people.tint(i, tint); people.hat(i, hat);
       }
-      threads.uLp.value = lp; threads.uTime.value = tt; threads.uHot.value = hot(lp); threads.uSweepY.value = sweepY(lp); threads.uLive.value = live;
-      for (let k = 0; k < NIMP; k++) {
-        let leg = null; for (let i = k; i < calls.length; i += NIMP) if (calls[i].hit <= lp) leg = calls[i];
-        const m = impacts[k], age = leg ? lp - leg.hit : 1; m.visible = age < .03;
-        if (!m.visible) continue;
-        const u = age / .03; targetPoint(m.position, leg.to, false); m.position.y -= .03;
-        m.scale.setScalar((.6 + expoOut(u) * 1.8) * (leg.run ? 2 : 1)); m.material.opacity = Math.pow(1 - u, 1.6);
-        m.material.color.copy(leg.color).multiplyScalar(2.2); if (leg.run) m.material.color.copy(COL.red).multiplyScalar(2.6);
-      }
+      people.commit();
+      const rollIn = ease(lp, T.march - .01, T.march + .02) * (1 - ease(lp, T.sort + .01, T.sort + .05));
+      roll.visible = rollIn > 0; roll.position.y = -.4 * (1 - rollIn);
+      lineMat.emissiveIntensity = 1.3 + .25 * Math.sin(tt * 3) + hit(lp, T.tally, .04) * 2;
+      shortTag.group.scale.setScalar(Math.max(.001, backOut(lin(lp, T.march + T.marchSpan + T.marchLen - .01, T.tally))));
+      waitTag.group.scale.setScalar(Math.max(.001, backOut(lin(lp, T.tally - .03, T.tally))));
+      waitTag.frameMat.emissiveIntensity = 1 + .4 * Math.sin(tt * 4);
+      tally.group.scale.setScalar(Math.max(.001, backOut(lin(lp, T.tally, T.tally + .025))));
+      means.group.scale.setScalar(Math.max(.001, backOut(lin(lp, T.means, T.means + .025))));
+      pens.forEach((q, i) => {
+        const up = ease(lp, T.sort - .012 + i * .006, T.sort + .018 + i * .006);
+        q.f.group.visible = q.s.group.visible = up > 0; q.f.group.scale.y = Math.max(.001, backOut(up)); q.s.group.scale.setScalar(Math.max(.001, backOut(up)));
+        if (inPen[i] !== q.shown) { q.shown = inPen[i]; q.s.redraw(q.lines(inPen[i])); }
+        q.f.mat.emissiveIntensity = .55 + .1 * Math.sin(tt * 2 + i) + (inPen[i] >= q.n ? hit(lp, T.sort + T.sortSpan + T.sortLen, .04) * 1.5 : 0);
+      });
 
-      /* the files: pulled out on a hit, edges lit once read */
-      for (let i = 0; i < sheets.length; i++) {
-        const sh = sheets[i]; let first = -1, age = 1;
-        for (let h = 0; h < sh.hits.length; h++) if (sh.hits[h] <= lp) { if (first < 0) first = sh.hits[h]; age = lp - sh.hits[h]; }
-        const k = age / .05, pull = k < 1 ? (k < .28 ? expoOut(k / .28) : 1 - inOut((k - .28) / .72)) : 0;
-        dummy.position.copy(sh.base).addScaledVector(sh.dir, pull * .36); dummy.position.y += pull * .12;
-        dummy.rotation.set(-pull * .3, sh.rot + pull * .15, 0); dummy.scale.set(1, 1, 1); dummy.updateMatrix();
-        paper.setMatrixAt(i, dummy.matrix); edges.setMatrixAt(i, dummy.matrix); labels[sh.type].setMatrixAt(sh.slot, dummy.matrix);
-        const read = first >= 0 ? 1 : 0, flash = k < 1 ? Math.pow(1 - k, 2) : 0;
-        tmpC.copy(TYPES[sh.type]).multiplyScalar(.28 + read * (1.25 + .2 * Math.sin(tt * 2.1 + i) * live) + flash * 3.5);
-        tmpC.lerp(tmpC2.copy(COL.red).multiplyScalar(1.4), redAt(lp, sh.base.y + .2) * .5).lerp(tmpC2.copy(COL.cool).multiplyScalar(2), coolAt(lp, sh.base.y + .1));
-        edges.setColorAt(i, tmpC.multiplyScalar(unlit));
-      }
-      paper.instanceMatrix.needsUpdate = true; edges.instanceMatrix.needsUpdate = true; edges.instanceColor.needsUpdate = true;
-      for (let k = 0; k < labels.length; k++) labels[k].instanceMatrix.needsUpdate = true;
-
-      /* the context tower */
-      let top = TOWER.y0;
-      for (let j = 0; j < TOWER.rings; j++) {
-        const th = TOK0 + (j - TOWER.first + 1) * ringStep, k = j < TOWER.first ? 1 : clamp((tok - (th - ringStep)) / ringStep);
-        const y = TOWER.y0 + j * TOWER.dy;
-        dummy.rotation.set(0, 0, 0);
-        if (k <= 0) { dummy.scale.setScalar(1e-4); dummy.position.set(TOWER.x, y, TOWER.z); }
-        else {
-          dummy.position.set(TOWER.x, y + (1 - back(k)) * .9, TOWER.z);
-          dummy.rotation.set(Math.sin(tt * 1.3 + j) * .04 * live, 0, Math.cos(tt * 1.1 + j * .7) * .04 * live);
-          dummy.scale.setScalar(.8 + .2 * expoOut(k) + Math.sin(tt * 2 + j * .5) * .015 * live);
-          top = Math.max(top, lerp(TOWER.y0, y, smooth(k * 1.5)));
-        }
-        dummy.updateMatrix(); rings.setMatrixAt(j, dummy.matrix);
-        const land = j < TOWER.first ? 0 : clamp(1 - (tok - th) / 6) * (k >= 1 ? 1 : k), f = j / (TOWER.rings - 1);
-        tmpC.copy(COL.violet).lerp(tmpC2.setRGB(.86, .84, 1), f * .55).multiplyScalar(1.15 + f * .9 + land * 2.4);
-        const flick = live ? .55 + .45 * Math.sin(tt * 33 + j * 1.7) : 1;
-        tmpC.lerp(tmpC2.copy(COL.red).multiplyScalar(2.2 * flick), redAt(lp, y) * .85).lerp(tmpC2.copy(COL.cool).multiplyScalar(2.6), coolAt(lp, y));
-        rings.setColorAt(j, tmpC);
-      }
-      rings.instanceMatrix.needsUpdate = true; rings.instanceColor.needsUpdate = true;
-      core.scale.y = top; core.position.y = top / 2;
-      core.material.color.copy(COL.violet).lerp(COL.red, redAt(lp, top) * .8).multiplyScalar(1.6);
-      cap.position.set(TOWER.x, top + .16, TOWER.z);
-      tokTag.position.set(TOWER.x, top + .62, TOWER.z); tokTag.quaternion.copy(camera.quaternion);
-      tokTag.material.color.copy(tmpC.setRGB(1, 1, 1)).lerp(COL.red, redAt(lp, top) * .8);
-      tokTag.material.opacity = ramp(lp, .02, .07); cap.scale.setScalar(.7 + .1 * Math.sin(tt * 2.4) * live + ping * .3);
-      cap.material.color.copy(COL.violet).lerp(COL.red, redAt(lp, top)).lerp(COL.cool, coolAt(lp, top));
-      towerRim.material.emissiveIntensity = 1.4 + ping * 1.2;
-
-      /* the recomputation's results over the terminal; the read-back's count over the pad */
-      let ci = -1; for (let i = 0; i < CALC.length; i++) if (lp >= CALC[i][0]) ci = i;
-      if (ci >= 0 && ci !== calcShown) { calcShown = ci; calcTex.userData.redraw([{ text: CALC[ci][1], size: CALC[ci][2], weight: 700, color: '#ffe9b0', track: 0 }]); }
-      calcTag.position.set(PAD.x - .3, PAD.top + .72, PAD.z); calcTag.quaternion.copy(camera.quaternion); // over the empty pad: these figures go into the workbook
-      calcTag.material.opacity = ci < 0 ? 0 : ramp(lp, CALC[ci][0], CALC[ci][0] + .006) * (1 - ramp(lp, .408, .42));
-      padTag.material.opacity = ramp(lp, .772, .79);
-
-      /* the terminal */
-      let termAge = 1, nTerm = 0;
-      for (let i = 0; i < calls.length; i++) { const l = calls[i]; if (l.to.type === 'term' && l.hit <= lp) { nTerm++; termAge = lp - l.hit; } }
-      const tflash = termAge < .02 ? Math.pow(1 - termAge / .02, 2) : 0;
-      const tRed = ramp(lp, CRASH - .003, CRASH + .002) * (.75 + .25 * hot(lp)) * (1 - ramp(lp, FIXHIT - .002, FIXHIT + .01)), tCool = ramp(lp, FIXHIT - .002, FIXHIT + .008) * (1 - ramp(lp, .8, .9) * .6);
-      screenMat.uniforms.uScroll.value = lp * 26 + nTerm * 3 + tt * .25;
-      screenMat.uniforms.uTime.value = tt; screenMat.uniforms.uRed.value = tRed; screenMat.uniforms.uCool.value = tCool;
-      screenMat.uniforms.uFlash.value = tflash; screenMat.uniforms.uGlitch.value = tRed * live;
-      errLabel.material.opacity = tRed * (!live || Math.sin(tt * 26) > -.6 ? 1 : .3) * ramp(lp, CRASH + .003, CRASH + .01);
-      errLabel.material.color.setRGB(2.4, .75, .8);
-      termGlow.material.opacity = .2 + tflash * .7 + tRed * .8 + tCool * .15;
-      termGlow.material.color.copy(COL.violet).lerp(COL.red, tRed).lerp(COL.cool, tCool);
-
-      /* the memo: rises on top of the workbook, cracks, re-forms */
-      const appear = ramp(lp, .462, .49), crack = expoOut((lp - CRASH - .002) / .02) * (1 - inOut((lp - (REFORM - .014)) / .014));
-      one.visible = lp >= .462;
-      one.position.copy(SLOTS[4]); one.position.y -= (1 - expoOut((lp - .462) / .028)) * .1;
-      one.scale.set(.94 + .06 * appear, 1, .94 + .06 * appear); one.rotation.y = bookRot[0];
-      const padRed = errAt(lp, .3) * (.6 + .4 * hot(lp)), padCool = coolAt(lp, .3), reformFlash = bump(lp, REFORM - .004, REFORM, REFORM + .03);
-      for (let k = 0; k < shards.length; k++) {
-        const sd = shards[k];
-        const fl = Math.sin(tt * 1.7 + k * 1.3) * .015 * live;
-        sd.g.position.set(sd.x + sd.out.x * crack, crack * (sd.lift + fl), sd.z + sd.out.z * crack);
-        sd.g.rotation.set(sd.rx * crack, sd.ry * crack, sd.rz * crack);
-      }
-      shardTop.map = lp >= REFORM ? fullTex : partTex;
-      tmpC.copy(COL.red).multiplyScalar(padRed).lerp(COL.cool, Math.max(padCool, reformFlash));
-      shardPaper.emissive.copy(tmpC); shardPaper.emissiveIntensity = 1.1 * padRed + .8 * Math.max(padCool, reformFlash);
-      shardTop.emissive.copy(tmpC); shardTop.emissiveIntensity = .6 * padRed + .5 * Math.max(padCool, reformFlash);
-      shardEdge.opacity = clamp(crack * 2) * Math.max(padRed, .25 * hot(lp)) * (live ? .8 + .2 * Math.sin(tt * 30) : 1);
-      shardEdge.color.copy(COL.red).multiplyScalar(2.6);
-      oneEdge.visible = crack < .05;
-      oneEdge.material.color.copy(COL.doc).multiplyScalar(1.4 + bump(lp, .462, .47, .5) * 2.5 + reformFlash * 2.5).lerp(COL.red, padRed);
-      const impact = bump(lp, CRASH - .002, CRASH + .004, .6);
-      padGlow.material.opacity = impact * .95 + padRed * .25 + reformFlash * .6;
-      padGlow.material.color.copy(reformFlash > padRed ? COL.cool : COL.red);
-      padGlow.scale.setScalar(1.6 + 2.4 * impact + reformFlash);
-
-      /* the workbook's four parts: carried out of the muzzle, landed, settled under the memo */
-      let padHit = 0;
-      for (let i = 0; i < calls.length; i++) { const l = calls[i]; if (l.to.type === 'pad' && l.hit <= lp && l.hit > REFORM) padHit = Math.max(padHit, bump(lp, l.hit, l.hit + .003, l.hit + .03)); }
-      const done = bump(lp, .772, .786, .86);
-      for (let k = 1; k < 5; k++) {
-        const g = book[k], leg = carryLegs[k], rest = SLOTS[k - 1];
-        g.visible = lp >= leg.a;
-        if (!g.visible) continue;
-        const age = lp - leg.hit;
-        if (age < 0) {
-          const h = inOut((lp - leg.a) / leg.d * LEAD);
-          if (leg.live) g.position.copy(leg.pos); else g.position.copy(muzzle).lerp(rest, h);
-          g.rotation.set(Math.sin(h * Math.PI) * .45, bookRot[k] + (1 - h) * Math.PI * 1.5, 0);
-          g.scale.setScalar(.55 + .45 * h);
-        } else {
-          const sq = bump(age, 0, .002, .03);
-          g.position.copy(rest); g.position.y -= sq * .012;
-          g.rotation.set(0, bookRot[k], 0); g.scale.set(1 + sq * .08, 1 - sq * .35, 1 + sq * .08);
-        }
-        const land = bump(age, 0, .002, .04), wave = bump(lp, .772 + k * .005, .779 + k * .005, .84);
-        g.userData.edge.material.color.copy(COL.sheet).multiplyScalar(1.4 + land * 3 + wave * 2.5 + padHit * 1.2 + Math.sin(tt * 1.8 + k) * .15 * live);
-      }
-      for (let k = 0; k < 5; k++) {
-        const filled = k === 4 ? lp >= .462 : lp >= carryLegs[k + 1].hit;
-        ghosts[k].visible = !filled && lp > .3;
-        ghosts[k].material.opacity = ramp(lp, .3 + k * .02, .4 + k * .02) * (.55 + .25 * Math.sin(tt * 3 + k) * live);
-      }
-      padRim.material.emissiveIntensity = 1.3 + done * 2 + padHit + reformFlash * 2 + padRed * 1.5;
-      padRim.material.emissive.copy(COL.sheet).lerp(COL.red, padRed);
-
-      /* the light of the moment: the rim, the pool, the shaft, the sweep, the glitch */
-      const allRed = redAt(lp, 0), floorCool = coolAt(lp, .2);
-      rim.material.emissive.copy(COL.violet).lerp(COL.red, allRed).lerp(COL.cool, coolAt(lp, 0));
-      rim.material.emissiveIntensity = 1.1 + ping * .5 + allRed * 1.4 + Math.sin(tt * 2) * .15 * live + done * .5;
-      pool.material.color.copy(COL.steel).multiplyScalar((.3 + ping * .2 + tflash * .1) * .4).lerp(tmpC.copy(COL.red).multiplyScalar(.95), Math.max(impact, allRed * .45)).lerp(tmpC2.copy(COL.cool).multiplyScalar(.6 * .4), floorCool);
-      shaft.material.color.copy(COL.steel).multiplyScalar((.075 + ping * .06) * .4).lerp(tmpC.copy(COL.red).multiplyScalar(.26), impact * .9 + redAt(lp, 2) * .25).lerp(tmpC2.copy(COL.cool).multiplyScalar(.2 * .4), Math.max(coolAt(lp, 1.5), done * .5));
-      const sy = sweepY(lp);
-      sweep.visible = sy > -.5 && sy < 3.08;
-      if (sweep.visible) {
-        const k = clamp(sy / 3.1);
-        sweep.position.y = sy; sweep.scale.setScalar(lerp(1, .42, k)); sweep.material.opacity = Math.min(1, (sy + .5) * 2) * (1 - smooth((k - .55) / .45));
-        sweep.material.color.copy(COL.cool).multiplyScalar(2);
-      }
-      const gl = live * ramp(lp, CRASH - .001, CRASH + .003) * (1 - ramp(lp, .565, .6));
-      bars.visible = gl > 0;
-      if (bars.visible) {
-        bars.quaternion.copy(camera.quaternion);
-        const tick = Math.floor(tt * 24);
-        for (let k = 0; k < barList.length; k += 2) {
-          const r = barList[k], cy = barList[k + 1], on = hash(k * 13.1 + tick) < .6 * gl + .12;
-          r.visible = cy.visible = on;
-          if (!on) continue;
-          const x = (hash(k + tick * .37) - .5) * 2.4, y = (hash(k * 3 + tick * .71) - .5) * 2, w = .25 + hash(k * 7 + tick) * 1.3, h = .012 + hash(k * 5 + tick) * .035;
-          r.position.set(x, y, k * .01); r.scale.set(w, h, 1); cy.position.set(x + .035, y - .012, k * .01 + .005); cy.scale.set(w * .8, h * .7, 1);
-          r.material.opacity = gl * (.6 + hash(k + tick * 1.3) * .4); cy.material.opacity = r.material.opacity * .7;
+      /* the press, the workbook, the jam and the memo */
+      const pressUp = backOut(lin(lp, T.press, T.press + .03), 1.2);
+      press.visible = table.visible = pressUp > .01; press.scale.setScalar(Math.max(.001, pressUp)); table.scale.setScalar(Math.max(.001, pressUp));
+      const fixed = ease(lp, T.fix, T.fix + .03), rerun = ease(lp, T.rerun, T.rerun + .01);
+      pressMat.emissiveIntensity = jam * (.35 + .15 * Math.sin(tt * 9)) * (1 - fixed);
+      trimMat.color.setHex(VIOLET).lerp(cRed, jam * (1 - fixed)); trimMat.emissive.copy(trimMat.color); trimMat.emissiveIntensity = .9 + hit(lp, T.rerun, .04) * 2;
+      lampMat.color.copy(lp < T.crash ? (lp > T.sheets ? cLamp.ok : cLamp.idle) : rerun > .5 ? cLamp.ok : cLamp.bad); lampMat.emissive.copy(lampMat.color);
+      lampMat.emissiveIntensity = 1.4 + (jam > 0 && rerun < .5 ? Math.sin(tt * 12) * .8 : 0);
+      redGlow.material.opacity = (crash * .6 + jam * .12) * (1 - fixed);
+      // the empty tray: fed in at the crash, pulled out and held up when the cause is found, dropped once fixed
+      const feed = ease(lp, T.crash - .02, T.crash), pull = ease(lp, T.find, T.find + .025), drop = ease(lp, T.rerun, T.rerun + .02);
+      tray.visible = feed > 0 && drop < 1;
+      tray.position.set(-.18 - .5 * (1 - feed) - .35 * pull, .72 + .45 * pull - .3 * (1 - feed), .0 + .35 * pull); tray.rotation.z = .5 * pull; tray.rotation.x = .5 * pull;
+      tray.scale.setScalar(1 - drop);
+      trayMat.emissive.copy(cRed).lerp(cCool, fixed); trayMat.color.copy(trayMat.emissive); trayMat.emissiveIntensity = (.3 + jam * 1.6 + hit(lp, T.find + .025, .04) * 2) * (1 - drop);
+      const st = lp >= T.fix + .02 ? 1 : 0;
+      if (st !== stateShown) { stateShown = st; state.redraw(STATES[st]); }
+      const stateIn = backOut(lin(lp, T.crash + .004, T.crash + .03)) * (1 - ease(lp, T.memo + .02, T.memo + .05));
+      state.group.visible = stateIn > .01; state.group.scale.setScalar(Math.max(.001, stateIn));
+      state.frameMat.color.copy(cRed).lerp(cOk, fixed); state.frameMat.emissive.copy(state.frameMat.color); state.frameMat.emissiveIntensity = 1.2 + jam * .6 * Math.sin(tt * 10) + hit(lp, T.fix + .02, .04) * 2;
+      // the workbook's sheets: out of the press onto the table, then fanned out for the read-back
+      const fan = ease(lp, T.fan, T.fan + .03);
+      for (let i = 0; i < SHEETS; i++) {
+        const a = T.sheets + i * T.sheetStep, k = ease(lp, a, a + .014);
+        const sx = mix(MX + .55, TABLE_X - .2, k), sy = mix(.42, .38 + i * .017, k) + Math.sin(k * Math.PI) * .12, sz = MZ;
+        const fx = TABLE_X - .95 + i * .18, fy = 2.15 + Math.sin(i / 9 * Math.PI) * .22, scan = hit(lp, T.scan + (T.scanEnd - T.scan) * i / 9, .02);
+        o.position.set(mix(sx, fx, fan), mix(sy, fy, fan) + scan * .06, mix(sz, MZ - .05, fan));
+        o.rotation.set(mix(0, 1.25, fan), mix(0, -.18 + i * .04, fan), 0, 'YXZ'); o.scale.setScalar(k > 0 ? mix(1, .72, fan) : .001); o.updateMatrix();
+        sheets.setMatrixAt(i, o.matrix);
+        const c = CELLS.indexOf(i);
+        if (c >= 0) {
+          const cell = cells[c], seen = ease(lp, T.scan + (T.scanEnd - T.scan) * i / 9, T.scan + (T.scanEnd - T.scan) * i / 9 + .01);
+          cell.position.copy(v.set(.08 - c * .09, .012, -.06 + c * .07).applyMatrix4(o.matrix)); cell.rotation.set(1.25 - Math.PI / 2, -.18 + i * .04, 0);
+          cell.material.opacity = fan * seen; cell.scale.setScalar(mix(1, .72, fan) * (1 + hit(lp, T.scan + (T.scanEnd - T.scan) * i / 9 + .01, .03) * .8));
         }
       }
+      sheets.instanceMatrix.needsUpdate = true;
+      // the memo: half out and red at the crash, out for good after the fix, upright beside the fan for the read-back
+      const stuck = ease(lp, T.crash - .012, T.crash), outK = ease(lp, T.memo, T.memo + .025);
+      memo.visible = stuck > 0 && press.visible;
+      memo.position.set(mix(mix(MX + .35, MX + .62, stuck), TABLE_X + .32, outK) + fan * .5, mix(mix(.45, .4, outK), 2.15, fan) + (1 - fixed) * jam * Math.sin(tt * 40) * .01, MZ + mix(0, .02, outK) - fan * .05);
+      memo.rotation.set(mix(0, 1.25, fan), mix(Math.PI / 2, 0, outK) + fan * .22, jam * (1 - fixed) * .18, 'YXZ');
+      memoMat.emissiveIntensity = jam * (1 - fixed) * (.5 + .2 * Math.sin(tt * 11));
+      const foundIn = backOut(lin(lp, T.found, T.found + .025));
+      found.group.visible = foundIn > .01; found.group.scale.setScalar(Math.max(.001, foundIn)); found.frameMat.emissiveIntensity = 1 + hit(lp, T.found + .02, .04) * 2;
+
+      /* the robot: where it stands, what it aims the harness at */
+      pathAt(WALK, lp, walker);
+      let aim = 0;
+      if (reading >= 0) { target.set(F[reading].x, .45, RACK_Z + .1); aim = 1; }
+      else if (lp > T.march + .03 && lp < T.sort) { target.set(mix(.4, 3.7, (cf % 1)), .1, LINE_Z); aim = lp < T.tally + .03 ? .8 : 0; }
+      else if (lp >= T.sort && lp < T.press) { const q = PENS[Math.min(2, Math.floor(lin(lp, T.sort + .02, T.press) * 3))]; target.set(q.x, .3, q.z); aim = .7; }
+      else if (lp >= T.sheets && lp < T.crash) { target.set(MX - .2, .6, MZ); aim = .8; }
+      else if (lp >= T.find && lp < T.find + .035) { target.set(MX - .55, 1.1, MZ + .3); aim = .5; }
+      else if (lp >= T.fix && lp < T.rerun) { target.set(MX - .05, .5, MZ + .3); aim = 1; }
+      else if (lp >= T.scan && lp < T.scanEnd + .005) { target.set(TABLE_X - .95 + lin(lp, T.scan, T.scanEnd) * 1.62, 2.2, MZ); aim = 1; }
+      const recoil = hit(lp, T.crash, .05), lean = ease(lp, T.find - .02, T.find) * (1 - ease(lp, T.rerun, T.rerun + .02));
+      const turn = ease(lp, T.turn, T.turn + .025), hop = Math.sin(Math.PI * lin(lp, T.turn + .02, T.turn + .05)) * .04 + Math.sin(Math.PI * lin(lp, T.tally, T.tally + .03)) * .08;
+      const faceTo = aim > 0 || lp >= T.press ? Math.atan2((aim > 0 ? target.x : MX) - walker.x, (aim > 0 ? target.z : MZ) - walker.z) : .5;
+      // keep the face towards the camera's side: never turn further than a quarter from it
+      const stand = mix(Math.max(.2, Math.min(.75, faceTo)), .35, turn);
+      root.position.set(walker.x - recoil * .12, hop, walker.z);
+      root.rotation.set(-recoil * .22 + lean * .12, walker.walk > 0 ? mix(stand, walker.ry, walker.walk) : stand, 0);
+      (made?.update ?? ((a, b) => bot.update(a, b)))(walker.walk > .05 ? lp * 110 : tt, walker.walk * live);
+      const red = jam * (1 - fixed);
+      for (const e of eyeMats) { e.m.emissive.copy(e.base).lerp(cRed, red); e.m.color.copy(e.m.emissive); e.m.emissiveIntensity = e.i + red * 1.5 + hit(lp, T.turn + .02, .04) * 2; }
+      // a tool call: a short ribbon from the muzzle to what it works on, once per call
+      root.updateMatrix(); gun.updateMatrix(); m4.multiplyMatrices(root.matrix, gun.matrix); muzzle.set(0, 0, .52).applyMatrix4(m4);
+      const beat = aim > 0 && lp < T.turn ? Math.max(0, 1 - (cf % 1) * 1.6) * aim : 0, steady = lp >= T.fix && lp < T.rerun ? .8 : lp >= T.scan && lp < T.scanEnd ? .7 : 0;
+      const on = Math.max(beat, steady) * live;
+      shot.visible = false;
+      if (on > .02) { stretch(shot, muzzle, target, .012 + .01 * on); shot.material.opacity = .55 * on; shot.material.color.copy(red > .3 ? cRed : steady ? cCool : cOk).lerp(cCool, .5); }
+      muzzleFlash.position.copy(muzzle); muzzleFlash.material.opacity = on * .8; muzzleFlash.scale.setScalar(.25 + on * .3);
+      spot.position.copy(target); spot.material.opacity = on * .7; spot.scale.setScalar(.2 + on * .35);
+
+      ground.rimMat.emissiveIntensity = 1 + .2 * Math.sin(tt * 1.8) + hit(lp, T.tally, .04) * 1.5 + crash * 2 + hit(lp, T.found, .04) * 1.5;
+      ground.rimMat.color.setHex(VIOLET).lerp(cRed, red * .8); ground.rimMat.emissive.copy(ground.rimMat.color);
+      hubs.forEach((h, i) => { if (i < 3) h.bandMat.emissiveIntensity = .35 + .1 * Math.sin(tt * 1.5 + i); });
+
+      const stacked = !!layout?.stacked;
+      // the reduced-motion still stands a little further back: its frame is not the pinned one
+      line(reduce ? .84 : lp, cam, stacked ? -.2 : -.4 - Math.max(0, 1.85 - camera.aspect) * .9 + (reduce ? .3 : 0), stacked ? 2.2 : reduce ? 1.27 : 1.15);
     },
   };
   return api;

@@ -1,21 +1,28 @@
 /* film-econ-metacase.js — beat 4 of the economics Metacase film: Reflection (econ-0157).
- * The homepage's Metacase book lies open on its plinth, its spine across the view: the title page
- * at the back, the empty page in front. This beat takes five beats of scroll (LONG in the film).
- * Everything is a pure function of real, the beat's progress; t only adds idle life.
- *   real .07–.42  the five things the number depends on, .07 each, in the order of the copy's
- *                 cards: a sheet (or two that differ) flies in, the robot reads it, and a
- *                 medallion stamps onto the front page: met, or met with a reservation. The two
- *                 specifications (−66.33, −69.35: covariates unverified); the control cohort
- *                 (never_inspect); the two variance terms (24.89, 25.05); the sample with and
- *                 without singletons (3,246, 3,170); the two bases of the p-value (0.00831,
- *                 0.00811: passes on tolerance)
- *   real .425–.86 three ring towers rise behind the book, one for each comparison the grader
- *                 makes. Each fills in turn and the count climbs to 3 / 3; the p-value's tower
- *                 keeps an amber ring (it passes on tolerance); the 1.000 medallion lands at .85
- *   real .86–1    the ending, on lp (.54–1): the towers and the medallions pour into the page, the
- *                 cover lifts, hangs and slams (.69), light leaks from the seam, the tabs slide out,
- *                 the thread draws the signature through them, the book rises and turns.
- * Reduced motion gets one still, at .855: all the figures are in place. */
+ * One number, and the settings it depends on. On the plotting table a route runs from the data to
+ * the reported figure, −66.33, and at five places it forks: the covariates, the control cohort,
+ * the terms of the variance, the order in which singletons are dropped, the basis of the p-value.
+ * The robot walks the route. At each fork the branch not taken lights first and shows the figure
+ * it would have led to; then the robot settles the fork: a medallion lands on the junction (green:
+ * met; amber: met with a reservation), the stretch ahead lights, a barrier drops on the other
+ * branch. This beat takes five beats of scroll (LONG in the film). Everything is a pure function
+ * of real, the beat's progress; t only adds idle life.
+ *   real 0–.07    what held: a light runs the whole route once, from the data to the figure
+ *   real .07–.42  the five forks, .07 each, in the order of the copy's cards
+ *   real .425–.55 what failed, first: the p-value passes only on tolerance (a plate over fork five)
+ *        .55–.67  second: the robot walks back to the start; the authors' script was never found,
+ *                 so the route rests on the task's settings alone
+ *        .67–.775 third: a time rule along the front of the table. The estimate stood at 185 s;
+ *                 five more minutes went on searching; a stalled lookup; then the files, written
+ *   real .775–.86 the route leaves the table: the props sink, the lit route rises as points of
+ *                 light, the open Metacase book forms in its place; the five medallions and the
+ *                 1.000 fly onto its front page
+ *   real .86–1    the ending, on lp (.54–1), as in the other two films: everything pours into the
+ *                 page, the cover lifts, hangs and slams (.69), light leaks from the seam, the tabs
+ *                 slide out, the thread draws the signature through them, the book rises and turns.
+ * Reduced motion gets one still, at .42: the route with all five forks settled. */
+import { plotTable, plate } from './film-econ-kit.js?v=mc-401ead81de';
+
 const TAU = Math.PI * 2;
 const lin = (x, a, b) => Math.min(1, Math.max(0, (x - a) / (b - a)));
 const easeOut = (x, k = 3) => 1 - Math.pow(1 - Math.min(1, Math.max(0, x)), k);
@@ -26,15 +33,11 @@ const flash = (x, a, w) => { const u = (x - a) / w; return u < 0 || u >= 1 ? 0 :
 // a decaying wobble after an impact at a: 1 at the hit, swinging to rest over w
 const wobble = (x, a, w, cycles = 1.25) => { const u = (x - a) / w; return u < 0 || u >= 1 ? 0 : Math.cos(u * Math.PI * 2 * cycles) * (1 - u) * (1 - u); };
 
-// The camera line, authored as keys (set coordinates) joined by a C1 Hermite spline in lp: a high
-// wide shot over the towers and the book, a push onto the page, then low in front of the
-// fore-edge for the slam (the cover falls towards the lens), up as the tabs come out, and round to a
-// low hero three-quarter on the risen book.
+// The ending's camera, authored as keys (set coordinates) joined by a C1 Hermite spline: high over
+// the book, a push onto the page, then low in front of the fore-edge for the slam (the cover falls
+// towards the lens), up as the tabs come out, and round to a low hero three-quarter on the risen book.
 const END_A = .86, atEnd = old => END_A + (old - .54) / .46 * (1 - END_A);
-const KEYS = [
-  { at: 0, pos: [.2, 4.5, 11.6], look: [0, 1.45, -.7], fov: 32 },
-  { at: .42, pos: [.2, 4.5, 11.6], look: [0, 1.45, -.7], fov: 32 },
-  { at: .455, pos: [-1.9, 7.1, 10.5], look: [.2, .55, -.4], fov: 35.5 },
+const END_KEYS = [
   { at: .85, pos: [-1.7, 7.0, 10.3], look: [.2, .55, -.4], fov: 35.5 },
   { at: atEnd(.6), pos: [-.7, 5.0, 8.9], look: [0, .4, .9], fov: 33 },
   { at: atEnd(.66), pos: [0, 1.6, 7.5], look: [0, .6, 0], fov: 32 },
@@ -44,43 +47,46 @@ const KEYS = [
   { at: 1, pos: [5.05, 2.55, 9.3], look: [.3, 1.45, .5], fov: 30 },
 ];
 
-// The score medallion: where it lands on the front page and where its arc starts and bends (set
-// coordinates), when it leaves (s) and how it tumbles on the way.
+// The score medallion: where it lands on the front page and where its arc starts (the plate with
+// the reported figure) and bends (set coordinates), when it leaves (s) and how it tumbles on the way.
 const DUR = .2, HOVER = 1.2, SIZE = 1.3;
 const TOKENS = [
-  { key: 'medal', color: 0xf2b545, land: [0, 1.2], from: [9, 5.5, -3], bend: [5, 6.5, -.5], s: .125, spin: [1.4, 3.2, .2], yaw: -.15 },
+  { key: 'medal', color: 0xf2b545, land: [0, 1.2], from: [4.05, .9, .45], bend: [3.6, 4.2, .9], s: .125, spin: [1.4, 3.2, .2], yaw: -.15 },
 ];
-// The scoring groups, in the order of the table below the film: identifiers and figures only
-// (here: the three comparisons the grader makes; each tower is sixteen rings and fills whole when its comparison passes)
-const GROUPS = [
-  { id: 'coefficient', note: '0.00% ≤ 1%', pts: 16, max: 16 },
-  { id: 'standard error', note: '0.00% ≤ 1%', pts: 16, max: 16 },
-  { id: 'p-value', note: '0.0002 ≤ 0.01', pts: 16, max: 16, warn: true },   // passes on tolerance: its top rings stay amber
-];
-const NG = GROUPS.length, TOTAL = 48, RING_PTS = 1, RING_DY = .082, RING_Y0 = .12;
-const RISE_A = .425, FILL_A = .47, FILL_STEP = .115, POUR_A = .54;
 // The ending's timeline (lp) was written for .54–1; real maps onto it, and the medallion's flight
 // (lp .125–.325) onto real .80–.85. Nothing else on lp happens before .54.
 const lpOf = r => (r <= .8 ? .125 * r / .8 : r <= .85 ? .125 + (r - .8) / .05 * .2 : r <= END_A ? .325 + (r - .85) / .01 * .215 : .54 + (r - END_A) / (1 - END_A) * .46);
-// The five things the number depends on: identifiers and figures only on the set; the copy carries the words.
-// out: M met, P met with a reservation (the covariates were not verified; the p-value passes on tolerance).
-const CONFLICTS = [
-  { a: '−66.33', b: '−69.35', out: 'P' },
-  { a: 'never_inspect', out: 'M' },
-  { a: '24.89', b: '25.05', out: 'M' },
-  { a: '3,246', b: '3,170', out: 'M' },
-  { a: '0.00831', b: '0.00811', out: 'P' },
+
+// The five forks, in the order of the copy's cards: identifiers and figures only on the set; the copy
+// carries the words. take: the branch this run took; alt: the other branch. out: M met, P met with a
+// reservation (the covariates were not verified; the p-value passes on tolerance).
+const FORKS = [
+  { name: 'covariates', take: ['−66.33', 'no covariates'], alt: ['−69.35', 'column 2 covariates'], out: 'P' },
+  { name: 'control cohort', take: ['never inspected'], alt: ['not yet treated'], out: 'M' },
+  { name: 'variance', take: ['25.05', 'two terms'], alt: ['24.89', 'first term alone'], out: 'M' },
+  { name: 'singletons', take: ['3,170 · 641', 'shares first, then dropped'], alt: ['3,246 · 717', 'not dropped'], out: 'M' },
+  { name: 'p-value basis', take: ['0.00831', 't · 640 df'], alt: ['0.00811', 'normal'], out: 'P' },
 ];
-const C_A = .07, C_W = .07, NC = CONFLICTS.length, FIRE = .46, HIT = .62, LEAVE = .85;
-const OUT = { M: [.1, .95, .36], P: [1.1, .5, .04], X: [.12, .14, .19] }, FLASH = { M: 2.6, P: 2.4, X: .7 };
-const SHEET = { w: 1.8, h: 1.22, y: 2.05, z: -1.25, lx: -1.28, rx: 1.27, cx: 0, gate: 1.14 };
-const coinX = i => -1.12 + i * .56, COIN_Z = 2.02, COIN_S = 1.55;
-const towerX = j => -1.5 + j * 1.5, towerZ = x => -2.9 + .7 * (x / 2.46) ** 4;
+const C_A = .07, C_W = .07, NC = FORKS.length;
+// inside a fork's stretch (u, 0..1): the walk in, the other branch, the choice
+const WALK_B = .18, ALT_A = .16, ALT_B = .28, FIRE = .42, HIT = .52, LIGHT_B = .7, BAR_A = .58, FOLD_A = .88, FOLD_B = .96;
+const OUT = { M: [.1, .95, .36], P: [1.1, .5, .04] }, FLASH = { M: 2.6, P: 2.4 };
+// what failed: the tolerance, the script that was never found, the time
+const TOL_A = .437, BACK_A = .552, BACK_B = .6, FRAME_A = .6, STAMP = .645, RULE_A = .67, LEAVE_A = .775, LEAVE_B = .8;
+const RULE = { z: 2.2, x0: -.9, x1: 3.3, total: 485, stood: 185, stall: [400, 455] };
+const ruleX = s => RULE.x0 + (RULE.x1 - RULE.x0) * s / RULE.total;
+const RUN = { toStood: [.688, .705], toStall: [.712, .735], interrupt: .755, toEnd: [.757, .772] };
+const coinX = i => -1.12 + i * .56, COIN_Z = 2.02, COIN_S = 1.55, COIN_J = 1.25;
 const SIG = 0;
+// the route: where it runs on the table (z as a function of x), and its nodes: the data, five forks, the figure
+const zR = x => .9 + .2 * Math.sin((x + 2.25) * 1.165);
+const NODE_X = [-3.0, -2.25, -.9, .45, 1.8, 3.15, 4.0];
+const FRONT_Z = 3.15;                                // the plotting table's front edge
+const SIDE = .5;                                     // the robot walks beside the route, on the reader's side, and stops to the left of each fork
 
 export async function build(ctx) {
-  const { THREE, kit, set, accent, reduce, camera, util, hand } = ctx;
-  const { PALETTE, BOOK, BOOK_CENTRE, STAGE_COLORS, GUN_HOLD, add, cyl, rbox, mat, glowMat, closedBook, bookTabs, robot } = kit;
+  const { THREE, kit, set, accent, reduce, camera, util, hand, layout } = ctx;
+  const { PALETTE, BOOK, BOOK_CENTRE, STAGE_COLORS, GUN_HOLD, add, block, cyl, rbox, mat, glowMat, closedBook, bookTabs, robot } = kit;
   const { smooth, lerp, glowSprite } = util;
   const { PW, PD, T, BOARD } = BOOK;
   const PAGE = BOARD + T / 2;                     // the open pages: the block splits at its middle
@@ -112,13 +118,9 @@ export async function build(ctx) {
   const toSet = (out, v) => out.set(-v.z, v.y, v.x);
   const REST = new THREE.Vector3(0, BOOK_CENTRE.y, BOOK_CENTRE.x);     // the closed book's centre, set coordinates
 
-  /* ---- the plinth: dark navy with a glowing rim, top at y = 0 ---- */
-  cyl(set, 3.55, 3.7, .32, 0x1c2740, 0, -.32, 0, 72);
-  cyl(set, 3.71, 3.45, .5, 0x111a2d, 0, -.82, 0, 72);
-  const rimMat = glowMat(accent, 1.1).clone();
-  const rim = add(set, new THREE.TorusGeometry(3.62, .026, 8, 160), rimMat, 0, .005, 0, false); rim.rotation.x = Math.PI / 2;
-  const innerMat = additive(accent, .16, null);
-  const inner = add(set, new THREE.TorusGeometry(3.0, .008, 4, 160), innerMat, 0, .004, 0, false); inner.rotation.x = Math.PI / 2;
+  /* ---- the plotting table, shared by the five economics sets ---- */
+  const { rimMat } = plotTable({ THREE, kit, set, accent });
+  const innerMat = { opacity: 0 };
   // a warm pool of light on the plinth that the book throws once it holds the run
   const poolMat = additive(0xffc982, 0);
   const pool = add(set, new THREE.PlaneGeometry(6.4, 6.4), poolMat, REST.x, .012, REST.z, false); pool.rotation.x = -Math.PI / 2; pool.receiveShadow = false;
@@ -237,9 +239,137 @@ export async function build(ctx) {
   const moteSeed = Array.from({ length: 64 }, (_, i) => [((i * 0.61803) % 1), ((i * 0.3819 + .17) % 1), ((i * 0.7548 + .4) % 1)]);
   const moteCol = moteSeed.map((_, i) => new THREE.Color(STAGE_COLORS[i % 5]));
 
-  /* ---- the robot, the model that ran it, watching from beside the spread ---- */
-  const bot = robot(PALETTE.cream, 0x8ff6ff);
-  bot.root.scale.setScalar(1.15); bot.root.position.set(2.72, 0, .85); set.add(bot.root);
+  /* ---- the route: six stretches from the data to the figure, each a dim line and a bright one that draws over it ---- */
+  const MONO = '"Space Mono", ui-monospace, SFMono-Regular, monospace';
+  const TEAL = accent, ALT = 0xa79bff, GREEN = 0x3fd08a, AMBER = PALETTE.amber, ROSE = PALETTE.rose, CYAN = 0x8ff6ff;
+  const own = (color, intensity = 1) => new THREE.MeshStandardMaterial({ color, emissive: color, emissiveIntensity: intensity, roughness: .5 });
+  const path = new THREE.Group(); set.add(path);       // everything that sinks into the table when the route leaves
+  const SEG = 40, RAD = 8;
+  const sweep = (geo, k) => geo.setDrawRange(0, Math.round(Math.min(1, Math.max(0, k)) * SEG) * RAD * 6);
+  const routeCurve = (x0, x1) => new THREE.CatmullRomCurve3(Array.from({ length: 9 }, (_, k) => { const x = x0 + (x1 - x0) * k / 8; return new THREE.Vector3(x, .035, zR(x)); }));
+  const segs = NODE_X.slice(0, -1).map((x0, j) => {
+    const curve = routeCurve(x0, NODE_X[j + 1]);
+    const baseMat = new THREE.MeshStandardMaterial({ color: 0x2b4a66, emissive: TEAL, emissiveIntensity: .25, roughness: .7 });
+    add(path, new THREE.TubeGeometry(curve, SEG, .045, RAD), baseMat, 0, 0, 0, false);
+    const litGeo = new THREE.TubeGeometry(curve, SEG, .056, RAD), litMat = own(TEAL, 1.5);
+    add(path, litGeo, litMat, 0, 0, 0, false); sweep(litGeo, 0);
+    return { baseMat, litGeo, litMat, mid: (x0 + NODE_X[j + 1]) / 2 };
+  });
+  const runner = sprite(0xbff7f2, 1.1); path.add(runner);
+
+  // printed labels lying on the table, tipped up towards the reader
+  const flatLabel = (key, lines, w, h, x, z, opts = {}) => {
+    const tw = 1024, th = Math.round(tw * h / w), tilt = opts.tilt ?? .5;
+    const tex = kit.labelTexture(`film-econ-path-${key}`, lines, { width: tw, height: th });
+    const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ map: tex, transparent: true, opacity: opts.opacity ?? 1, depthWrite: false, toneMapped: false, fog: false }));
+    m.rotation.x = -Math.PI / 2 + tilt; m.position.set(x, .03 + Math.sin(tilt) * h / 2, z); m.renderOrder = 4; (opts.parent || path).add(m);
+    return m;
+  };
+  const plateLines = (a, main, sub, k = 1) => (a.length > 1
+    ? [{ text: a[0], size: (a[0].length > 8 ? 84 : 108) * k, weight: 800, color: main, font: MONO, track: -1 }, { text: a[1], size: (a[1].length > 20 ? 40 : 46) * k, weight: 600, color: sub }]
+    : [{ text: a[0], size: 70 * k, weight: 700, color: main }]);
+  const standing = (key, lines, w, h, color, x, z, turn = 0) => {
+    const p = plate({ THREE, kit, key: `film-econ-path-${key}`, lines, w, h, color, texWidth: Math.round(256 * (w * .94) / (h * .9)), texHeight: 256 });
+    p.group.position.set(x, 0, z); p.group.rotation.y = turn; path.add(p.group);
+    return p;
+  };
+
+  // the data at the start, the reported figure at the end
+  const dataPlate = standing('data', [{ text: 'data', size: 92, weight: 800, color: '#ffffff' }, { text: '3,246 observations', size: 44, weight: 600, color: '#9fd8ff' }], .9, .44, 0x9fd8ff, NODE_X[0] - .22, zR(NODE_X[0]) - .62, .22);
+  const goal = new THREE.Group(); set.add(goal);        // the figure's plate stays until the medallion has left it
+  const goalPlate = plate({ THREE, kit, key: 'film-econ-path-goal', lines: [{ text: '−66.33', size: 112, weight: 800, color: '#ffffff', font: MONO, track: -1 }, { text: 'this run', size: 46, weight: 600, color: '#8fe6df' }], w: 1.0, h: .5, color: TEAL, texWidth: 535, texHeight: 256 });
+  goalPlate.group.position.set(4.08, 0, zR(4) - .62); goalPlate.group.rotation.y = -.3; goal.add(goalPlate.group);
+  const goalRingMat = own(TEAL, 1.2);
+  const goalRing = add(goal, new THREE.TorusGeometry(.2, .03, 8, 36), goalRingMat, NODE_X[6], .04, zR(NODE_X[6]), false); goalRing.rotation.x = Math.PI / 2;
+  cyl(path, .12, .14, .07, 0x26324d, NODE_X[0], 0, zR(NODE_X[0]), 20);
+
+  /* ---- the forks ---- */
+  const coinGeo = new THREE.LatheGeometry([[0, -.045], [.17, -.045], [.195, -.026], [.2, 0], [.195, .026], [.17, .045], [.163, .045], [.156, .032], [0, .032]].map(([x, y]) => new THREE.Vector2(x, y)), 36);
+  const inlayGeo = new THREE.CircleGeometry(.152, 32).rotateX(-Math.PI / 2).translate(0, .035, 0);
+  const coinRingGeo = new THREE.RingGeometry(.84, 1, 48).rotateX(-Math.PI / 2);
+  const forks = FORKS.map((f, i) => {
+    const x = NODE_X[i + 1], z = zR(x), warn = f.out === 'P';
+    // the branch not taken: it peels off towards the back and ends at a barrier
+    const altCurve = new THREE.CatmullRomCurve3([[x, z], [x + .3, z - .1], [x + .62, z - .5], [x + .8, z - 1.15], [x + .8, -1.3]].map(([px, pz]) => new THREE.Vector3(px, .03, pz)));
+    const altBaseMat = new THREE.MeshStandardMaterial({ color: 0x343a5e, emissive: ALT, emissiveIntensity: .1, roughness: .8 });
+    add(path, new THREE.TubeGeometry(altCurve, SEG, .034, RAD), altBaseMat, 0, 0, 0, false);
+    const altGeo = new THREE.TubeGeometry(altCurve, SEG, .044, RAD), altMat = new THREE.MeshStandardMaterial({ color: 0x4a4f7a, emissive: ALT, emissiveIntensity: 1.4, roughness: .6 });
+    add(path, altGeo, altMat, 0, 0, 0, false); sweep(altGeo, 0);
+    const barMat = own(ROSE, 1.1), bar = new THREE.Group(); bar.position.set(x + .47, 0, z - .32); bar.rotation.y = -.67; path.add(bar);
+    add(bar, rbox(.5, .085, .06, .02), barMat, 0, .2, 0, false);
+    [-1, 1].forEach(s => add(bar, rbox(.045, .2, .045, .012), mat(0x2f3a56), s * .2, .1, 0, false));
+    // the junction, the fork's name, and the two plates
+    const nodeMat = own(CYAN, .7), node = add(path, new THREE.TorusGeometry(.15, .024, 8, 36), nodeMat, x, .04, z, false); node.rotation.x = Math.PI / 2;
+    const name = flatLabel(`name-${i}`, [{ text: f.name, size: 150, weight: 700, color: '#dfe8f7', track: 1 }], .95, .19, x + .72, 1.62, { tilt: .4 });
+    name.position.z = 2.12;
+    const altPlate = standing(`alt-${i}`, plateLines(f.alt, '#e6e1ff', '#b9b0ee'), 1.15, .5, ALT, x + .8, -1.8);
+    const takePlate = standing(`take-${i}`, [{ text: f.name, size: 38, weight: 600, color: '#a9b8d2', track: 2 }, ...plateLines(f.take, '#ffffff', warn ? '#ffd27a' : '#a9f0c6', .88)], 1.15, .6, warn ? AMBER : GREEN, x + .72, 2.36);
+    takePlate.group.rotation.x = -.95;
+    // the medallion that settles it, and the ring it throws on landing
+    const g = new THREE.Group();
+    const body = new THREE.Mesh(coinGeo, new THREE.MeshStandardMaterial({ color: 0xf5efe5, roughness: .5 })); body.castShadow = true; g.add(body);
+    const inlay = new THREE.Mesh(inlayGeo, new THREE.MeshBasicMaterial({ color: 0xffffff, toneMapped: false, fog: false })); g.add(inlay);
+    g.visible = false; set.add(g);
+    const ring = new THREE.Mesh(coinRingGeo, additive(0xffffff, 0, null)); ring.position.set(x, .05, z); ring.renderOrder = 2; ring.visible = false; set.add(ring);
+    return { ...f, i, x, z, warn, altBaseMat, altGeo, altMat, bar, barMat, node, nodeMat, name, altPlate, takePlate, coin: { g, inlay, ring }, at: new THREE.Vector3(x, .06, z), slot: new THREE.Vector3(coinX(i), PAGE + .08, COIN_Z), altAt: new THREE.Vector3(x + .8, .3, -1.8), takeAt: new THREE.Vector3(x + .72, .2, 2.3) };
+  });
+
+  /* ---- what failed ---- */
+  // first: the p-value passes only on tolerance. A plate over the fifth fork, on a fine stem.
+  const F5 = forks[NC - 1];
+  const tol = new THREE.Group(); tol.position.set(F5.x - .3, 2.0, F5.z); path.add(tol);
+  const tolPlate = plate({ THREE, kit, key: 'film-econ-path-tol', lines: [{ text: '0.0002 within 0.01', size: 74, weight: 800, color: '#ffffff', font: MONO, track: -2 }, { text: 'passes only on tolerance', size: 50, weight: 600, color: '#ffd27a' }], w: 1.7, h: .5, color: AMBER, texWidth: 909, texHeight: 256 });
+  tolPlate.group.position.y = -.25; tol.add(tolPlate.group);
+  const tolStem = add(path, new THREE.CylinderGeometry(.008, .008, 1, 6), additive(AMBER, 0, null), F5.x + .1, .6, F5.z, false);
+  // second: the authors' script. An empty frame beside the start, and what the route rests on instead.
+  const MISS = { x: -2.38, z: -1.25, w: 1.3, h: .8 };
+  const miss = new THREE.Group(); miss.position.set(MISS.x, .22, MISS.z); miss.rotation.y = .08; path.add(miss);
+  const missMat = own(0x9aa3b2, .9);
+  for (let k = 0; k < 4; k++) {                      // a dashed outline: three dashes on each side
+    const horiz = k < 2, y = horiz ? (k ? MISS.h + .1 : .1) : .1 + MISS.h / 2, len = horiz ? MISS.w : MISS.h;
+    for (let d = 0; d < 3; d++) {
+      const o = (d - 1) * len / 3;
+      add(miss, rbox(horiz ? len / 3 - .09 : .025, horiz ? .025 : len / 3 - .09, .025, .008), missMat, horiz ? o : (k === 2 ? -1 : 1) * MISS.w / 2, horiz ? y : y + o, 0, false);
+    }
+  }
+  [-1, 1].forEach(sx => add(miss, rbox(.03, .32, .03, .01), mat(0x4a5a80), sx * (MISS.w / 2 - .12), -.06, 0, false));
+  const upright = (key, lines, w, h, parent, x, y, z = .01, opacity = 0) => {
+    const tw = 1024, th = Math.round(tw * h / w), tex = kit.labelTexture(`film-econ-path-${key}`, lines, { width: tw, height: th });
+    const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ map: tex, transparent: true, opacity, depthWrite: false, toneMapped: false, fog: false }));
+    m.position.set(x, y, z); m.renderOrder = 4; parent.add(m); return m;
+  };
+  const missName = upright('miss-name', [{ text: "authors' script", size: 150, weight: 600, color: '#c3cee0' }], 1.15, .21, miss, 0, .1 + MISS.h * .64);
+  const missStamp = upright('miss-stamp', [{ text: 'never found', size: 170, weight: 800, color: '#ff8fa0', track: 2 }], 1.15, .255, miss, 0, .1 + MISS.h * .3, .03); missStamp.rotation.z = .12;
+  const pings = [0, 1, 2].map(() => { const m = new THREE.Mesh(coinRingGeo, additive(0xbfd7ff, 0, null)); m.position.set(MISS.x + .1, .03, MISS.z + .45); m.renderOrder = 2; m.visible = false; path.add(m); return m; });
+  const rests = upright('rests', [{ text: "the task's settings alone", size: 104, weight: 700, color: '#ffd27a', track: 1 }], 1.34, .17, miss, 0, -.1, .02);   // under the frame: what the route rests on instead
+  // third: the time rule along the front of the table, 0 to about eight minutes
+  const rule = new THREE.Group(); rule.position.set(0, 0, RULE.z); path.add(rule);
+  const ruleLen = RULE.x1 - RULE.x0;
+  add(rule, rbox(ruleLen + .12, .05, .16, .02), mat(0x26324d), (RULE.x0 + RULE.x1) / 2, .025, 0, false);
+  for (let s = 0; s <= 480; s += 60) add(rule, rbox(.022, .07, .24, .006), mat(0x7d93b6), ruleX(s), .035, 0, false);
+  const barOf = (color, y) => { const m = own(color, 1.3), b = add(rule, new THREE.BoxGeometry(1, .05, .11), m, 0, y + .03, 0, false); return { m, b }; };
+  const fillTeal = barOf(TEAL, .045), fillAmber = barOf(AMBER, .046), fillRed = barOf(0xff3a52, .05);
+  const span = (bar, a, b) => { const w = Math.max(.001, ruleX(b) - ruleX(a)); bar.b.scale.x = w; bar.b.position.x = ruleX(a) + w / 2; bar.b.visible = w > .002; };
+  const flag = new THREE.Group(); flag.position.set(ruleX(RULE.stood), 0, -.02); rule.add(flag);
+  add(flag, new THREE.CylinderGeometry(.014, .014, .7, 8), mat(0xdfe8f7), 0, .35, 0, false);
+  const flagMat = own(TEAL, 1.2); add(flag, rbox(.3, .17, .02, .01), flagMat, .16, .6, 0, false);
+  const stoodLabel = flatLabel('stood', [{ text: '185 s · estimate stood', size: 112, weight: 700, color: '#8fe6df', track: 1 }], 1.62, .23, ruleX(RULE.stood) - .05, .34, { parent: rule, tilt: .45, opacity: 0 });
+  const searchLabel = flatLabel('search', [{ text: 'five more minutes · searching', size: 106, weight: 700, color: '#ffd27a', track: 1 }], 1.95, .23, (ruleX(RULE.stood) + ruleX(RULE.stall[0])) / 2 + .1, .74, { parent: rule, tilt: .45, opacity: 0 });
+  const stallLabel = flatLabel('stall', [{ text: 'stalled lookup', size: 140, weight: 800, color: '#ff8fa0', track: 1 }], 1.15, .23, (ruleX(RULE.stall[0]) + ruleX(RULE.stall[1])) / 2, .34, { parent: rule, tilt: .45, opacity: 0 });
+  const stallAt = (ruleX(RULE.stall[0]) + ruleX(RULE.stall[1])) / 2;
+  const spinner = add(rule, new THREE.TorusGeometry(.17, .022, 8, 28, Math.PI * 1.5), own(0xff5a70, 1.8), stallAt, .62, 0, false);
+  // the two files at the end of the rule: outlines until they are written
+  const fileMat = new THREE.MeshStandardMaterial({ color: 0x26324d, emissive: GREEN, emissiveIntensity: 0, roughness: .6 });
+  const files = [0, 1].map(k => { const m = add(rule, rbox(.2, .27, .03, .015), fileMat, RULE.x1 + .2 + k * .27, .17, 0, false); m.rotation.x = -.15; return m; });
+  const filesLabel = flatLabel('files', [{ text: 'files written', size: 150, weight: 700, color: '#a9f0c6', track: 1 }], 1.0, .23, RULE.x1 + .2, .74, { parent: rule, tilt: .45, opacity: 0 });
+
+  // the lit route as points of light: it lifts off the table, hangs over the book, and pours into the page
+  const NL = 56, light = cloud(NL, .2, set);
+  const lightCol = new THREE.Color(TEAL).multiplyScalar(1.5);
+
+  /* ---- the robot, the model that ran it: it walks the route ---- */
+  const bot = robot(PALETTE.cream, CYAN);
+  const SCALE = 1.15; bot.root.scale.setScalar(SCALE); set.add(bot.root);
   const botArms = bot.root.children[0].children.filter(c => c.isGroup && c !== bot.head);
   // armed with the harness from the Strategy beat, if that beat has built it
   const muzzleMark = new THREE.Object3D();
@@ -249,99 +379,63 @@ export async function build(ctx) {
     gun.traverse(o => { if (o.isMesh) o.castShadow = true; });
     muzzleMark.position.set(0, 0, .93); gun.add(muzzleMark); bot.root.add(gun); bot.grip(1);
   } else { muzzleMark.position.set(0, .5, .3); bot.root.add(muzzleMark); }
-
-  /* ---- the five dependencies: one sheet or two whose faces change, the clash where two figures differ, five medallions ---- */
-  const sheetTexture = text => canvasTexture(768, 522, (g, w, h) => {
-    g.fillStyle = '#f6efe0'; g.fillRect(0, 0, w, h);
-    g.fillStyle = '#cbc4b4';
-    [[56, 52, 300], [56, 88, 210], [56, 424, 656], [56, 460, 420]].forEach(([x, y, l]) => g.fillRect(x, y, l, 16));
-    if (!text) { [150, 206, 262, 318, 374].forEach((y, i) => g.fillRect(56, y, i % 2 ? 560 : 656, 16)); return; }
-    g.fillStyle = '#1f2a3a'; g.textAlign = 'center'; g.textBaseline = 'middle';
-    g.font = text.length > 14 ? '700 66px "Space Mono", ui-monospace, monospace' : `650 ${text.length > 8 ? 92 : 148}px Inter, Arial, sans-serif`;
-    g.fillText(text, w / 2, h / 2 + 8, w * .9);
-  });
-  const glowOwn = (color, intensity = 1.2) => new THREE.MeshStandardMaterial({ color, emissive: color, emissiveIntensity: intensity, roughness: .5 });
-  const blank = sheetTexture(''), sheetTex = CONFLICTS.map(c => ({ a: sheetTexture(c.a), b: c.b ? sheetTexture(c.b) : blank }));
-  const makeSheet = () => {
-    const g = new THREE.Group();
-    add(g, rbox(SHEET.w + .05, SHEET.h + .05, .05, .03), mat(0x5d6d8c), 0, 0, -.012);
-    const faceMat = new THREE.MeshStandardMaterial({ map: blank, roughness: .8 });
-    const face = new THREE.Mesh(new THREE.PlaneGeometry(SHEET.w, SHEET.h), faceMat); face.position.z = .02; g.add(face);
-    g.visible = false; set.add(g);
-    return { g, faceMat };
-  };
-  const sheetL = makeSheet(), sheetR = makeSheet();
-  const jag = seed => {
-    const pts = [];
-    for (let i = 0; i <= 9; i++) {
-      const w = i && i < 9 ? .1 : 0, h = Math.sin(seed * 7.1 + i * 12.9898) * 43758.5453, r = h - Math.floor(h);
-      pts.push(new THREE.Vector3(i / 9, (r - .5) * 2 * w, Math.cos(i * 2.3 + seed) * w));
-    }
-    return new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts, false, 'catmullrom', .1), 60, .016, 6);
-  };
-  const arcs = [1, 2].map(seed => { const m = new THREE.Mesh(jag(seed), new THREE.MeshBasicMaterial({ color: new THREE.Color(0xff2a3d).multiplyScalar(2.2), toneMapped: false, fog: false })); m.frustumCulled = false; m.visible = false; set.add(m); return m; });
-  const clashGlow = sprite(0xff2a3d, 1.3); set.add(clashGlow);
-  const gateMat = glowOwn(0x45b5b0, 1.3);
-  const gate = add(set, new THREE.CylinderGeometry(.05, .05, 3.2, 12), gateMat, SHEET.gate, 1.6, SHEET.z, false); gate.visible = false;
-  const strike = add(set, rbox(2.45, .14, .05, .03), glowOwn(0xff2a3d, 1.8), SHEET.cx, SHEET.y, SHEET.z + .1, false); strike.rotation.z = .42; strike.visible = false;
   const beamGeo = new THREE.CylinderGeometry(1, 1, 1, 8, 1, true).translate(0, .5, 0);
-  const eyeBeam = new THREE.Mesh(beamGeo, additive(0x8ff6ff, 0, null)); eyeBeam.frustumCulled = false; eyeBeam.visible = false; set.add(eyeBeam);
+  const eyeBeam = new THREE.Mesh(beamGeo, additive(CYAN, 0, null)); eyeBeam.frustumCulled = false; eyeBeam.visible = false; set.add(eyeBeam);
   const muzzleFlare = sprite(0xffe2a0, .9); set.add(muzzleFlare);
-  const coinGeo = new THREE.LatheGeometry([[0, -.045], [.17, -.045], [.195, -.026], [.2, 0], [.195, .026], [.17, .045], [.163, .045], [.156, .032], [0, .032]].map(([x, y]) => new THREE.Vector2(x, y)), 36);
-  const inlayGeo = new THREE.CircleGeometry(.152, 32).rotateX(-Math.PI / 2).translate(0, .035, 0);
-  const coinRingGeo = new THREE.RingGeometry(.84, 1, 48).rotateX(-Math.PI / 2);
-  const coins = CONFLICTS.map((c, i) => {
-    const g = new THREE.Group();
-    const body = new THREE.Mesh(coinGeo, new THREE.MeshStandardMaterial({ color: 0xf5efe5, roughness: .5 })); body.castShadow = true; g.add(body);
-    const inlay = new THREE.Mesh(inlayGeo, new THREE.MeshBasicMaterial({ color: 0xffffff, toneMapped: false, fog: false })); g.add(inlay);
-    g.visible = false; set.add(g);
-    const ring = new THREE.Mesh(coinRingGeo, additive(0xffffff, 0, null)); ring.position.set(coinX(i), PAGE + .03, COIN_Z); ring.renderOrder = 2; ring.visible = false; set.add(ring);
-    return { g, inlay, ring, out: c.out, slot: new THREE.Vector3(coinX(i), PAGE + .08, COIN_Z) };
-  });
-  const STACK = new THREE.Vector3(-3, .5, -2.4), UP = new THREE.Vector3(0, 1, 0);
-  const headAt = new THREE.Vector3(), muzzle = new THREE.Vector3(), target = new THREE.Vector3(), beamDir = new THREE.Vector3(), sheetAt = new THREE.Vector3(), coinCol = new THREE.Color();
-  const backOut = (x, k = 1.7) => { const p = Math.min(1, Math.max(0, x)) - 1; return 1 + (k + 1) * p * p * p + k * p * p; };
-  function placeSheet(sh, x, u, cur, phase, t, idle, tilt = 0) {
-    const f = Math.min(1, Math.max(0, u / .14)), enter = backOut(u / .14), gone = smooth(lin(u, LEAVE, 1));
-    sheetAt.set(x, SHEET.y + Math.sin(t * 1.4 + phase) * .025 * idle, SHEET.z);
-    sh.g.position.lerpVectors(STACK, sheetAt, Math.min(1, Math.max(0, enter)));
-    sh.g.position.y += Math.sin(f * Math.PI) * .4;
-    if (gone > 0) { sh.g.position.lerp(coins[cur].slot, gone); }
-    sh.g.rotation.set(-.14, 0, tilt);
-    sh.g.scale.setScalar(Math.max(.001, f * (1 - gone)));
+  // where it stands and when it walks: legs [from time, to time, to x, to z, along the route?]
+  const stopX = i => NODE_X[i + 1] - .88, onRoute = x => zR(x) + SIDE;
+  const START = [NODE_X[0] + .6, onRoute(NODE_X[0] + .6)], BACK = [-.85, onRoute(-.85)], ASIDE = [2.72, .85];
+  const RULE_BOT = RULE.z - .42;                       // the robot's line along the time rule: behind it
+  const LEGS = [
+    ...FORKS.map((_, i) => [C_A + i * C_W, C_A + (i + WALK_B) * C_W, stopX(i), onRoute(stopX(i)), true]),
+    [BACK_A, BACK_B, BACK[0], BACK[1], true],
+    [RULE_A - .002, RUN.toStood[0] - .002, RULE.x0 + .35, RULE_BOT, false],
+    [RUN.toStood[0], RUN.toStood[1], ruleX(RULE.stood) - .5, RULE_BOT, false],
+    [RUN.toStall[0], RUN.toStall[1], ruleX(RULE.stall[0]) - .45, RULE_BOT, false],
+    [RUN.toEnd[0], RUN.toEnd[1], RULE.x1 - .1, RULE_BOT, false],
+    [LEAVE_A + .003, LEAVE_B, ASIDE[0], ASIDE[1], false],
+  ];
+  const walk = { x: 0, z: 0, moving: 0, heading: 0 };
+  function botAt(real) {
+    let x = START[0], z = START[1];
+    walk.moving = 0;
+    for (let k = 0; k < LEGS.length; k++) {
+      const [a, b, tx, tz, route] = LEGS[k];
+      if (real <= a) break;
+      if (real >= b) { x = tx; z = tz; continue; }
+      const f = (real - a) / (b - a), s = smooth(f), nx = lerp(x, tx, s), nz = route ? lerp(z - onRoute(x), tz - onRoute(tx), s) + onRoute(nx) : lerp(z, tz, s);
+      walk.moving = Math.sin(Math.PI * f); walk.heading = Math.atan2(tx - x, route ? 0 : tz - z);
+      x = nx; z = nz; break;
+    }
+    walk.x = x; walk.z = z;
   }
 
-  /* ---- the three towers: sixteen rings each, dark until the comparison passes ---- */
-  const towers = GROUPS.map((g, j) => {
-    const x = towerX(j), z = towerZ(x), rings = Math.ceil(g.max / RING_PTS);
-    const tex = kit.labelTexture(`film-econ-score-${j}`, [
-      { text: g.id, size: 84, weight: 600, color: '#aab6cc', track: 1 },
-      { text: g.note, size: 92, weight: 700, color: g.warn ? '#ffd27a' : '#f0f4fb' },
-    ], { width: 720, height: 320 });
-    const label = new THREE.Mesh(new THREE.PlaneGeometry(1.4, .622), new THREE.MeshBasicMaterial({ map: tex, transparent: true, opacity: 0, depthWrite: false, fog: false, toneMapped: false }));
-    label.renderOrder = 4; set.add(label);
-    const pad = add(set, new THREE.TorusGeometry(.31, .014, 6, 40), glowMat(accent, .5).clone(), x, .012, z, false); pad.rotation.x = Math.PI / 2;
-    return { ...g, x, z, rings, earned: g.pts / RING_PTS, top: RING_Y0 + rings * RING_DY, label, pad, a: FILL_A + j * FILL_STEP, j };
-  });
-  const ringCount = towers.reduce((n, tw) => n + tw.rings, 0);
-  const towerRings = new THREE.InstancedMesh(new THREE.TorusGeometry(.24, .03, 8, 32).rotateX(Math.PI / 2), new THREE.MeshBasicMaterial({ color: 0xffffff, toneMapped: false, fog: false }), ringCount);
-  towerRings.frustumCulled = false; set.add(towerRings);
-  const GHOST = new THREE.Color(.05, .068, .12), LOST = new THREE.Color(.78, .1, .16), LIT = new THREE.Color(accent).multiplyScalar(1.5), HOT = new THREE.Color(.6, 1.8, 1.7), WARN = new THREE.Color(1.5, .85, .2);
-  const dummy = new THREE.Object3D(), tc = new THREE.Color();
-  for (let i = 0; i < ringCount; i++) { towerRings.setColorAt(i, GHOST); towerRings.setMatrixAt(i, dummy.matrix); }
-  // the running count of comparisons passed, to the right of the row
-  const totalTex = kit.labelTexture('film-econ-score-total', [{ text: '0 / 3', size: 150, weight: 700, color: '#f2b545', track: 1 }], { width: 1024, height: 256 });
-  const totalLabel = new THREE.Mesh(new THREE.PlaneGeometry(2.6, .65), new THREE.MeshBasicMaterial({ map: totalTex, transparent: true, opacity: 0, depthWrite: false, fog: false, toneMapped: false }));
-  totalLabel.renderOrder = 4; set.add(totalLabel);
-  let shownTotal = '';
-
-  /* ---- the camera line ---- */
+  /* ---- the camera line: the whole table, then fork by fork beside the robot, the start again for
+   * the missing script, the front for the time rule, then up over the book for the ending ---- */
   const shot = { pos: [0, 0, 0], look: [0, 0, 0], fov: 34 };
-  const kv = KEYS.map(k => [...k.pos, ...k.look, k.fov]), kt = KEYS.map(k => k.at);
+  const forkShot = (f, d = 1) => ({ pos: [f.x + .2 + .75 * d, .35 + 3.7 * d, f.z - .2 + 7.1 * d], look: [f.x + .2, .35, f.z - .2], fov: 34 });
+  const WIDE = { pos: [-2.1, 7.9, 13.9], look: [-.65, 0, .1], fov: 33 };
+  const PATH_KEYS = [
+    { at: 0, ...WIDE }, { at: .05, ...WIDE },
+    ...forks.flatMap((f, i) => [{ at: C_A + (i + .2) * C_W, ...forkShot(f) }, { at: C_A + (i + .9) * C_W, ...forkShot(f) }]),
+    { at: TOL_A + .012, ...forkShot(F5, .86) }, { at: BACK_A - .004, ...forkShot(F5, .86) },
+    { at: BACK_B, pos: [-1.5, 3.2, 6.5], look: [-2.2, .55, -.6], fov: 34 }, { at: RULE_A - .006, pos: [-1.5, 3.2, 6.5], look: [-2.2, .55, -.6], fov: 34 },
+    { at: RUN.toStood[0], pos: [.9, 5.7, 8.5], look: [1.0, 0, 2.35], fov: 34 }, { at: RUN.toEnd[1], pos: [.9, 5.7, 8.5], look: [1.0, 0, 2.35], fov: 34 },
+    { at: LEAVE_B + .012, pos: [-1.9, 7.1, 10.5], look: [.2, .55, -.4], fov: 35.5 },
+    { at: .85, pos: END_KEYS[0].pos, look: END_KEYS[0].look, fov: END_KEYS[0].fov },
+  ];
+  const kv = END_KEYS.map(k => [...k.pos, ...k.look, k.fov]), kt = END_KEYS.map(k => k.at);
   const km = kv.map((v, i) => v.map((_, c) => (i === 0 || i === kv.length - 1 ? 0 : (kv[i + 1][c] - kv[i - 1][c]) / (kt[i + 1] - kt[i - 1]))));
-  function pose(lp) {
-    let i = 0; while (i < kt.length - 2 && lp > kt[i + 1]) i++;
-    const h = kt[i + 1] - kt[i], s = Math.min(1, Math.max(0, (lp - kt[i]) / h)), s2 = s * s, s3 = s2 * s;
+  function pose(real) {
+    if (real < .85) {                                 // the route: ease from key to key, at rest on each
+      let i = 0; while (i < PATH_KEYS.length - 2 && real > PATH_KEYS[i + 1].at) i++;
+      const a = PATH_KEYS[i], b = PATH_KEYS[i + 1], s = smooth(lin(real, a.at, b.at));
+      for (let c = 0; c < 3; c++) { shot.pos[c] = lerp(a.pos[c], b.pos[c], s); shot.look[c] = lerp(a.look[c], b.look[c], s); }
+      shot.fov = lerp(a.fov, b.fov, s);
+      return;
+    }
+    let i = 0; while (i < kt.length - 2 && real > kt[i + 1]) i++;
+    const h = kt[i + 1] - kt[i], s = Math.min(1, Math.max(0, (real - kt[i]) / h)), s2 = s * s, s3 = s2 * s;
     const h00 = 2 * s3 - 3 * s2 + 1, h10 = s3 - 2 * s2 + s, h01 = -2 * s3 + 3 * s2, h11 = s3 - s2;
     const a = kv[i], b = kv[i + 1], ma = km[i], mb = km[i + 1];
     for (let c = 0; c < 7; c++) {
@@ -351,18 +445,41 @@ export async function build(ctx) {
   }
 
   const all = [medal], idles = [0];
-  const v1 = new THREE.Vector3(), aim = new THREE.Vector3(), seen = new THREE.Vector3();
+  const v1 = new THREE.Vector3(), aim = new THREE.Vector3(), seen = new THREE.Vector3(), muzzle = new THREE.Vector3(), headAt = new THREE.Vector3(), beamDir = new THREE.Vector3(), UP = new THREE.Vector3(0, 1, 0);
   const centre = new THREE.Vector3(REST.x, PAGE + .2, REST.z);
+  const cWarn = new THREE.Color(AMBER), cMet = new THREE.Color(GREEN), cCyan = new THREE.Color(CYAN), cTmp = new THREE.Color();
+  const turnTo = (from, to, k) => { let d = to - from; d -= Math.round(d / TAU) * TAU; return from + d * k; };
 
   function update(real, t) {
-    if (reduce) { real = .855; t = 0; }
+    if (reduce) { real = .42; t = 0; }
     const lp = lpOf(real), idle = reduce ? 0 : 1;
     pose(real);
-    // portrait: the row of towers is wider than the frame, so stand further back until they have gone
-    const narrow = Math.min(1, Math.max(0, (1.1 - camera.aspect) / .4)), away = narrow * .8 * (1 - smooth(lin(lp, .54, .62)));
-    // in a squarer window beside the copy, aim further left so the towers clear the column
-    shot.look[0] -= Math.max(0, 1.85 - camera.aspect) * 2.4 * (1 - narrow) * (1 - smooth(lin(lp, .54, .62)));
-    if (away > 0) for (let c = 0; c < 3; c++) shot.pos[c] = shot.look[c] + (shot.pos[c] - shot.look[c]) * (1 + away);
+    const stacked = !!layout?.stacked, routeShot = 1 - smooth(lin(real, LEAVE_B, .85));
+    if (stacked) {
+      // with the copy below the picture, stand further back and centre what the shot is about
+      // the opening shot and the time rule are wide: centre them and stand back; the tolerance plate hangs high: look up to it
+      const whole = 1 - smooth(lin(real, .05, .085)), ruleS = smooth(lin(real, RULE_A, RUN.toStood[0])) * (1 - smooth(lin(real, LEAVE_A, LEAVE_B)));
+      const tolS = smooth(lin(real, TOL_A, TOL_A + .012)) * (1 - smooth(lin(real, BACK_A - .004, BACK_A)));
+      const forkS = smooth(lin(real, .07, .09)) * (1 - smooth(lin(real, BACK_A, BACK_A + .02)));
+      const back = (.5 - .15 * whole + .5 * ruleS) * routeShot, dx = 1.15 * whole + .6 * ruleS + .4 * forkS;
+      shot.look[0] += dx; shot.pos[0] += dx; shot.look[1] += .45 * tolS; shot.look[2] -= 1.5 * ruleS; shot.pos[2] -= 1.5 * ruleS;
+      for (let c = 0; c < 3; c++) shot.pos[c] = shot.look[c] + (shot.pos[c] - shot.look[c]) * (1 + back);
+      // Nothing may reach below the picture's free area (the part of the frame above the copy; the framework lifts
+      // the look point to its middle and backs off by `push`). The table's front edge is the lowest thing in every
+      // shot, the ending's included: stand back until it is inside.
+      const view = camera.view, free = view && view.fullHeight ? Math.min(1, Math.max(.3, 1 - 2 * view.offsetY / view.fullHeight)) : .5;
+      const push = Math.min(2.2, Math.max(1, 1.4 * free / camera.aspect)), lim = free * Math.tan(shot.fov * Math.PI / 360) * .92;
+      for (let k = 0; k < 3; k++) {
+        const ox = (shot.pos[0] - shot.look[0]) * push, oy = (shot.pos[1] - shot.look[1]) * push, oz = (shot.pos[2] - shot.look[2]) * push, len = Math.hypot(ox, oy, oz);
+        const fx = -ox / len, fy = -oy / len, fz = -oz / len;                                  // the way the camera looks
+        const ux = -fy * fx, uy = 1 - fy * fy, uz = -fy * fz, ul = Math.hypot(ux, uy, uz);     // up, in the frame
+        const rx = -ox, ry = -shot.look[1] - oy, rz = FRONT_Z - shot.look[2] - oz;             // the front edge, from the camera
+        const tan = (rx * ux + ry * uy + rz * uz) / ul / (rx * fx + ry * fy + rz * fz);
+        if (tan >= -lim) break;
+        const grow = Math.min(1.5, -tan / lim);
+        for (let c = 0; c < 3; c++) shot.pos[c] = shot.look[c] + (shot.pos[c] - shot.look[c]) * grow;
+      }
+    }
     const jolt = wobble(lp, .69, .035, 2.5);   // the slam jolts the camera, briefly
     shot.pos[1] -= jolt * .1; shot.look[1] -= jolt * .06;
 
@@ -377,99 +494,150 @@ export async function build(ctx) {
     lines[3].visible = lines[4].visible = shut > .985;
     const slam = flash(lp, .69, .07), hit = wobble(lp, .69, .075, 1.5);
 
-    /* the conflicts */
+    /* the route leaves the table: its props sink flat and go; the figure's plate follows once the medallion has left it */
+    const leave = smooth(lin(real, LEAVE_A, LEAVE_B)), goalLeave = smooth(lin(real, .812, .84));
+    path.visible = leave < 1; path.scale.y = Math.max(.001, 1 - leave);
+    goal.visible = goalLeave < 1; goal.scale.y = Math.max(.001, 1 - goalLeave);
+    const dataUp = Math.max(1 - smooth(lin(real, .05, .066)), smooth(lin(real, BACK_B - .012, BACK_B)) * (1 - smooth(lin(real, RULE_A - .004, RULE_A + .01))));
+    dataPlate.group.scale.y = Math.max(.001, dataUp); dataPlate.group.visible = dataUp > .002;
+    const goalUp = Math.max(1 - smooth(lin(real, .05, .066)), smooth(lin(real, C_A + (NC - 1 + .1) * C_W, C_A + (NC - 1 + .25) * C_W)) * (1 - smooth(lin(real, BACK_A, BACK_A + .015))));
+    goalPlate.group.scale.y = Math.max(.001, goalUp); goalPlate.group.visible = goalUp > .002;
+
+    /* what held: a light runs the route once, and the first stretch stays lit */
+    const run = lin(real, .008, .058), runX = lerp(NODE_X[0], NODE_X[6], smooth(run)), running = run > 0 && run < 1;
+    runner.visible = running; runner.position.set(runX, .12, zR(runX)); runner.material.opacity = running ? .9 * Math.sin(run * Math.PI) ** .5 : 0;
     const c_ = (real - C_A) / C_W, cur = Math.floor(c_), u = c_ - cur, inA = cur >= 0 && cur < NC;
-    sheetL.g.visible = sheetR.g.visible = gate.visible = strike.visible = false;
-    arcs.forEach(m => { m.visible = false; }); clashGlow.material.opacity = 0;
-    target.set(SHEET.cx, SHEET.y, SHEET.z);
-    let scan = 0;
-    if (inA) {
-      const c = CONFLICTS[cur], pair = !!c.b, gone = smooth(lin(u, LEAVE, 1));
-      let lx = pair ? SHEET.lx : SHEET.cx, tilt = 0;
-      if (c.gate) {
-        const go = lin(u, .2, .34), recoil = lin(u, .34, .5);
-        lx = lerp(lerp(-1.43, SHEET.gate - SHEET.w / 2 - .04, go * go), -1.03, recoil);
-        tilt = recoil * .2;
-      }
-      const clash = pair ? lin(u, .3, .42) * (1 - gone) : 0, shake = Math.sin(t * 47) * .014 * clash * idle;
-      sheetL.g.visible = true; sheetL.faceMat.map = sheetTex[cur].a; placeSheet(sheetL, lx - shake, u, cur, 0, t, idle, tilt);
-      if (pair) { sheetR.g.visible = true; sheetR.faceMat.map = sheetTex[cur].b; placeSheet(sheetR, SHEET.rx + shake, u, cur, 1.7, t, idle); }
-      if (clash > .01) {
-        const x0 = SHEET.lx + SHEET.w / 2, span = SHEET.rx - SHEET.w / 2 - x0;
-        arcs.forEach((m, k) => { m.visible = true; m.position.set(x0, SHEET.y, SHEET.z); m.scale.x = span * clash; m.rotation.x = (k ? -1 : 1) * t * 9 * idle + k; });
-        clashGlow.position.set(x0 + span / 2, SHEET.y, SHEET.z + .1);
-        clashGlow.scale.setScalar(1.25 + Math.sin(t * 21) * .18 * idle); clashGlow.material.opacity = clash * .85;
-      }
-      if (c.gate) { gate.visible = true; gate.scale.y = Math.max(.001, lin(u, .08, .18) * (1 - gone)); gateMat.emissiveIntensity = 1.3 + flash(u, .34, .14) * 6; }
-      if (c.strike) { strike.visible = true; strike.scale.x = Math.max(.001, lin(u, .3, .42) * (1 - gone)); }
-      const sweepU = lin(u, .12, .34);
-      scan = Math.sin(lin(u, .12, .34) * Math.PI);
-      target.set(pair ? lerp(SHEET.lx, SHEET.rx, sweepU) : sheetL.g.position.x + (sweepU - .5), SHEET.y, SHEET.z);
-      if (u > FIRE) target.lerp(coins[cur].slot, smooth(lin(u, FIRE, HIT)));
+    for (let j = 0; j < segs.length; j++) {
+      const sg = segs[j], pass = running ? Math.exp(-(((runX - sg.mid) / .8) ** 2)) : 0;
+      const cu = j === 0 ? 1 : j - 1 < cur ? 1 : j - 1 === cur ? u : 0;
+      const litK = j === 0 ? smooth(lin(run, .08, .2)) : smooth(lin(cu, HIT, LIGHT_B));
+      sweep(sg.litGeo, litK);
+      sg.baseMat.emissiveIntensity = .25 + pass * 2.2 + (running ? .25 : 0);
+      sg.litMat.emissiveIntensity = 1.35 + .15 * Math.sin(t * 2.2 - j * .9) * idle + (j - 1 === cur ? flash(u, HIT, .2) * 2 : 0);
     }
+    goalRingMat.emissiveIntensity = 1.1 + (running ? flash(run, .9, .1) * 3 : 0) + .2 * Math.sin(t * 2) * idle;
+    goalPlate.frameMat.emissiveIntensity = 1.0 + flash(run, .9, .1) * 2.5 + flash(real, .8, .02) * 2;
+
+    /* the forks */
     bot.root.updateMatrixWorld(true);
     muzzleMark.getWorldPosition(muzzle); set.worldToLocal(muzzle);
-    let coinPulse = 0;
+    let coinPulse = 0, scan = 0, look = 0;                        // look: 0 ahead, 1 the other branch's plate, 2 the plate of the branch taken
     const coinPress = smooth(lin(lp, .6, .655));
-    coins.forEach((c, i) => {
-      const cu = i < cur ? 1 : i === cur ? u : 0, fl = (cu - FIRE) / (HIT - FIRE);
+    for (let i = 0; i < NC; i++) {
+      const f = forks[i], cu = i < cur ? 1 : i === cur ? u : 0, here = i === cur ? 1 : 0;
+      // the other branch draws out and shows its figure; once the fork is settled it goes dark behind its barrier
+      const closed = smooth(lin(cu, BAR_A - .02, BAR_A + .12));
+      const past = i === NC - 1 ? smooth(lin(real, BACK_A, BACK_A + .015)) : smooth(lin(cu, FOLD_A, FOLD_B));   // read, then folded away: only the medallion stays
+      sweep(f.altGeo, lin(cu, ALT_A, ALT_B));
+      f.altMat.emissiveIntensity = lerp(1.6, .06, closed) + .2 * Math.sin(t * 3 + i) * idle * here * (1 - closed);
+      f.altBaseMat.emissiveIntensity = .1 + .12 * here;
+      const altUp = springy(lin(cu, ALT_A + .06, ALT_A + .14)) * (1 - past);
+      f.altPlate.group.scale.set(1, Math.max(.001, altUp), 1); f.altPlate.group.visible = altUp > .002;
+      f.altPlate.frameMat.emissiveIntensity = lerp(1.4, .3, closed) + flash(cu, ALT_A + .14, .12) * 2;
+      f.altPlate.label.material.opacity = lerp(1, .55, closed);
+      const drop = lin(cu, BAR_A, BAR_A + .09), dropped = drop >= 1 ? 1 : easeIn(drop, 2);
+      f.bar.visible = cu > BAR_A; f.bar.position.y = (1 - dropped) * .9 + wobble(cu, BAR_A + .09, .1, 1.5) * .06;
+      f.barMat.emissiveIntensity = 1 + flash(cu, BAR_A + .09, .1) * 3;
+      // the branch taken: its plate lies in front, with the colour of the outcome
+      const takeUp = springy(lin(cu, HIT, HIT + .1)) * (1 - past);
+      f.takePlate.group.scale.set(1, Math.max(.001, takeUp), 1); f.takePlate.group.visible = takeUp > .002;
+      f.takePlate.frameMat.emissiveIntensity = 1.1 + flash(cu, HIT + .08, .15) * 2.5 + (f.warn ? .25 * Math.sin(t * 2.4) * idle : 0);
+      // the junction and its name
+      const settled = smooth(lin(cu, HIT, HIT + .04));
+      f.nodeMat.color.copy(cCyan).lerp(f.warn ? cWarn : cMet, settled); f.nodeMat.emissive.copy(f.nodeMat.color);
+      f.nodeMat.emissiveIntensity = .6 + here * (.8 + .3 * Math.sin(t * 4) * idle) * (1 - settled) + flash(cu, HIT, .12) * 3;
+      const shown = Math.max(1 - smooth(lin(real, .05, .068)), smooth(lin(real, C_A + (i - 1) * C_W - .012, C_A + (i - 1) * C_W)));
+      f.name.material.opacity = (.6 + .4 * here) * shown * (1 - smooth(lin(cu, HIT - .04, HIT))); f.name.visible = f.name.material.opacity > .01;
+      // the medallion: fired from the harness onto the junction; later it flies to the book's front page
+      const c = f.coin, fl = (cu - FIRE) / (HIT - FIRE), toPage = lin(real, .802 + i * .007, .826 + i * .007);
       c.g.visible = cu > FIRE && shut < .7; c.ring.visible = false;
-      if (!c.g.visible) return;
-      if (fl < 1) {
-        const k = smooth(fl);
-        c.g.position.lerpVectors(muzzle, c.slot, k); c.g.position.y += Math.sin(k * Math.PI) * 1.05;
-        c.g.rotation.set((1 - k) * Math.PI * 4, 0, 0); c.g.scale.setScalar(COIN_S);
-        c.inlay.material.color.setRGB(.2, .24, .34);
-        return;
+      if (c.g.visible) {
+        if (fl < 1) {
+          const k = smooth(fl);
+          c.g.position.lerpVectors(muzzle, f.at, k); c.g.position.y += Math.sin(k * Math.PI) * .9;
+          c.g.rotation.set((1 - k) * Math.PI * 4, 0, 0); c.g.scale.setScalar(COIN_J);
+          c.inlay.material.color.setRGB(.2, .24, .34);
+        } else {
+          const col = OUT[f.out], hitC = here ? flash(u, HIT, .1) : 0, landP = flash(real, .826 + i * .007, .012);
+          coinPulse = Math.max(coinPulse, hitC, landP);
+          const k = smooth(toPage), s = lerp(COIN_J, COIN_S, k);
+          c.g.position.lerpVectors(f.at, f.slot, k); c.g.position.y += Math.sin(k * Math.PI) * (1.6 + i * .12);
+          c.g.rotation.set(k < 1 ? k * TAU * 2 : 0, 0, 0);
+          c.g.scale.set(s * (1 + hitC * .2), s * (1 - hitC * .45) * lerp(1, .15, coinPress), s * (1 + hitC * .2));
+          c.inlay.material.color.setRGB(col[0], col[1], col[2]).multiplyScalar(1 + (hitC + landP) * FLASH[f.out] + (i === NC - 1 ? bump(real, TOL_A, .1) * 1.5 : 0));
+          if (hitC > .01) { c.ring.visible = true; c.ring.scale.setScalar(.3 + (1 - hitC) * 1.0); c.ring.material.opacity = hitC; c.ring.material.color.setRGB(Math.max(col[0], .4), Math.max(col[1], .4), Math.max(col[2], .45)); }
+        }
       }
-      const col = OUT[c.out], hitC = i === cur ? flash(u, HIT, .1) : 0;
-      coinPulse = Math.max(coinPulse, hitC);
-      c.g.position.copy(c.slot); c.g.rotation.set(0, 0, 0);
-      c.g.scale.set(COIN_S * (1 + hitC * .2), COIN_S * (1 - hitC * .45) * lerp(1, .15, coinPress), COIN_S * (1 + hitC * .2));
-      c.inlay.material.color.setRGB(col[0], col[1], col[2]).multiplyScalar(1 + hitC * FLASH[c.out]);
-      if (hitC > .01) { c.ring.visible = true; c.ring.scale.setScalar(.35 + (1 - hitC) * 1.2); c.ring.material.opacity = hitC; c.ring.material.color.setRGB(Math.max(col[0], .4), Math.max(col[1], .4), Math.max(col[2], .45)); }
-    });
+      if (here) { scan = Math.sin(lin(u, ALT_A + .08, FIRE - .02) * Math.PI); look = u > FIRE - .03 ? 2 : u > ALT_A + .04 ? 1 : 0; }
+    }
     muzzleFlare.position.copy(muzzle); muzzleFlare.material.opacity = inA ? flash(u, FIRE, .1) : 0;
 
-    /* the towers: all rise, then each group fills, loses its red, and adds to the total; then they pour */
-    let total = 0, n = 0;
-    towerRings.visible = real >= RISE_A && lp < POUR_A + .08;
-    for (const tw of towers) {
-      const up = lin(real, RISE_A + tw.j * .003, RISE_A + .02 + tw.j * .003), f = smooth(lin(real, tw.a + .004, tw.a + .028)), e = tw.earned * f;
-      total += tw.pts * f;
-      const hot = tw.flash ? flash(real, tw.a + .043, .02) : 0, onIt = real >= tw.a && real < tw.a + FILL_STEP;
-      const pourJ = POUR_A + (NG - 1 - tw.j) * .003;
-      for (let r = 0; r < tw.rings; r++, n++) {
-        const lit = Math.max(0, Math.min(1, e - r)), front = f > 0 && f < 1 && lit > 0 && lit < 1;
-        const redT = r / tw.rings * .012, red = smooth(lin(real, tw.a + .03 + redT, tw.a + .04 + redT)) * (1 - Math.max(0, Math.min(1, tw.earned - r)));
-        tc.copy(GHOST).lerp(LOST, red).multiplyScalar(1 + hot * 2.2).lerp(front ? HOT : tw.warn && r >= tw.rings - 2 ? WARN : LIT, lit);
-        towerRings.setColorAt(n, tc);
-        const y = RING_Y0 + r * RING_DY - (1 - up) * .5, pour = smooth(lin(lp, pourJ + r / tw.rings * .006, pourJ + .035 + r / tw.rings * .006));
-        dummy.position.set(lerp(tw.x, tw.x * .42, pour), lerp(y, PAGE + .05, pour) + Math.sin(pour * Math.PI) * 1.5, lerp(tw.z, REST.z, pour));
-        dummy.scale.setScalar(Math.max(.001, up * (1 - pour * .85) * (pour >= 1 ? 0 : 1)));
-        dummy.updateMatrix(); towerRings.setMatrixAt(n, dummy.matrix);
-      }
-      const gone = smooth(lin(lp, pourJ - .012, pourJ + .012)), op = smooth(lin(real, tw.a + .018, tw.a + .032)) * (1 - gone);
-      tw.label.visible = op > .01;
-      if (tw.label.visible) { tw.label.material.opacity = op; tw.label.position.set(tw.x, tw.top + .3, tw.z); tw.label.quaternion.copy(camera.quaternion); }
-      tw.pad.visible = up > .3 && gone < 1;
-      tw.pad.material.emissiveIntensity = .5 + 1.6 * (onIt ? 1 : 0) + hot * 4;
-    }
-    towerRings.instanceMatrix.needsUpdate = true; towerRings.instanceColor.needsUpdate = true;
-    const text = `${Math.floor(total / 16 + 1e-6)} / ${NG}`;
-    if (text !== shownTotal) { shownTotal = text; totalTex.userData.redraw([{ text, size: 150, weight: 700, color: '#f2b545', track: 1 }]); }
-    totalLabel.material.opacity = smooth(lin(real, FILL_A - .01, FILL_A + .01)) * (1 - smooth(lin(lp, POUR_A - .01, POUR_A + .02)));
-    totalLabel.visible = totalLabel.material.opacity > .01;
-    totalLabel.position.set(0, 2.72, -2.9); totalLabel.quaternion.copy(camera.quaternion);
+    /* what failed, first: the tolerance plate rises over the fifth fork */
+    const tolUp = springy(lin(real, TOL_A, TOL_A + .014)) * (1 - smooth(lin(real, BACK_A, BACK_A + .02))), tolDim = 1 - .5 * smooth(lin(real, BACK_A, BACK_B));
+    tol.visible = tolUp > .002; tol.scale.setScalar(Math.max(.001, tolUp)); tol.position.y = 2.0 + Math.sin(t * 1.3) * .03 * idle;
+    tolPlate.frameMat.emissiveIntensity = (1.3 + flash(real, TOL_A + .012, .03) * 3 + .3 * Math.sin(t * 2.6) * idle) * tolDim;
+    tolStem.visible = tolUp > .5; tolStem.material.opacity = .5 * tolDim; tolStem.scale.y = 1.66; tolStem.position.y = .9;
 
-    /* the robot reads the papers, then follows the groups along the row */
-    let attention = 0; aim.copy(centre);
-    if (inA) aim.copy(target);
-    const groupAt = (real - FILL_A) / FILL_STEP, watching = smooth(lin(real, RISE_A, FILL_A)) * (1 - smooth(lin(lp, POUR_A - .025, POUR_A)));
-    if (watching > 0) { const x = towerX(Math.max(0, Math.min(NG - 1, groupAt))); aim.lerp(seen.set(x, 1.2, towerZ(x)), watching); }
-    bot.head.getWorldPosition(headAt); set.worldToLocal(headAt); headAt.y += .2;
-    beamDir.subVectors(target, headAt);
-    { const len = beamDir.length(); eyeBeam.visible = inA && scan > .01 && len > .001; if (eyeBeam.visible) { eyeBeam.position.copy(headAt); eyeBeam.quaternion.setFromUnitVectors(UP, beamDir.divideScalar(len)); eyeBeam.scale.set(.012, len, .012); eyeBeam.material.opacity = scan * .8; } }
+    /* second: the empty frame where the authors' script would be; pings go out and nothing comes back */
+    const frameUp = springy(lin(real, FRAME_A - .012, FRAME_A + .004)) * (1 - smooth(lin(real, RULE_A - .004, RULE_A + .01)));
+    miss.visible = frameUp > .002; miss.scale.set(1, Math.max(.001, frameUp), 1);
+    missMat.emissiveIntensity = .7 + .3 * Math.sin(t * 3) * idle + flash(real, STAMP, .03) * 2;
+    missName.material.opacity = smooth(lin(real, FRAME_A, FRAME_A + .01)) * .85;
+    const stamped = lin(real, STAMP, STAMP + .008);
+    missStamp.material.opacity = stamped > 0 ? 1 : 0; missStamp.scale.setScalar(1 + (1 - easeOut(stamped, 3)) * 1.2);
+    for (let k = 0; k < 3; k++) {
+      const g = lin(real, .608 + k * .011, .632 + k * .011), m = pings[k];
+      m.visible = g > 0 && g < 1; m.scale.setScalar(.2 + easeOut(g, 2) * 1.7); m.material.opacity = (1 - g) * (1 - g) * .8;
+    }
+    rests.material.opacity = smooth(lin(real, STAMP + .008, STAMP + .02)) * (1 - smooth(lin(real, RULE_A - .004, RULE_A + .01)));
+
+    /* third: the time rule. The robot's place on it is the time that has passed */
+    const ruleUp = smooth(lin(real, RULE_A, RULE_A + .014));
+    rule.visible = ruleUp > .002; rule.scale.set(1, Math.max(.001, ruleUp), 1);
+    const ran = real < RUN.toStood[0] ? 0 : real < RUN.toStood[1] ? RULE.stood * smooth(lin(real, ...RUN.toStood)) : real < RUN.toStall[0] ? RULE.stood
+      : real < RUN.toStall[1] ? lerp(RULE.stood, RULE.stall[0], smooth(lin(real, ...RUN.toStall))) : real < RUN.interrupt ? lerp(RULE.stall[0], RULE.stall[1], lin(real, RUN.toStall[1], RUN.interrupt))
+        : lerp(RULE.stall[1], RULE.total, smooth(lin(real, ...RUN.toEnd)));
+    span(fillTeal, 0, Math.min(ran, RULE.stood)); span(fillAmber, RULE.stood, Math.max(RULE.stood, ran)); span(fillRed, RULE.stall[0], Math.max(RULE.stall[0], Math.min(ran, RULE.stall[1])));
+    const stood = springy(lin(real, RUN.toStood[1] - .003, RUN.toStood[1] + .006)), stalled = real > RUN.toStall[1] - .002 && real < RUN.interrupt ? 1 : 0;
+    flag.visible = stood > .002; flag.scale.set(1, Math.max(.001, stood), 1); flagMat.emissiveIntensity = 1.1 + flash(real, RUN.toStood[1], .02) * 3;
+    stoodLabel.material.opacity = smooth(lin(real, RUN.toStood[1], RUN.toStood[1] + .008));
+    searchLabel.material.opacity = smooth(lin(real, RUN.toStall[0] + .004, RUN.toStall[0] + .014));
+    stallLabel.material.opacity = smooth(lin(real, RUN.toStall[1] - .002, RUN.toStall[1] + .006));
+    fillRed.m.emissiveIntensity = 1.3 + stalled * (.8 + .8 * Math.sin(t * 9) * idle);
+    spinner.visible = stalled > 0; spinner.rotation.z = -t * 5 * idle - real * 400;
+    const written = smooth(lin(real, RUN.toEnd[1] - .002, RUN.toEnd[1] + .006));
+    fileMat.emissiveIntensity = written * (1.1 + flash(real, RUN.toEnd[1], .02) * 2.5); fileMat.color.setHex(0x26324d).lerp(cTmp.setHex(0xdff5e8), written);
+    files.forEach((m, k) => { m.position.y = .17 + bump(real, RUN.toEnd[1] - .002 + k * .003, .012) * .12; });
+    filesLabel.material.opacity = written;
+
+    /* the lit route as light: it lifts off the table, hangs over the book and pours into the page */
+    for (let i = 0; i < NL; i++) {
+      const q = i * 3, x = lerp(NODE_X[0], NODE_X[6], i / (NL - 1));
+      const k1 = smooth(lin(real, LEAVE_A + i * .0003, LEAVE_B + .012 + i * .0003)), k2 = smooth(lin(lp, .54 + i / NL * .02, .6 + i / NL * .02));
+      if (k1 <= 0 || k2 >= 1) { light.col[q] = light.col[q + 1] = light.col[q + 2] = 0; continue; }
+      const a = i / NL * TAU * 1.5 + t * .35 * idle, hx = Math.cos(a) * (1.9 + .3 * Math.sin(i)), hz = REST.z + Math.sin(a) * 1.5, hy = 2.5 + .35 * Math.sin(i * 1.7 + t * idle);
+      const px = lerp(x, hx, k1), py = lerp(.08, hy, k1), pz = lerp(zR(x), hz, k1);
+      light.pos[q] = lerp(px, centre.x + (px - centre.x) * .12, k2); light.pos[q + 1] = lerp(py, centre.y, k2) + Math.sin(k2 * Math.PI) * .5; light.pos[q + 2] = lerp(pz, centre.z + (pz - centre.z) * .12, k2);
+      const fade = Math.min(1, k1 * 3) * (1 - k2 * k2) * (.8 + .2 * Math.sin(t * 2 + i) * idle);
+      light.col[q] = lightCol.r * fade; light.col[q + 1] = lightCol.g * fade; light.col[q + 2] = lightCol.b * fade;
+    }
+    light.done();
+
+    /* the robot: where it stands, which way it faces, what it looks at */
+    botAt(real);
+    let attention = 0;
+    aim.set(walk.x + 2.5, .7, walk.z + .6);
+    let stand = 1.05;                                   // at rest it faces along the route, half towards the reader
+    if (inA) {
+      const f = forks[cur];
+      if (look === 1) { aim.copy(f.altAt); stand = 2.1; } else if (look === 2) { aim.copy(f.takeAt); stand = .95; }
+    } else if (real >= C_A + NC * C_W && real < BACK_A) { aim.set(tol.position.x, tol.position.y, tol.position.z); stand = .5; }
+    else if (real >= BACK_A && real < RULE_A) { aim.set(MISS.x, .7, MISS.z); stand = Math.atan2(MISS.x - walk.x, MISS.z - walk.z) + .6; }
+    else if (real >= RULE_A && real < LEAVE_A) {
+      stand = stalled ? 1.2 : .5;
+      if (real < RUN.toStall[0]) aim.set(ruleX(RULE.stood), .6, RULE.z); else if (real < RUN.interrupt + .004) aim.set(stallAt, .62, RULE.z); else aim.set(RULE.x1 + .3, .2, RULE.z);
+    }
+    if (real >= LEAVE_A) aim.copy(centre);
 
     /* the medallion */
     for (let k = 0; k < flyers.length; k++) {
@@ -626,19 +794,37 @@ export async function build(ctx) {
     }
     motes.done();
 
-    /* the robot: watches the towers and the medallion, startles at the slam, cheers the signature, looks up at the book */
+    /* the book forms where the route was: it swells out of a pool of light before the medallions arrive */
+    const bookIn = lin(real, LEAVE_A + .012, LEAVE_B + .016);
+    lift.visible = bookIn > 0;
+    lift.scale.setScalar(Math.max(.001, springy(bookIn)));
+    poolMat.opacity += flash(real, LEAVE_A + .012, .05) * .5; pool.visible = poolMat.opacity > .005;
+
+    /* the robot again: it walks, turns, reads, fires; startles at the slam, cheers the signature, looks up at the book */
     bot.update(t, 0);
     if (up > 0) aim.lerp(lift.position, up);
-    const bx = bot.root.position.x, bz = bot.root.position.z;
+    const bx = walk.x, bz = walk.z, ending = smooth(lin(real, LEAVE_B, LEAVE_B + .02));
     const faced = Math.atan2(aim.x - bx, aim.z - bz);
-    bot.root.rotation.y = lp < POUR_A ? Math.max(-1.75, Math.min(-.7, faced)) : faced;
+    if (lp >= .54) stand = faced; else if (ending > 0) stand = turnTo(stand, Math.max(-1.75, Math.min(-.7, faced)), ending);
+    const yaw = turnTo(stand, walk.heading, Math.min(1, walk.moving * 1.6));
+    bot.root.rotation.y = yaw;
+    let rel = faced - yaw; rel -= Math.round(rel / TAU) * TAU;
     const reach = Math.hypot(aim.x - bx, aim.z - bz);
-    bot.head.rotation.x = -Math.max(-.25, Math.min(.75, Math.atan2(aim.y - .9, reach) * 1.4));
-    const cheer = bump(lp, .8, .09);
+    bot.head.rotation.y = Math.max(-1.25, Math.min(1.25, rel)) * (1 - Math.min(1, walk.moving * 1.4)) + Math.sin(real * 900) * .25 * bump(real, STAMP + .004, .02);
+    bot.head.rotation.x = -Math.max(-.3, Math.min(.75, Math.atan2(aim.y - .9, reach) * 1.2));
+    const cheer = bump(lp, .8, .09) + bump(real, RUN.toEnd[1] + .001, .012) * .6;
     for (let k = 0; k < botArms.length; k++) { botArms[k].rotation.z = (k ? 1 : -1) * (.1 + 2.35 * cheer + .15 * slam); botArms[k].rotation.x -= .4 * cheer; }
-    let hop = slam * .16 + bump(lp, .805, .03) * .2 + bump(lp, .845, .03) * .14;
+    let hop = slam * .16 + bump(lp, .805, .03) * .2 + bump(lp, .845, .03) * .14 + bump(real, RUN.interrupt, .008) * .22 + (inA ? bump(u, FIRE - .02, .1) * .07 : 0);
     for (let k = 0; k < all.length; k++) hop += bump(lp, all[k].e, .025) * .06;
-    bot.root.position.y = hop;
+    const stride = (walk.x * 1.0 + walk.z * .6) * 9;
+    bot.root.position.set(bx, hop + Math.abs(Math.sin(stride)) * .05 * Math.min(1, walk.moving * 1.5), bz);
+    // its eyes run along the other branch to the figure it would have led to
+    bot.head.getWorldPosition(headAt); set.worldToLocal(headAt); headAt.y += .2;
+    eyeBeam.visible = false;
+    if (inA && scan > .01) {
+      beamDir.subVectors(forks[cur].altAt, headAt); const len = beamDir.length();
+      if (len > .001) { eyeBeam.visible = true; eyeBeam.position.copy(headAt); eyeBeam.quaternion.setFromUnitVectors(UP, beamDir.divideScalar(len)); eyeBeam.scale.set(.012, len, .012); eyeBeam.material.opacity = scan * .7; }
+    }
   }
 
   update(0, 0);

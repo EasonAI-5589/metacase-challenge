@@ -5,7 +5,7 @@
   const storageKey = 'inferencenet-language';
   const normalize = value => value.replace(/\s+/g, ' ').trim();
   const common = {
-    'Home': '首页', 'Run Replay': '运行回放', 'Data': '数据', 'Agent': '智能体', 'Evolution': '自进化', 'Self-evolving': '自进化', 'Leaderboard': '排行榜',
+    'Home': '首页', 'Playground': '试验场', 'Data': '数据', 'Agent': '智能体', 'Evolution': '自进化', 'Self-evolving': '自进化', 'Leaderboard': '排行榜',
     'Teams': '团队', 'Challenge': '挑战赛', 'Contact': '联系', 'Menu': '菜单', 'Light': '浅色', 'Dark': '深色',
     'Subtrack 1': '赛道一', 'Subtrack 2': '赛道二', 'Overview': '概览', 'Harness': 'Harness',
     'Subtrack 1: Econometric replication': '赛道一：计量经济学复现',

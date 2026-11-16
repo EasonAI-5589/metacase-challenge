@@ -1,25 +1,36 @@
-/* film-soc-metacase.js — beat 4 of the social-science Metacase film (HR-T3-114): Reflection, where
- * every item of the case is run. The homepage's Metacase book lies open on its plinth, its spine
- * across the view: the title page at the back, the empty page in front. This beat takes five beats
- * of scroll (LONG in the film). Everything is a pure function of real, the beat's progress; t only
- * adds idle life.
- *   real .03–.42  seven evidence items, .0557 each, in the page's order: the papers fly in, the
- *                 robot reads them, they clash (84 against 83; 10 against 8 + 2; 1,145 against 18;
- *                 05-18 against EST.; HUB-01 against HUB-03), or a pending 360 stops at the gate,
- *                 or 2 VOID is struck out; a medallion stamps onto the front page: six met, the
- *                 last (the repair recorded a day apart) missed
- *   real .425–.86 eight ring towers rise behind the book, one ring for two points: packages A, B
- *                 and C, the sample and learning group, then behaviour, the hub comparison,
- *                 attribution, and traceability and closure. Each group in turn fills to the points
- *                 earned, its lost rings go red and the total climbs to 79 / 106; the three largest
- *                 losses flash; the 0.745 medallion lands at .85
- *   real .86–1    the ending, on lp (.54–1): the towers and the medallions pour into the page, the
- *                 cover lifts, hangs and slams (.69), light leaks from the seam, the tabs slide out,
- *                 the thread draws the signature through them, the book rises and turns.
- * Reduced motion gets one still, at .855: all the figures are in place.
- * Adapted from film-metacase.js (the finance film's beat 4); all entities and data are synthetic. */
+/* film-soc-metacase.js — beat 4 of the society Metacase film (HR-T3-114): Reflection & reuse, where
+ * every item of the case is taken back to the place in the yard it is about. This beat takes five
+ * beats of scroll (LONG in the film). Everything is a pure function of real, the beat's progress;
+ * t only adds idle life. The robot walks to each place and looks.
+ *   real 0–.03    the yard as the run left it: the 84 listed supervisors on the ground, the four
+ *                 hubs behind them, the three package crates on the bench in front
+ *   real .03–.42  seven evidence items, .0557 each, in the page's order:
+ *                 the roster (one of the 84 walks off the ground: 83 in scope); attendance (three
+ *                 people turn amber at the sign-out terminal: 360 minutes each, pending); the tests
+ *                 (two void practice sheets); the opportunity log (the ground sorts into three
+ *                 pens: 73, 8 and 2); behaviour coding (a board of 1,145 observations with 18 in
+ *                 dispute, six supervisors marked); the hubs' weekly metrics (24 weeks at each hub,
+ *                 the week of 18 May an estimate at all four); the disruptions (a chiller repair a
+ *                 day apart: this run placed it at HUB-01, the rubric names HUB-03)
+ *   real .425     what failed: the whole yard, the hubs flagged
+ *   real .46–.81  eight scores, .044 each, each on a sign at its place: packages A, B and C on
+ *                 their crates (10 / 10, 17 / 17, 13 / 13), the sample on the pens (39 / 39), then
+ *                 behaviour (0 / 3), the hub comparison (0 / 9), attribution (0 / 6) and
+ *                 traceability (0 / 9, five source chains that break off); the total over the hubs
+ *                 climbs to 79 / 106
+ *   real .81–.86  the yard is gathered: people and props turn to light and rise; the open Metacase
+ *                 book comes down onto the cleared ground; the 0.745 medallion flies from the total
+ *                 sign onto its page (.855)
+ *   real .86–1    the ending, on lp (.54–1), shared with the other cases: the light pours into the
+ *                 page, the cover lifts, hangs and slams (.69), light leaks from the seam, the tabs
+ *                 slide out, the thread draws the signature through them, the book rises and turns.
+ *                 The hubs stay behind it.
+ * Reduced motion gets one still, at .855: the book lies open in the yard, the medallion on its page.
+ * All entities and data of this case are synthetic; the set carries names, counts, statuses and
+ * amounts only. */
+import { yard, crowd, hub, crate, sign, pen, STATUS, cameraLine, pathAt, lin, ease, mix, backOut } from './film-soc-kit.js?v=mc-1c165fc3e2';
+
 const TAU = Math.PI * 2;
-const lin = (x, a, b) => Math.min(1, Math.max(0, (x - a) / (b - a)));
 const easeOut = (x, k = 3) => 1 - Math.pow(1 - Math.min(1, Math.max(0, x)), k);
 const easeIn = (x, k = 2) => Math.pow(Math.min(1, Math.max(0, x)), k);
 const springy = x => { const p = Math.min(1, Math.max(0, x)) - 1; return 1 + 2.6 * p * p * p + 1.6 * p * p; }; // passes 1, settles
@@ -28,79 +39,75 @@ const flash = (x, a, w) => { const u = (x - a) / w; return u < 0 || u >= 1 ? 0 :
 // a decaying wobble after an impact at a: 1 at the hit, swinging to rest over w
 const wobble = (x, a, w, cycles = 1.25) => { const u = (x - a) / w; return u < 0 || u >= 1 ? 0 : Math.cos(u * Math.PI * 2 * cycles) * (1 - u) * (1 - u); };
 
-// The camera line, authored as keys (set coordinates) joined by a C1 Hermite spline in lp: a high
-// wide shot over the towers and the book, a push onto the page, then low in front of the
-// fore-edge for the slam (the cover falls towards the lens), up as the tabs come out, and round to a
-// low hero three-quarter on the risen book.
+// The book lands in the middle of the yard: its own coordinates sit at (BX, 0, BZ) of the set.
+const BX = .5, BZ = .5;
 const END_A = .86, atEnd = old => END_A + (old - .54) / .46 * (1 - END_A);
-const KEYS = [
-  { at: 0, pos: [.2, 4.5, 11.6], look: [0, 1.45, -.7], fov: 32 },
-  { at: .42, pos: [.2, 4.5, 11.6], look: [0, 1.45, -.7], fov: 32 },
-  { at: .455, pos: [-1.9, 7.1, 10.5], look: [.2, .55, -.4], fov: 35.5 },
-  { at: .85, pos: [-1.7, 7.0, 10.3], look: [.2, .55, -.4], fov: 35.5 },
-  { at: atEnd(.6), pos: [-.7, 5.0, 8.9], look: [0, .4, .9], fov: 33 },
-  { at: atEnd(.66), pos: [0, 1.6, 7.5], look: [0, .6, 0], fov: 32 },
-  { at: atEnd(.72), pos: [0, 1.6, 7.6], look: [0, .6, 0], fov: 32 },
-  { at: atEnd(.8), pos: [.1, 2.8, 9.6], look: [-.5, .7, 1.2], fov: 31 },
-  { at: atEnd(.95), pos: [5.2, 2.6, 9.6], look: [.3, 1.45, .5], fov: 30 },
-  { at: 1, pos: [5.05, 2.55, 9.3], look: [.3, 1.45, .5], fov: 30 },
+// The ending's camera line, joined by a C1 Hermite spline in real: high over the landed book, a
+// push onto the page, low in front of the fore-edge for the slam, up as the tabs come out, and round
+// to a low three-quarter on the risen book.
+const END_KEYS = [
+  { at: END_A, pos: [-1.2, 7.0, 10.8], look: [.7, .55, .1], fov: 35.5, g: 5.6, sx: -0.2, sy: 0 },
+  { at: atEnd(.6), pos: [-.7 + BX, 5.0, 8.9 + BZ], look: [BX, .4, .9 + BZ], fov: 33, g: 4.6, sx: 0, sy: 0 },
+  { at: atEnd(.66), pos: [BX, 1.6, 7.5 + BZ], look: [BX, .6, BZ], fov: 32, g: 4.3, sx: 0, sy: 0 },
+  { at: atEnd(.72), pos: [BX, 1.6, 7.6 + BZ], look: [BX, .6, BZ], fov: 32, g: 4.3, sx: 0, sy: 0 },
+  { at: atEnd(.8), pos: [.1 + BX, 2.8, 9.6 + BZ], look: [-.5 + BX, .7, 1.2 + BZ], fov: 31, g: 4.8, sx: 0.3, sy: 0 },
+  { at: atEnd(.95), pos: [5.2 + BX, 2.6, 9.6 + BZ], look: [.3 + BX, 1.45, .5 + BZ], fov: 30, g: 5.2, sx: 0.4, sy: 0 },
+  { at: 1, pos: [5.05 + BX, 2.55, 9.3 + BZ], look: [.3 + BX, 1.45, .5 + BZ], fov: 30, g: 5.2, sx: 0.4, sy: 0 },
 ];
+// The camera in the yard: one shot per place, eased from one to the next. g, sx and sy are for the
+// stacked layout only: the width of the shot's group, and where its middle is.
+const WIDE = { pos: [1.5, 6.6, 11.2], look: [1.1, .3, -.3], fov: 34, g: 6.4, sx: -0.35, sy: 0 };
+const GROUND = { pos: [.5, 5.2, 7.4], look: [.4, .2, .2], fov: 36, g: 4.9, sx: 0.45, sy: 0.2 };
+const STATION = { pos: [.75, 5.4, 7.6], look: [.65, .3, .1], fov: 36, g: 5.1, sx: 0.4, sy: 0.2 };
+const PENS = { pos: [.55, 5.4, 7.6], look: [.45, .2, .1], fov: 36, g: 5.1, sx: .45, sy: .5 };
+const BOARD = { pos: [1.25, 6.4, 8.6], look: [1.15, .4, -.2], fov: 36, g: 6.9, sx: .35, sy: .3 };
+const HUBS = { pos: [.05, 5.8, 5.2], look: [-.05, .4, -2.0], fov: 36, g: 5.7, sx: 0.55, sy: 0.5 };
+const REPAIR = { pos: [-.2, 5.4, 4.6], look: [-.35, .5, -2.2], fov: 36, g: 5.0, sx: 0.5, sy: 0.5 };
+const CRATES = { pos: [.45, 4.6, 8.6], look: [.2, .6, 1.4], fov: 36, g: 4.9, sx: .42, sy: 1.3 };
+const SHELF = { pos: [2.0, 3.6, 7.2], look: [2.0, .4, 2.0], fov: 35, g: 4.4, sx: 0.6, sy: 0.1 };
+const LAND = { pos: END_KEYS[0].pos, look: END_KEYS[0].look, fov: END_KEYS[0].fov, g: END_KEYS[0].g, sx: END_KEYS[0].sx, sy: END_KEYS[0].sy };
+const YARD_KEYS = [[0, WIDE], [.028, WIDE], [.042, GROUND], [.083, GROUND], [.097, STATION], [.195, STATION], [.209, PENS], [.25, PENS], [.264, BOARD], [.306, BOARD],
+  [.32, HUBS], [.362, HUBS], [.376, REPAIR], [.42, REPAIR], [.434, WIDE], [.455, WIDE], [.47, CRATES], [.588, CRATES], [.602, PENS], [.632, PENS], [.646, BOARD], [.676, BOARD],
+  [.69, HUBS], [.72, HUBS], [.734, REPAIR], [.764, REPAIR], [.778, SHELF], [.81, SHELF], [.832, LAND], [END_A, LAND]].map(([at, s]) => ({ at, ...s }));
 
-// The score medallion: where it lands on the front page and where its arc starts and bends (set
-// coordinates), when it leaves (s) and how it tumbles on the way.
+// The score medallion: where it lands on the front page and where its arc starts and bends (the
+// book's own set coordinates), when it leaves (lp) and how it tumbles on the way.
 const DUR = .2, HOVER = 1.2, SIZE = 1.3;
 const TOKENS = [
-  { key: 'medal', color: 0xf2b545, land: [0, 1.2], from: [9, 5.5, -3], bend: [5, 6.5, -.5], s: .125, spin: [1.4, 3.2, .2], yaw: -.15 },
+  { key: 'medal', color: 0xf2b545, land: [0, 1.2], from: [.45, 2.3, -3.28], bend: [.1, 4.8, -1.2], s: .125, spin: [1.4, 3.2, .2], yaw: -.15 },
 ];
-// The eight scoring groups, in the order of the page's cards: identifiers and figures only.
-// The scoring groups are named as in chapter 05's cards, in the page's language (the copy uses no rubric codes).
-let ZH = false;
-try { ZH = localStorage.getItem('inferencenet-language') === 'zh'; } catch (e) {}
-const WORD = (en, zh) => (ZH ? zh : en);
+// The seven evidence items and the eight scoring groups, in the order of the page's cards.
+const EV_A = .03, EV_W = .39 / 7, SC_A = .46, SC_W = .044;
 const GROUPS = [
-  { id: 'A', pts: 10, max: 10 },
-  { id: 'B', pts: 17, max: 17 },
-  { id: 'C', pts: 13, max: 13 },
-  { id: WORD('Sample', '样本'), pts: 39, max: 39 },
-  { id: WORD('Behaviour', '行为达标'), pts: 0, max: 3 },
-  { id: WORD('Operations', '运营对照'), pts: 0, max: 9, flash: true },
-  { id: WORD('Attribution', '归因责任'), pts: 0, max: 6, flash: true },
-  { id: WORD('Traceability', '追溯关闭'), pts: 0, max: 9, flash: true },
+  { id: 'A', pts: 10, max: 10 }, { id: 'B', pts: 17, max: 17 }, { id: 'C', pts: 13, max: 13 }, { id: 'SAMPLE', pts: 39, max: 39 },
+  { id: 'BEHAVIOUR', pts: 0, max: 3 }, { id: 'OPERATIONS', pts: 0, max: 9 }, { id: 'ATTRIBUTION', pts: 0, max: 6 }, { id: 'TRACEABILITY', pts: 0, max: 9 },
 ];
-const NG = GROUPS.length;
-const TOTAL = 106, RING_PTS = 2, RING_DY = .082, RING_Y0 = .12;
-const RISE_A = .425, FILL_A = .46, FILL_STEP = .0475, POUR_A = .54;
+const TOTAL = 106, GATHER = .812, LAND_A = .822, LAND_B = .848, MEDAL_HIT = .855, POUR_A = .54;
 // The ending's timeline (lp) was written for .54–1; real maps onto it, and the medallion's flight
-// (lp .125–.325) onto real .80–.85. Nothing else on lp happens before .54.
-const lpOf = r => (r <= .8 ? .125 * r / .8 : r <= .85 ? .125 + (r - .8) / .05 * .2 : r <= END_A ? .325 + (r - .85) / .01 * .215 : .54 + (r - END_A) / (1 - END_A) * .46);
-// The seven evidence items: figures, dates and identifiers only on the set; the copy carries the words.
-const CONFLICTS = [
-  { a: '84', b: '83', out: 'M' },                     // the roster: one name listed in error
-  { a: '360', gate: true, out: 'M' },                 // pending sign-outs stay out of confirmed time
-  { a: '2 VOID', strike: true, out: 'M' },            // two void practice attempts
-  { a: '10', b: '8 + 2', out: 'M' },                  // one verified incident: lacking opportunity, or restricted
-  { a: '1,145', b: '18', out: 'M' },                  // observations, and the ones observers dispute
-  { a: '05-18', b: 'EST.', out: 'M' },                // the estimated week
-  { a: 'HUB-01', b: 'HUB-03', out: 'X' },             // the repair recorded a day apart
-];
-const C_A = .03, C_W = .39 / CONFLICTS.length, NC = CONFLICTS.length, FIRE = .46, HIT = .62, LEAVE = .85;
-const OUT = { M: [.1, .95, .36], P: [1.1, .5, .04], X: [.12, .14, .19] }, FLASH = { M: 2.6, P: 2.4, X: .7 };
-const SHEET = { w: 1.8, h: 1.22, y: 2.05, z: -1.25, lx: -1.28, rx: 1.27, cx: 0, gate: 1.14 };
-const coinX = i => -1.41 + i * .47, COIN_Z = 2.02, COIN_S = 1.4;
-const towerX = j => -2.52 + j * .72, towerZ = x => -2.9 + .7 * (x / 2.52) ** 4;
+// (lp .125–.325) onto real .812–.855. Nothing else on lp happens before .54.
+const lpOf = r => (r <= GATHER ? .125 * r / GATHER : r <= MEDAL_HIT ? .125 + (r - GATHER) / (MEDAL_HIT - GATHER) * .2 : r <= END_A ? .325 + (r - MEDAL_HIT) / (END_A - MEDAL_HIT) * .215 : .54 + (r - END_A) / (1 - END_A) * .46);
 const SIG = 0;
 
+// where things stand in the yard (set coordinates)
+const HUB_X = [-1.6, -.2, 1.2, 2.6], HUB_Z = -2.55, HUB_S = .8, WEEKS = 24, BAR_Z = -1.92;
+const BENCH = { x: .62, z: 2.3, top: .25 }, PACK_X = [-.8, .45, 1.95];
+const SPOT = { x: 2.1, z: -.1 }, BOARD_AT = { x: 3.75, z: -.4 }, CHILLER = { x: 1.9, z: -2.15 }, SHELF_AT = { x: 3.3, z: 2.3 }, TOTAL_X = .95, GAP_X = -1.0;
+const MARK2 = [16, 47, 68], MARK3 = [25, 59], MARK5 = [8, 19, 27, 36, 48, 55];   // the people an item is about (indices on the ground)
+
 export async function build(ctx) {
-  const { THREE, kit, set, accent, reduce, camera, util, hand } = ctx;
-  const { PALETTE, BOOK, BOOK_CENTRE, STAGE_COLORS, GUN_HOLD, add, cyl, rbox, mat, glowMat, closedBook, bookTabs, robot } = kit;
+  const { THREE, kit, set, accent, reduce, camera, renderer, util, hand, layout } = ctx;
+  const { PALETTE, BOOK, BOOK_CENTRE, STAGE_COLORS, GUN_HOLD, add, block, cyl, ball, rbox, mat, closedBook, bookTabs, robot } = kit;
   const { smooth, lerp, glowSprite } = util;
-  const { PW, PD, T, BOARD } = BOOK;
-  const PAGE = BOARD + T / 2;                     // the open pages: the block splits at its middle
-  const SPINE_H = T + BOARD * 2;
+  const { PW, PD, T, BOARD: BOARD_T } = BOOK;
+  const PAGE = BOARD_T + T / 2;                     // the open pages: the block splits at its middle
+  const SPINE_H = T + BOARD_T * 2;
   const glowMap = glowSprite(0xffffff, 1).material.map;
   const additive = (color, opacity = 1, map = glowMap) => new THREE.MeshBasicMaterial({ color, map, transparent: true, opacity, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide, fog: false });
   const sprite = (color, size, opacity = 0) => { const s = glowSprite(color, size, opacity); s.material.fog = false; s.renderOrder = 2; return s; };
+  const basic = (color = 0xffffff) => new THREE.MeshBasicMaterial({ color, toneMapped: false });
+  const own = (color, intensity = 1) => new THREE.MeshStandardMaterial({ color, emissive: color, emissiveIntensity: intensity, roughness: .5 });
   const hex = n => '#' + n.toString(16).padStart(6, '0');
+  const MONO = '"Space Mono", ui-monospace, SFMono-Regular, Menlo, monospace';
   function canvasTexture(W, H, draw) {
     const c = document.createElement('canvas'); c.width = W; c.height = H;
     const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 8;
@@ -118,31 +125,167 @@ export async function build(ctx) {
     pts.frustumCulled = false; pts.renderOrder = 3; parent.add(pts);
     return { pts, pos, col, done() { geo.attributes.position.needsUpdate = true; geo.attributes.color.needsUpdate = true; } };
   }
-  // The book lies turned a quarter (spine along x, pages towards the viewer); set and book
-  // coordinates swap like this while it rests on the plinth.
-  const toBook = (out, x, y, z) => out.set(z, y, -x);
-  const toSet = (out, v) => out.set(-v.z, v.y, v.x);
-  const REST = new THREE.Vector3(0, BOOK_CENTRE.y, BOOK_CENTRE.x);     // the closed book's centre, set coordinates
 
-  /* ---- the plinth: dark navy with a glowing rim, top at y = 0 ---- */
-  cyl(set, 3.55, 3.7, .32, 0x1c2740, 0, -.32, 0, 72);
-  cyl(set, 3.71, 3.45, .5, 0x111a2d, 0, -.82, 0, 72);
-  const rimMat = glowMat(accent, 1.1).clone();
-  const rim = add(set, new THREE.TorusGeometry(3.62, .026, 8, 160), rimMat, 0, .005, 0, false); rim.rotation.x = Math.PI / 2;
-  const innerMat = additive(accent, .16, null);
-  const inner = add(set, new THREE.TorusGeometry(3.0, .008, 4, 160), innerMat, 0, .004, 0, false); inner.rotation.x = Math.PI / 2;
-  // a warm pool of light on the plinth that the book throws once it holds the run
+  /* ================= the yard ================= */
+  const ground = yard({ THREE, kit, set, accent });
+  const big = (text, size = 84, color = '#ffffff') => ({ text, size, weight: 800, color, font: MONO });
+  const small = (text, color = '#aab6cc', size = 38) => ({ text, size, weight: 700, color, track: 3 });
+  // a sign on a post; it grows out of the ground when shown
+  function post(key, lines, x, z, { w = 1.3, h = .44, color = STATUS.verified, up = .8, ry = 0, k = 1.25 } = {}) {
+    const s = sign({ THREE, kit, key: `meta-${key}`, lines, w, h, color, post: up, px: 512 });
+    s.group.position.set(x, 0, z); s.group.rotation.y = ry; s.group.visible = false; set.add(s.group);
+    s.k = k;
+    return s;
+  }
+  const show = (obj, on) => { const g = obj.group || obj; g.visible = on > .01; if (g.visible) g.scale.setScalar(Math.max(.001, backOut(on, 1.5)) * (obj.k || 1)); };
+  const ROSE = hex(0xffc2cf), AMB = hex(0xffd27a), GRN = hex(0x7ff0a6);
+
+  /* ---- the hubs, the 24 weeks of metrics in front of each, and the chiller ---- */
+  const HUB_COLORS = [PALETTE.teal, PALETTE.sky, PALETTE.violet, 0];
+  const hubs = HUB_X.map((x, k) => { const h = hub({ THREE, kit, name: `HUB-0${k + 1}`, color: HUB_COLORS[k], deferred: k === 3 }); h.group.position.set(x, 0, HUB_Z); h.group.scale.setScalar(HUB_S); set.add(h.group); return h; });
+  const weekBars = new THREE.InstancedMesh(new THREE.BoxGeometry(.034, 1, .034).translate(0, .5, 0), basic(), HUB_X.length * WEEKS);
+  weekBars.frustumCulled = false; set.add(weekBars);
+  const weekH = [], weekBase = [], CHART_Y = .9, chartEdge = own(PALETTE.sky, .5);
+  HUB_X.forEach((x, k) => {
+    for (let w = 0; w < WEEKS; w++) { const r = Math.sin(k * 12.9898 + w * 7.233) * 43758.5453; weekH.push(w === WEEKS - 1 ? .66 : .2 + .4 * (r - Math.floor(r))); }
+    // the chart's board, over the hub's roof
+    const b = new THREE.Group(); b.position.set(x, CHART_Y - .05, HUB_Z); b.visible = false; set.add(b); weekBase.push(b);
+    add(b, rbox(1.1, .82, .04, .02), mat(0x0d1524), 0, .41, 0, false);
+    add(b, rbox(1.15, .87, .02, .02), chartEdge, 0, .41, -.012, false);
+    [-.4, .4].forEach(dx => cyl(b, .02, .02, .2, 0x394560, dx, -.2, 0, 6));
+  });
+  const chiller = new THREE.Group(); chiller.position.set(CHILLER.x, 0, CHILLER.z); chiller.visible = false; set.add(chiller);
+  block(chiller, .34, .5, .3, PALETTE.slate, 0, 0, 0, .05);
+  const fan = cyl(chiller, .12, .12, .03, PALETTE.ink, 0, .11, .155, 20); fan.rotation.x = Math.PI / 2; fan.position.set(0, .27, .155);
+  const fanBlade = add(chiller, rbox(.2, .035, .012, .006), mat(PALETTE.stone), 0, .27, .175, false);
+  const chillLamp = own(STATUS.pending, 1.2); ball(chiller, .04, chillLamp, .1, .54, .08, 10);
+  // this run's marker (a pin over HUB-01) and the rubric's (a ring over HUB-03)
+  const pin = new THREE.Group(); pin.visible = false; set.add(pin);
+  const pinMat = own(STATUS.disputed, 1.4);
+  add(pin, new THREE.ConeGeometry(.1, .26, 14).rotateX(Math.PI), pinMat, 0, 0, 0, false); ball(pin, .1, pinMat, 0, .2, 0, 14);
+  const ringMat = own(PALETTE.teal, 1.5);
+  const ring = add(set, new THREE.TorusGeometry(.42, .022, 8, 48).rotateX(Math.PI / 2), ringMat, HUB_X[2], .98, HUB_Z, false); ring.visible = false;
+  // the dotted line from where this run put the repair to where the rubric has it
+  const ARC = 12, arcDots = new THREE.InstancedMesh(new THREE.SphereGeometry(.04, 8, 6), basic(), ARC);
+  arcDots.frustumCulled = false; set.add(arcDots);
+
+  /* ---- the people: 84 on the roll-call ground, later in three pens ---- */
+  const NP = 84, people = crowd({ THREE, kit, n: NP }); set.add(people.group);
+  const gridAt = i => [-1.2 + (i % 10) * .27, -1.05 + Math.floor(i / 10) * .26];
+  const penAt = i => (i < 73 ? [-.1 + (i % 10 - 4.5) * .255, -.05 + (Math.floor(i / 10) - 3.5) * .255] : i < 81 ? [1.95 + ((i - 73) % 2 - .5) * .26, -.4 + (Math.floor((i - 73) / 2) - 1.5) * .255] : [1.95 + (i - 81.5) * .26, .75]);
+  const P = Array.from({ length: NP }, (_, i) => ({ g: gridAt(i), p: i === 83 ? [1.75, .55] : penAt(i), st: ((i * 7) % 10) / 10 }));
+  const pens = [
+    pen({ THREE, kit, w: 2.8, d: 2.25, color: STATUS.verified }), pen({ THREE, kit, w: .78, d: 1.25, color: STATUS.pending }), pen({ THREE, kit, w: .78, d: .5, color: STATUS.neutral }),
+  ];
+  [[-.1, -.05], [1.95, -.4], [1.95, .75]].forEach(([x, z], k) => { pens[k].group.position.set(x, 0, z); pens[k].group.visible = false; set.add(pens[k].group); });
+  const MARKS = 6, marks = new THREE.InstancedMesh(new THREE.RingGeometry(.15, .2, 28).rotateX(-Math.PI / 2), basic(), MARKS);
+  marks.frustumCulled = false; set.add(marks);
+  const BLUE = new THREE.Color(0x4a7fd4), C_PEND = new THREE.Color(STATUS.pending), C_NEUT = new THREE.Color(STATUS.neutral), C_DISP = new THREE.Color(STATUS.disputed), C_OK = new THREE.Color(STATUS.verified), tc = new THREE.Color();
+  people.hat(83, PALETTE.slate);
+
+  /* ---- the bench with the three packages, as the run disposed of them ---- */
+  const bench = new THREE.Group(); set.add(bench);
+  block(bench, 4.0, BENCH.top, .72, 0x26324d, BENCH.x, 0, BENCH.z, .05);
+  const benchEdge = own(accent, .8); block(bench, 4.04, .03, .76, benchEdge, BENCH.x, BENCH.top - .035, BENCH.z, .012).castShadow = false;
+  const PASS = [[true], [true, true, true, false], [true, false]], WOOD = new THREE.Color(0xc79a5b);
+  const packs = PASS.map((pass, k) => {
+    const c = crate({ THREE, kit, letter: 'ABC'[k], units: pass.length });
+    c.group.position.set(PACK_X[k], BENCH.top, BENCH.z); bench.add(c.group);
+    c.segments.forEach((s, j) => { const to = pass[j] ? C_OK : C_PEND; s.mat.color.copy(WOOD).lerp(to, .7); s.mat.emissive = to.clone(); s.mat.emissiveIntensity = .28; });
+    return c;
+  });
+  // A's retained tenth, amber, beside it
+  block(bench, .05, .5, .52, mat(STATUS.pending, { emissive: STATUS.pending, intensity: .4 }), PACK_X[0] + .36, BENCH.top, BENCH.z, .02);
+
+  /* ---- the things an item brings with it: they rise for their item and fold away after ---- */
+  // the sign-out terminal (attendance)
+  const terminal = new THREE.Group(); terminal.position.set(SPOT.x, 0, SPOT.z); terminal.visible = false; set.add(terminal);
+  cyl(terminal, .05, .07, .62, 0x394560, 0, 0, 0, 10);
+  block(terminal, .46, .5, .2, 0x26324d, 0, .5, 0, .05);
+  const termScreen = basic(0xffb347); add(terminal, new THREE.PlaneGeometry(.34, .2), termScreen, 0, .82, .102, false);
+  const termLamp = own(STATUS.pending, 1.4); ball(terminal, .05, termLamp, 0, 1.05, 0, 12);
+  // the test desk (two void practice sheets)
+  const voidTex = canvasTexture(256, 340, (g, w, h) => {
+    g.fillStyle = '#f6efe0'; g.beginPath(); g.roundRect(0, 0, w, h, 18); g.fill();
+    g.fillStyle = '#cbc4b4'; [40, 72, 104, 220, 252, 284].forEach((y, i) => g.fillRect(28, y, i % 2 ? 150 : 200, 12));
+    g.save(); g.translate(w / 2, h / 2 + 2); g.rotate(-.22);
+    g.strokeStyle = hex(STATUS.disputed); g.lineWidth = 8; g.strokeRect(-98, -38, 196, 76);
+    g.fillStyle = hex(STATUS.disputed); g.font = '800 62px Inter, Arial, sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText('VOID', 0, 4); g.restore();
+  });
+  const desk = new THREE.Group(); desk.position.set(SPOT.x, 0, SPOT.z); desk.visible = false; set.add(desk);
+  block(desk, 1.0, .36, .5, 0x394560, 0, 0, 0, .05);
+  [-.24, .24].forEach(x => { const s = add(desk, new THREE.PlaneGeometry(.34, .45), new THREE.MeshStandardMaterial({ map: voidTex, roughness: .8 }), x, .6, .02, false); s.rotation.x = -.3; });
+  // the observation board: 1,145 coded observations, 18 of them in dispute (six supervisors, three each)
+  const OBS = 1145, COLS = 47, DISPUTED = new Set([101, 102, 103, 262, 263, 264, 418, 419, 420, 577, 578, 579, 803, 804, 805, 990, 991, 992]);
+  const obsTex = canvasTexture(1000, 640, (g, w, h) => {
+    g.fillStyle = '#101a2e'; g.fillRect(0, 0, w, h);
+    const cw = 20, ch = 24, x0 = (w - COLS * cw) / 2, y0 = 20;
+    for (let i = 0; i < OBS; i++) { g.fillStyle = DISPUTED.has(i) ? '#ff5d7c' : '#5b77a6'; g.fillRect(x0 + (i % COLS) * cw + 2, y0 + Math.floor(i / COLS) * ch + 3, cw - 5, ch - 7); }
+  });
+  const obsBoard = new THREE.Group(); obsBoard.position.set(BOARD_AT.x, 0, BOARD_AT.z); obsBoard.rotation.y = -.3; obsBoard.visible = false; set.add(obsBoard);
+  [-.5, .5].forEach(x => block(obsBoard, .08, .4, .08, 0x394560, x, 0, 0, .03));
+  add(obsBoard, rbox(1.36, .9, .07, .04), mat(0x151f36), 0, .82, 0);
+  const obsEdge = own(STATUS.disputed, .6); add(obsBoard, rbox(1.42, .96, .04, .03), obsEdge, 0, .82, -.02, false);
+  add(obsBoard, new THREE.PlaneGeometry(1.25, .8), new THREE.MeshBasicMaterial({ map: obsTex, toneMapped: false }), 0, .82, .04, false);
+  // the source shelf, and five chains towards what the conclusions rest on; each breaks off halfway
+  const shelf = new THREE.Group(); shelf.position.set(SHELF_AT.x, 0, SHELF_AT.z); shelf.rotation.y = -.3; shelf.visible = false; set.add(shelf);
+  block(shelf, .78, .5, .4, 0x394560, 0, 0, 0, .04);
+  [0x9aa3b2, 0x6aa8e8, 0x45b5b0, 0x7d6ad8, 0xf2b545].forEach((c, k) => block(shelf, .1, .1, .3, c, -.28 + k * .14, .5, 0, .02).castShadow = false);
+  const CHAINS = [[PACK_X[0], .78, 2.3], [PACK_X[1], .78, 2.3], [PACK_X[2], .78, 2.3], [-.1, .5, .3], [1.2, .7, -2.2]], LINKS = 8;   // to the packages, the people and the hubs
+  const chainDots = new THREE.InstancedMesh(new THREE.SphereGeometry(.035, 8, 6), basic(), CHAINS.length * LINKS);
+  chainDots.frustumCulled = false; set.add(chainDots);
+
+  /* ---- the signs ---- */
+  const S = {
+    roster: post('roster', [small('84 NAMES'), big('83 IN SCOPE', 70)], 0, -1.42, { w: 1.5, up: .95 }),
+    attend: post('attend', [big('3 × 360 MIN', 70), small('NO SIGN-OUT · PENDING', AMB, 34)], SPOT.x, SPOT.z - .2, { w: 1.6, up: 1.2, color: STATUS.pending }),
+    tests: post('tests', [big('2 VOID PRACTICE', 58), small('79 VALID TESTS', '#aab6cc', 36)], SPOT.x, SPOT.z - .2, { w: 1.6, up: 1.0, color: STATUS.neutral }),
+    pen1: post('pen1', [big('73'), small('EVALUABLE', GRN)], -.1, -1.3, { w: 1.0, up: .62 }),
+    pen2: post('pen2', [big('8'), small('NO OPPORTUNITY', AMB, 34)], 2.0, -1.15, { w: 1.05, up: .62, color: STATUS.pending }),
+    pen3: post('pen3', [big('2'), small('RESTRICTED')], 1.95, 1.14, { w: .9, up: 0, color: STATUS.neutral }),
+    coding: post('coding', [big('18 / 1,145', 76), small('DISPUTED', ROSE)], BOARD_AT.x - .15, BOARD_AT.z - .25, { w: 1.3, up: 1.38, ry: -.3, color: STATUS.disputed }),
+    weeks: post('weeks', [big('WEEK OF 18 MAY', 58), small('ESTIMATES · 4 HUBS', AMB, 36)], GAP_X, -2.72, { w: 1.6, up: 1.55, color: STATUS.pending }),
+    repair: post('repair', [small('REPAIR END', AMB), big('± 1 DAY', 76)], CHILLER.x - .12, CHILLER.z - .1, { w: .95, up: .95, color: STATUS.pending }),
+    run: post('run', [big('THIS RUN', 84, ROSE)], HUB_X[0], -2.75, { w: .95, h: .28, up: 1.45, color: STATUS.disputed }),
+    rubric: post('rubric', [big('RUBRIC', 84, '#9fe6e2')], HUB_X[2], -2.75, { w: .8, h: .28, up: 1.45, color: PALETTE.teal }),
+    held: post('held', [big('13 / 13', 80), small('CRITERIA MET', GRN)], 0, -1.42, { w: 1.3, up: .95 }),
+    lost9: post('lost9', [big('9 LOST', 80, ROSE), small('HUB NET CHANGES', ROSE, 34)], GAP_X, -2.72, { w: 1.4, up: 1.3, color: STATUS.disputed }),
+    lost6: post('lost6', [big('6 LOST', 80, ROSE), small('ANALYSIS, ARGUMENT', ROSE, 34)], 1.9, -2.72, { w: 1.5, up: 1.3, color: STATUS.disputed }),
+    total: post('total', [big('0 / 106', 118, AMB)], TOTAL_X, -2.78, { w: 1.7, h: .5, up: 1.6, color: 0xf2b545 }),
+  };
+  const scoreLines = g => (g.id.length === 1 ? [big(`${g.pts} / ${g.max}`, 96, g.pts ? GRN : ROSE)] : [small(g.id, g.pts ? GRN : ROSE), big(`${g.pts} / ${g.max}`, 84)]);
+  const SCORE_AT = [[PACK_X[0], BENCH.z, .95, 0], [PACK_X[1], BENCH.z, .95, 0], [PACK_X[2], BENCH.z, .95, 0], [-.1, -1.45, 1.2, 0], [BOARD_AT.x - .15, BOARD_AT.z - .25, 1.38, -.3], [GAP_X, -2.72, 1.55, 0], [CHILLER.x, CHILLER.z - .1, .95, 0], [SHELF_AT.x, SHELF_AT.z - .3, .85, -.3]];
+  const scoreSigns = GROUPS.map((g, j) => post(`score-${j}`, scoreLines(g), SCORE_AT[j][0], SCORE_AT[j][1], { w: g.id.length === 1 ? .8 : 1.25, h: g.id.length === 1 ? .3 : .44, up: SCORE_AT[j][2], ry: SCORE_AT[j][3], color: g.pts ? STATUS.verified : STATUS.disputed }));
+  let shownTotal = 0;
+
+  /* ---- the light the yard is gathered into ---- */
+  const NG = 150, gather = cloud(NG, .36, set);
+  const gSrc = [], gCol = [];
+  { const anchors = [[PACK_X[0], .6, BENCH.z], [PACK_X[1], .6, BENCH.z], [PACK_X[2], .6, BENCH.z], [SHELF_AT.x, .5, SHELF_AT.z], [BOARD_AT.x, .9, BOARD_AT.z], [CHILLER.x, .4, CHILLER.z], [GAP_X, 1.3, -2.7], [TOTAL_X, 1.4, -2.78]];
+    for (let i = 0; i < NG; i++) {
+      if (i < 83) { gSrc.push([P[i].p[0], .3, P[i].p[1]]); gCol.push(new THREE.Color(i < 73 ? 0x6aa8e8 : 0xf2b545)); }
+      else { const a = anchors[i % anchors.length], r = Math.sin(i * 12.9898) * 43758.5453, q = Math.sin(i * 78.233) * 12543.7; gSrc.push([a[0] + ((r - Math.floor(r)) - .5) * .8, a[1] + ((q - Math.floor(q)) - .5) * .3, a[2] + ((q * 3.1 - Math.floor(q * 3.1)) - .5) * .4]); gCol.push(new THREE.Color(STAGE_COLORS[i % 5])); }
+    } }
+
+  /* ================= the book and its ending (the book's coordinates start at BX, BZ) ================= */
+  const stage = new THREE.Group(); stage.position.set(BX, 0, BZ); stage.visible = false; set.add(stage);
+  // The book lies turned a quarter (spine along x, pages towards the viewer); stage and book
+  // coordinates swap like this while it rests on the ground.
+  const toBook = (out, x, y, z) => out.set(z, y, -x);
+  const toStage = (out, v) => out.set(-v.z, v.y, v.x);
+  const REST = new THREE.Vector3(0, BOOK_CENTRE.y, BOOK_CENTRE.x);     // the closed book's centre, stage coordinates
+  // a warm pool of light on the ground that the book throws once it holds the run
   const poolMat = additive(0xffc982, 0);
-  const pool = add(set, new THREE.PlaneGeometry(6.4, 6.4), poolMat, REST.x, .012, REST.z, false); pool.rotation.x = -Math.PI / 2; pool.receiveShadow = false;
-  // the halo under the risen book, and the ring of dust the slam throws out
+  const pool = add(stage, new THREE.PlaneGeometry(6.4, 6.4), poolMat, REST.x, .012, REST.z, false); pool.rotation.x = -Math.PI / 2; pool.receiveShadow = false;
+  // the halo under the risen book, and the ring of dust the landing and the slam throw out
   const haloMat = additive(accent, 0, null);
-  const halo = add(set, new THREE.TorusGeometry(1.75, .02, 6, 128), haloMat, 0, .02, 0, false); halo.rotation.x = Math.PI / 2;
+  const halo = add(stage, new THREE.TorusGeometry(1.75, .02, 6, 128), haloMat, 0, .02, 0, false); halo.rotation.x = Math.PI / 2;
   const dustMat = additive(0xfff1d6, 0, null);
-  const dust = add(set, new THREE.RingGeometry(.94, 1, 96), dustMat, REST.x, .02, REST.z, false); dust.rotation.x = -Math.PI / 2;
+  const dust = add(stage, new THREE.RingGeometry(.94, 1, 96), dustMat, REST.x, .02, REST.z, false); dust.rotation.x = -Math.PI / 2;
 
   /* ---- the book: the homepage's closedBook, opened. Its front board moves to a hinge at the
    * spine, and the block of pages splits at its middle, half on each side of the spread. ---- */
-  const lift = new THREE.Group(); lift.position.copy(REST); set.add(lift);   // rise
+  const lift = new THREE.Group(); lift.position.copy(REST); stage.add(lift);   // rise
   const lean = new THREE.Group(); lift.add(lean);                             // lean to the camera
   const spin = new THREE.Group(); lean.add(spin);                             // turn
   const orient = new THREE.Group(); orient.rotation.y = -Math.PI / 2; spin.add(orient);
@@ -150,8 +293,8 @@ export async function build(ctx) {
   const [, pages, spine] = book.children, lines = book.children.slice(3, 8), gilts = book.children.slice(8, 10);
   const front = book.children.find(c => c.isGroup);
   const hinge = new THREE.Group(); hinge.position.set(0, PAGE, 0); book.add(hinge);
-  hinge.add(front); front.position.set(PW / 2 + .05, T / 2 + BOARD / 2, 0);
-  pages.scale.y = .5; pages.position.y = BOARD + T / 4;
+  hinge.add(front); front.position.set(PW / 2 + .05, T / 2 + BOARD_T / 2, 0);
+  pages.scale.y = .5; pages.position.y = BOARD_T + T / 4;
   // the cloth of this book flashes warm when it slams, so it gets its own copy of the kit's cover
   const kitCover = book.children[0].material, coverMat = kitCover.clone(); coverMat.emissive.setHex(0xffc98a); coverMat.emissiveIntensity = 0;
   book.traverse(o => { if (o.isMesh && o.material === kitCover) o.material = coverMat; });
@@ -194,15 +337,15 @@ export async function build(ctx) {
   const landAt = tk => toBook(new THREE.Vector3(), tk.land[0], PAGE, tk.land[1]);
   const slots = TOKENS.map(tk => {
     const at = landAt(tk), m = new THREE.MeshStandardMaterial({ color: tk.color, emissive: tk.color, emissiveIntensity: .35, roughness: .5 });
-    const ring = add(book, new THREE.TorusGeometry(.5, .016, 6, 72), m, at.x, PAGE + .004, at.z, false); ring.rotation.x = Math.PI / 2; ring.receiveShadow = false;
+    const slotRing = add(book, new THREE.TorusGeometry(.5, .016, 6, 72), m, at.x, PAGE + .004, at.z, false); slotRing.rotation.x = Math.PI / 2; slotRing.receiveShadow = false;
     const print = add(book, new THREE.PlaneGeometry(1.5, 1.5), additive(tk.color, 0), at.x, PAGE + .006, at.z, false); print.rotation.x = -Math.PI / 2; print.receiveShadow = false;
     const shockMat = new THREE.MeshBasicMaterial({ color: new THREE.Color(tk.color).multiplyScalar(1.6), transparent: true, opacity: 0, depthWrite: false, fog: false });
     const shock = add(book, new THREE.RingGeometry(.9, 1, 72), shockMat, at.x, PAGE + .008, at.z, false); shock.rotation.x = -Math.PI / 2; shock.receiveShadow = false;
-    return { m, ring, print, shock };
+    return { m, ring: slotRing, print, shock };
   });
 
   /* ---- the medallion ---- */
-  // A token is root (position, squash; turned back to set axes) → pivot (the fold: hinged at its
+  // A token is root (position, squash; turned back to stage axes) → pivot (the fold: hinged at its
   // foot, it falls away from the viewer) → body (spin, idle). Its path is in book coordinates.
   function token(tk, centre) {
     const land = landAt(tk);
@@ -243,141 +386,239 @@ export async function build(ctx) {
   const flyers = [medal];
   const TRAIL = 18, trails = cloud(flyers.length * TRAIL, .22, book);
   const sparks = cloud(TOKENS.length * 12, .13, book, true);
-  const motes = cloud(64, .12, set);
-  const PUFF = 40, puff = cloud(PUFF, .16, set);   // the air the slam pushes out of the pages
+  const motes = cloud(64, .12, stage);
+  const PUFF = 40, puff = cloud(PUFF, .16, stage);   // the air the slam pushes out of the pages
   const puffCol = new THREE.Color(0xffd9a6);
   const moteSeed = Array.from({ length: 64 }, (_, i) => [((i * 0.61803) % 1), ((i * 0.3819 + .17) % 1), ((i * 0.7548 + .4) % 1)]);
   const moteCol = moteSeed.map((_, i) => new THREE.Color(STAGE_COLORS[i % 5]));
 
-  /* ---- the robot, the model that ran it, watching from beside the spread ---- */
+  /* ---- the robot, the model that ran it: it walks to each place, and ends beside the book ---- */
   const bot = robot(PALETTE.cream, 0x8ff6ff);
-  bot.root.scale.setScalar(1.15); bot.root.position.set(2.72, 0, .85); set.add(bot.root);
+  bot.root.scale.setScalar(1.15); set.add(bot.root);
   const botArms = bot.root.children[0].children.filter(c => c.isGroup && c !== bot.head);
   // armed with the harness from the Strategy beat, if that beat has built it
-  const muzzleMark = new THREE.Object3D();
   if (hand.weapon) {
     const gun = hand.weapon.create();
     gun.position.copy(GUN_HOLD.at); gun.rotation.copy(GUN_HOLD.turn); gun.scale.setScalar(hand.weapon.holdScale);
     gun.traverse(o => { if (o.isMesh) o.castShadow = true; });
-    muzzleMark.position.set(0, 0, .93); gun.add(muzzleMark); bot.root.add(gun); bot.grip(1);
-  } else { muzzleMark.position.set(0, .5, .3); bot.root.add(muzzleMark); }
-
-  /* ---- the evidence items: two sheets whose faces change, the clash, the gate, the strike, seven medallions ---- */
-  const sheetTexture = text => canvasTexture(768, 522, (g, w, h) => {
-    g.fillStyle = '#f6efe0'; g.fillRect(0, 0, w, h);
-    g.fillStyle = '#cbc4b4';
-    [[56, 52, 300], [56, 88, 210], [56, 424, 656], [56, 460, 420]].forEach(([x, y, l]) => g.fillRect(x, y, l, 16));
-    if (!text) { [150, 206, 262, 318, 374].forEach((y, i) => g.fillRect(56, y, i % 2 ? 560 : 656, 16)); return; }
-    g.fillStyle = '#1f2a3a'; g.textAlign = 'center'; g.textBaseline = 'middle';
-    g.font = `650 ${text.length > 8 ? 92 : 148}px Inter, Arial, sans-serif`;
-    g.fillText(text, w / 2, h / 2 + 8, w * .9);
-  });
-  const glowOwn = (color, intensity = 1.2) => new THREE.MeshStandardMaterial({ color, emissive: color, emissiveIntensity: intensity, roughness: .5 });
-  const blank = sheetTexture(''), sheetTex = CONFLICTS.map(c => ({ a: sheetTexture(c.a), b: c.b ? sheetTexture(c.b) : blank }));
-  const makeSheet = () => {
-    const g = new THREE.Group();
-    add(g, rbox(SHEET.w + .05, SHEET.h + .05, .05, .03), mat(0x5d6d8c), 0, 0, -.012);
-    const faceMat = new THREE.MeshStandardMaterial({ map: blank, roughness: .8 });
-    const face = new THREE.Mesh(new THREE.PlaneGeometry(SHEET.w, SHEET.h), faceMat); face.position.z = .02; g.add(face);
-    g.visible = false; set.add(g);
-    return { g, faceMat };
-  };
-  const sheetL = makeSheet(), sheetR = makeSheet();
-  const jag = seed => {
-    const pts = [];
-    for (let i = 0; i <= 9; i++) {
-      const w = i && i < 9 ? .1 : 0, h = Math.sin(seed * 7.1 + i * 12.9898) * 43758.5453, r = h - Math.floor(h);
-      pts.push(new THREE.Vector3(i / 9, (r - .5) * 2 * w, Math.cos(i * 2.3 + seed) * w));
-    }
-    return new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts, false, 'catmullrom', .1), 60, .016, 6);
-  };
-  const arcs = [1, 2].map(seed => { const m = new THREE.Mesh(jag(seed), new THREE.MeshBasicMaterial({ color: new THREE.Color(0xff2a3d).multiplyScalar(2.2), toneMapped: false, fog: false })); m.frustumCulled = false; m.visible = false; set.add(m); return m; });
-  const clashGlow = sprite(0xff2a3d, 1.3); set.add(clashGlow);
-  const gateMat = glowOwn(0x45b5b0, 1.3);
-  const gate = add(set, new THREE.CylinderGeometry(.05, .05, 3.2, 12), gateMat, SHEET.gate, 1.6, SHEET.z, false); gate.visible = false;
-  const strike = add(set, rbox(2.45, .14, .05, .03), glowOwn(0xff2a3d, 1.8), SHEET.cx, SHEET.y, SHEET.z + .1, false); strike.rotation.z = .42; strike.visible = false;
-  const beamGeo = new THREE.CylinderGeometry(1, 1, 1, 8, 1, true).translate(0, .5, 0);
-  const eyeBeam = new THREE.Mesh(beamGeo, additive(0x8ff6ff, 0, null)); eyeBeam.frustumCulled = false; eyeBeam.visible = false; set.add(eyeBeam);
-  const muzzleFlare = sprite(0xffe2a0, .9); set.add(muzzleFlare);
-  const coinGeo = new THREE.LatheGeometry([[0, -.045], [.17, -.045], [.195, -.026], [.2, 0], [.195, .026], [.17, .045], [.163, .045], [.156, .032], [0, .032]].map(([x, y]) => new THREE.Vector2(x, y)), 36);
-  const inlayGeo = new THREE.CircleGeometry(.152, 32).rotateX(-Math.PI / 2).translate(0, .035, 0);
-  const coinRingGeo = new THREE.RingGeometry(.84, 1, 48).rotateX(-Math.PI / 2);
-  const coins = CONFLICTS.map((c, i) => {
-    const g = new THREE.Group();
-    const body = new THREE.Mesh(coinGeo, new THREE.MeshStandardMaterial({ color: 0xf5efe5, roughness: .5 })); body.castShadow = true; g.add(body);
-    const inlay = new THREE.Mesh(inlayGeo, new THREE.MeshBasicMaterial({ color: 0xffffff, toneMapped: false, fog: false })); g.add(inlay);
-    g.visible = false; set.add(g);
-    const ring = new THREE.Mesh(coinRingGeo, additive(0xffffff, 0, null)); ring.position.set(coinX(i), PAGE + .03, COIN_Z); ring.renderOrder = 2; ring.visible = false; set.add(ring);
-    return { g, inlay, ring, out: c.out, slot: new THREE.Vector3(coinX(i), PAGE + .08, COIN_Z) };
-  });
-  const STACK = new THREE.Vector3(-3, .5, -2.4), UP = new THREE.Vector3(0, 1, 0);
-  const headAt = new THREE.Vector3(), muzzle = new THREE.Vector3(), target = new THREE.Vector3(), beamDir = new THREE.Vector3(), sheetAt = new THREE.Vector3(), coinCol = new THREE.Color();
-  const backOut = (x, k = 1.7) => { const p = Math.min(1, Math.max(0, x)) - 1; return 1 + (k + 1) * p * p * p + k * p * p; };
-  function placeSheet(sh, x, u, cur, phase, t, idle, tilt = 0) {
-    const f = Math.min(1, Math.max(0, u / .14)), enter = backOut(u / .14), gone = smooth(lin(u, LEAVE, 1));
-    sheetAt.set(x, SHEET.y + Math.sin(t * 1.4 + phase) * .025 * idle, SHEET.z);
-    sh.g.position.lerpVectors(STACK, sheetAt, Math.min(1, Math.max(0, enter)));
-    sh.g.position.y += Math.sin(f * Math.PI) * .4;
-    if (gone > 0) { sh.g.position.lerp(coins[cur].slot, gone); }
-    sh.g.rotation.set(-.14, 0, tilt);
-    sh.g.scale.setScalar(Math.max(.001, f * (1 - gone)));
+    bot.root.add(gun); bot.grip(1);
+  }
+  const END_SPOT = [2.72 + BX, .85 + BZ];
+  const sc = j => SC_A + j * SC_W, ev = k => EV_A + k * EV_W;
+  const WALK = [[0, 2.9, 1.5], [ev(0), 2.9, 1.5], [ev(0) + .012, 2.6, 1.45], [ev(1), 2.6, 1.45], [ev(1) + .012, 3.0, .3], [ev(3), 3.0, .3], [ev(3) + .01, 2.9, 1.55], [ev(4), 2.9, 1.55],
+    [ev(4) + .012, 2.9, -1.3], [ev(5), 2.9, -1.3], [ev(5) + .012, 2.0, -1.45], [ev(6), 2.0, -1.45], [ev(6) + .012, -.9, -1.45], [.425, -.9, -1.45],
+    [.431, 2.9, -1.45], [.44, 2.9, 1.5], [sc(0), 2.9, 1.5], [sc(0) + .009, PACK_X[0] + .65, 1.55], [sc(1), PACK_X[0] + .65, 1.55], [sc(1) + .008, PACK_X[1] + .75, 1.55], [sc(2), PACK_X[1] + .75, 1.55],
+    [sc(2) + .008, PACK_X[2] + .65, 1.55], [sc(3), PACK_X[2] + .65, 1.55], [sc(3) + .008, 2.9, 1.55], [sc(4), 2.9, 1.55], [sc(4) + .011, 2.9, -1.3], [sc(5), 2.9, -1.3], [sc(5) + .011, 2.0, -1.45],
+    [sc(6), 2.0, -1.45], [sc(6) + .011, -.9, -1.45], [sc(7), -.9, -1.45], [sc(7) + .004, 2.9, -1.45], [sc(7) + .011, 2.9, 1.2], [sc(7) + .016, 2.5, 1.6], [GATHER, 2.5, 1.6],
+    [GATHER + .014, END_SPOT[0], END_SPOT[1]], [1, END_SPOT[0], END_SPOT[1]]];
+  // what it looks at: [real, x, y, z], eased from one to the next
+  const LOOK = [[0, 0, .5, -.5], [ev(0), 0, .5, -.5], [ev(0) + .012, 0, .3, 0], [ev(0) + .03, 1.2, .3, .8], [ev(1), 1.75, .3, .55], [ev(1) + .012, SPOT.x, .8, SPOT.z], [ev(3), SPOT.x, .8, SPOT.z],
+    [ev(3) + .012, .6, .3, 0], [ev(4), 1.6, .3, 0], [ev(4) + .014, BOARD_AT.x, .9, BOARD_AT.z], [ev(5), BOARD_AT.x, .9, BOARD_AT.z], [ev(5) + .014, -.2, .4, BAR_Z], [ev(6), -.2, .4, BAR_Z],
+    [ev(6) + .014, HUB_X[0], 1.3, HUB_Z], [ev(6) + .03, HUB_X[0], 1.3, HUB_Z], [ev(6) + .042, CHILLER.x, .5, CHILLER.z], [.425, CHILLER.x, .5, CHILLER.z], [.44, 0, .5, -1], [sc(0), 0, .5, -1],
+    [sc(0) + .01, PACK_X[0], .7, BENCH.z], [sc(1), PACK_X[0], .7, BENCH.z], [sc(1) + .01, PACK_X[1], .7, BENCH.z], [sc(2), PACK_X[1], .7, BENCH.z], [sc(2) + .01, PACK_X[2], .7, BENCH.z],
+    [sc(3), PACK_X[2], .7, BENCH.z], [sc(3) + .01, -.1, .3, 0], [sc(4), -.1, .3, 0], [sc(4) + .013, BOARD_AT.x, .9, BOARD_AT.z], [sc(5), BOARD_AT.x, .9, BOARD_AT.z], [sc(5) + .013, -.2, .6, HUB_Z],
+    [sc(6), -.2, .6, HUB_Z], [sc(6) + .013, CHILLER.x, .6, CHILLER.z], [sc(7), CHILLER.x, .6, CHILLER.z], [sc(7) + .018, SHELF_AT.x, .5, SHELF_AT.z], [GATHER, SHELF_AT.x, .5, SHELF_AT.z],
+    [GATHER + .012, BX, 2.6, BZ + .6], [.84, BX, 2.6, BZ + .6], [.85, BX, .6, BZ + 1.2], [1, BX, .6, BZ + 1.2]];
+  const walker = { x: 0, z: 0, ry: 0, walk: 0 }, focus = new THREE.Vector3();
+  function focusAt(real) {
+    let i = 0;
+    while (i < LOOK.length - 2 && real > LOOK[i + 1][0]) i++;
+    const a = LOOK[i], b = LOOK[i + 1], k = ease(real, a[0], b[0]);
+    return focus.set(mix(a[1], b[1], k), mix(a[2], b[2], k), mix(a[3], b[3], k));
   }
 
-  /* ---- the eight towers: one ring for two points, dark until earned ---- */
-  const towers = GROUPS.map((g, j) => {
-    const x = towerX(j), z = towerZ(x), rings = Math.ceil(g.max / RING_PTS);
-    const tex = kit.labelTexture(`film-soc-score-${j}`, [
-      { text: g.id, size: g.id.length > 9 ? 70 : 92, weight: 600, color: '#aab6cc', track: 1 },
-      { text: `${g.pts} / ${g.max}`, size: 118, weight: 700, color: '#f0f4fb' },
-    ], { width: 640, height: 320 });
-    const label = new THREE.Mesh(new THREE.PlaneGeometry(.8, .4), new THREE.MeshBasicMaterial({ map: tex, transparent: true, opacity: 0, depthWrite: false, fog: false, toneMapped: false }));
-    label.renderOrder = 4; set.add(label);
-    const pad = add(set, new THREE.TorusGeometry(.31, .014, 6, 40), glowMat(accent, .5).clone(), x, .012, z, false); pad.rotation.x = Math.PI / 2;
-    return { ...g, x, z, rings, earned: g.pts / RING_PTS, top: RING_Y0 + rings * RING_DY, label, pad, a: FILL_A + j * FILL_STEP, j };
-  });
-  const ringCount = towers.reduce((n, tw) => n + tw.rings, 0);
-  const towerRings = new THREE.InstancedMesh(new THREE.TorusGeometry(.24, .03, 8, 32).rotateX(Math.PI / 2), new THREE.MeshBasicMaterial({ color: 0xffffff, toneMapped: false, fog: false }), ringCount);
-  towerRings.frustumCulled = false; set.add(towerRings);
-  const GHOST = new THREE.Color(.05, .068, .12), LOST = new THREE.Color(.78, .1, .16), LIT = new THREE.Color(accent).multiplyScalar(1.5), HOT = new THREE.Color(.6, 1.8, 1.7);
-  const dummy = new THREE.Object3D(), tc = new THREE.Color();
-  for (let i = 0; i < ringCount; i++) { towerRings.setColorAt(i, GHOST); towerRings.setMatrixAt(i, dummy.matrix); }
-  // the running total, over the short towers at the right of the row
-  const totalTex = kit.labelTexture('film-soc-score-total', [{ text: '0 / 106', size: 150, weight: 700, color: '#f2b545', track: 1 }], { width: 1024, height: 256 });
-  const totalLabel = new THREE.Mesh(new THREE.PlaneGeometry(2.6, .65), new THREE.MeshBasicMaterial({ map: totalTex, transparent: true, opacity: 0, depthWrite: false, fog: false, toneMapped: false }));
-  totalLabel.renderOrder = 4; set.add(totalLabel);
-  let shownTotal = '';
-
-  /* ---- the camera line ---- */
-  const shot = { pos: [0, 0, 0], look: [0, 0, 0], fov: 34 };
-  const kv = KEYS.map(k => [...k.pos, ...k.look, k.fov]), kt = KEYS.map(k => k.at);
+  /* ---- the camera line: the yard's shots, then the ending's spline ---- */
+  const shot = { pos: [0, 0, 0], look: [0, 0, 0], fov: 34 }, cam = { from: shot, to: shot };
+  const shoot = cameraLine(YARD_KEYS);
+  const kv = END_KEYS.map(k => [...k.pos, ...k.look, k.fov]), kt = END_KEYS.map(k => k.at);
   const km = kv.map((v, i) => v.map((_, c) => (i === 0 || i === kv.length - 1 ? 0 : (kv[i + 1][c] - kv[i - 1][c]) / (kt[i + 1] - kt[i - 1]))));
-  function pose(lp) {
-    let i = 0; while (i < kt.length - 2 && lp > kt[i + 1]) i++;
-    const h = kt[i + 1] - kt[i], s = Math.min(1, Math.max(0, (lp - kt[i]) / h)), s2 = s * s, s3 = s2 * s;
-    const h00 = 2 * s3 - 3 * s2 + 1, h10 = s3 - 2 * s2 + s, h01 = -2 * s3 + 3 * s2, h11 = s3 - s2;
-    const a = kv[i], b = kv[i + 1], ma = km[i], mb = km[i + 1];
-    for (let c = 0; c < 7; c++) {
-      const v = h00 * a[c] + h10 * h * ma[c] + h01 * b[c] + h11 * h * mb[c];
-      if (c < 3) shot.pos[c] = v; else if (c < 6) shot.look[c - 3] = v; else shot.fov = v;
+  function pose(real) {
+    let g, sx, sy;
+    if (real <= END_A) {
+      shoot(real, cam);
+      let i = 0;
+      while (i < YARD_KEYS.length - 2 && real > YARD_KEYS[i + 1].at) i++;
+      const ka = YARD_KEYS[i], kb = YARD_KEYS[i + 1], k = ease(real, ka.at, kb.at);
+      g = mix(ka.g, kb.g, k); sx = mix(ka.sx, kb.sx, k); sy = mix(ka.sy, kb.sy, k);
+    } else {
+      let i = 0; while (i < kt.length - 2 && real > kt[i + 1]) i++;
+      const h = kt[i + 1] - kt[i], s = Math.min(1, Math.max(0, (real - kt[i]) / h)), s2 = s * s, s3 = s2 * s;
+      const h00 = 2 * s3 - 3 * s2 + 1, h10 = s3 - 2 * s2 + s, h01 = -2 * s3 + 3 * s2, h11 = s3 - s2;
+      const a = kv[i], b = kv[i + 1], ma = km[i], mb = km[i + 1];
+      for (let c = 0; c < 7; c++) {
+        const v = h00 * a[c] + h10 * h * ma[c] + h01 * b[c] + h11 * h * mb[c];
+        if (c < 3) shot.pos[c] = v; else if (c < 6) shot.look[c - 3] = v; else shot.fov = v;
+      }
+      const ka = END_KEYS[i], kb = END_KEYS[i + 1], k = s2 * (3 - 2 * s);
+      g = mix(ka.g, kb.g, k); sx = mix(ka.sx, kb.sx, k); sy = mix(ka.sy, kb.sy, k);
     }
+    // With the copy below the picture (the framework's stacked layout) the frame is narrow and low:
+    // each shot stands back until its group fits the width, and is centred on it.
+    if (!layout?.stacked) return;
+    const p = shot.pos, l = shot.look, d = Math.hypot(p[0] - l[0], p[1] - l[1], p[2] - l[2]);
+    const back = Math.max(1, g / (2 * d * Math.tan(shot.fov * Math.PI / 360) * camera.aspect));
+    for (let c = 0; c < 3; c++) p[c] = l[c] + (p[c] - l[c]) * back;
+    p[0] += sx; l[0] += sx; p[1] += sy; l[1] += sy;
+  }
+
+  /* ---- with the copy below the picture (the framework's stacked layout) the copy lies over the
+   * lower part of the canvas: a curtain in the page's own colour, fading in just above the copy,
+   * keeps the set out from under the text ---- */
+  const curtainMat = new THREE.ShaderMaterial({
+    uniforms: { uTop: { value: -1 }, uSoft: { value: .08 }, uColor: { value: new THREE.Color(0x05070e) } },
+    vertexShader: 'varying float vY; void main() { vY = position.y; gl_Position = vec4(position.xy, 0., 1.); }',
+    fragmentShader: 'uniform float uTop; uniform float uSoft; uniform vec3 uColor; varying float vY; void main() { gl_FragColor = vec4(uColor, 1. - smoothstep(uTop, uTop + uSoft, vY));\n#include <colorspace_fragment>\n}',
+    transparent: true, depthTest: false, depthWrite: false, fog: false, toneMapped: false,
+  });
+  const curtain = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), curtainMat);
+  curtain.frustumCulled = false; curtain.renderOrder = 999; curtain.visible = false; set.add(curtain);
+  function drawCurtain(ui) {
+    curtain.visible = !!(layout?.stacked && ui?.el && renderer?.domElement);
+    if (!curtain.visible) return;
+    const c = renderer.domElement.getBoundingClientRect(), a = ui.el.getBoundingClientRect();
+    if (a.height > 0 && c.height > 0) { curtainMat.uniforms.uTop.value = 1 - 2 * (a.top - c.top) / c.height; curtainMat.uniforms.uSoft.value = 2 * 26 / c.height; }
+    const bg = set.parent?.background; if (bg?.isColor) curtainMat.uniforms.uColor.value.copy(bg);
   }
 
   const all = [medal], idles = [0];
-  const v1 = new THREE.Vector3(), aim = new THREE.Vector3(), seen = new THREE.Vector3();
-  const centre = new THREE.Vector3(REST.x, PAGE + .2, REST.z);
+  const v1 = new THREE.Vector3(), seen = new THREE.Vector3(), m4 = new THREE.Matrix4(), p3 = new THREE.Vector3(), s3 = new THREE.Vector3(), qId = new THREE.Quaternion(), zero = new THREE.Vector3(0, 0, 0);
+  const setRGB = (attr, i, r, g, b) => { const a = attr.array; a[i * 3] = r; a[i * 3 + 1] = g; a[i * 3 + 2] = b; };
+  for (let i = 0; i < MARKS; i++) { marks.setMatrixAt(i, m4.compose(zero, qId, zero)); marks.setColorAt(i, tc.setRGB(1, 1, 1)); }
+  for (let i = 0; i < HUB_X.length * WEEKS; i++) { weekBars.setMatrixAt(i, m4.compose(zero, qId, zero)); weekBars.setColorAt(i, tc.setRGB(.4, .6, .9)); }
+  for (let i = 0; i < ARC; i++) { arcDots.setMatrixAt(i, m4.compose(zero, qId, zero)); arcDots.setColorAt(i, tc.setRGB(1, 1, 1)); }
+  for (let i = 0; i < CHAINS.length * LINKS; i++) { chainDots.setMatrixAt(i, m4.compose(zero, qId, zero)); chainDots.setColorAt(i, tc.setRGB(1, 1, 1)); }
+  const chainFrom = new THREE.Vector3(SHELF_AT.x - .1, .62, SHELF_AT.z);
 
-  function update(real, t) {
+  function update(real, t, dt, ui) {
     if (reduce) { real = .855; t = 0; }
     const lp = lpOf(real), idle = reduce ? 0 : 1;
-    pose(real);
-    // portrait: the row of towers is wider than the frame, so stand further back until they have gone
-    const narrow = Math.min(1, Math.max(0, (1.1 - camera.aspect) / .4)), away = narrow * .8 * (1 - smooth(lin(lp, .54, .62)));
-    // in a squarer window beside the copy, aim further left so the towers clear the column
-    shot.look[0] -= Math.max(0, 1.85 - camera.aspect) * 2.4 * (1 - narrow) * (1 - smooth(lin(lp, .54, .62)));
-    if (away > 0) for (let c = 0; c < 3; c++) shot.pos[c] = shot.look[c] + (shot.pos[c] - shot.look[c]) * (1 + away);
+    pose(real); drawCurtain(ui);
     const jolt = wobble(lp, .69, .035, 2.5);   // the slam jolts the camera, briefly
     shot.pos[1] -= jolt * .1; shot.look[1] -= jolt * .06;
+    // an item's window: 0 outside it, 1 while it is told
+    const evOn = k => { const u = (real - ev(k)) / EV_W; return ease(u, .04, .18) * (1 - ease(u, .9, 1)); };
+    const gone = ease(real, GATHER, GATHER + .012), here = 1 - gone;
+    const scNow = j => ease(real, sc(j) + .003, sc(j) + .013) * (1 - ease(real, sc(j) + SC_W - .006, sc(j) + SC_W));
 
+    /* ---------- the yard ---------- */
+    // the people: the roll-call ground, then the three pens; pawn 83 (listed in error) walks off
+    const toPens = ease(real, ev(3) + .008, ev(3) + .012), on2 = evOn(1), on3 = evOn(2), on5 = Math.max(evOn(4), scNow(4)), hooray = sc(3) + .006;
+    let nm = 0;
+    for (let i = 0; i < NP; i++) {
+      const q = P[i];
+      let k, s = 1, lift = 0;
+      if (i === 83) { k = ease(real, ev(0) + .014, ev(0) + .04); s = 1 - ease(real, ev(0) + .036, ev(0) + .048); }
+      else { k = ease(real, ev(3) + .01 + q.st * .014, ev(3) + .026 + q.st * .014); s = 1 - ease(real, GATHER + q.st * .01, GATHER + .012 + q.st * .01); lift = bump(real, hooray + q.st * .012, .012) * .14; }
+      const x = mix(q.g[0], q.p[0], k), z = mix(q.g[1], q.p[1], k);
+      const step = Math.sin(k * Math.PI);
+      people.place(i, x, z, { y: step * .04 + lift + Math.abs(Math.sin(t * 2 + i)) * .008 * idle, ry: step * (q.p[0] > q.g[0] ? 1.2 : -1.2), s: Math.max(.0001, s) });
+      // its colour: what an item marks it as, then the group it falls into
+      tc.copy(BLUE);
+      if (i === 83) tc.lerp(C_NEUT, ease(real, ev(0) + .004, ev(0) + .014));
+      else if (i >= 81) tc.lerp(C_NEUT, ease(real, ev(3) + .002, ev(3) + .008));
+      else if (i >= 73) tc.lerp(C_PEND, ease(real, ev(3) + .002, ev(3) + .008));
+      let mark = 0, mc = C_PEND;
+      if (MARK2.includes(i)) { mark = on2; mc = C_PEND; } else if (MARK3.includes(i)) { mark = on3; mc = C_NEUT; } else if (MARK5.includes(i)) { mark = on5; mc = C_DISP; }
+      if (mark > 0) {
+        tc.lerp(mc, mark);
+        if (nm < MARKS) { const r = 1 + .25 * Math.sin(t * 4 + i) * idle; p3.set(x, .014, z); s3.set(mark * r, 1, mark * r); marks.setMatrixAt(nm, m4.compose(p3, qId, s3)); setRGB(marks.instanceColor, nm, mc.r * 1.8, mc.g * 1.8, mc.b * 1.8); nm++; }
+      }
+      people.tint(i, tc.getHex());
+    }
+    for (; nm < MARKS; nm++) marks.setMatrixAt(nm, m4.compose(zero, qId, zero));
+    marks.instanceMatrix.needsUpdate = true; marks.instanceColor.needsUpdate = true;
+    people.commit();
+    people.group.visible = here > 0 || real < GATHER + .03;
+    pens.forEach((p, k) => { const up = toPens * here; p.group.visible = up > .01; p.group.scale.set(1, Math.max(.001, up), 1); p.mat.emissiveIntensity = .55 + (k === 0 ? bump(real, hooray, .03) * 1.6 : 0); });
+
+    // the hubs: their weeks of metrics, the estimated week, the repair and the two markers
+    // the charts stand over the roofs for their own items only
+    const weeksUp = Math.max(evOn(5), scNow(5)), est = Math.max(ease(real, ev(5) + .02, ev(5) + .03) * evOn(5), scNow(5)), tall = 1;
+    weekBars.visible = weeksUp > 0;
+    if (weekBars.visible) {
+      for (let k = 0, n = 0; k < HUB_X.length; k++) for (let w = 0; w < WEEKS; w++, n++) {
+        const up = ease(weeksUp, w / WEEKS * .6, w / WEEKS * .6 + .4), last = w === WEEKS - 1;
+        p3.set(HUB_X[k] - .46 + w * .04, CHART_Y, HUB_Z + .04); s3.set(last ? 1.6 : 1, Math.max(.001, weekH[n] * up * tall), last ? 1.6 : 1);
+        weekBars.setMatrixAt(n, m4.compose(p3, qId, s3));
+        if (last) { const g = 1 + est * (.9 + .5 * Math.sin(t * 4) * idle); setRGB(weekBars.instanceColor, n, mix(.5, 1.5 * g, est), mix(.85, .85 * g, est), mix(1.3, .15 * g, est)); }
+        else setRGB(weekBars.instanceColor, n, .5, .85, 1.3);
+      }
+      weekBars.instanceMatrix.needsUpdate = true; weekBars.instanceColor.needsUpdate = true;
+    }
+    weekBase.forEach(b => { b.visible = weeksUp > .01; b.scale.y = Math.max(.001, weeksUp); });
+    const chillUp = ease(real, ev(6) + .004, ev(6) + .014) * here;
+    show(chiller, chillUp); fanBlade.rotation.z = t * 5 * idle + real * 300;
+    chillLamp.emissiveIntensity = 1.2 + .8 * Math.sin(t * 5) * idle;
+    const markers = Math.max(evOn(6), scNow(6));
+    pin.visible = markers > .01; pin.position.set(HUB_X[0], 1.0 + (1 - backOut(markers, 2)) * 1.2 + Math.sin(t * 2.4) * .04 * idle, HUB_Z); pin.scale.setScalar(Math.max(.001, markers));
+    ring.visible = markers > .01; ring.scale.setScalar(Math.max(.001, markers) * (1 + .06 * Math.sin(t * 3) * idle)); ring.rotation.y = t * .8 * idle;
+    arcDots.visible = markers > .01;
+    if (arcDots.visible) {
+      const u6 = (real - ev(6)) / EV_W, again = scNow(6);
+      for (let k = 0; k < ARC; k++) {
+        const u = (k + 1) / (ARC + 1), on = Math.max(lin(u6, .3 + u * .25, .36 + u * .25) * evOn(6), again), s = on * (1 + .25 * Math.sin(t * 5 - k * .7) * idle);
+        p3.set(mix(HUB_X[0], HUB_X[2], u), mix(1.3, 1.05, u) + Math.sin(u * Math.PI) * .75, HUB_Z); s3.set(s, s, s);
+        arcDots.setMatrixAt(k, m4.compose(p3, qId, s3)); setRGB(arcDots.instanceColor, k, mix(1.7, .35, u), mix(.4, 1.5, u), mix(.55, 1.45, u));
+      }
+      arcDots.instanceMatrix.needsUpdate = true; arcDots.instanceColor.needsUpdate = true;
+    }
+    const failed = bump(real, .425, .035), opsHot = flash(real, sc(5) + .005, .03);
+    hubs.forEach((h, k) => { if (k < 3) h.bandMat.emissiveIntensity = .35 + failed * 1.6 + opsHot * 2; });
+
+    // the bench and what each item brings with it
+    show(bench, here);
+    benchEdge.emissiveIntensity = .8 + flash(real, sc(0) + .006, .02) * 2 + flash(real, sc(1) + .006, .02) * 2 + flash(real, sc(2) + .006, .02) * 2;
+    show(terminal, evOn(1)); termLamp.emissiveIntensity = 1.4 + Math.sin(t * 6) * .8 * idle; termScreen.color.setRGB(1.0, .62 + .2 * Math.sin(t * 6) * idle, .15);
+    show(desk, evOn(2));
+    show(obsBoard, on5); obsEdge.emissiveIntensity = .6 + .5 * Math.sin(t * 3) * idle;
+    const shelfUp = ease(real, sc(7) + .003, sc(7) + .013) * here;
+    show(shelf, shelfUp);
+    chainDots.visible = shelfUp > 0;
+    if (chainDots.visible) {
+      for (let c = 0, n = 0; c < CHAINS.length; c++) for (let l = 0; l < LINKS; l++, n++) {
+        const u = (l + 1) / (LINKS + 1) * .5, on = lin(real, sc(7) + .012 + l * .0015 + c * .001, sc(7) + .016 + l * .0015 + c * .001) * here, end = l === LINKS - 1;
+        p3.set(mix(chainFrom.x, CHAINS[c][0], u), mix(chainFrom.y, CHAINS[c][1], u) + Math.sin(u * Math.PI) * .7, mix(chainFrom.z, CHAINS[c][2], u));
+        const s = on * (end ? 1.5 + .4 * Math.sin(t * 5 + c) * idle : 1); s3.set(s, s, s);
+        chainDots.setMatrixAt(n, m4.compose(p3, qId, s3));
+        if (end) setRGB(chainDots.instanceColor, n, 1.8, .35, .55); else setRGB(chainDots.instanceColor, n, .9, .95, 1.1);
+      }
+      chainDots.instanceMatrix.needsUpdate = true; chainDots.instanceColor.needsUpdate = true;
+    }
+
+    // the signs
+    show(S.held, ease(real, .003, .01) * (1 - ease(real, .022, .028)));
+    const lost = ease(real, .43, .44) * (1 - ease(real, .451, .457)); show(S.lost9, lost); show(S.lost6, lost);
+    show(S.roster, evOn(0)); show(S.attend, evOn(1)); show(S.tests, evOn(2));
+    const penSigns = Math.max(ease(real, ev(3) + .026, ev(3) + .036) * (1 - ease(real, ev(4) - .006, ev(4))), scNow(3));   // for their own item, and again for the sample's score
+    show(S.pen1, penSigns); show(S.pen2, penSigns); show(S.pen3, penSigns);
+    show(S.coding, evOn(4)); show(S.weeks, evOn(5)); show(S.repair, evOn(6)); show(S.run, evOn(6)); show(S.rubric, evOn(6));
+    let total = 0;
+    // a package's score stays on its crate while the three are told; the others stand for their own item
+    scoreSigns.forEach((s, j) => { const on = j < 3 ? ease(real, sc(j) + .003, sc(j) + .013) * (1 - ease(real, sc(3) - .004, sc(3) + .004)) : scNow(j); show(s, on); if (on > 0) s.frameMat.emissiveIntensity = 1 + flash(real, sc(j) + .01, .02) * 3; if (real >= sc(j) + .008) total += GROUPS[j].pts; });
+    if (total !== shownTotal) { shownTotal = total; S.total.redraw([big(`${total} / ${TOTAL}`, 118, AMB)]); }
+    show(S.total, ease(real, sc(0) - .008, sc(0) + .002) * (1 - ease(real, .826, .838)));
+    S.total.frameMat.emissiveIntensity = 1 + flash(real, sc(0) + .008, .02) * 2 + flash(real, sc(1) + .008, .02) * 2 + flash(real, sc(2) + .008, .02) * 2 + flash(real, sc(3) + .008, .02) * 3 + flash(real, GATHER, .02) * 4;
+
+    // the yard is gathered: its light rises, hangs over the middle, then pours into the page
+    gather.pts.visible = real > GATHER - .002 && lp < .68;
+    if (gather.pts.visible) {
+      for (let i = 0; i < NG; i++) {
+        const q = i * 3, st = (i * 37 % 100) / 100, g1 = ease(real, GATHER + st * .012, GATHER + .018 + st * .012), g2 = ease(lp, POUR_A + .005 + st * .035, POUR_A + .05 + st * .035);
+        const a = st * TAU * 3 + t * .5 * idle + lp * 6, r = .45 + .75 * ((i * 61 % 100) / 100), hx = BX + Math.cos(a) * r, hy = 2.25 + .6 * ((i * 13 % 100) / 100) + Math.sin(t * 1.3 + i) * .05 * idle, hz = BZ + .6 + Math.sin(a) * r * .7;
+        const tx = BX + (((i * 29) % 100) / 100 - .5) * 2.4, tz = BZ + .35 + ((i * 53 % 100) / 100) * 1.7, src = gSrc[i];
+        let x = mix(src[0], hx, g1), y = mix(src[1], hy, g1) + Math.sin(g1 * Math.PI) * .5, z = mix(src[2], hz, g1);
+        x = mix(x, tx, g2); y = mix(y, PAGE + .04, g2 * g2); z = mix(z, tz, g2);
+        gather.pos[q] = x; gather.pos[q + 1] = y; gather.pos[q + 2] = z;
+        const f = g1 * (1 - g2 * g2 * g2) * (1.2 + .4 * Math.sin(t * 3 + i) * idle), c = gCol[i];
+        gather.col[q] = c.r * f; gather.col[q + 1] = c.g * f; gather.col[q + 2] = c.b * f;
+      }
+      gather.done();
+    }
+    ground.rimMat.emissiveIntensity = 1 + Math.sin(t * 2) * .12 * idle + failed * 1.2 + flash(real, GATHER, .03) * 2 + flash(real, LAND_B, .03) * 2.5 + flash(lp, .69, .07) * 2.6 + flash(lp, .8, .08) * 1.6;
+
+    /* ---------- the book ---------- */
+    const arrive = easeOut(lin(real, LAND_A, LAND_B), 3), thud = wobble(real, LAND_B, .012, 1.5);
+    stage.visible = real >= LAND_A - .001;
     /* the cover: lifts (ease in-out), hangs at the vertical, falls (ease-in) and slams at .69 */
     const cx = lin(lp, .58, .69);
     const angle = cx < .45 ? Math.PI - Math.PI / 2 * smooth(cx / .45) : Math.PI / 2 * (1 - easeIn((cx - .45) / .55, 2.2));
@@ -387,103 +628,10 @@ export async function build(ctx) {
     spine.scale.y = sp; spine.position.y = SPINE_H * sp / 2;
     gilts[0].position.y = SPINE_H * sp * .18 + .015; gilts[1].position.y = SPINE_H * sp * .82 + .015;
     lines[3].visible = lines[4].visible = shut > .985;
-    const slam = flash(lp, .69, .07), hit = wobble(lp, .69, .075, 1.5);
-
-    /* the conflicts */
-    const c_ = (real - C_A) / C_W, cur = Math.floor(c_), u = c_ - cur, inA = cur >= 0 && cur < NC;
-    sheetL.g.visible = sheetR.g.visible = gate.visible = strike.visible = false;
-    arcs.forEach(m => { m.visible = false; }); clashGlow.material.opacity = 0;
-    target.set(SHEET.cx, SHEET.y, SHEET.z);
-    let scan = 0;
-    if (inA) {
-      const c = CONFLICTS[cur], pair = !!c.b, gone = smooth(lin(u, LEAVE, 1));
-      let lx = pair ? SHEET.lx : SHEET.cx, tilt = 0;
-      if (c.gate) {
-        const go = lin(u, .2, .34), recoil = lin(u, .34, .5);
-        lx = lerp(lerp(-1.43, SHEET.gate - SHEET.w / 2 - .04, go * go), -1.03, recoil);
-        tilt = recoil * .2;
-      }
-      const clash = pair ? lin(u, .3, .42) * (1 - gone) : 0, shake = Math.sin(t * 47) * .014 * clash * idle;
-      sheetL.g.visible = true; sheetL.faceMat.map = sheetTex[cur].a; placeSheet(sheetL, lx - shake, u, cur, 0, t, idle, tilt);
-      if (pair) { sheetR.g.visible = true; sheetR.faceMat.map = sheetTex[cur].b; placeSheet(sheetR, SHEET.rx + shake, u, cur, 1.7, t, idle); }
-      if (clash > .01) {
-        const x0 = SHEET.lx + SHEET.w / 2, span = SHEET.rx - SHEET.w / 2 - x0;
-        arcs.forEach((m, k) => { m.visible = true; m.position.set(x0, SHEET.y, SHEET.z); m.scale.x = span * clash; m.rotation.x = (k ? -1 : 1) * t * 9 * idle + k; });
-        clashGlow.position.set(x0 + span / 2, SHEET.y, SHEET.z + .1);
-        clashGlow.scale.setScalar(1.25 + Math.sin(t * 21) * .18 * idle); clashGlow.material.opacity = clash * .85;
-      }
-      if (c.gate) { gate.visible = true; gate.scale.y = Math.max(.001, lin(u, .08, .18) * (1 - gone)); gateMat.emissiveIntensity = 1.3 + flash(u, .34, .14) * 6; }
-      if (c.strike) { strike.visible = true; strike.scale.x = Math.max(.001, lin(u, .3, .42) * (1 - gone)); }
-      const sweepU = lin(u, .12, .34);
-      scan = Math.sin(lin(u, .12, .34) * Math.PI);
-      target.set(pair ? lerp(SHEET.lx, SHEET.rx, sweepU) : sheetL.g.position.x + (sweepU - .5), SHEET.y, SHEET.z);
-      if (u > FIRE) target.lerp(coins[cur].slot, smooth(lin(u, FIRE, HIT)));
-    }
-    bot.root.updateMatrixWorld(true);
-    muzzleMark.getWorldPosition(muzzle); set.worldToLocal(muzzle);
-    let coinPulse = 0;
-    const coinPress = smooth(lin(lp, .6, .655));
-    coins.forEach((c, i) => {
-      const cu = i < cur ? 1 : i === cur ? u : 0, fl = (cu - FIRE) / (HIT - FIRE);
-      c.g.visible = cu > FIRE && shut < .7; c.ring.visible = false;
-      if (!c.g.visible) return;
-      if (fl < 1) {
-        const k = smooth(fl);
-        c.g.position.lerpVectors(muzzle, c.slot, k); c.g.position.y += Math.sin(k * Math.PI) * 1.05;
-        c.g.rotation.set((1 - k) * Math.PI * 4, 0, 0); c.g.scale.setScalar(COIN_S);
-        c.inlay.material.color.setRGB(.2, .24, .34);
-        return;
-      }
-      const col = OUT[c.out], hitC = i === cur ? flash(u, HIT, .1) : 0;
-      coinPulse = Math.max(coinPulse, hitC);
-      c.g.position.copy(c.slot); c.g.rotation.set(0, 0, 0);
-      c.g.scale.set(COIN_S * (1 + hitC * .2), COIN_S * (1 - hitC * .45) * lerp(1, .15, coinPress), COIN_S * (1 + hitC * .2));
-      c.inlay.material.color.setRGB(col[0], col[1], col[2]).multiplyScalar(1 + hitC * FLASH[c.out]);
-      if (hitC > .01) { c.ring.visible = true; c.ring.scale.setScalar(.35 + (1 - hitC) * 1.2); c.ring.material.opacity = hitC; c.ring.material.color.setRGB(Math.max(col[0], .4), Math.max(col[1], .4), Math.max(col[2], .45)); }
-    });
-    muzzleFlare.position.copy(muzzle); muzzleFlare.material.opacity = inA ? flash(u, FIRE, .1) : 0;
-
-    /* the towers: all rise, then each group fills, loses its red, and adds to the total; then they pour */
-    let total = 0, n = 0;
-    towerRings.visible = real >= RISE_A && lp < POUR_A + .08;
-    for (const tw of towers) {
-      const up = lin(real, RISE_A + tw.j * .003, RISE_A + .02 + tw.j * .003), f = smooth(lin(real, tw.a + .004, tw.a + .028)), e = tw.earned * f;
-      total += tw.pts * f;
-      const hot = tw.flash ? flash(real, tw.a + .043, .02) : 0, onIt = real >= tw.a && real < tw.a + FILL_STEP;
-      const pourJ = POUR_A + (NG - 1 - tw.j) * .003;
-      for (let r = 0; r < tw.rings; r++, n++) {
-        const lit = Math.max(0, Math.min(1, e - r)), front = f > 0 && f < 1 && lit > 0 && lit < 1;
-        const redT = r / tw.rings * .012, red = smooth(lin(real, tw.a + .03 + redT, tw.a + .04 + redT)) * (1 - Math.max(0, Math.min(1, tw.earned - r)));
-        tc.copy(GHOST).lerp(LOST, red).multiplyScalar(1 + hot * 2.2).lerp(front ? HOT : LIT, lit);
-        towerRings.setColorAt(n, tc);
-        const y = RING_Y0 + r * RING_DY - (1 - up) * .5, pour = smooth(lin(lp, pourJ + r / tw.rings * .006, pourJ + .035 + r / tw.rings * .006));
-        dummy.position.set(lerp(tw.x, tw.x * .42, pour), lerp(y, PAGE + .05, pour) + Math.sin(pour * Math.PI) * 1.5, lerp(tw.z, REST.z, pour));
-        dummy.scale.setScalar(Math.max(.001, up * (1 - pour * .85) * (pour >= 1 ? 0 : 1)));
-        dummy.updateMatrix(); towerRings.setMatrixAt(n, dummy.matrix);
-      }
-      const gone = smooth(lin(lp, pourJ - .012, pourJ + .012)), op = smooth(lin(real, tw.a + .018, tw.a + .032)) * (1 - gone);
-      tw.label.visible = op > .01;
-      if (tw.label.visible) { tw.label.material.opacity = op; tw.label.position.set(tw.x, tw.top + .3, tw.z); tw.label.quaternion.copy(camera.quaternion); }
-      tw.pad.visible = up > .3 && gone < 1;
-      tw.pad.material.emissiveIntensity = .5 + 1.6 * (onIt ? 1 : 0) + hot * 4;
-    }
-    towerRings.instanceMatrix.needsUpdate = true; towerRings.instanceColor.needsUpdate = true;
-    const text = `${Math.round(total)} / ${TOTAL}`;
-    if (text !== shownTotal) { shownTotal = text; totalTex.userData.redraw([{ text, size: 150, weight: 700, color: '#f2b545', track: 1 }]); }
-    totalLabel.material.opacity = smooth(lin(real, FILL_A - .01, FILL_A + .01)) * (1 - smooth(lin(lp, POUR_A - .01, POUR_A + .02)));
-    totalLabel.visible = totalLabel.material.opacity > .01;
-    totalLabel.position.set(1.72, 2.05, -2.75); totalLabel.quaternion.copy(camera.quaternion);
-
-    /* the robot reads the papers, then follows the groups along the row */
-    let attention = 0; aim.copy(centre);
-    if (inA) aim.copy(target);
-    const groupAt = (real - FILL_A) / FILL_STEP, watching = smooth(lin(real, RISE_A, FILL_A)) * (1 - smooth(lin(lp, POUR_A - .025, POUR_A)));
-    if (watching > 0) { const x = towerX(Math.max(0, Math.min(NG - 1, groupAt))); aim.lerp(seen.set(x, 1.2, towerZ(x)), watching); }
-    bot.head.getWorldPosition(headAt); set.worldToLocal(headAt); headAt.y += .2;
-    beamDir.subVectors(target, headAt);
-    { const len = beamDir.length(); eyeBeam.visible = inA && scan > .01 && len > .001; if (eyeBeam.visible) { eyeBeam.position.copy(headAt); eyeBeam.quaternion.setFromUnitVectors(UP, beamDir.divideScalar(len)); eyeBeam.scale.set(.012, len, .012); eyeBeam.material.opacity = scan * .8; } }
+    const slam = flash(lp, .69, .07), hitK = wobble(lp, .69, .075, 1.5);
 
     /* the medallion */
+    let attention = 0;
     for (let k = 0; k < flyers.length; k++) {
       const tok = flyers[k], { tk, root, pivot, body } = tok, f = (lp - tk.s) / DUR;
       root.visible = f > 0 && shut < .7;
@@ -505,33 +653,31 @@ export async function build(ctx) {
         body.rotation.set(0, tk.yaw, 0);
       }
       // idle life once it has settled: the medallion sways
-      const idle = smooth(lin(lp, tok.e + .02, tok.e + .07)) * (1 - smooth(lin(lp, .54, .56)));
+      const still = smooth(lin(lp, tok.e + .02, tok.e + .07)) * (1 - smooth(lin(lp, .54, .56)));
       body.position.y = tok.centre;
-      body.rotation.y += Math.sin(t * .6) * .45 * idle;
-      idles[k] = idle;
+      body.rotation.y += Math.sin(t * .6) * .45 * still;
+      idles[k] = still;
       // fold back flat (hinged at the foot), then press into the page as the cover comes over
       const fold = smooth(lin(lp, .545 + k * .016, .59 + k * .016)), press = smooth(lin(lp, .6 + k * .01, .655 + k * .01));
       pivot.rotation.x = -Math.PI / 2 * fold;
       sy *= lerp(1, .08, press);
       root.scale.set(sxz, sy, sxz);
-      // attention: the robot follows whatever is in the air
-      const a = smooth(lin(f, -.15, .1)) * (1 - smooth(lin(f, 1, 1.4)));
-      if (a > 0) { attention = Math.max(attention, a); aim.lerp(toSet(seen, root.position), a); }
+      attention = Math.max(attention, smooth(lin(f, -.15, .1)) * (1 - smooth(lin(f, 1, 1.4))));
+      if (attention > 0) toStage(seen, root.position);
     }
     const mIdle = idles[0];
     medalGlow.material.opacity = medal.root.visible ? .22 * mIdle + .6 * flash(lp, medal.e, .05) : 0;
     goldMat.emissiveIntensity = .3 + 1.6 * flash(lp, medal.e, .06) + .12 * Math.sin(t * 2.3) * mIdle;
     faceMat.emissiveIntensity = .2 + .9 * flash(lp, medal.e, .06);
-
-    // trails behind the three solid tokens
+    // its trail
     for (let k = 0; k < flyers.length; k++) {
-      const tok = flyers[k], f = (lp - tok.tk.s) / DUR, show = f > 0 && f < .9 ? 1 - lin(f, .55, .84) : 0;
+      const tok = flyers[k], f = (lp - tok.tk.s) / DUR, vis = f > 0 && f < .9 ? 1 - lin(f, .55, .84) : 0;
       for (let j = 0; j < TRAIL; j++) {
         const q = (k * TRAIL + j) * 3, g = f - (j + 1) * .013;
-        if (show <= 0 || g <= 0) { trails.col[q] = trails.col[q + 1] = trails.col[q + 2] = 0; continue; }
+        if (vis <= 0 || g <= 0) { trails.col[q] = trails.col[q + 1] = trails.col[q + 2] = 0; continue; }
         bez(v1, tok.p, travel(Math.min(g, .78)));
         trails.pos[q] = v1.x; trails.pos[q + 1] = v1.y + tok.centre * SIZE; trails.pos[q + 2] = v1.z;
-        const fade = show * (1 - j / TRAIL) * .85;
+        const fade = vis * (1 - j / TRAIL) * .85;
         trails.col[q] = tok.color.r * fade; trails.col[q + 1] = tok.color.g * fade; trails.col[q + 2] = tok.color.b * fade;
       }
     }
@@ -540,12 +686,12 @@ export async function build(ctx) {
     /* the slot lights as the medallion lands, prints it as it folds, then goes under the cover */
     for (let k = 0; k < all.length; k++) {
       const tok = all[k], s = slots[k], landed = lp >= tok.e ? 1 : 0;
-      const hitK = flash(lp, tok.e, .06), printK = bump(lp, .56 + k * .014, .1);
-      s.m.emissiveIntensity = .35 + landed * .9 + hitK * 4 + printK * 2.5 + Math.sin(t * 2.2 + k) * .12 + (1 - landed) * smooth(lin((lp - tok.tk.s) / DUR, .5, 1)) * 1.4;
+      const hitM = flash(lp, tok.e, .06), printK = bump(lp, .56 + k * .014, .1);
+      s.m.emissiveIntensity = .35 + landed * .9 + hitM * 4 + printK * 2.5 + Math.sin(t * 2.2 + k) * .12 + (1 - landed) * smooth(lin((lp - tok.tk.s) / DUR, .5, 1)) * 1.4;
       s.ring.visible = shut < .75;
       const wait = 1 - landed, coming = smooth(lin((lp - tok.tk.s) / DUR, .6, 1));
-      s.ring.scale.setScalar(1 + hitK * .18 + wait * (Math.sin(t * 2.4 + k * 1.7) * .035 - coming * .12));
-      s.print.material.opacity = (hitK * .9 + landed * .16 + printK * .7) * (1 - smooth(lin(shut, .55, .8)));
+      s.ring.scale.setScalar(1 + hitM * .18 + wait * (Math.sin(t * 2.4 + k * 1.7) * .035 - coming * .12));
+      s.print.material.opacity = (hitM * .9 + landed * .16 + printK * .7) * (1 - smooth(lin(shut, .55, .8)));
       s.print.visible = s.print.material.opacity > .005;
       const g = lin(lp, tok.e, tok.e + .065);
       s.shock.visible = g > 0 && g < 1;
@@ -573,11 +719,11 @@ export async function build(ctx) {
     }
     coverMat.emissiveIntensity = flash(lp, .69, .045) * .2 + flash(lp, .8, .06) * .08;
     seamMat.emissiveIntensity = slam * 6 + smooth(lin(lp, .69, .72)) * (.7 + Math.sin(t * 2) * .15);
-    coreGlow.material.opacity = leak * .45 + slam * .8; coreGlow.visible = coreGlow.material.opacity > .005;
+    coreGlow.material.opacity = leak * .45 + slam * .8 + smooth(lin(lp, POUR_A + .02, POUR_A + .06)) * (1 - smooth(lin(lp, .6, .66))) * .35; coreGlow.visible = coreGlow.material.opacity > .005;
 
-    /* the book: slam squash, then the tabs, the thread, the rise and the turn */
+    /* the book: it comes down, takes the slam's squash, then the tabs, the thread, the rise and the turn */
     const crouch = bump(lp, .775, .03);
-    book.scale.set(1 + .035 * hit + .02 * crouch, 1 - .08 * hit - .05 * crouch, 1 + .035 * hit + .02 * crouch);
+    book.scale.set(1 + .035 * hitK + .02 * crouch + .03 * thud, 1 - .08 * hitK - .05 * crouch - .07 * thud, 1 + .035 * hitK + .02 * crouch + .03 * thud);
     for (let i = 0; i < tabs.length; i++) {
       const k = springy(lin(lp, .7 + i * .016, .735 + i * .016));
       tabs[i].scale.set(Math.max(.001, k), 1, 1); tabs[i].visible = k > .002;
@@ -599,20 +745,17 @@ export async function build(ctx) {
 
     const up = smooth(lin(lp, .79, .96)), turn = smooth(lin(lp, .785, .97));
     const bob = Math.sin(t * 1.2) * .05 * up;
-    lift.position.set(REST.x, REST.y + up * 1.28 + bob, lerp(REST.z, .55, up));
+    lift.position.set(REST.x, REST.y + up * 1.28 + bob + (1 - arrive) * 7, lerp(REST.z, .55, up));
     spin.rotation.y = 1.42 * turn + Math.sin(t * .4) * .06 * up;
     lean.rotation.set(.3 * turn, 0, Math.sin(t * .8) * .018 * up);
-    // the plinth answers: rim flares on the slam and on the signature, the halo and the pool follow the book
-    rimMat.emissiveIntensity = 1.1 + Math.sin(t * 2) * .2 + slam * 2.6 + flash(lp, .8, .08) * 1.6 + coinPulse * 2.2;
-    innerMat.opacity = .14 + up * .2 + slam * .4;
     halo.position.set(lift.position.x, .02, lift.position.z);
     halo.scale.setScalar((1 + Math.sin(t * 1.6) * .03) * lerp(.7, 1, up));
     haloMat.opacity = up * (.7 + Math.sin(t * 1.6) * .1) * .5;
     halo.visible = up > .01;
     pool.position.set(lift.position.x, .012, lift.position.z);
-    poolMat.opacity = (slam * .35 + smooth(lin(lp, .69, .74)) * .12 + up * .22) * .5;
+    poolMat.opacity = (slam * .35 + smooth(lin(lp, .69, .74)) * .12 + up * .22 + arrive * .1) * .5;
     pool.visible = poolMat.opacity > .005;
-    // the slam's puff: gilt dust thrown out of the pages along the plinth
+    // the slam's puff: gilt dust thrown out of the pages along the ground
     for (let i = 0; i < PUFF; i++) {
       const q = i * 3, g = lin(lp, .69, .75 + (i % 5) * .006);
       if (g <= 0 || g >= 1) { puff.col[q] = puff.col[q + 1] = puff.col[q + 2] = 0; continue; }
@@ -623,8 +766,9 @@ export async function build(ctx) {
       puff.col[q] = puffCol.r * fade; puff.col[q + 1] = puffCol.g * fade; puff.col[q + 2] = puffCol.b * fade;
     }
     puff.done();
-    const dg = lin(lp, .69, .77);
-    dust.visible = dg > 0 && dg < 1; dust.scale.setScalar(1.5 + easeOut(dg, 2.5) * .9); dustMat.opacity = (1 - dg) * (1 - dg) * .8;
+    // a ring of dust at the landing, and again at the slam
+    const dl = lin(real, LAND_B, LAND_B + .02), dg = lp >= .69 ? lin(lp, .69, .77) : dl;
+    dust.visible = !reduce && dg > 0 && dg < 1; dust.scale.setScalar(1.5 + easeOut(dg, 2.5) * (lp >= .69 ? .9 : 1.6)); dustMat.opacity = (1 - dg) * (1 - dg) * .8;
 
     // motes orbit the risen book, climbing slowly, in the five stage colours
     for (let i = 0; i < 64; i++) {
@@ -638,21 +782,25 @@ export async function build(ctx) {
     }
     motes.done();
 
-    /* the robot: watches the towers and the medallion, startles at the slam, cheers the signature, looks up at the book */
-    bot.update(t, 0);
-    if (up > 0) aim.lerp(lift.position, up);
-    const bx = bot.root.position.x, bz = bot.root.position.z;
-    const faced = Math.atan2(aim.x - bx, aim.z - bz);
-    bot.root.rotation.y = lp < POUR_A ? Math.max(-1.75, Math.min(-.7, faced)) : faced;
-    const reach = Math.hypot(aim.x - bx, aim.z - bz);
-    bot.head.rotation.x = -Math.max(-.25, Math.min(.75, Math.atan2(aim.y - .9, reach) * 1.4));
-    const cheer = bump(lp, .8, .09);
+    /* ---------- the robot: walks to each place and looks; startles at the slam, cheers the signature, looks up at the book ---------- */
+    pathAt(WALK, real, walker);
+    focusAt(real);
+    if (attention > 0) focus.lerp(v1.set(seen.x + BX, seen.y, seen.z + BZ), attention);
+    if (up > 0) focus.lerp(v1.set(lift.position.x + BX, lift.position.y, lift.position.z + BZ), up);
+    const faced = Math.atan2(focus.x - walker.x, focus.z - walker.z);
+    let ry = faced;
+    if (walker.walk > 0) { let d = walker.ry - faced; d -= Math.round(d / TAU) * TAU; ry = faced + d * Math.min(1, walker.walk); }
+    bot.update(t * idle + real * 220, walker.walk);   // the stride also follows the scroll, so it walks while the clock is held
+    bot.root.rotation.y = ry;
+    const reach = Math.hypot(focus.x - walker.x, focus.z - walker.z);
+    bot.head.rotation.x = -Math.max(-.3, Math.min(.75, Math.atan2(focus.y - .9, reach) * 1.4)) * (1 - walker.walk * .6);
+    const cheer = bump(lp, .8, .09) + bump(real, hooray, .02) * .6;
     for (let k = 0; k < botArms.length; k++) { botArms[k].rotation.z = (k ? 1 : -1) * (.1 + 2.35 * cheer + .15 * slam); botArms[k].rotation.x -= .4 * cheer; }
-    let hop = slam * .16 + bump(lp, .805, .03) * .2 + bump(lp, .845, .03) * .14;
+    let hop = slam * .16 + bump(lp, .805, .03) * .2 + bump(lp, .845, .03) * .14 + bump(real, LAND_B, .012) * .12 + bump(real, hooray, .02) * .1;
     for (let k = 0; k < all.length; k++) hop += bump(lp, all[k].e, .025) * .06;
-    bot.root.position.y = hop;
+    bot.root.position.set(walker.x, hop, walker.z);
   }
 
   update(0, 0);
-  return { camera: { from: shot, to: shot }, update };
+  return { camera: cam, update };
 }

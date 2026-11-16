@@ -21,14 +21,14 @@
   <link rel="stylesheet" href="harness.css?v=20261114-fields">
   <script src="site.js?v=20261109-film" defer></script>
   <link rel="stylesheet" href="language.css">
-  <script src="language.js?v=mc-a4ddd575ad" defer></script>
+  <script src="language.js?v=mc-935e486363" defer></script>
   <link rel="stylesheet" href="v2.css?v=20261110-globalname">
   <link rel="stylesheet" href="skin.css?v=20261108-metacase-page">
   <link rel="stylesheet" href="subpage-toy.css?v=20261109-clip">
   <script type="module" src="subpage-toy.js?v=20261108-metacase-page"></script>
   <link rel="stylesheet" href="scene.css?v=20261022-v2-ambient">
   <link rel="stylesheet" href="metacase-film.css?v=20261111-copypass6">
-  <script type="module" src="metacase-film.js?v=mc-ef2496b816"></script>
+  <script type="module" src="metacase-film.js?v=mc-343071f2b8"></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
   <script src="backdrop.js?v=20261109-film" defer></script>
   <script src="v2.js?v=20261109-film" defer></script>
@@ -80,7 +80,7 @@
         <a href="index.html">Home</a>
         <a href="challenge.html">Challenge</a>
         <a href="metacase.html" aria-current="page">Metacase</a>
-        <a href="agent-run.html">Run Replay</a>
+        <a href="agent-run.html">Playground</a>
         <a href="teams.html">Teams</a>
       </div>
       <div class="nav-controls">
@@ -103,7 +103,7 @@
       <div class="mc-hero-story">
         <p>A cold-chain warehouse operator has given frontline supervisors at three hubs six weeks of incident-handling training; a fourth hub, deferred, kept its operating records for the same weeks as the reference. On 8 June a joint meeting decides acceptance and payment for the provider's three work packages, 816,000 yuan in all, on evidence closing 31 May; the agent prepares the recommendations.</p>
         <p>The difficulty is that none of the 17 files is settled: a name in the wrong role, three missing sign-outs, two practice attempts, disputed observations, a repair dated a day apart. The provider still rates all three as passed, because the material was “uploaded”.</p>
-        <p>It must deliver a workbook that can be recomputed and a decision memo, telling “never learned” apart from “never had the chance”. Pending stays pending.</p>
+        <p>It must recompute each contract threshold, recommend a status and an amount for every package, and deliver a workbook that can be recomputed and a decision memo, telling “never learned” apart from “never had the chance”.</p>
       </div>
       <div class="hero-actions">
         <a class="button primary" href="https://submit.metacasechallenge.com/submit/harness/" target="_blank" rel="noopener">Submit an agent / harness <span aria-hidden="true">↗</span></a>
@@ -159,10 +159,10 @@
             <p>gemini-3.8-flash runs in the DeepSeek Harness for about 19 minutes: 86 model requests and 85 tool calls, all logged.</p>
             <ol class="mc-beat-steps" data-list="story">
               <li data-at="0" class="is-on"><b>Evidence gathering</b><span>It reads the four documents, then every sheet of the workbooks and detail files, checking each status field; it starts building files about seven minutes in.</span></li>
-              <li data-at=".336"><b>Recomputation</b><span>82 of 83 reach the 1,377-minute threshold, one at 1,170; three people's 360 pending minutes are held out, leaving 1,440 each. Mean test scores: 59.06, 94.07, 90.27.</span></li>
-              <li data-at=".385"><b>Stratification</b><span>With two verified incidents as the bar: 73 can be evaluated, 8 lack opportunity, and 2 are restricted by leave or transfer.</span></li>
+              <li data-at=".22"><b>Recomputation</b><span>82 of 83 reach the 1,377-minute threshold, one at 1,170; three people's 360 pending minutes are held out, leaving 1,440 each. Mean test scores: 59.06, 94.07, 90.27.</span></li>
+              <li data-at=".38"><b>Stratification</b><span>With two verified incidents as the bar: 73 can be evaluated, 8 lack opportunity, and 2 are restricted by leave or transfer.</span></li>
               <li data-at=".52"><b>Failure</b><span>The memo script halts on taking the first row of an empty table. The agent finds the cause, rewrites it and regenerates the file.</span></li>
-              <li data-at=".724"><b>Read-back</b><span>It reads both files back: sheet count, dimensions, key figures. Ten sheets, but only three cells hold formulas; the rest are typed values.</span></li>
+              <li data-at=".70"><b>Read-back</b><span>It reads both files back: sheet count, dimensions, key figures. Ten sheets, but only three cells hold formulas; the rest are typed values.</span></li>
             </ol>
             <p class="mc-beat-keep"><span>Kept in the Metacase as</span> <b>Steps · Tools · Intermediate work</b><br class="keep-br"><i>every step, in order</i></p>
             <p class="mc-stat"><b data-n="calls" data-from="0" data-to="85" data-no-translate>85</b><span>tool calls</span></p>
@@ -196,13 +196,13 @@
               <li data-at=".3643" class="mc-step-case"><b>Equipment, weather and cargo disruptions</b><dl><div><dt>What they show</dt><dd>A chiller repair's end date differs by a day; the pre-review notes that one hub's gain overlaps the repair.</dd></div><div><dt>Why it matters</dt><dd>A day decides whether a gain came before or after the repair, and so its attribution; the rubric asks for a ±1-day recheck and separate heat, cargo and terminal weeks.</dd></div><div><dt>This run</dt><dd>Placed at SYN-HUB-01 where the rubric names SYN-HUB-03; none of the four treatments done.</dd></div></dl></li>
               <li data-at=".425"><b>What failed</b><span>Analysis and argument lost all 6 points, hub-level net changes all 9: the figures were right but not laid out for a decision-maker, and the limits went unstated. No self-check would catch that.</span></li>
               <li data-at=".46" class="mc-step-case"><b>Package A · training preparation and delivery<i data-no-translate>10 / 10</i></b><dl><div><dt>Provider's claim</dt><dd>244,800 yuan, self-rated as accepted.</dd></div><div><dt>Agent's disposition</dt><dd>Conditional acceptance; 220,320 yuan for approval, 24,480 retained.</dd></div><div><dt>What decided it</dt><dd>Sessions held, 82 of 83 meet the hours; three sign-outs pending, so 90% and 10% by the amount rules.</dd></div></dl></li>
-              <li data-at=".5075" class="mc-step-case"><b>Package B · evidence of retention and transfer<i data-no-translate>17 / 17</i></b><dl><div><dt>Provider's claim</dt><dd>367,200 yuan, self-rated as accepted.</dd></div><div><dt>Agent's disposition</dt><dd>Three of four units pass; 275,400 for approval, 91,800 deferred.</dd></div><div><dt>What decided it</dt><dd>Delayed-test coverage of 79 of 83; the behaviour-transfer unit waits on the disputed observations.</dd></div></dl></li>
-              <li data-at=".555" class="mc-step-case"><b>Package C · operational validation and close-out<i data-no-translate>13 / 13</i></b><dl><div><dt>Provider's claim</dt><dd>204,000 yuan, self-rated as accepted.</dd></div><div><dt>Agent's disposition</dt><dd>One of two units passes; 102,000 for approval, 102,000 deferred.</dd></div><div><dt>What decided it</dt><dd>Operational validation passes; the close-out unit does not and is deferred.</dd></div></dl></li>
-              <li data-at=".6025" class="mc-step-case"><b>Sample, learning and opportunity<i data-no-translate>39 / 39</i></b><dl><div><dt>Starting point</dt><dd>84 names, 755 attendance events, 4,940 responses, 341 opportunity records.</dd></div><div><dt>Agent's disposition</dt><dd>83 in scope, 82 of 83 meet the hours, means 59.06, 94.07 and 90.27, strata 73, 8 and 2.</dd></div><div><dt>What decided it</dt><dd>All 13 related criteria met; pending and void records keep their status.</dd></div></dl></li>
-              <li data-at=".65" class="mc-step-case"><b>Behaviour attainment<i data-no-translate>0 / 3</i></b><dl><div><dt>Starting point</dt><dd>A 75% threshold, on a mean of 3.0 over reviewed items.</dd></div><div><dt>Agent's disposition</dt><dd>Last round only: 67 of 73, with six marked as not attaining.</dd></div><div><dt>What decided it</dt><dd>The rubric's measure gives 73 of 73; the agent computed all three and chose another.</dd></div></dl></li>
-              <li data-at=".6975" class="mc-step-case"><b>Operational comparison<i data-no-translate>0 / 9</i></b><dl><div><dt>Starting point</dt><dd>Four metrics for four hubs, at baseline and in observation.</dd></div><div><dt>Agent's disposition</dt><dd>Each hub's own change, and one pooled net change for the three.</dd></div><div><dt>What decided it</dt><dd>The rubric wants each hub's net change shown; pooling hides 6.5, 4.5 and 2.0 points.</dd></div></dl></li>
-              <li data-at=".745" class="mc-step-case"><b>Attribution and responsibility<i data-no-translate>0 / 6</i></b><dl><div><dt>Starting point</dt><dd>The pre-review asks for no single attribution.</dd></div><div><dt>Agent's disposition</dt><dd>States it for one hub only.</dd></div><div><dt>What decided it</dt><dd>Coaching and behaviour not limited to association, responsibilities not split; the four disruption treatments missing.</dd></div></dl></li>
-              <li data-at=".7925" class="mc-step-case"><b>Traceability and closure<i data-no-translate>0 / 9</i></b><dl><div><dt>Starting point</dt><dd>Conclusions must trace back to people, incidents, hub-weeks and procurement rules.</dd></div><div><dt>Agent's disposition</dt><dd>Ten sheets, no source index; a closure plan of three actions.</dd></div><div><dt>What decided it</dt><dd>No source index or five source chains; no controlled drill or overdue rule in the closure plan.</dd></div></dl></li>
+              <li data-at=".504" class="mc-step-case"><b>Package B · evidence of retention and transfer<i data-no-translate>17 / 17</i></b><dl><div><dt>Provider's claim</dt><dd>367,200 yuan, self-rated as accepted.</dd></div><div><dt>Agent's disposition</dt><dd>Three of four units pass; 275,400 for approval, 91,800 deferred.</dd></div><div><dt>What decided it</dt><dd>Delayed-test coverage of 79 of 83; the behaviour-transfer unit waits on the disputed observations.</dd></div></dl></li>
+              <li data-at=".548" class="mc-step-case"><b>Package C · operational validation and close-out<i data-no-translate>13 / 13</i></b><dl><div><dt>Provider's claim</dt><dd>204,000 yuan, self-rated as accepted.</dd></div><div><dt>Agent's disposition</dt><dd>One of two units passes; 102,000 for approval, 102,000 deferred.</dd></div><div><dt>What decided it</dt><dd>Operational validation passes; the close-out unit does not and is deferred.</dd></div></dl></li>
+              <li data-at=".592" class="mc-step-case"><b>Sample, learning and opportunity<i data-no-translate>39 / 39</i></b><dl><div><dt>Starting point</dt><dd>84 names, 755 attendance events, 4,940 responses, 341 opportunity records.</dd></div><div><dt>Agent's disposition</dt><dd>83 in scope, 82 of 83 meet the hours, means 59.06, 94.07 and 90.27, strata 73, 8 and 2.</dd></div><div><dt>What decided it</dt><dd>All 13 related criteria met; pending and void records keep their status.</dd></div></dl></li>
+              <li data-at=".636" class="mc-step-case"><b>Behaviour attainment<i data-no-translate>0 / 3</i></b><dl><div><dt>Starting point</dt><dd>A 75% threshold, on a mean of 3.0 over reviewed items.</dd></div><div><dt>Agent's disposition</dt><dd>Last round only: 67 of 73, with six marked as not attaining.</dd></div><div><dt>What decided it</dt><dd>The rubric's measure gives 73 of 73; the agent computed all three and chose another.</dd></div></dl></li>
+              <li data-at=".68" class="mc-step-case"><b>Operational comparison<i data-no-translate>0 / 9</i></b><dl><div><dt>Starting point</dt><dd>Four metrics for four hubs, at baseline and in observation.</dd></div><div><dt>Agent's disposition</dt><dd>Each hub's own change, and one pooled net change for the three.</dd></div><div><dt>What decided it</dt><dd>The rubric wants each hub's net change shown; pooling hides 6.5, 4.5 and 2.0 points.</dd></div></dl></li>
+              <li data-at=".724" class="mc-step-case"><b>Attribution and responsibility<i data-no-translate>0 / 6</i></b><dl><div><dt>Starting point</dt><dd>The pre-review asks for no single attribution.</dd></div><div><dt>Agent's disposition</dt><dd>States it for one hub only.</dd></div><div><dt>What decided it</dt><dd>Coaching and behaviour not limited to association, responsibilities not split; the four disruption treatments missing.</dd></div></dl></li>
+              <li data-at=".768" class="mc-step-case"><b>Traceability and closure<i data-no-translate>0 / 9</i></b><dl><div><dt>Starting point</dt><dd>Conclusions must trace back to people, incidents, hub-weeks and procurement rules.</dd></div><div><dt>Agent's disposition</dt><dd>Ten sheets, no source index; a closure plan of three actions.</dd></div><div><dt>What decided it</dt><dd>No source index or five source chains; no controlled drill or overdue rule in the closure plan.</dd></div></dl></li>
               <li data-at=".86"><b>Conditions and signature</b><span>Applies where evidence has mixed status, decisions follow contract rules unit by unit, and data use is bounded. Signature: evidence status, choice of measure, bounded attribution, recommendation without approval.</span></li>
             </ol>
             <p class="mc-beat-keep"><span>Kept in the Metacase as</span> <b>What held · What failed · When it applies</b><br class="keep-br"><i>what the next attempt can borrow or change</i></p>
@@ -249,7 +249,7 @@
     <div class="container">
       <nav class="page-footer-nav" aria-label="Page sequence">
         <a href="challenge.html"><small>Previous</small><span><span aria-hidden="true">←</span> Challenge</span></a>
-        <a href="agent-run.html"><small>Next</small><span>Run Replay <span aria-hidden="true">→</span></span></a>
+        <a href="agent-run.html"><small>Next</small><span>Playground <span aria-hidden="true">→</span></span></a>
       </nav>
     </div>
   </main>
@@ -262,7 +262,7 @@
           <p>AI Agents for Business, Finance and Social Science.</p>
         </div>
         <div><h4>Pages</h4><ul>
-          <li><a href="challenge.html">Challenge</a></li><li><a href="metacase.html">Metacase</a></li><li><a href="agent-run.html">Run Replay</a></li>
+          <li><a href="challenge.html">Challenge</a></li><li><a href="metacase.html">Metacase</a></li><li><a href="agent-run.html">Playground</a></li>
           
           <li><a href="teams.html">Teams</a></li></ul></div>
         <div><h4>Resources</h4><ul>
