@@ -337,5 +337,10 @@
   "Submit reproducible failure cases and help refine the scoring criteria and independent checks.": "提交可复现的失败案例，帮助完善评分标准与独立核验。",
   "The challenge in numbers": "挑战赛的三个数字",
   "eighteen subfields.": "18 个子领域。",
-  "subfields": "个子领域"
+  "subfields": "个子领域",
+  "18 November 2026.": "2026 年 11 月 18 日。",
+  "6 months.": "6 个月。",
+  "Accounts and submissions are open for benchmarks, agents / harnesses and failure cases. Evaluation interface: coming soon.": "现已开放注册与提交，可提交 Benchmark、Agent / Harness 和 Failure Case。评测接口：即将公布。",
+  "Evaluation schedule and protocol: coming soon.": "评测日程与流程：即将公布。",
+  "Results announcement, award categories, prizes and selection criteria: coming soon.": "结果公布时间、奖项类别、奖励与评选标准：即将公布。"
 }
