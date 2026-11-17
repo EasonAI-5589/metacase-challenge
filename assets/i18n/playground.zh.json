@@ -429,11 +429,11 @@
   "One task, 63 recorded runs.": "一道任务，63 次有记录的运行。",
   "Fast-forwarding the full replay of": "正在快进完整回放：",
   "Each cell is one run of the same task, scored by one judge against the same 27 criteria. Select a cell to see what that agent did.": "每一格是同一道任务的一次运行，由同一个裁判模型按同样的 27 项细则评分。点选一格，查看这个智能体做了什么。",
+  "Every pairing here has a recorded run of the same task: a month-end close with 55 documents and six unposted entries.": "这里的每个组合都有同一道任务的运行记录：一次月末结账，55 份资料，六条未过账的待入账意见。",
+  "The 3D replay on the right shows one of these runs.": "右侧 3D 回放呈现了其中一次运行。",
+  "The 3D replay above shows one of these runs.": "上方 3D 回放呈现了其中一次运行。",
   "Configure an agent.": "配置一个智能体，",
   "Replay a recorded run.": "回放一次真实运行。",
-  "Every pairing here has a recorded run of the same task: a month-end close with 55 documents and six unposted entries.": "这里的每个组合都有同一道任务的运行记录：一次月末结账，55 份资料，六条未过账的待入账意见。",
-  "The 3D replay on the right shows one of these runs.": "右侧的 3D 回放展示的是其中一次运行。",
-  "The 3D replay above shows one of these runs.": "上方的 3D 回放展示的是其中一次运行。",
   "Version": "版本",
   "Configure an agent and replay a recorded run": "配置智能体并回放一次真实运行"
 }
