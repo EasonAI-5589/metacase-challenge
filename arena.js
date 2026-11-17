@@ -25,14 +25,14 @@ if (chapter) {
     state.harness = state.equippedHarness = whole(saved.harness, HARNESS_NAMES.length - 1, 0);
   } catch {}
   const harnesses = [
-    { name: 'DeepSeek Harness', lines: ['DeepSeek', 'Harness'], code: 'W-01', type: ['Plugin runtime', '插件运行时'], description: ['Swap the runtime weapon. Recompose the tools, context and feedback around the chosen model.', '切换运行时武器，围绕所选模型重新组织工具、上下文与反馈。'] },
+    { name: 'DeepSeek Harness', lines: ['DeepSeek', 'Harness'], code: 'W-01', type: ['Plugin runtime', '插件运行时'], description: ['Swap the runtime tool. Recompose the tools, context and feedback around the chosen model.', '切换运行时工具，围绕所选模型重新组织工具、上下文与反馈。'] },
     { name: 'DeepAgents', lines: ['DeepAgents'], code: 'W-02', type: ['Library harness', '库式 Harness'], description: ['Equip a planning-oriented harness. Make the workflow and working context part of the setup.', '装备面向规划的 Harness，将工作流与上下文纳入配置。'] },
     { name: 'Claude Code', lines: ['Claude', 'Code'], code: 'W-03', type: ['CLI harness · Claude Agent SDK', '命令行 Harness · Claude Agent SDK'], description: ['Load a different execution loop. The challenge still begins with the same evidence.', '装载不同的执行循环，挑战仍从同一份证据出发。'] },
     { name: 'Codex CLI', lines: ['Codex', 'CLI'], code: 'W-04', type: ['CLI harness · OpenAI Agents SDK', '命令行 Harness · OpenAI Agents SDK'], description: ['Exchange the tool interface and execution environment around the model.', '为模型更换周围的工具接口与执行环境。'] },
     { name: 'Terminus-2', lines: ['Terminus', '-2'], code: 'W-05', type: ['Harbor reference harness', 'Harbor 官方参考 Harness'], description: ['Harbor’s terminal reference loop: tools turn proposed actions into observable results.', 'Harbor 官方终端参考循环：工具把提出的行动变成可观察的结果。'] },
-    { name: 'OpenCode', lines: ['OpenCode'], code: 'W-06', type: ['Server runtime', '服务式运行时'], description: ['Another weapon slot, another way to organize the model’s work. Evidence remains the anchor.', '另一套武器槽位，用另一种方式组织模型的工作，证据始终是依据。'] },
+    { name: 'OpenCode', lines: ['OpenCode'], code: 'W-06', type: ['Server runtime', '服务式运行时'], description: ['Another tool slot, another way to organize the model’s work. Evidence remains the anchor.', '另一套工具槽位，用另一种方式组织模型的工作，证据始终是依据。'] },
   ];
-  const STEP_LABELS = [['1 · PROVIDER', '1 · 厂商 / PROVIDER'], ['2 · MODEL', '2 · 模型 / MODEL'], ['3 · EFFORT', '3 · 推理强度 / EFFORT'], ['4 · HARNESS', '4 · 武器 / HARNESS']];
+  const STEP_LABELS = [['1 · PROVIDER', '1 · 厂商 / PROVIDER'], ['2 · MODEL', '2 · 模型 / MODEL'], ['3 · EFFORT', '3 · 推理强度 / EFFORT'], ['4 · HARNESS', '4 · 工具 / HARNESS']];
   // Each room is a portal to its track on the Challenge page.
   const TRACKS = { econ: 'challenge.html?via=portal#track-econ', fin: 'challenge.html?via=portal#track-fin', soc: 'challenge.html?via=portal#track-soc' };
   const domainHeadlines = [
@@ -46,13 +46,13 @@ if (chapter) {
     ['Interpret rules → understand organizations → analyze behavior → support decisions.', '理解规则 → 分析组织 → 研究行为 → 支持决策。'],
   ];
   const phases = [
-    { tag:['01 / THE ENTRANCE','01 / 挑战赛入口'], title:['Three portals.<br><em>Three tracks.</em>','三扇门，<br><em>三条赛道。</em>'], body:['Economics, Finance and Society. Step through a portal to reach its track: the tasks, the data and how runs are scored.', '经济、金融与社会。穿过一扇门，就进入对应的赛道：题目、数据和评分方式都在那里。'], code:['THREE TRACKS · SIXTEEN CASE CATEGORIES','三条赛道 · 16 个二级目录'], label:['ENTER','入口'], event:['Pick a portal, or scroll to walk through all three with one agent.', '选一扇门直接进入，或继续滚动，跟着一个 Agent 走过三条赛道。'] },
-    { tag:['02 / CHARACTER & HARNESS WHEEL','02 / 角色与 HARNESS 装备轮'], title:['Model is the character.<br><em>Harness is the weapon.</em>','模型是角色，<br><em>Harness 是武器。</em>'], body:['Pick a provider, then its model and reasoning effort, and spin the armory wheel to equip one of six harness weapons.', '先选厂商，再选具体模型与推理强度，最后转动武器轮盘，为它装备六款 Harness 之一。'], code:['PROVIDER · MODEL · EFFORT · HARNESS','厂商 · 模型 · 推理强度 · HARNESS'], label:['EQUIP','装备'], event:['', ''] },
+    { tag:['01 / THE ENTRANCE','01 / 挑战赛入口'], title:['Three portals.<br><em>Three tracks.</em>','三扇门，<br><em>三条赛道。</em>'], body:['Economics, Finance and Society. Step through a portal to reach its track: the tasks, the data and how runs are scored.', '经济、金融与社会。穿过一扇门，就进入对应的赛道：题目、数据和评分方式都在那里。'], code:['THREE TRACKS · EIGHTEEN SUBFIELDS','三条赛道 · 18 个子领域'], label:['ENTER','入口'], event:['Pick a portal, or scroll to walk through all three with one agent.', '选一扇门直接进入，或继续滚动，跟着一个 Agent 走过三条赛道。'] },
+    { tag:['02 / CHARACTER & HARNESS WHEEL','02 / 角色与 HARNESS 装备轮'], title:['Model is the character.<br><em>Harness is the tool.</em>','模型是角色，<br><em>Harness 是工具。</em>'], body:['Pick a provider, then its model and reasoning effort, and spin the tool wheel to equip one of six harness tools.', '先选厂商，再选具体模型与推理强度，最后转动工具轮盘，为它装备六款 Harness 之一。'], code:['PROVIDER · MODEL · EFFORT · HARNESS','厂商 · 模型 · 推理强度 · HARNESS'], label:['EQUIP','装备'], event:['', ''] },
     ...ARENA_DOMAINS.map((domain, i) => ({
       tag: [`0${i + 3} / ${domain.id.toUpperCase()}`, `0${i + 3} / ${domain.name[1]}`],
       title: [`${domain.name[0]}<br><em>${domainHeadlines[i][0]}</em>`, `${domain.name[1]}<br><em>${domainHeadlines[i][1]}</em>`],
       body: domain.summary,
-      code: [`${domain.id}/ · ${domain.entries.length} CASE CATEGORIES`, `${domain.id}/ · ${domain.entries.length} 个二级目录`],
+      code: [`${domain.id}/ · ${domain.entries.length} SUBFIELDS`, `${domain.id}/ · ${domain.entries.length} 个子领域`],
       label: [domain.name[0].toUpperCase(), domain.name[1]], event: domainEvents[i],
     })),
     { tag:['06 / CHOOSE YOUR TRACK','06 / 选择赛道'], title:['Step through.<br><em>Pick your track.</em>','选一扇门，<br><em>进入你的赛道。</em>'], body:['All three portals are open. Every track runs the same loop: raw evidence in, a deliverable out, the whole trajectory kept.', '三扇门都已打开。每条赛道都是同一个闭环：输入原始证据，交出可核查的成果，完整保留执行轨迹。'], code:['THREE PORTALS · ONE CHALLENGE','三扇门 · 一个挑战赛'], label:['CHOOSE','选择赛道'], event:['Click a portal to enter its track.', '点击任意一扇门，进入对应赛道。'] },
@@ -255,10 +255,10 @@ if (chapter) {
       link.setAttribute('aria-label', l ? `进入${d.name[1]}赛道` : `Enter the ${d.name[0]} track`);
     });
     $('.mc-portals').setAttribute('aria-label', l ? '进入赛道' : 'Enter a track');
-    $('[data-mc-directory]').setAttribute('aria-label', domain.name[l] + (l ? ' 目录' : ' case categories'));
+    $('[data-mc-directory]').setAttribute('aria-label', domain.name[l] + (l ? ' 子领域' : ' subfields'));
     $('[data-mc-directory-hint]').textContent = l ? '横滑查看 →' : 'SWIPE →';
     $('[data-mc-overview]').hidden = state.phase !== 0;
-    $('[data-mc-directory-title]').textContent = l ? `${domain.id}/ · ${domain.entries.length} 个二级目录` : `${domain.id}/ · ${domain.entries.length} case categories`;
+    $('[data-mc-directory-title]').textContent = l ? `${domain.id}/ · ${domain.entries.length} 个子领域` : `${domain.id}/ · ${domain.entries.length} subfields`;
     $('[data-mc-directory-list]').replaceChildren(...domain.entries.map(entry => {
       const item = document.createElement('li'), code = document.createElement('code'), name = document.createElement('span');
       item.dataset.category = entry.id; item.title = entry.description[l];
@@ -293,12 +293,12 @@ if (chapter) {
     $('[data-mc-index]').textContent = String(state.phase + 1).padStart(2,'0');
     $('[data-mc-name]').textContent = l ? '全球 METACASE 挑战赛' : 'THE GLOBAL METACASE CHALLENGE';
     $('[data-mc-scroll-hint]').textContent = manual() ? (l?'用下方进度条探索':'EXPLORE WITH THE SLIDER') : (l?'滚动，进入下一幕':'SCROLL TO EXPLORE');
-    $('[data-mc-loadout-label]').textContent = browsing ? STEP_LABELS[3][l] : inDomain && equipped ? (l ? '悬浮武器 / HARNESS' : 'DEPLOYED / HARNESS') : (l ? '背负武器 / HARNESS' : 'WEAPON / HARNESS');
+    $('[data-mc-loadout-label]').textContent = browsing ? STEP_LABELS[3][l] : inDomain && equipped ? (l ? '悬浮工具 / HARNESS' : 'DEPLOYED / HARNESS') : (l ? '背负工具 / HARNESS' : 'TOOL / HARNESS');
     $('[data-mc-wheel-label]').textContent = manual()
-      ? (l ? '选择厂商 · 点击外圈槽位装备武器' : 'PICK A PROVIDER · CLICK A SLOT TO EQUIP')
-      : (l ? '选择厂商 · 滚动或点击外圈装备武器' : 'PICK A PROVIDER · SCROLL OR CLICK TO EQUIP');
+      ? (l ? '选择厂商 · 点击外圈槽位装备工具' : 'PICK A PROVIDER · CLICK A SLOT TO EQUIP')
+      : (l ? '选择厂商 · 滚动或点击外圈装备工具' : 'PICK A PROVIDER · SCROLL OR CLICK TO EQUIP');
     $('[data-mc-episode-label]').textContent = l ? 'METACASE / 轨迹' : 'METACASE / TRACE';
-    $('[data-mc-illustrative]').textContent = l ? '经济 · 金融 · 社会 / 三大方向，18 个二级目录。' : 'Economics · Finance · Society / 3 domains, 18 case categories.';
+    $('[data-mc-illustrative]').textContent = l ? '经济 · 金融 · 社会 / 三个领域，18 个子领域。' : 'Economics · Finance · Society / 3 fields, 18 subfields.';
     $('[data-mc-slider-label]').textContent = l ? '探索完整解题轨迹' : 'Explore the complete episode';
     $('.mc-timeline').setAttribute('aria-label', l ? '解题轨迹章节' : 'Episode chapters');
     $('.mc-fallback p').textContent = l ? '一个 Agent，多种 Harness。从原始证据走向可复用经验。滚动或使用进度条探索。' : 'One agent. Many harnesses. Follow the path from evidence to experience by scrolling or using the slider.';
