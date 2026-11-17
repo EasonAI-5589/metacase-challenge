@@ -37,7 +37,7 @@ const describe = s => NAMED.reduce((t, [a, b]) => t.replace(a, b), s.replace(/\s
 const CHECK_LINE = 'Every task is scored against references the agent never sees.';
 const UI = { [CHECK_LINE]: '每道题都对照 Agent 看不到的参考答案评分。', 'Field summary': '领域概览' };
 const FIELD_ZH = { econ: '经济', fin: '金融', soc: '社会' };
-const countLine = (tasks, n) => [`${tasks} tasks · ${n} classes`, `${tasks} 道题 · ${n} 个类别`];
+const countLine = (tasks, n) => [`${tasks} tasks · ${n} subfields`, `${tasks} 道题 · ${n} 个子领域`];
 const enterLine = (field) => [`Enter the ${field.name} track`, `进入${FIELD_ZH[field.id]}赛道`];
 
 const categories = new Map(summary.categories.map(c => [c.id, c]));
@@ -55,7 +55,7 @@ FIELDS.forEach((field, f) => {
       <span class="mc-fbook-label">
         <small class="mono">Field ${n}</small>
         <b class="mc-fbook-title">${esc(field.name)}</b>
-        <span class="mc-fbook-n"><b class="tnum">${classes.length}</b> <span>classes</span></span>
+        <span class="mc-fbook-n"><b class="tnum">${classes.length}</b> <span>subfields</span></span>
       </span>
     </button>`);
   const pages = [];
