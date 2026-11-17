@@ -78,7 +78,7 @@ export const ARENA_DOMAINS = Object.freeze([
       ['econ.data · Multi-Source SQL & dbt Data Engineering', 'econ.data · 多源异构商业与经济数据 SQL/dbt 工程'],
       ['econ.statistics · Official Macro Statistics Synthesis', 'econ.statistics · 官方宏观统计跨源检索与结构化合成'],
       ['Harbor Sandbox · Sealed References · Full Trajectory', 'Harbor 容器沙箱 · 隐藏参考答案 · 完整轨迹留存'],
-      ['200 Candidate Records · 6 Economics Classes', '200 条经济候选记录 · 6 个二级目录'],
+      ['200 Candidate Records · 6 Economics Subfields', '200 条经济候选记录 · 6 个子领域'],
     ],
     entries: [
       { id: 'econ.replication', name: ['Econometric replication', '计量经济复现'], description: ['Reproduce a published regression coefficient from the paper\'s own data.', '用论文原始数据复现已发表的回归系数。'] },
@@ -100,7 +100,7 @@ export const ARENA_DOMAINS = Object.freeze([
       ['fin.credit · Lending Workflows, Fraud & Delinquency SQL', 'fin.credit · 多文档借贷审批、商户反欺诈与违约 SQL'],
       ['fin.numeric · Excel Financial Modeling & Report Calculations', 'fin.numeric · Excel 单元格级财务建模与财报多步推演'],
       ['fin.nlp · XBRL Tagging, Call Summaries & Relation Extraction', 'fin.nlp · XBRL 数值标注、业绩电话会摘要与关系抽取'],
-      ['200 Candidate Records · 6 Finance Classes', '200 条金融候选记录 · 6 个二级目录'],
+      ['200 Candidate Records · 6 Finance Subfields', '200 条金融候选记录 · 6 个子领域'],
     ],
     entries: [
       { id: 'fin.accounting', name: ['Accounting close & finance deliverables', '会计结账与财务交付'], description: ['Month-end close remediation, audit sampling, amortization schedules and accounting data pipelines.', '月末结账整改、审计抽样、摊销表编制与会计数据管道。'] },
@@ -122,7 +122,7 @@ export const ARENA_DOMAINS = Object.freeze([
       ['soc.psychology · Behavioral & Cognitive Experiment Analysis', 'soc.psychology · 行为与认知实验统计检验与科学计算'],
       ['soc.policy · Environmental Policy Data & Service Remediation', 'soc.policy · 环境公共政策数据管道与服务整改'],
       ['Deterministic Verifiers + Multi-Dimensional Rubrics', '确定性代码核验 + 多维业务 Rubric 细粒度归因'],
-      ['200 Candidate Records · 6 Society Classes', '200 条社会领域候选记录 · 6 个二级目录'],
+      ['200 Candidate Records · 6 Society Subfields', '200 条社会领域候选记录 · 6 个子领域'],
     ],
     entries: [
       { id: 'soc.law', name: ['Law, regulation & compliance', '法律、监管与合规'], description: ['Multi-file regulatory data-lake pipelines, quantitative sentencing and case reasoning, and compliance review deliverables.', '多文件监管数据湖管道、刑期/数额与多罪名案例推演及合规审查报告交付。'] },
