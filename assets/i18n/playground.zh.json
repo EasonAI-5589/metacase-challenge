@@ -204,8 +204,6 @@
   "Reward": "得分",
   "Not run": "未运行",
   "Pairing replayed above": "上方回放的组合",
-  "Each pairing was run once, on 13 and 14 November 2026, at high reasoning effort, and scored by": "每个组合只运行一次，时间为 2026 年 11 月 13 日至 14 日，推理强度为 high，裁判模型为",
-  "as judge. A single run varies from one attempt to the next, so the grid is a record of these runs and not a ranking of models or harnesses. The notes under each run were drafted from its log and the judge's verdicts and checked against them.": "。单次运行的结果每次都会有波动，因此这张方阵只是这些运行的记录，不是模型或 Harness 的排名。每次运行下方的说明依据其日志和裁判结论起草，并已逐条核对。",
   "The replay's figures, documents, counts and scores come from one recorded pilot run (qwen3.7-max in Claude Code 2.1.114, Harbor 0.20.0). The stage is an illustration of that record, and the task’s business records are synthetic.": "回放中的数字、文件、计数和得分均来自一次真实试跑记录（qwen3.7-max，Claude Code 2.1.114，Harbor 0.20.0）。舞台画面是对该记录的示意，任务中的业务记录为合成数据。",
   "Criteria met": "满足的细则",
   "Partly met": "部分满足",
@@ -426,7 +424,6 @@
   ". Scrolling down starts it.": "，向下滚动即可开始。",
   "Compare the other runs": "对比其余运行",
   "· 11 models × 6 harnesses": "· 11 个模型 × 6 个 Harness",
-  "One task, 63 recorded runs.": "一道任务，63 次有记录的运行。",
   "Fast-forwarding the full replay of": "正在快进完整回放：",
   "Each cell is one run of the same task, scored by one judge against the same 27 criteria. Select a cell to see what that agent did.": "每一格是同一道任务的一次运行，由同一个裁判模型按同样的 27 项细则评分。点选一格，查看这个智能体做了什么。",
   "Every pairing here has a recorded run of the same task: a month-end close with 55 documents and six unposted entries.": "这里的每个组合都有同一道任务的运行记录：一次月末结账，55 份资料，六条未过账的待入账意见。",
@@ -435,5 +432,14 @@
   "Configure an agent.": "配置一个智能体，",
   "Replay a recorded run.": "回放一次真实运行。",
   "Version": "版本",
-  "Configure an agent and replay a recorded run": "配置智能体并回放一次真实运行"
+  "Configure an agent and replay a recorded run": "配置智能体并回放一次真实运行",
+  "One task, 65 recorded runs.": "一道任务，65 次有记录的运行。",
+  "Each pairing was run once at high reasoning effort, on 13, 14 and 17 November 2026, and scored by": "每个组合只运行一次，推理强度为 high，时间为 2026 年 11 月 13 日、14 日和 17 日，裁判模型为",
+  "as judge. Claude Opus 5.5 ran in Claude Code 2.1.280, because the provider does not accept the 2.1.114 used for the other Claude Code runs. A single run varies from one attempt to the next, so the grid is a record of these runs and not a ranking of models or harnesses. The notes under each run were drafted from its log and the judge's verdicts and checked against them.": "。Claude Opus 5.5 用的是 Claude Code 2.1.280，因为模型提供方不接受这一列其他运行所用的 2.1.114。单次运行的结果每次都会有波动，因此这张方阵只是这些运行的记录，不是模型或 Harness 的排名。每次运行下方的说明依据其日志和裁判结论起草，并已逐条核对。",
+  "It converted the documents to text and read them in batches, then wrote one script for the workbook and one for the report. It recalculated the workbook, which keeps 162 formulas.": "它把文档转成文本后分批读完，底稿和报告各写一个脚本。底稿重算过，保留了 162 个公式。",
+  "The first two tools it tried for reading the PDF standards were not installed, and the third one worked. After the first build it patched the workbook script and built the workbook again.": "读准则 PDF 时，头两种工具都没有安装，换到第三种才读出来。底稿第一次生成后，它改了生成脚本再重新生成。",
+  "Full marks for the swap's July loss and HKSub's June comparatives. Points were lost for calling the whole counterparty valuation gap a curve difference and for leaving out the swap's rate sensitivity.": "互换 7 月损失和 HKSub 6 月比较数据得了满分。失分在于把与对手方的估值差额全说成曲线差异，底稿里也没有互换利率敏感度。",
+  "It read the brief first, sent a helper agent to check the questions on the overseas subsidiaries, then wrote one script that built both files. The workbook keeps 188 formulas.": "它先读委托书，派一个辅助智能体核查境外子公司的问题，再写一个脚本同时生成两份文件。底稿保留了 188 个公式。",
+  "After both files were written it sent a second helper agent to review them. The review found only a wrong creation date in the report's file properties, which it then corrected.": "两份文件写完后，它又派了第二个辅助智能体来复查。复查只发现报告文件属性里的创建日期不对，它随后改正了。",
+  "Full marks on every conclusion and every calculation. Points were lost for not separating the 70% risk target from the accounting hedge ratio and for leaving out the part of the swap outside the 70% plan.": "结论和计算两类细则全部满分。失分在于没有区分 70% 风险管理目标和会计套期比率，底稿也没有列出互换在 70% 方案之外的部分。"
 }
