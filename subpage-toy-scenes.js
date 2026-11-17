@@ -7,8 +7,14 @@
  *   teams       a round table of people and the robot, a flag for each of the four institutions
  *   professional-tasks  a desk of documents and charts, an analyst, the robot with a report
  *   replication a reading desk, a researcher with the book, the robot with its lens, a fitted line
+ *   metacase-economics  five departments, one per inspection wave, each with its queue of applicants;
+ *               the robot walks the street with its lens, the author stands with the paper
+ *   metacase-society    the society film's yard: four hubs, the supervisors, a trainer, and the robot
+ *               going round the three work packages (on the film's own ground, film-soc-kit.js,
+ *               loaded only on that page)
  * The picture is drawn on a transparent canvas over the page's own backdrop. */
 import * as THREE from './assets/vendor/three/three.module.js';
+import * as kit from './mc-kit.js?v=20261105-grip';
 import { PALETTE, GUN_HOLD, mat, add, block, cyl, ball, person, robot, tile, bookStack, tree, lights, blaster, lens, terminal, closedBook } from './mc-kit.js?v=20261105-grip';
 import { createPost } from './mc-toon.js?v=20261102-toy';
 
@@ -48,6 +54,31 @@ function board(parent, x, y, z, turn = 0) {
   return g;
 }
 const at = (o, x, y, z, ry = 0, s = 1) => { o.position.set(x, y, z); o.rotation.y = ry; o.scale.setScalar(s); return o; };
+const smooth = x => { const p = Math.min(1, Math.max(0, x)); return p * p * (3 - 2 * p); };
+/* A round the robot walks for ever: stops = [{ x, z, hold, face }] (hold in seconds; face = [x, z] it
+ * looks at while it waits). round(t) gives where it is: { x, z, ry, walk (0..1), stop (index while it
+ * waits, else -1), lap }. It walks at `speed` and turns smoothly into each stop. */
+function makeRound(stops, speed = .9) {
+  const legs = stops.map((a, i) => { const b = stops[(i + 1) % stops.length]; return Math.hypot(b.x - a.x, b.z - a.z) / speed; });
+  const total = stops.reduce((n, a, i) => n + a.hold + legs[i], 0);
+  const turn = (a, b, k) => { let d = b - a; while (d > Math.PI) d -= Math.PI * 2; while (d < -Math.PI) d += Math.PI * 2; return a + d * k; };
+  const facing = a => (a.face ? Math.atan2(a.face[0] - a.x, a.face[1] - a.z) : 0);
+  return t => {
+    const lap = Math.floor(t / total); let u = t - lap * total;
+    for (let i = 0; i < stops.length; i++) {
+      const a = stops[i], b = stops[(i + 1) % stops.length];
+      if (u < a.hold) return { x: a.x, z: a.z, ry: facing(a), walk: 0, stop: i, lap, since: u };
+      u -= a.hold;
+      if (u < legs[i]) {
+        const k = u / legs[i], e = smooth(k), head = Math.atan2(b.x - a.x, b.z - a.z);
+        const ry = k < .18 ? turn(facing(a), head, smooth(k / .18)) : k > .82 ? turn(head, facing(b), smooth((k - .82) / .18)) : head;
+        return { x: a.x + (b.x - a.x) * e, z: a.z + (b.z - a.z) * e, ry, walk: Math.sin(k * Math.PI) ** .5, stop: -1, legFrom: i, lap, since: 0 };
+      }
+      u -= legs[i];
+    }
+    return { x: stops[0].x, z: stops[0].z, ry: facing(stops[0]), walk: 0, stop: 0, lap, since: 0 };
+  };
+}
 
 const BUILD = {
   challenge(scene, tick) {
@@ -162,9 +193,145 @@ const BUILD = {
     const glass = lens(PALETTE.amber); glass.position.set(.34, .5, .3); glass.scale.setScalar(1.4); bot.root.add(glass);
     tick.push(t => { reader.update(t, 0); bot.update(t, 0); glass.rotation.z = Math.sin(t * 1.5) * .3; });
   },
+  /* econ-0157: from 2013 inspection teams entered the departments in five waves, and the paper asks
+   * whether the competition for their posts changed afterwards. Five departments stand in an arc,
+   * one per wave, each with its queue of applicants. The robot walks the street with its lens: as it
+   * passes a department the inspection arrives (a beam, the flag turns amber) and the queue shortens.
+   * Then it reads the count of observations on the sign at the front, where the author stands with
+   * the paper. */
+  'metacase-economics'(scene, tick, { reduce = false } = {}) {
+    const AMBER = new THREE.Color(PALETTE.amber), GREY = new THREE.Color(0x9aa3b2), QUEUE = 4;
+    const depts = [2013, 2014, 2015, 2016, 2017].map((year, k) => {
+      const th = (-56 + k * 28) * Math.PI / 180, x = Math.sin(th) * 2.5, z = -Math.cos(th) * 2.5 + .3, ry = Math.atan2(-x, 1.1 - z);
+      const g = new THREE.Group(); at(g, x, 0, z, ry, 1.32); scene.add(g);
+      block(g, .92, .08, .72, PALETTE.stone, 0, 0, 0, .03);
+      block(g, .74, .5, .46, PALETTE.wall, 0, .08, -.06, .04);
+      for (let i = 0; i < 4; i++) cyl(g, .035, .04, .46, PALETTE.wall, -.3 + i * .2, .08, .26, 10);
+      block(g, .2, .3, .03, PALETTE.ink, 0, .08, .18, .02).castShadow = false; // the door
+      block(g, .88, .14, .68, PALETTE.wall, 0, .54, 0, .03);
+      const label = new THREE.Mesh(new THREE.PlaneGeometry(.5, .125), new THREE.MeshBasicMaterial({ transparent: true, toneMapped: false,
+        map: kit.labelTexture(`hero-econ-year:${year}`, [{ text: String(year), size: 190, weight: 800, color: '#2a2f3b', font: 'ui-monospace, SFMono-Regular, Menlo, monospace', track: 8 }], { width: 1024, height: 256 }) }));
+      label.position.set(0, .61, .343); g.add(label);
+      block(g, .7, .07, .5, 0x2f3a56, 0, .68, 0, .03);
+      cyl(g, .014, .014, .62, PALETTE.ink, .26, .75, -.12, 6);
+      const flagMat = mat(0x9aa3b2, { emissive: PALETTE.amber, intensity: 0 }).clone();
+      block(g, .26, .16, .02, flagMat, .4, 1.19, -.12, .01).castShadow = false;
+      const lampMat = mat(0x5a6378, { emissive: PALETTE.amber, intensity: 0 }).clone();
+      ball(g, .05, lampMat, .26, 1.38, -.12, 10).castShadow = false;
+      // the inspection: a beam from above and a ring on the ground before the door
+      const beam = new THREE.Mesh(new THREE.CylinderGeometry(.05, .5, 2.2, 24, 1, true), new THREE.MeshBasicMaterial({ color: PALETTE.amber, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide }));
+      beam.position.set(0, 1.15, .05); g.add(beam);
+      const ring = add(g, new THREE.TorusGeometry(.56, .018, 8, 48), new THREE.MeshBasicMaterial({ color: PALETTE.amber, transparent: true, opacity: 0 }), 0, .012, .1, false); ring.rotation.x = Math.PI / 2;
+      // where its queue stands: out from the door, towards the middle of the street
+      const dx = Math.sin(ry), dz = Math.cos(ry);
+      return { x, z, ry, dx, dz, flagMat, lampMat, beam, ring };
+    });
+    // the applicants: small figures, a body and a head each (two draw calls for all of them)
+    const N = depts.length * QUEUE, SHIRTS = [0x4a7fd4, 0xe2667a, 0x3f9d6a, 0x7d6ad8, 0x45b5b0, 0xef8a4b];
+    const bodyGeo = new THREE.CapsuleGeometry(.1, .17, 4, 10); bodyGeo.translate(0, .185, 0);
+    const headGeo = new THREE.SphereGeometry(.108, 14, 10); headGeo.translate(0, .43, 0);
+    const pawn = (geo, tint) => { const m = new THREE.InstancedMesh(geo, new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: .78 }), N); m.castShadow = true; m.frustumCulled = false; scene.add(m);
+      const c = new THREE.Color(); for (let i = 0; i < N; i++) m.setColorAt(i, c.setHex(tint(i))); return m; };
+    const bodies = pawn(bodyGeo, i => SHIRTS[(i * 5 + 1) % SHIRTS.length]), heads = pawn(headGeo, i => PALETTE.skins[(i * 3) % PALETTE.skins.length]);
+    const o = new THREE.Object3D();
+    // the size of the panel on a small sign at the front (3,246 department-year observations), and the
+    // author with the paper
+    const sign = new THREE.Group(); at(sign, .35, 0, 2.15, .1, 1); scene.add(sign);
+    cyl(sign, .03, .04, .52, 0x394560, 0, 0, 0, 8);
+    block(sign, 1.0, .44, .05, 0x0d1524, 0, .5, 0, .03);
+    const frameMat = mat(PALETTE.amber, { emissive: PALETTE.amber, intensity: 1.1, rough: .5 }).clone();
+    block(sign, 1.06, .5, .03, frameMat, 0, .47, -.02, .03).castShadow = false;
+    const figure = new THREE.Mesh(new THREE.PlaneGeometry(.92, .4), new THREE.MeshBasicMaterial({ transparent: true, toneMapped: false,
+      map: kit.labelTexture('hero-econ-sample', [{ text: '3,246', size: 128, weight: 800, color: '#ffe9b8', font: 'ui-monospace, SFMono-Regular, Menlo, monospace' }, { text: 'observations', size: 44, weight: 600, color: '#d9c9a0' }], { width: 512, height: 224 }) }));
+    figure.position.set(0, .72, .027); sign.add(figure);
+    const lectern = new THREE.Group(); at(lectern, -1.25, 0, 2.0, .35, 1); scene.add(lectern);
+    block(lectern, .5, .58, .36, WOOD, 0, 0, 0, .05);
+    lectern.add(at(closedBook(), -.2, .6, .02, .1, .15));
+    const author = person(3); scene.add(at(author.root, -1.85, 0, 1.55, .75, 1.05));
+    // the robot with its lens: along the street, to the sign, and back
+    const bot = robot(PALETTE.cream, 0x8ff6ff); scene.add(bot.root); bot.root.scale.setScalar(1.2);
+    const glass = lens(PALETTE.amber); glass.position.set(.34, .5, .3); glass.scale.setScalar(1.4); bot.root.add(glass);
+    const SIGN = { x: 1.3, z: 1.8 };
+    const round = makeRound([
+      { x: -2.2, z: .95, hold: 1.2, face: [3, .95] },
+      { x: 2.2, z: .95, hold: .7, face: [3, 1.6] },
+      { ...SIGN, hold: 3.6, face: [.9, 4] },
+    ], .95);
+    let still = null; // reduced motion: at the sign, every wave arrived
+    for (let u = 0; u < 60 && !still; u += .25) { const q = round(u); if (q.stop === 2) still = { ...q, since: 9 }; }
+    tick.push(t => {
+      const r = reduce && still ? still : round(t);
+      bot.root.position.set(r.x, 0, r.z); bot.root.rotation.y = r.ry; bot.update(t, r.walk);
+      glass.rotation.z = Math.sin(t * 1.5) * .3;
+      // on the way along the street each wave arrives as the robot comes level with its department;
+      // all five stay while it reads the sign, and clear as it walks back
+      const along = r.stop === 0 || (r.stop === -1 && r.legFrom === 0);
+      const back = r.stop === -1 && r.legFrom === 2 ? 1 - smooth(Math.hypot(r.x - SIGN.x, r.z - SIGN.z) / 1.6) : 1;
+      depts.forEach((d, k) => {
+        const on = along ? smooth((r.x - d.x * .85 + .25) / .5) : back;
+        d.flagMat.color.copy(GREY).lerp(AMBER, on); d.flagMat.emissiveIntensity = on * .6;
+        d.lampMat.emissiveIntensity = on * 2.2;
+        d.ring.material.opacity = on * .8;
+        d.beam.material.opacity = along ? Math.sin(Math.min(1, Math.max(0, on)) * Math.PI) * .32 : 0;
+        // the queue: four before the inspection, two after; the last two step away and are gone
+        for (let j = 0; j < QUEUE; j++) {
+          const leave = j >= 2 ? smooth(on * 1.6 - (QUEUE - 1 - j) * .5) : 0, i = k * QUEUE + j, dist = .78 + j * .33;
+          o.position.set(d.x + d.dx * dist + d.dz * leave * .5, Math.abs(Math.sin(t * 2.4 + i * 1.9)) * .02, d.z + d.dz * dist - d.dx * leave * .5);
+          o.rotation.y = d.ry + Math.PI + Math.sin(t * .8 + i) * .25; o.scale.setScalar(Math.max(.001, 1 - leave)); o.updateMatrix();
+          bodies.setMatrixAt(i, o.matrix); heads.setMatrixAt(i, o.matrix);
+        }
+      });
+      bodies.instanceMatrix.needsUpdate = true; heads.instanceMatrix.needsUpdate = true;
+      frameMat.emissiveIntensity = r.stop === 2 ? 1.5 + Math.sin(t * 4) * .5 : 1;
+      author.update(t, 0);
+    });
+  },
+  /* HR-T3-114: supervisors at three hubs were trained and a fourth, deferred, is the reference; the
+   * agent prepares a recommendation for each of the provider's three work packages. The robot goes
+   * round the crates with its clipboard, and each unit takes its status as it is checked. */
+  async 'metacase-society'(scene, tick, { reduce = false } = {}) {
+    const K = await import('./film-soc-kit.js?v=mc-1c165fc3e2');
+    const S = .58, set = new THREE.Group(); set.scale.setScalar(S); set.position.x = -K.YARD.X * S; scene.add(set);
+    const yard = K.yard({ THREE, kit, set, accent: 0x7d6ad8 });
+    const g = new THREE.Group(); g.position.set(K.YARD.X, 0, 0); set.add(g); // yard-centred coordinates
+    const HUBS = [{ x: -2.75, color: PALETTE.teal }, { x: -.95, color: PALETTE.sky }, { x: .85, color: PALETTE.violet }, { x: 2.65, color: 0, deferred: true }];
+    HUBS.forEach((h, i) => { const b = K.hub({ THREE, kit, name: `HUB-0${i + 1}`, color: h.color, deferred: !!h.deferred }); at(b.group, h.x, 0, -2.05, 0, 1.25); g.add(b.group); });
+    // the supervisors of the three trained hubs, eight before each
+    const N = 24, people = K.crowd({ THREE, kit, n: N }); g.add(people.group);
+    const spots = []; for (let h = 0; h < 3; h++) for (let k = 0; k < 8; k++) spots.push([HUBS[h].x - .5 + (k % 4) * .33, -.95 + Math.floor(k / 4) * .42, h * 8 + k]);
+    // the trainer, facing them
+    const trainer = person(10, { hardHat: true }); g.add(at(trainer.root, -3.55, 0, -.35, 1.25, 1.45));
+    // the three work packages: A one unit, B four, C two
+    const PACKS = [{ letter: 'A', units: 1, x: -2.3, status: ['pending'] }, { letter: 'B', units: 4, x: -.2, status: ['verified', 'verified', 'verified', 'pending'] }, { letter: 'C', units: 2, x: 2.2, status: ['verified', 'pending'] }];
+    const base = new THREE.Color(0xc79a5b), crates = PACKS.map(pk => { const c = K.crate({ THREE, kit, letter: pk.letter, units: pk.units, unitW: .5, h: .6, d: .62 }); at(c.group, pk.x, 0, 1.75, 0, 1); g.add(c.group); return c; });
+    // the robot with its clipboard goes from crate to crate
+    const bot = robot(PALETTE.cream, 0xb7a8ff); g.add(bot.root); bot.root.scale.setScalar(1.7);
+    const clip = tile({ sig: 3, edge: PALETTE.amber, size: .3 }); clip.position.set(0, .55, .3); clip.rotation.x = -1.1; bot.root.add(clip);
+    // (it stands behind each crate, so it faces the viewer while it checks)
+    const round = makeRound(PACKS.map(pk => ({ x: pk.x, z: .3, hold: 2.6, face: [pk.x, 1.4] })).concat([{ x: 3.5, z: .95, hold: 2.2, face: [1.2, 3] }]), 1.3);
+    const tint = new THREE.Color();
+    let still = null; // reduced motion: the robot standing back, every unit with its status
+    for (let u = 0; u < 60 && !still; u += .25) { const q = round(u); if (q.stop === 3) still = { ...q, since: 9 }; }
+    tick.push(t => {
+      const r = reduce && still ? still : round(t);
+      bot.root.position.set(r.x, 0, r.z); bot.root.rotation.y = r.ry; bot.update(t, r.walk);
+      // a crate keeps its units' statuses from the moment the robot has checked it until the round starts again
+      crates.forEach((c, i) => c.segments.forEach((seg, j) => {
+        // (the fourth stop is the robot standing back; on the walk home from it the crates clear)
+        const done = r.stop === 3 ? 1 : r.stop >= 0 ? (i < r.stop ? 1 : i === r.stop ? smooth((r.since - j * .35) / .5) : 0) : r.legFrom === 3 ? 1 - smooth((r.x < 3 ? 1 : 0)) : (i <= r.legFrom ? 1 : 0);
+        seg.mat.color.copy(base).lerp(tint.setHex(K.STATUS[PACKS[i].status[j]]), done * .85);
+        seg.mat.emissive.setHex(K.STATUS[PACKS[i].status[j]]); seg.mat.emissiveIntensity = done * .28;
+      }));
+      spots.forEach(([x, z, i]) => people.place(i, x, z, { y: Math.abs(Math.sin(t * 2.2 + i * 1.7)) * .03, ry: Math.sin(t * .7 + i) * .35 - .6, s: 1.2 }));
+      people.commit();
+      trainer.update(t, 0); trainer.root.rotation.y = 1.25 + Math.sin(t * .9) * .25;
+      yard.lampMats.forEach((m, i) => { m.emissiveIntensity = 1.5 + Math.sin(t * 1.1 + i * 2) * .25; });
+    });
+    return { rim: yard.rimMat, look: [0, .4, 0], far: 9.9 };
+  },
 };
 
-export function mount(canvas, name, { reduce = false } = {}) {
+export async function mount(canvas, name, { reduce = false } = {}) {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'low-power' });
   renderer.setPixelRatio(Math.min(devicePixelRatio, 1.75));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -174,11 +341,13 @@ export function mount(canvas, name, { reduce = false } = {}) {
   renderer.setClearColor(0x000000, 0);
   const scene = new THREE.Scene();
   lights(scene, { span: 6, shadowSize: 1024 });
-  const ring = plinth(scene);
   const tick = [];
-  BUILD[name](scene, tick);
+  // a scene may bring its own ground and return its glowing rim, and say where the camera looks
+  // and how far it stands; the others stand on the round plinth
+  const own = await BUILD[name](scene, tick, { reduce });
+  const rim = own?.rim || plinth(scene).material;
   const camera = new THREE.PerspectiveCamera(30, 1, .1, 80);
-  const look = new THREE.Vector3(0, .95, 0);
+  const look = new THREE.Vector3(...(own?.look || [0, .95, 0])), far = own?.far || 10.4;
   const post = createPost(renderer, { bloom: .22, threshold: .9, vignette: 0, alpha: true });
   let w = 0, h = 0;
   const size = () => {
@@ -197,10 +366,10 @@ export function mount(canvas, name, { reduce = false } = {}) {
     clock += Math.max(0, Math.min(.05, (now - last) / 1000)); last = now;
     size();
     const yaw = Math.sin(clock * .18) * .16 + px * .18;
-    camera.position.set(Math.sin(yaw) * 10.4, 4 - py * .5, Math.cos(yaw) * 10.4);
+    camera.position.set(Math.sin(yaw) * far, 4 - py * .5, Math.cos(yaw) * far);
     camera.lookAt(look);
     tick.forEach(f => f(clock));
-    ring.material.emissiveIntensity = 1 + Math.sin(clock * 1.5) * .25;
+    rim.emissiveIntensity = 1 + Math.sin(clock * 1.5) * .25;
     post.render(scene, camera);
   };
   const loop = now => { if (!visible || document.hidden) { raf = 0; return; } frame(now); raf = requestAnimationFrame(loop); };

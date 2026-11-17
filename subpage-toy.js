@@ -5,8 +5,12 @@
 import { classArt, sectionArt } from './mc-classart.js?v=20261107-metacase';
 
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-// The Metacase page (metacase.html) keeps the harness diorama in its header.
-const page = { metacase: 'harness' }[[...document.body.classList].find(c => c.startsWith('v2-page-'))?.slice(8)] || [...document.body.classList].find(c => c.startsWith('v2-page-'))?.slice(8) || '';
+// The three Metacase pages share one body class; each takes the diorama of its case, named by its
+// film (data-case): the harness workbench for finance, the plotting table for economics, the yard
+// for society.
+const bodyPage = [...document.body.classList].find(c => c.startsWith('v2-page-'))?.slice(8) || '';
+const filmCase = document.querySelector('.mc-film')?.dataset.case || 'fin';
+const page = bodyPage === 'metacase' ? ({ econ: 'metacase-economics', soc: 'metacase-society' }[filmCase] || 'harness') : bodyPage;
 
 /* ---- class pictures beside each class on the Challenge page ---- */
 document.querySelectorAll('.class-item .class-row').forEach(row => {
@@ -34,7 +38,7 @@ document.querySelectorAll('main section[id]').forEach(section => {
 
 /* ---- the header diorama ---- */
 const hero = document.querySelector('.page-hero');
-const SCENES = { challenge: 1, harness: 1, evolution: 1, leaderboard: 1, teams: 1, 'professional-tasks': 1, replication: 1 };
+const SCENES = { challenge: 1, harness: 1, 'metacase-economics': 1, 'metacase-society': 1, evolution: 1, leaderboard: 1, teams: 1, 'professional-tasks': 1, replication: 1 };
 let webgl = false;
 try { const c = document.createElement('canvas'); webgl = !!(c.getContext('webgl2') || c.getContext('webgl')); } catch { /* no 3D */ }
 if (hero && SCENES[page] && webgl) {
@@ -46,7 +50,7 @@ if (hero && SCENES[page] && webgl) {
   holder.append(canvas);
   if (panel) panel.prepend(holder);
   else { hero.append(holder); hero.classList.add('has-toy'); }
-  const start = () => import('./subpage-toy-scenes.js?v=20261107-metacase').then(m => m.mount(canvas, page, { reduce })).catch(() => holder.remove());
+  const start = () => import('./subpage-toy-scenes.js?v=20261117-fields').then(m => m.mount(canvas, page, { reduce })).catch(() => holder.remove());
   // build when the header is near the view; the header is at the top, so normally at once
   if ('IntersectionObserver' in window) {
     const io = new IntersectionObserver(entries => { if (entries.some(e => e.isIntersecting)) { io.disconnect(); start(); } }, { rootMargin: '200px' });
