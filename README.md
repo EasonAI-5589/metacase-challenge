@@ -292,6 +292,11 @@ arrangement, this paragraph is the current one.
   Data page's source HTML is retained in the migration audit's before snapshot;
   this website change does not modify the Hugging Face repository or frozen
   benchmark data. `data.css` remains because Harness still uses it.
+- Since 2026-11-17 (at Eason's instruction) the timeline states the release as
+  18 November 2026 and the challenge window as 6 months, and every remaining
+  "TBD" on the page reads "coming soon" (evaluation interface, evaluation schedule
+  and protocol, results and awards). The stage-01 "Tentative" tag is gone. What
+  follows in this bullet and the next ones describes the earlier wording.
 - The draft timeline has five stages: release, registration and access, the
   challenge window, independent evaluation, and results and awards. Release is
   planned for November 2026, with an approximately three-month challenge window.
