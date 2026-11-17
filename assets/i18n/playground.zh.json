@@ -417,7 +417,6 @@
   "It began with a plan, had four helper tasks read the Word files, and built both deliverables from one script with typed values and no formulas.": "它先写计划，让四个辅助任务读 Word 文件，用一个脚本生成两份交付物，数值直接写入，没有公式。",
   "Its script hit quoting errors twice. After checking the output it rewrote the script two more times, trying to correct two of the six entries.": "脚本两次因引号写法报错。检查输出后，它又把脚本重写了两遍，想更正六项分录中的两项。",
   "It accepted the draft entry that books the dollar loan's exchange loss to the cash-flow hedge reserve. That is red line G2, so the reward is 0.": "它接受了把美元借款汇兑损失记入现金流量套期储备的那条草稿分录，踩了红线 G2，得分因此记为 0。",
-  "Every pairing here has a recorded run of the same task: a month-end close with 55 documents and six unposted entries. One of the runs can be replayed step by step.": "这里的每个组合都有同一道任务的运行记录：一次月末结账，55 份资料，六条未过账的待入账意见。其中一次运行可以逐步回放。",
   "Recorded run": "运行记录",
   "model requests": "次模型请求",
   "tool calls": "次工具调用",
@@ -428,10 +427,13 @@
   "Compare the other runs": "对比其余运行",
   "· 11 models × 6 harnesses": "· 11 个模型 × 6 个 Harness",
   "One task, 63 recorded runs.": "一道任务，63 次有记录的运行。",
+  "Fast-forwarding the full replay of": "正在快进完整回放：",
+  "Each cell is one run of the same task, scored by one judge against the same 27 criteria. Select a cell to see what that agent did.": "每一格是同一道任务的一次运行，由同一个裁判模型按同样的 27 项细则评分。点选一格，查看这个智能体做了什么。",
   "Configure an agent.": "配置一个智能体，",
   "Replay a recorded run.": "回放一次真实运行。",
-  "Fast-forwarding the full replay of": "正在快进完整回放：",
+  "Every pairing here has a recorded run of the same task: a month-end close with 55 documents and six unposted entries.": "这里的每个组合都有同一道任务的运行记录：一次月末结账，55 份资料，六条未过账的待入账意见。",
+  "The 3D replay on the right shows one of these runs.": "右侧的 3D 回放展示的是其中一次运行。",
+  "The 3D replay above shows one of these runs.": "上方的 3D 回放展示的是其中一次运行。",
   "Version": "版本",
-  "Configure an agent and replay a recorded run": "配置智能体并回放一次真实运行",
-  "Each cell is one run of the same task, scored by one judge against the same 27 criteria. Select a cell to see what that agent did.": "每一格是同一道任务的一次运行，由同一个裁判模型按同样的 27 项细则评分。点选一格，查看这个智能体做了什么。"
+  "Configure an agent and replay a recorded run": "配置智能体并回放一次真实运行"
 }
