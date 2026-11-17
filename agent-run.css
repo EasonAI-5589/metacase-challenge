@@ -33,6 +33,9 @@ html[lang="zh-CN"] .ar-kicker { font-family: var(--font-sans); font-size: 15px; 
 .ar-pick h1 em { display: block; font-style: normal; color: var(--title-dim, var(--text-secondary)); }
 html[lang="zh-CN"] .ar-pick h1 { letter-spacing: 0; line-height: 1.24; }
 .ar-lead { margin: 12px 0 0; font-size: 17px; line-height: 1.5; color: var(--text-secondary); text-wrap: pretty; }
+/* the lead points at the 3D picture: beside the panel on wide screens, above it when stacked */
+html:not([lang^="zh"]) .ar-lead span::before { content: " "; }
+.ar-lead .ar-above { display: none; }
 .ar-field { margin: clamp(10px, 1.9svh, 18px) 0 0; padding: 0; border: 0; min-width: 0; }
 .ar-field legend { padding: 0; margin-bottom: 7px; font: 400 12px/1.4 var(--font-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--text-tertiary); }
 html[lang="zh-CN"] .ar-field legend { font-family: var(--font-sans); font-size: 14px; letter-spacing: .02em; text-transform: none; }
@@ -131,6 +134,8 @@ html[lang="zh-CN"] .ar-trace-row span { font-family: var(--font-sans); font-size
 /* ---- stacked: the picture on top, the panel below it, all inside the pinned screen ---- */
 @media (max-width: 760px), (max-aspect-ratio: 11/10) {
   .ar-app { --ar-panel: 100%; }
+  .ar-lead .ar-side { display: none; }
+  .ar-lead .ar-above { display: inline; }
   .ar-pin { display: flex; flex-direction: column; }
   .ar-canvas { position: relative; inset: auto; height: 30svh; flex: none; }
   .ar-scrim, .ar-fade { bottom: auto; height: 30svh; }
