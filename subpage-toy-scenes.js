@@ -290,6 +290,8 @@ const BUILD = {
    * agent prepares a recommendation for each of the provider's three work packages. The robot goes
    * round the crates with its clipboard, and each unit takes its status as it is checked. */
   async 'metacase-society'(scene, tick, { reduce = false } = {}) {
+    // the same version string as the society film's own imports of the kit, so it is fetched once;
+    // when the kit changes, change it here with them
     const K = await import('./film-soc-kit.js?v=mc-1c165fc3e2');
     const S = .58, set = new THREE.Group(); set.scale.setScalar(S); set.position.x = -K.YARD.X * S; scene.add(set);
     const yard = K.yard({ THREE, kit, set, accent: 0x7d6ad8 });

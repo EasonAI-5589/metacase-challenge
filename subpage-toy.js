@@ -6,8 +6,8 @@ import { classArt, sectionArt } from './mc-classart.js?v=20261107-metacase';
 
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 // The three Metacase pages share one body class; each takes the diorama of its case, named by its
-// film (data-case): the harness workbench for finance, the plotting table for economics, the yard
-// for society.
+// film (data-case): the harness workbench for finance, the street of departments for economics, the
+// yard for society.
 const bodyPage = [...document.body.classList].find(c => c.startsWith('v2-page-'))?.slice(8) || '';
 const filmCase = document.querySelector('.mc-film')?.dataset.case || 'fin';
 const page = bodyPage === 'metacase' ? ({ econ: 'metacase-economics', soc: 'metacase-society' }[filmCase] || 'harness') : bodyPage;
