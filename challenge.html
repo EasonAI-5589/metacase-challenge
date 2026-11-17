@@ -15,10 +15,9 @@
   <script src="theme.js?v=20261101-shuttle"></script>
   <link rel="stylesheet" href="styles.css?v=20261019-motion">
   <link rel="stylesheet" href="site.css?v=20261019-motion">
-  <link rel="stylesheet" href="challenge.css?v=20261103-submit">
   <script src="site.js?v=20261105-orgs" defer></script>
   <link rel="stylesheet" href="language.css">
-  <script src="language.js?v=20261116-playground" defer></script>
+  <script src="language.js?v=20261117-challenge" defer></script>
   <link rel="stylesheet" href="v2.css?v=20261110-globalname">
   <link rel="stylesheet" href="skin.css?v=20261103-submit">
   <link rel="stylesheet" href="subpage-toy.css?v=20261109-clip">
@@ -30,6 +29,8 @@
   <link rel="stylesheet" href="page-rail.css?v=20261105-rail">
   <script src="page-rail.js?v=20261105-rail" defer></script>
   <script src="scene.js?v=20261022-v2-ambient" defer></script>
+  <link rel="stylesheet" href="challenge.css?v=20261117-challenge">
+  <script src="challenge.js?v=20261117-challenge" defer></script>
   <script type="module" src="portal-warp.js?v=20261105-grip"></script>
 </head>
 <body class="v2-content v2-page-challenge" data-tone="0">
@@ -93,352 +94,277 @@
       <p class="kicker">Challenge · Global Metacase Initiative</p>
       <h1 id="page-title">The Global Metacase <em>Challenge.</em></h1>
       <p class="lead">Build an AI agent that does real work in economics, finance and society. Pick a track, see what your agent will be asked to do, and submit it for an independent evaluation it never gets to see in advance.</p>
+      <ul class="ch-facts" aria-label="The challenge in numbers">
+        <li><b class="tnum">600</b><span>tasks</span></li>
+        <li><b class="tnum">3</b><span>tracks</span></li>
+        <li><b class="tnum">18</b><span>subfields</span></li>
+      </ul>
+      <div class="hero-actions">
+        <a class="button primary" href="https://submit.metacasechallenge.com/submit/harness/" target="_blank" rel="noopener">Submit an agent / harness <span aria-hidden="true">↗</span></a>
+        <a class="button" href="#tracks">Explore the tracks <span aria-hidden="true">↓</span></a>
+      </div>
     </section>
 
     <nav class="subnav" aria-label="On this page">
       <ol class="container">
         <li><a href="#tracks"><span class="subnav-number">01</span>Tracks</a></li>
-        <li><a href="#timeline"><span class="subnav-number">02</span>Timeline</a></li>
-        <li><a href="#awards"><span class="subnav-number">03</span>Awards</a></li>
-        <li><a href="#take-part"><span class="subnav-number">04</span>Take part</a></li>
+        <li><a href="#workflow"><span class="subnav-number">02</span>Participate</a></li>
+        <li><a href="#system"><span class="subnav-number">03</span>Evaluation</a></li>
+        <li><a href="#timeline"><span class="subnav-number">04</span>Timeline</a></li>
+        <li><a href="#take-part"><span class="subnav-number">05</span>Submit</a></li>
       </ol>
     </nav>
 
     <section class="section container" id="tracks" aria-labelledby="tracks-title">
-      <div class="section-heading compact"><div><p class="kicker"><span class="kicker-num">01</span>Tracks</p><h2 id="tracks-title">Three tracks, <em>eighteen subfields</em></h2></div><p class="lead">Each track is a field, split into six subfields. Three of them come with a recorded agent run you can watch before you start.</p></div>
+      <div class="section-heading compact"><div><p class="kicker"><span class="kicker-num">01</span>Tracks</p><h2 id="tracks-title">Three tracks, <em>eighteen subfields.</em></h2></div><p class="lead">Each track is a field, split into six subfields. Three of them come with a recorded agent run you can watch before you start.</p></div>
 
-      <nav class="track-gates" aria-label="Tracks">
-        <a class="track-gate" href="#track-econ" data-gate="econ" style="--accent: var(--track-1); --accent-soft: var(--track-1-soft)"><span class="gate-ring" aria-hidden="true"><i></i><i></i><i></i></span><small>Track 01</small><b>Economics</b><span><b class="tnum">200</b> tasks · 6 subfields</span></a>
-        <a class="track-gate" href="#track-fin" data-gate="fin" style="--accent: var(--track-2); --accent-soft: var(--track-2-soft)"><span class="gate-ring" aria-hidden="true"><i></i><i></i><i></i></span><small>Track 02</small><b>Finance</b><span><b class="tnum">200</b> tasks · 6 subfields</span></a>
-        <a class="track-gate" href="#track-soc" data-gate="soc" style="--accent: var(--track-3); --accent-soft: var(--track-3-soft)"><span class="gate-ring" aria-hidden="true"><i></i><i></i><i></i></span><small>Track 03</small><b>Society</b><span><b class="tnum">200</b> tasks · 6 subfields</span></a>
+      <nav class="ch-tabs" aria-label="Tracks">
+        <a class="ch-tab" id="tab-econ" href="#track-econ" style="--tc: var(--track-1)"><span class="ch-tab-num" aria-hidden="true" data-no-translate>01</span><span class="ch-tab-top"><small class="mono">Track 01</small><i><b class="tnum">200</b> tasks · 6 subfields</i></span><b>Economics</b><span class="ch-tab-desc">Rebuild published results and work with official economic data.</span></a>
+        <a class="ch-tab" id="tab-fin" href="#track-fin" style="--tc: var(--track-2)"><span class="ch-tab-num" aria-hidden="true" data-no-translate>02</span><span class="ch-tab-top"><small class="mono">Track 02</small><i><b class="tnum">200</b> tasks · 6 subfields</i></span><b>Finance</b><span class="ch-tab-desc">Do the work of analysts and accountants, from closing the books to reading filings.</span></a>
+        <a class="ch-tab" id="tab-soc" href="#track-soc" style="--tc: var(--track-3)"><span class="ch-tab-num" aria-hidden="true" data-no-translate>03</span><span class="ch-tab-top"><small class="mono">Track 03</small><i><b class="tnum">200</b> tasks · 6 subfields</i></span><b>Society</b><span class="ch-tab-desc">Work with data on law, policy, business and people.</span></a>
       </nav>
 
-      <article class="track field-track" id="track-econ" aria-labelledby="track-econ-title" style="--accent: var(--track-1); --accent-soft: var(--track-1-soft)">
+      <article class="field-track ch-panel" id="track-econ" aria-labelledby="track-econ-title" style="--accent: var(--track-1); --accent-soft: var(--track-1-soft); --tc: var(--track-1)">
         <div class="track-head"><span class="pill">Track 01</span><span class="track-tag">200 tasks · 6 subfields</span></div>
-        <h3 id="track-econ-title">Economics</h3>
+        <h3 class="ch-panel-title" id="track-econ-title">Economics</h3>
         <p class="track-summary">From published research to official statistics: replicate empirical estimates, analyse capital markets and central-bank operations, and build economic datasets.</p>
-        <ol class="class-list">
-          <li class="class-item" id="class-econ-replication">
-            <div class="class-row">
-              <span class="class-call mono" data-no-translate>econ.replication</span>
-              <h4 class="class-name">Econometric replication</h4>
-              <span class="class-count"><b class="tnum">35</b> tasks</span>
-            </div>
+        <ol class="ch-classes">
+          <li class="class-item has-run" id="class-econ-replication">
+            <div class="class-row"><span class="class-call mono" data-no-translate>econ.replication</span><span class="class-count"><b class="tnum">35</b> tasks</span></div>
+            <h4 class="class-name">Econometric replication</h4>
             <p class="class-desc">Reproduce a published regression coefficient from the paper's own data.</p>
-              <div class="class-feature" id="subtrack-econometric" aria-labelledby="subtrack-econometric-title">
-                <p class="feature-label" id="subtrack-econometric-title"><span class="pill">Subtrack 01</span><span class="track-tag">Dev100 · 100 tasks</span></p>
-                <p class="track-summary">Reproduce empirical findings from real research data. An AI agent writes and runs code to recover a published coefficient, its standard error and its p-value.</p>
-                <div class="replication-data" id="replication-data">
-                  <h4>Research data on Hugging Face</h4>
-                  <p>The research dataset collects empirical research tasks from economics, finance, accounting, management, operations research and information systems. Task packages combine research data, analysis instructions and reference replication materials.</p>
-                  <p>The Hugging Face repository provides the dataset card, task lists, files and citation information.</p>
-                  <a class="text-link" href="https://huggingface.co/datasets/CamoAiLab/InferenceNet" target="_blank" rel="noopener"><span>Open the dataset on Hugging Face</span> <span aria-hidden="true">↗</span></a>
-                  <p class="dataset-access">Files require signing in to Hugging Face and accepting the repository’s access conditions.</p>
-                </div>
-                <div class="replication-task-set" id="replication-dev100">
-                  <div class="replication-task-intro">
-                    <h4>Dev100: 100 econometric replication tasks</h4>
-                    <p>The econometric replication challenge will open-source the existing Dev100 task set. Agents inspect the data, implement the specified analysis and submit results for independent evaluation.</p>
-                  </div>
-                  <dl class="track-facts">
-                    <div><dt>Input</dt><dd>The research data and the exact instruction the model receives.</dd></div>
-                    <div><dt>Output</dt><dd>A result file with three numbers: the coefficient, the standard error and the p-value.</dd></div>
-                    <div><dt>Evaluation</dt><dd>An independent evaluator checks the three numbers against reference results that the model never sees during the run.</dd></div>
-                  </dl>
-                </div>
-                <figure id="replication-demo" class="track-video replication-demo" aria-labelledby="demo-replication-title">
-                    <video width="1920" height="1080" controls playsinline preload="metadata" poster="assets/video/agent-replay-task0001-poster.jpg?v=20261109-metacase-v4" aria-label="Econometric replication example">
-                      <source src="assets/video/agent-replay-task0001.mp4?v=20261109-metacase-v4" type="video/mp4">
-                      <a href="assets/video/agent-replay-task0001.mp4?v=20261109-metacase-v4">Download the replay video (MP4)</a>
-                    </video>
-                    <figcaption>
-                      <p class="demo-label"><span class="pill">Replication demo</span><code>task 0001</code></p>
-                      <h4 id="demo-replication-title"><span data-no-translate>Consumption smoothing in interwar Japan</span></h4>
-                      <p>The agent reads research data, runs an analysis and submits results for independent evaluation.</p>
-                      <p class="demo-spec"><span>Research dataset</span> · <span data-no-translate>Journal of Economic History · Table 3 · Panel A</span></p>
-                      <p class="demo-meta"><span data-no-translate>GPT-5.6 Sol · DeepAgents</span><span>4 min 45 sec · English synthetic narration · English captions · DeepAgents execution walkthrough</span></p>
-                    </figcaption>
-                  </figure>
-                <div class="track-links">
-                  <a class="text-link" href="replication.html">Explore Subtrack 1 <span aria-hidden="true">→</span></a>
-                </div>
-              </div>
-          </li>
-          <li class="class-item" id="class-econ-data">
-            <div class="class-row">
-              <span class="class-call mono" data-no-translate>econ.data</span>
-              <h4 class="class-name">Economic &amp; business data engineering</h4>
-              <span class="class-count"><b class="tnum">34</b> tasks</span>
-            </div>
-            <p class="class-desc">Multi-table SQL and multi-model dbt engineering over banking, retail, e-commerce and wholesale supply-chain data.</p>
+            <a class="ch-class-run" href="#replication-demo"><span>Recorded run</span> <span class="mono" data-no-translate>econ-0157</span> <span aria-hidden="true">↓</span></a>
           </li>
           <li class="class-item" id="class-econ-markets">
-            <div class="class-row">
-              <span class="class-call mono" data-no-translate>econ.markets</span>
-              <h4 class="class-name">Capital markets &amp; bond-yield analysis</h4>
-              <span class="class-count"><b class="tnum">34</b> tasks</span>
-            </div>
+            <div class="class-row"><span class="class-call mono" data-no-translate>econ.markets</span><span class="class-count"><b class="tnum">34</b> tasks</span></div>
+            <h4 class="class-name">Capital markets &amp; bond-yield analysis</h4>
             <p class="class-desc">Compute multi-year corporate vs. Treasury bond yield spreads, auction bid-to-cover ratios and deliver securities trading analyses.</p>
           </li>
-          <li class="class-item" id="class-econ-monetary">
-            <div class="class-row">
-              <span class="class-call mono" data-no-translate>econ.monetary</span>
-              <h4 class="class-name">Monetary policy &amp; central-bank operations</h4>
-              <span class="class-count"><b class="tnum">32</b> tasks</span>
-            </div>
-            <p class="class-desc">Compute multi-year reserve assets, foreign-exchange interventions and interest-rate series from official U.S. Treasury bulletins.</p>
+          <li class="class-item" id="class-econ-data">
+            <div class="class-row"><span class="class-call mono" data-no-translate>econ.data</span><span class="class-count"><b class="tnum">34</b> tasks</span></div>
+            <h4 class="class-name">Economic &amp; business data engineering</h4>
+            <p class="class-desc">Multi-table SQL and multi-model dbt engineering over banking, retail, e-commerce and wholesale supply-chain data.</p>
           </li>
           <li class="class-item" id="class-econ-publicfinance">
-            <div class="class-row">
-              <span class="class-call mono" data-no-translate>econ.publicfinance</span>
-              <h4 class="class-name">Public finance &amp; fiscal policy</h4>
-              <span class="class-count"><b class="tnum">33</b> tasks</span>
-            </div>
+            <div class="class-row"><span class="class-call mono" data-no-translate>econ.publicfinance</span><span class="class-count"><b class="tnum">33</b> tasks</span></div>
+            <h4 class="class-name">Public finance &amp; fiscal policy</h4>
             <p class="class-desc">Analyse federal budget receipts, department outlays, public debt structure, trust funds and intergovernmental transfers across 697 bulletins.</p>
           </li>
+          <li class="class-item" id="class-econ-monetary">
+            <div class="class-row"><span class="class-call mono" data-no-translate>econ.monetary</span><span class="class-count"><b class="tnum">32</b> tasks</span></div>
+            <h4 class="class-name">Monetary policy &amp; central-bank operations</h4>
+            <p class="class-desc">Compute multi-year reserve assets, foreign-exchange interventions and interest-rate series from official U.S. Treasury bulletins.</p>
+          </li>
           <li class="class-item" id="class-econ-statistics">
-            <div class="class-row">
-              <span class="class-call mono" data-no-translate>econ.statistics</span>
-              <h4 class="class-name">Official statistics synthesis</h4>
-              <span class="class-count"><b class="tnum">32</b> tasks</span>
-            </div>
+            <div class="class-row"><span class="class-call mono" data-no-translate>econ.statistics</span><span class="class-count"><b class="tnum">32</b> tasks</span></div>
+            <h4 class="class-name">Official statistics synthesis</h4>
             <p class="class-desc">Synthesise multi-year series, Box-Cox transformations, KL divergence, Zipf exponents and regression forecasts from official U.S. Treasury bulletins.</p>
           </li>
         </ol>
+        <div class="ch-run" id="subtrack-econometric">
+          <figure class="ch-run-video" id="replication-demo">
+            <video width="1920" height="1080" controls playsinline preload="metadata" poster="assets/video/econ-0157-replay-poster.jpg?v=20261114-fields" aria-label="econ-0157 replay">
+              <source src="assets/video/econ-0157-replay.mp4?v=20261114-fields" type="video/mp4">
+              <a href="assets/video/econ-0157-replay.mp4?v=20261114-fields">Download the replay (MP4)</a>
+            </video>
+          </figure>
+          <div class="ch-run-copy">
+            <p class="ch-run-label"><span class="pill">Recorded run</span><code data-no-translate>econ-0157</code><span class="track-tag" data-no-translate>econ.replication</span></p>
+            <h4>Replicating a published staggered difference-in-differences estimate</h4>
+            <p>Reproduce one result from Lai and Li (2024), on whether competition for civil-service posts changed after central inspection teams entered China’s government departments. The task supplies only the authors’ data; the matching Stata script is withheld.</p>
+            <p class="demo-meta"><span data-no-translate>gpt-6-astra · Terminus-2 2.0.0</span><span>4 min 59 sec, with English captions</span></p>
+            <div class="ch-run-actions"><a class="button" href="metacase-economics.html">Open this Metacase <span aria-hidden="true">→</span></a></div>
+          </div>
+          <dl class="track-facts">
+            <div><dt>Input</dt><dd><p>The research data and the exact instruction the model receives.</p></dd></div>
+            <div><dt>Output</dt><dd><p>A result file with three numbers: the coefficient, the standard error and the p-value.</p></dd></div>
+            <div><dt>Evaluation</dt><dd><p>An independent evaluator checks the three numbers against reference results that the model never sees during the run.</p></dd></div>
+          </dl>
+          <div class="ch-run-note">
+            <p>Reproduce empirical findings from real research data. An AI agent writes and runs code to recover a published coefficient, its standard error and its p-value.</p>
+            <div class="ch-run-links">
+              <a class="text-link" id="replication-dev100" href="replication.html"><span>Dev100: 100 econometric replication tasks</span> <span aria-hidden="true">→</span></a>
+              <a class="text-link" id="replication-data" target="_blank" rel="noopener" href="https://huggingface.co/datasets/CamoAiLab/InferenceNet"><span>Open the dataset on Hugging Face</span> <span aria-hidden="true">↗</span></a>
+            </div>
+            <p class="ch-run-small">Files require signing in to Hugging Face and accepting the repository’s access conditions.</p>
+          </div>
+        </div>
       </article>
-
-      <article class="track field-track" id="track-fin" aria-labelledby="track-fin-title" style="--accent: var(--track-2); --accent-soft: var(--track-2-soft)">
+      <article class="field-track ch-panel" id="track-fin" aria-labelledby="track-fin-title" style="--accent: var(--track-2); --accent-soft: var(--track-2-soft); --tc: var(--track-2)">
         <div class="track-head"><span class="pill">Track 02</span><span class="track-tag">200 tasks · 6 subfields</span></div>
-        <h3 id="track-fin-title">Finance</h3>
+        <h3 class="ch-panel-title" id="track-fin-title">Finance</h3>
         <p class="track-summary">The work of analysts and accountants: answer questions from filings, analyse payments, build financial models, extract structure from long disclosures, judge credit risk and close the books.</p>
-        <ol class="class-list">
-          <li class="class-item" id="class-fin-nlp">
-            <div class="class-row">
-              <span class="class-call mono" data-no-translate>fin.nlp</span>
-              <h4 class="class-name">Financial disclosure &amp; structured extraction</h4>
-              <span class="class-count"><b class="tnum">32</b> tasks</span>
-            </div>
-            <p class="class-desc">150-tag XBRL statement tagging, long earnings-call summarization, relation triplet extraction and financial dbt models.</p>
-          </li>
-          <li class="class-item" id="class-fin-accounting">
-            <div class="class-row">
-              <span class="class-call mono" data-no-translate>fin.accounting</span>
-              <h4 class="class-name">Accounting close &amp; finance deliverables</h4>
-              <span class="class-count"><b class="tnum">34</b> tasks</span>
-            </div>
+        <ol class="ch-classes">
+          <li class="class-item has-run" id="class-fin-accounting">
+            <div class="class-row"><span class="class-call mono" data-no-translate>fin.accounting</span><span class="class-count"><b class="tnum">34</b> tasks</span></div>
+            <h4 class="class-name">Accounting close &amp; finance deliverables</h4>
             <p class="class-desc">Month-end close remediation, audit sampling, amortization schedules and accounting data pipelines.</p>
-              <div class="class-feature" id="subtrack-professional" aria-labelledby="subtrack-professional-title">
-                <p class="feature-label"><span class="pill">Subtrack 02</span><span class="track-tag">Finance &amp; HR</span></p>
-                <h4 id="subtrack-professional-title" class="feature-title">Business Analysis &amp; Deliverables</h4>
-                <p class="track-summary">Complex business scenarios contributed by Prof. Liwen Zhang’s team at Shanghai University of Finance and Economics. Agents work across multiple source documents to produce reports and spreadsheets, assessed against task-specific rubrics.</p>
-                <figure class="track-video" aria-labelledby="demo-finance-title">
-                  <video width="1920" height="1080" controls playsinline preload="metadata" poster="assets/video/finance-story-demo-poster.jpg?v=20261109-metacase-v3" aria-label="Month-end close review example">
-                    <source src="assets/video/finance-story-demo.mp4?v=20261109-metacase-v3" type="video/mp4">
-                    <a href="assets/video/finance-story-demo.mp4?v=20261109-metacase-v3">Download the finance demo (MP4)</a>
-                  </video>
-                  <figcaption>
-                    <p class="demo-label"><span class="pill">Finance demo</span><code>FIN-T1-003</code></p>
-                    <h4 id="demo-finance-title">Month-end close review</h4>
-                    <p>Before the July books are locked, review proposed accounting entries, reconcile the evidence and prepare a correction plan for approval.</p>
-                    <p class="demo-meta"><span data-no-translate>qwen3.7-max · Claude Code</span><span>4 min 55 sec · English narration · English captions</span></p>
-                    <dl class="demo-deliverables" aria-label="Finance deliverables">
-                      <div><dt data-no-translate>Word</dt><dd>A remediation report explaining the proposed entries, financial statement effects and approvals needed.</dd></div>
-                      <div><dt data-no-translate>Excel</dt><dd>Calculation and review workpapers retaining source values, intermediate results and formulas.</dd></div>
-                    </dl>
-                    <details class="demo-brief">
-                      <summary>Task brief and review focus</summary>
-                      <div class="demo-brief-body">
-                <h5>Materials</h5>
-                <p>Transaction and valuation records, interest and exchange rates, subsidiary statements, accounting policies, risk-management decisions and correspondence.</p>
-                <h5>Core work</h5>
-                <ul>
-                  <li>Review each unposted entry and recommend acceptance, replacement or rejection with supporting reasons.</li>
-                  <li>Recalculate valuation, foreign exchange and translation effects, distinguishing the current close, comparative information and a future disposal scenario.</li>
-                  <li>Connect the report to the workbook and schedule evidence requests, review and approval, separating urgent work before the close from later follow-up.</li>
-                </ul>
-                <h5>Review focus</h5>
-                <p>Accounting judgment, calculations, source traceability, consistency between files, a feasible review schedule and documented approval requirements.</p>
-              </div>
-            </details>
-            <p class="demo-source-note">Simulated business scenarios and transaction data, with original public reference documents.</p>
-          </figcaption>
-        </figure>
-                <dl class="track-facts">
-                  <div><dt>Evaluation</dt><dd>An independent judge scores the files against a task-specific rubric that the agent never sees.</dd></div>
-                </dl>
-                <div class="track-links">
-                  <a class="text-link" href="professional-tasks.html">Explore Subtrack 2 <span aria-hidden="true">→</span></a>
-                  <a class="text-link" href="teams.html#sufe-aifin-lab">Meet the partner team <span aria-hidden="true">→</span></a>
-                </div>
-              </div>
-          </li>
-          <li class="class-item" id="class-fin-credit">
-            <div class="class-row">
-              <span class="class-call mono" data-no-translate>fin.credit</span>
-              <h4 class="class-name">Lending operations &amp; credit risk</h4>
-              <span class="class-count"><b class="tnum">33</b> tasks</span>
-            </div>
-            <p class="class-desc">Multi-file lending workflows, hard merchant fraud investigations and loan-delinquency SQL pipelines.</p>
+            <a class="ch-class-run" href="#run-fin"><span>Recorded run</span> <span class="mono" data-no-translate>FIN-T1-003</span> <span aria-hidden="true">↓</span></a>
           </li>
           <li class="class-item" id="class-fin-numeric">
-            <div class="class-row">
-              <span class="class-call mono" data-no-translate>fin.numeric</span>
-              <h4 class="class-name">Financial modeling &amp; spreadsheet engineering</h4>
-              <span class="class-count"><b class="tnum">34</b> tasks</span>
-            </div>
+            <div class="class-row"><span class="class-call mono" data-no-translate>fin.numeric</span><span class="class-count"><b class="tnum">34</b> tasks</span></div>
+            <h4 class="class-name">Financial modeling &amp; spreadsheet engineering</h4>
             <p class="class-desc">Hard cell-level Excel financial modeling, retirement/option-pricing workbooks and multi-step report calculations.</p>
           </li>
           <li class="class-item" id="class-fin-payments">
-            <div class="class-row">
-              <span class="class-call mono" data-no-translate>fin.payments</span>
-              <h4 class="class-name">Payments &amp; transaction data analysis</h4>
-              <span class="class-count"><b class="tnum">34</b> tasks</span>
-            </div>
+            <div class="class-row"><span class="class-call mono" data-no-translate>fin.payments</span><span class="class-count"><b class="tnum">34</b> tasks</span></div>
+            <h4 class="class-name">Payments &amp; transaction data analysis</h4>
             <p class="class-desc">Multi-step Python analysis over payment records, fee schedules and merchant data.</p>
           </li>
           <li class="class-item" id="class-fin-filings">
-            <div class="class-row">
-              <span class="class-call mono" data-no-translate>fin.filings</span>
-              <h4 class="class-name">Financial research &amp; filings QA</h4>
-              <span class="class-count"><b class="tnum">33</b> tasks</span>
-            </div>
+            <div class="class-row"><span class="class-call mono" data-no-translate>fin.filings</span><span class="class-count"><b class="tnum">33</b> tasks</span></div>
+            <h4 class="class-name">Financial research &amp; filings QA</h4>
             <p class="class-desc">Analyst-style questions and deliverables from SEC filings, company disclosures and investment research materials.</p>
           </li>
+          <li class="class-item" id="class-fin-credit">
+            <div class="class-row"><span class="class-call mono" data-no-translate>fin.credit</span><span class="class-count"><b class="tnum">33</b> tasks</span></div>
+            <h4 class="class-name">Lending operations &amp; credit risk</h4>
+            <p class="class-desc">Multi-file lending workflows, hard merchant fraud investigations and loan-delinquency SQL pipelines.</p>
+          </li>
+          <li class="class-item" id="class-fin-nlp">
+            <div class="class-row"><span class="class-call mono" data-no-translate>fin.nlp</span><span class="class-count"><b class="tnum">32</b> tasks</span></div>
+            <h4 class="class-name">Financial disclosure &amp; structured extraction</h4>
+            <p class="class-desc">150-tag XBRL statement tagging, long earnings-call summarization, relation triplet extraction and financial dbt models.</p>
+          </li>
         </ol>
-      </article>
-
-      <article class="track field-track" id="track-soc" aria-labelledby="track-soc-title" style="--accent: var(--track-3); --accent-soft: var(--track-3-soft)">
-        <div class="track-head"><span class="pill">Track 03</span><span class="track-tag">200 tasks · 6 subfields</span></div>
-        <h3 id="track-soc-title">Society</h3>
-        <p class="track-summary">Law and regulation, people and organisations, business operations, public policy, psychology, and social and survey data.</p>
-        <ol class="class-list">
-          <li class="class-item" id="class-soc-law">
-            <div class="class-row">
-              <span class="class-call mono" data-no-translate>soc.law</span>
-              <h4 class="class-name">Law, regulation &amp; compliance</h4>
-              <span class="class-count"><b class="tnum">36</b> tasks</span>
+        <div class="ch-run" id="subtrack-professional">
+          <figure class="ch-run-video" id="run-fin">
+            <video width="1920" height="1080" controls playsinline preload="metadata" poster="assets/video/finance-story-demo-poster.jpg?v=20261109-metacase-v3" aria-label="FIN-T1-003 replay">
+              <source src="assets/video/finance-story-demo.mp4?v=20261109-metacase-v3" type="video/mp4">
+              <a href="assets/video/finance-story-demo.mp4?v=20261109-metacase-v3">Download the replay (MP4)</a>
+            </video>
+          </figure>
+          <div class="ch-run-copy">
+            <p class="ch-run-label"><span class="pill">Recorded run</span><code data-no-translate>FIN-T1-003</code><span class="track-tag" data-no-translate>fin.accounting</span></p>
+            <h4>Six draft entries to rule on before the books lock</h4>
+            <p>Before the July books are locked, review proposed accounting entries, reconcile the evidence and prepare a correction plan for approval.</p>
+            <p class="demo-meta"><span data-no-translate>qwen3.7-max · Claude Code 2.1.114</span><span>4 min 55 sec, with English captions</span></p>
+            <div class="ch-run-actions"><a class="button" href="metacase.html">Open this Metacase <span aria-hidden="true">→</span></a></div>
+          </div>
+          <dl class="track-facts">
+            <div><dt>Input</dt><dd><p>Transaction and valuation records, interest and exchange rates, subsidiary statements, accounting policies, risk-management decisions and correspondence.</p></dd></div>
+            <div><dt>Output</dt><dd><p><span class="ch-file mono" data-no-translate>Word</span>A remediation report explaining the proposed entries, financial statement effects and approvals needed.</p><p><span class="ch-file mono" data-no-translate>Excel</span>Calculation and review workpapers retaining source values, intermediate results and formulas.</p></dd></div>
+            <div><dt>Evaluation</dt><dd><p>An independent judge scores the files against a task-specific rubric that the agent never sees.</p></dd></div>
+          </dl>
+          <div class="ch-run-note">
+            <p>Complex business scenarios contributed by Prof. Liwen Zhang’s team at Shanghai University of Finance and Economics. Agents work across multiple source documents to produce reports and spreadsheets, assessed against task-specific rubrics.</p>
+            <div class="ch-run-links">
+              <a class="text-link" href="professional-tasks.html"><span>Business Analysis &amp; Deliverables</span> <span aria-hidden="true">→</span></a>
+              <a class="text-link" href="teams.html#sufe-aifin-lab"><span>Meet the partner team</span> <span aria-hidden="true">→</span></a>
             </div>
+            <p class="ch-run-small">Simulated business scenarios and transaction data, with original public reference documents.</p>
+          </div>
+        </div>
+      </article>
+      <article class="field-track ch-panel" id="track-soc" aria-labelledby="track-soc-title" style="--accent: var(--track-3); --accent-soft: var(--track-3-soft); --tc: var(--track-3)">
+        <div class="track-head"><span class="pill">Track 03</span><span class="track-tag">200 tasks · 6 subfields</span></div>
+        <h3 class="ch-panel-title" id="track-soc-title">Society</h3>
+        <p class="track-summary">Law and regulation, people and organisations, business operations, public policy, psychology, and social and survey data.</p>
+        <ol class="ch-classes">
+          <li class="class-item" id="class-soc-law">
+            <div class="class-row"><span class="class-call mono" data-no-translate>soc.law</span><span class="class-count"><b class="tnum">36</b> tasks</span></div>
+            <h4 class="class-name">Law, regulation &amp; compliance</h4>
             <p class="class-desc">Multi-file regulatory data-lake pipelines, quantitative sentencing and case reasoning, and compliance review deliverables.</p>
           </li>
-          <li class="class-item" id="class-soc-society">
-            <div class="class-row">
-              <span class="class-call mono" data-no-translate>soc.society</span>
-              <h4 class="class-name">Society, education &amp; survey data</h4>
-              <span class="class-count"><b class="tnum">35</b> tasks</span>
-            </div>
-            <p class="class-desc">Education, campus organisations, survey and social-service data analysis and case reports.</p>
-          </li>
           <li class="class-item" id="class-soc-business">
-            <div class="class-row">
-              <span class="class-call mono" data-no-translate>soc.business</span>
-              <h4 class="class-name">Business operations &amp; CRM</h4>
-              <span class="class-count"><b class="tnum">35</b> tasks</span>
-            </div>
+            <div class="class-row"><span class="class-call mono" data-no-translate>soc.business</span><span class="class-count"><b class="tnum">35</b> tasks</span></div>
+            <h4 class="class-name">Business operations &amp; CRM</h4>
             <p class="class-desc">Marketing, sourcing, sales and customer-support analytics across CRM pipelines and operational deliverables.</p>
           </li>
-          <li class="class-item" id="class-soc-hr">
-            <div class="class-row">
-              <span class="class-call mono" data-no-translate>soc.hr</span>
-              <h4 class="class-name">HR &amp; organisational analytics</h4>
-              <span class="class-count"><b class="tnum">31</b> tasks</span>
-            </div>
-            <p class="class-desc">Training effectiveness and procurement review, staffing budgets, recruiting and workforce data pipelines.</p>
-              <div class="class-feature" id="subtrack-professional-hr">
-                <p class="feature-label"><span class="pill">Subtrack 02</span><span class="track-tag">Finance &amp; HR</span></p>
-                <figure class="track-video" aria-labelledby="demo-hr-title">
-                  <video width="1920" height="1080" controls playsinline preload="metadata" poster="assets/video/hr-agent-replay-poster.jpg?v=20261109-metacase-v3" aria-label="Training and procurement acceptance example">
-                    <source src="assets/video/hr-agent-replay.mp4?v=20261109-metacase-v3" type="video/mp4">
-                    <a href="assets/video/hr-agent-replay.mp4?v=20261109-metacase-v3">Download the HR demo (MP4)</a>
-                  </video>
-                  <figcaption>
-                    <p class="demo-label"><span class="pill">HR demo</span><code>HR-T3-114</code></p>
-                    <h4 id="demo-hr-title">Training and procurement acceptance</h4>
-                    <p>In a fictional cold-chain warehousing scenario, connect learning, workplace behavior and operational evidence to assess supervisor training and recommend supplier acceptance and payment treatment.</p>
-                    <p class="demo-meta"><span data-no-translate>qwen3.7-max · Claude Code</span><span>4 min 05 sec · English narration · English captions</span></p>
-                    <dl class="demo-deliverables" aria-label="HR deliverables">
-                      <div><dt data-no-translate>Excel</dt><dd>A decision workbook linking learning, behavior, operational comparisons and procurement decisions to the source evidence.</dd></div>
-                      <div><dt data-no-translate>Word</dt><dd>A Chinese decision memorandum setting out findings, evidence limits, acceptance and payment recommendations, and corrective actions.</dd></div>
-                    </dl>
-                    <details class="demo-brief">
-                      <summary>Task brief and review focus</summary>
-                      <div class="demo-brief-body">
-                <h5>Materials</h5>
-                <p>Roster and attendance records, assessments, workplace observations, coaching records, work orders, operating metrics and procurement rules.</p>
-                <h5>Core work</h5>
-                <ul>
-                  <li>Check the eligible population, attendance and assessment records to evaluate learning gains and retention.</li>
-                  <li>Link opportunities to behavior observations, then compare operational changes with a center whose training was deferred and account for on-site disruptions.</li>
-                  <li>Apply procurement rules to recommend acceptance, amounts to submit for approval, retain or defer, and corrective actions with owners and closure conditions.</li>
-                </ul>
-                <h5>Review focus</h5>
-                <p>Consistent samples, reproducible analysis, opportunity-adjusted behavior assessment and evidence-based acceptance and payment recommendations.</p>
-              </div>
-            </details>
-            <p class="demo-source-note">Fictional entities and synthetic learning and operational records for evaluation, coaching and procurement acceptance.</p>
-          </figcaption>
-        </figure>
-                <dl class="track-facts">
-                  <div><dt>Evaluation</dt><dd>An independent judge scores the files against a task-specific rubric that the agent never sees.</dd></div>
-                </dl>
-                <div class="track-links">
-                  <a class="text-link" href="professional-tasks.html">Explore Subtrack 2 <span aria-hidden="true">→</span></a>
-                  <a class="text-link" href="teams.html#sufe-aifin-lab">Meet the partner team <span aria-hidden="true">→</span></a>
-                </div>
-              </div>
-          </li>
           <li class="class-item" id="class-soc-policy">
-            <div class="class-row">
-              <span class="class-call mono" data-no-translate>soc.policy</span>
-              <h4 class="class-name">Public policy &amp; service governance</h4>
-              <span class="class-count"><b class="tnum">35</b> tasks</span>
-            </div>
+            <div class="class-row"><span class="class-call mono" data-no-translate>soc.policy</span><span class="class-count"><b class="tnum">35</b> tasks</span></div>
+            <h4 class="class-name">Public policy &amp; service governance</h4>
             <p class="class-desc">Hard environmental and wildfire public-policy data-lake pipelines, constituent feedback analysis and service remediation deliverables.</p>
           </li>
+          <li class="class-item" id="class-soc-society">
+            <div class="class-row"><span class="class-call mono" data-no-translate>soc.society</span><span class="class-count"><b class="tnum">35</b> tasks</span></div>
+            <h4 class="class-name">Society, education &amp; survey data</h4>
+            <p class="class-desc">Education, campus organisations, survey and social-service data analysis and case reports.</p>
+          </li>
+          <li class="class-item has-run" id="class-soc-hr">
+            <div class="class-row"><span class="class-call mono" data-no-translate>soc.hr</span><span class="class-count"><b class="tnum">31</b> tasks</span></div>
+            <h4 class="class-name">HR &amp; organisational analytics</h4>
+            <p class="class-desc">Training effectiveness and procurement review, staffing budgets, recruiting and workforce data pipelines.</p>
+            <a class="ch-class-run" href="#run-soc"><span>Recorded run</span> <span class="mono" data-no-translate>HR-T3-114</span> <span aria-hidden="true">↓</span></a>
+          </li>
           <li class="class-item" id="class-soc-psychology">
-            <div class="class-row">
-              <span class="class-call mono" data-no-translate>soc.psychology</span>
-              <h4 class="class-name">Psychology &amp; cognitive science</h4>
-              <span class="class-count"><b class="tnum">28</b> tasks</span>
-            </div>
+            <div class="class-row"><span class="class-call mono" data-no-translate>soc.psychology</span><span class="class-count"><b class="tnum">28</b> tasks</span></div>
+            <h4 class="class-name">Psychology &amp; cognitive science</h4>
             <p class="class-desc">Deterministic computational analysis of physiological biosignals, behavioural experiments and cognitive-science datasets.</p>
           </li>
         </ol>
+        <div class="ch-run" id="subtrack-professional-hr">
+          <figure class="ch-run-video" id="run-soc">
+            <video width="1920" height="1080" controls playsinline preload="metadata" poster="assets/video/hr-t3-114-gemini-dsh-replay-poster.jpg?v=20261114-fields" aria-label="HR-T3-114 replay">
+              <source src="assets/video/hr-t3-114-gemini-dsh-replay.mp4?v=20261114-fields" type="video/mp4">
+              <a href="assets/video/hr-t3-114-gemini-dsh-replay.mp4?v=20261114-fields">Download the replay (MP4)</a>
+            </video>
+          </figure>
+          <div class="ch-run-copy">
+            <p class="ch-run-label"><span class="pill">Recorded run</span><code data-no-translate>HR-T3-114</code><span class="track-tag" data-no-translate>soc.hr</span></p>
+            <h4>Evaluating supervisor training and accepting the provider's work</h4>
+            <p>In a fictional cold-chain warehousing scenario, connect learning, workplace behavior and operational evidence to assess supervisor training and recommend supplier acceptance and payment treatment.</p>
+            <p class="demo-meta"><span data-no-translate>gemini-3.8-flash · DeepSeek Harness 0.2.2-rc.1</span><span>5 min 1 sec, with English captions</span></p>
+            <div class="ch-run-actions"><a class="button" href="metacase-society.html">Open this Metacase <span aria-hidden="true">→</span></a></div>
+          </div>
+          <dl class="track-facts">
+            <div><dt>Input</dt><dd><p>Roster and attendance records, assessments, workplace observations, coaching records, work orders, operating metrics and procurement rules.</p></dd></div>
+            <div><dt>Output</dt><dd><p><span class="ch-file mono" data-no-translate>Excel</span>A decision workbook linking learning, behavior, operational comparisons and procurement decisions to the source evidence.</p><p><span class="ch-file mono" data-no-translate>Word</span>A Chinese decision memorandum setting out findings, evidence limits, acceptance and payment recommendations, and corrective actions.</p></dd></div>
+            <div><dt>Evaluation</dt><dd><p>An independent judge scores the files against a task-specific rubric that the agent never sees.</p></dd></div>
+          </dl>
+          <div class="ch-run-note">
+            <p>Complex business scenarios contributed by Prof. Liwen Zhang’s team at Shanghai University of Finance and Economics. Agents work across multiple source documents to produce reports and spreadsheets, assessed against task-specific rubrics.</p>
+            <div class="ch-run-links">
+              <a class="text-link" href="professional-tasks.html"><span>Business Analysis &amp; Deliverables</span> <span aria-hidden="true">→</span></a>
+              <a class="text-link" href="teams.html#sufe-aifin-lab"><span>Meet the partner team</span> <span aria-hidden="true">→</span></a>
+            </div>
+            <p class="ch-run-small">Fictional entities and synthetic learning and operational records for evaluation, coaching and procurement acceptance.</p>
+          </div>
+        </div>
       </article>
     </section>
 
+    <section class="section container ruled" id="workflow" aria-labelledby="workflow-title">
+      <div class="section-heading compact"><div><p class="kicker"><span class="kicker-num">02</span>Participate</p><h2 id="workflow-title">How to participate <em>in the challenge.</em></h2></div><p class="lead">What a participant does: take a case from one of the three tracks, run a model and its harness on it end to end, have the deliverable checked against references the agent never sees, and turn what happened into something others can inspect and reuse.</p></div>
+      <ol class="ch-steps">
+        <li style="--tc: var(--track-1)"><span class="ch-step-num mono" data-no-translate>01</span><h3>Choose a case</h3><p>The participant takes a case from a track and opens it: the task goal, the evidence available at the decision point and its constraints. Every entry in a track works from the same materials and is scored the same way.</p></li>
+        <li style="--tc: var(--track-3)"><span class="ch-step-num mono" data-no-translate>02</span><h3>Configure Model + Harness</h3><p>They pick a model and the harness that runs it. The model reasons and decides; the harness supplies the tools, the workflow and the run settings, so the same model can behave differently in a different harness.</p></li>
+        <li style="--tc: var(--track-2)"><span class="ch-step-num mono" data-no-translate>03</span><h3>Execute and record</h3><p>The agent reads the materials, plans, calls tools and writes files until it delivers end to end. Every step goes into the trajectory, so the whole run can be traced afterwards.</p></li>
+        <li style="--tc: var(--track-1)"><span class="ch-step-num mono" data-no-translate>04</span><h3>Verify and diagnose</h3><p>The deliverable goes to an independent check against reference results and rubrics the agent never saw during the run. A result can be a pass, a partial pass or a failure, and the trajectory shows where it went wrong.</p></li>
+        <li style="--tc: var(--track-3)"><span class="ch-step-num mono" data-no-translate>05</span><h3>Contribute</h3><p>What the run yields can be contributed in three forms: a Metacase, the structured record of the case; the Model &amp; Harness, packaged so the run can be repeated; or a Failure Case, a reproducible failure with its diagnosis (a low score alone is not one). Contribute one or more, separately from the choice of track.</p></li>
+      </ol>
+    </section>
+
     <section class="section container ruled v2-system" id="system" aria-labelledby="system-title">
-      <div class="section-heading compact"><div><p class="kicker">System view</p><h2 id="system-title">From task <em>to score</em></h2></div><p class="lead">Each challenge runs through three layers: the task and its data, the agent's workspace, and an evaluation the agent never sees. Hover a layer to trace it, or drag the model to turn it.</p></div>
+      <div class="section-heading compact"><div><p class="kicker"><span class="kicker-num">03</span>Evaluation</p><h2 id="system-title">From task <em>to score.</em></h2></div><p class="lead">Every run passes through three layers: the task and its data, the agent's workspace, and an evaluation the agent never sees. Hover a layer to trace it, or drag the model to turn it.</p></div>
       <div class="v2-stack" data-scene="challenge">
         <ol class="v2-stack-layers">
-          <li data-c="t1" tabindex="0"><span class="v2-stack-tag" data-no-translate>L1</span><h3>Tasks and data</h3><p>Challenge 1 asks for an empirical result from a research specification; Challenge 2 asks for business deliverables from multi-file records.</p><ul class="v2-stack-chips"><li>Replication</li><li>Deliverables</li><li>Data files</li></ul></li>
+          <li data-c="t1" tabindex="0"><span class="v2-stack-tag" data-no-translate>L1</span><h3>Tasks and data</h3><p>Each task sets a goal, the evidence available at the decision point and its constraints. Some ask for an empirical result from a research specification, others for business deliverables from multi-file records.</p><ul class="v2-stack-chips"><li>Replication</li><li>Deliverables</li><li>Data files</li></ul></li>
           <li data-c="v" tabindex="0"><span class="v2-stack-tag" data-no-translate>L2</span><h3>Agent workspace</h3><p>A model works inside a harness that supplies context, tools and feedback, and runs its code in a sandbox.</p><ul class="v2-stack-chips"><li>Model</li><li>Harness</li><li>Sandbox</li></ul></li>
-          <li data-c="t2" tabindex="0"><span class="v2-stack-tag" data-no-translate>L3</span><h3>Independent evaluation</h3><p>Submissions are checked against withheld reference values or a task rubric before results are compared.</p><ul class="v2-stack-chips"><li>Withheld references</li><li>Rubric</li><li>Leaderboard</li></ul></li>
+          <li data-c="t2" tabindex="0"><span class="v2-stack-tag" data-no-translate>L3</span><h3>Independent evaluation</h3><p>Submissions are checked against withheld reference values or a task rubric before results are compared.</p><ul class="v2-stack-chips"><li>Withheld references</li><li>Rubric</li><li>Diagnosis</li></ul></li>
         </ol>
         <div class="v2-stack-stage" aria-hidden="true"><canvas></canvas><span class="v2-stack-cap"><b></b>Interactive model</span><span class="v2-stack-hint"><svg viewBox="0 0 22 12" aria-hidden="true"><path d="M1 6h20M5 2 1 6l4 4M17 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Drag to rotate</span></div>
       </div>
     </section>
+
     <section class="section container ruled" id="timeline" aria-labelledby="timeline-title">
-      <div class="section-heading compact"><div><p class="kicker"><span class="kicker-num">02</span>Timeline</p><h2 id="timeline-title">Proposed <em>timeline</em></h2></div><p class="lead">Five stages, from the task release to results and awards. Accounts and submissions are already open.</p></div>
+      <div class="section-heading compact"><div><p class="kicker"><span class="kicker-num">04</span>Timeline</p><h2 id="timeline-title">Proposed <em>timeline.</em></h2></div><p class="lead">Five stages, from the task release to results and awards. Accounts and submissions are already open.</p></div>
       <ol class="plan-stages">
         <li class="plan-stage"><div class="plan-meta"><span class="plan-number">01</span><span class="status is-tbc">Tentative</span></div><h3>Challenge release</h3><p>Planned for November 2026.</p></li>
         <li class="plan-stage"><div class="plan-meta"><span class="plan-number">02</span><span class="status is-open">Open</span></div><h3>Registration and access</h3><p>Accounts and submissions are open for benchmarks, agents / harnesses and failure cases. Evaluation interface: TBD.</p><a class="text-link" href="#take-part">How to submit <span aria-hidden="true">→</span></a></li>
         <li class="plan-stage"><div class="plan-meta"><span class="plan-number">03</span></div><h3>Challenge window</h3><p>Approximately 3 months; start and end dates TBD.</p></li>
         <li class="plan-stage"><div class="plan-meta"><span class="plan-number">04</span></div><h3>Independent evaluation</h3><p>Evaluation schedule and protocol: TBD.</p></li>
-        <li class="plan-stage"><div class="plan-meta"><span class="plan-number">05</span></div><h3>Results and awards</h3><p>Results announcement and award details: TBD.</p></li>
+        <li class="plan-stage" id="awards"><div class="plan-meta"><span class="plan-number">05</span></div><h3>Results and awards</h3><p>Results announcement, award categories, prizes and selection criteria: TBD.</p></li>
       </ol>
     </section>
 
-    <section class="section container ruled" id="awards" aria-labelledby="awards-title">
-      <div class="section-heading compact"><div><p class="kicker"><span class="kicker-num">03</span>Awards</p><h2 id="awards-title">Awards</h2></div><p class="lead">Award categories, prizes and selection criteria: TBD.</p></div>
-    </section>
-
     <section class="section container ruled" id="take-part" aria-labelledby="take-part-title">
-      <div class="section-heading compact"><div><p class="kicker"><span class="kicker-num">04</span>Take part</p><h2 id="take-part-title">Ways to <em>get involved</em></h2></div><p class="lead">Build an agent, propose a new challenge, or help improve how agents are evaluated. All three are open for submissions.</p></div>
+      <div class="section-heading compact"><div><p class="kicker"><span class="kicker-num">05</span>Submit</p><h2 id="take-part-title">Three ways <em>to take part.</em></h2></div><p class="lead">Build an agent, propose a new task, or help improve how agents are evaluated. All three are open for submissions.</p></div>
       <ol class="take-part">
-          <li><h3>Propose a new challenge</h3><p>Bring a new domain or problem to the initiative. Define the scenario, goals, expected deliverables and how a successful solution can be verified.</p><a class="text-link" href="https://submit.metacasechallenge.com/submit/benchmark/">Submit a benchmark <span aria-hidden="true">→</span></a></li>
-          <li><h3>Build an agent</h3><p>Configure a model, tools and a harness to tackle a challenge. Plan the workflow, run the analysis and check the resulting deliverables.</p><a class="text-link" href="https://submit.metacasechallenge.com/submit/harness/">Submit an agent / harness <span aria-hidden="true">→</span></a></li>
-          <li><h3>Improve evaluation</h3><p>Review scoring criteria, analyze failure cases and improve independent verification. Help make evaluations reproducible and comparisons meaningful.</p><a class="text-link" href="https://submit.metacasechallenge.com/submit/failure-case/">Submit a failure case <span aria-hidden="true">→</span></a></li>
-        </ol>
+        <li><h3>Compete with your own agent</h3><p>Configure a model, tools and a harness, run the tasks end to end and submit the agent for independent evaluation.</p><a class="text-link" href="https://submit.metacasechallenge.com/submit/harness/" target="_blank" rel="noopener">Submit an agent / harness <span aria-hidden="true">→</span></a></li>
+        <li><h3>Contribute Metacases</h3><p>Propose a new task from research or professional practice, with its data, its goal and a way to verify the result.</p><a class="text-link" href="https://submit.metacasechallenge.com/submit/benchmark/" target="_blank" rel="noopener">Submit a benchmark <span aria-hidden="true">→</span></a></li>
+        <li><h3>Improve the evaluation</h3><p>Submit reproducible failure cases and help refine the scoring criteria and independent checks.</p><a class="text-link" href="https://submit.metacasechallenge.com/submit/failure-case/" target="_blank" rel="noopener">Submit a failure case <span aria-hidden="true">→</span></a></li>
+      </ol>
     </section>
 
     <div class="container">
