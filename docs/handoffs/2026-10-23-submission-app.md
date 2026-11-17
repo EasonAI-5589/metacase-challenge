@@ -1,6 +1,6 @@
 # Submission intake application — 2026-10-23
 
-> 2026-11-14: the service moved to `https://submit.metacasechallenge.com`. The old address redirects there.
+> 2026-11-17: the service moves to `https://submit.global-metacase.com`, the same domain as the website. `submit.metacasechallenge.com` (its address from 2026-11-14) and `submit.inferencenet.cn` redirect there.
 
 The three submission forms are deployed at `https://submit.inferencenet.cn` with
 username/password accounts and private, versioned storage on the existing server.

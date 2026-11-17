@@ -10,7 +10,7 @@
 	}
 }
 
-submit.metacasechallenge.com {
+submit.global-metacase.com {
 	tls {
 		issuer acme {
 			dir https://acme-v02.api.letsencrypt.org/directory
@@ -39,12 +39,12 @@ submit.metacasechallenge.com {
 	}
 }
 
-# Former address: keep it working for links already shared.
-submit.inferencenet.cn {
+# Former addresses: keep them working for links, slides and printed QR codes already shared.
+submit.metacasechallenge.com, submit.inferencenet.cn {
 	tls {
 		issuer acme {
 			dir https://acme-v02.api.letsencrypt.org/directory
 		}
 	}
-	redir https://submit.metacasechallenge.com{uri} permanent
+	redir https://submit.global-metacase.com{uri} permanent
 }
