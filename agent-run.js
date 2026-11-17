@@ -1,9 +1,10 @@
-/* agent-run.js — agent-run.html: pick a model and a harness, then click through one recorded run.
+/* agent-run.js — playground.html: pick a model and a harness, then click through the recorded run the page replays.
  * The run plays in agent-run-stage.js and the check on the film's film-grading.js; both are functions
  * of a position along STEPS. That position is the page's scroll: scrolling moves it and every control
  * only scrolls, so the two can never disagree. ?hold=6.4 pins it, for debugging.
- * Only one pairing has a recorded run on this task. Any other choice dresses the robot and changes
- * nothing else; the page says so before the run starts and for as long as it lasts. */
+ * Every pairing offered has a recorded run (playground-runs-data.js), shown as numbers and notes in the
+ * section playground-runs.js draws below the stage. Only one of them, RECORDED in agent-run-data.js, has
+ * the step-by-step replay, so the choice dresses the robot and opens that run's record, nothing else. */
 import * as THREE from './assets/vendor/three/three.module.js';
 import * as kit from './mc-kit.js?v=20261105-grip';
 import { createPost } from './mc-toon.js?v=20261102-toy';
@@ -12,6 +13,7 @@ import { clamp, smooth, ramp, lerp, glowSprite } from './mc-stage.js?v=20261105-
 import { MODEL_CHARACTERS, HARNESS_NAMES } from './arena-data.js?v=20261028-cascade';
 import { CRESTS, paintPlate } from './metacase-run.js?v=20261110-agentrun';
 import { RECORDED, RECORDED_LABEL, TOTALS, GROUPS, STEPS } from './agent-run-data.js?v=20261110-agentfacts';
+import { MODELS, HARNESSES, RUNS, REPLAYED } from './playground-runs-data.js?v=20261117-playground';
 import { build as buildRunStage, dressJudge } from './agent-run-stage.js?v=20261110-agentfacts';
 
 const $ = (selector, root = document) => root.querySelector(selector);
@@ -24,15 +26,25 @@ const PICK_X = -12, RUN_SETTLE = .06, JUDGE_ACCENT = 0xf2b545;
 const loadGrading = () => import('./film-grading.js?v=20261110-agentrun');
 
 const load = { ...RECORDED };
-const variants = MODEL_CHARACTERS.map((_, i) => (i === RECORDED.model ? RECORDED.variant : 0));
-const isRecorded = () => load.model === RECORDED.model && load.variant === RECORDED.variant && load.harness === RECORDED.harness;
-const modelName = () => MODEL_CHARACTERS[load.model].variants[load.variant];
-
-/* ---- the choice ---- */
+/* ---- the choice: any pairing with a recorded run. It dresses the robot and names the run whose
+ * record the grid below shows; the replay itself is always the RECORDED pairing's. ---- */
 const el = {
   models: $('[data-ar="models"]'), versions: $('[data-ar="versions"]'), harnesses: $('[data-ar="harnesses"]'),
-  status: $('[data-ar="status"]'), statusTitle: $('[data-ar="status-title"]'), statusBody: $('[data-ar="status-body"]'),
-  reset: $('[data-ar="reset"]'), start: $('[data-ar="start"]'), startLabel: $('[data-ar="start-label"]'),
+  statusTitle: $('[data-ar="status-title"]'), reward: $('[data-ar="status-reward"]'), requests: $('[data-ar="status-requests"]'), calls: $('[data-ar="status-calls"]'),
+  record: $('[data-ar="record"]'), start: $('[data-ar="start"]'), startLabel: $('[data-ar="start-label"]'),
+  replayNote: $('[data-ar="replay-note"]'), replayName: $('[data-ar="replay-name"]'),
+};
+const [replayedHarness, replayedModel] = REPLAYED.split('__');
+const vendors = [...new Set(MODELS.map(m => m.vendor))].sort((x, y) => x - y);
+const versionsOf = vendor => MODELS.filter(m => m.vendor === vendor);
+const harnessesOf = model => HARNESSES.filter(h => RUNS[`${h.key}__${model}`]);
+const choice = { model: replayedModel, harness: replayedHarness };
+const lastVersion = new Map();                         // the version last chosen under each provider
+const chosenKey = () => `${choice.harness}__${choice.model}`;
+// What the stand shows: the provider's robot, the chosen version on its chest plate, the harness in its hands.
+const dressed = () => {
+  const m = MODELS.find(x => x.key === choice.model);
+  return { model: m.vendor, variant: MODELS.indexOf(m), name: m.name, harness: HARNESSES.find(h => h.key === choice.harness).slot, effort: RECORDED.effort };
 };
 function radio(name, value, html) {
   const label = document.createElement('label'); label.className = 'ar-option';
@@ -40,31 +52,33 @@ function radio(name, value, html) {
   return label;
 }
 const escapeHTML = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-MODEL_CHARACTERS.forEach((m, i) => {
+vendors.forEach(v => {
+  const m = MODEL_CHARACTERS[v];
   const mark = `<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="${m.color}" fill-rule="${m.rule || 'nonzero'}" d="${m.logo}"/></svg>`;
-  el.models.append(radio('ar-model', i, `${mark}<span data-no-translate>${escapeHTML(m.provider)}</span>`));
+  el.models.append(radio('ar-model', v, `${mark}<span data-no-translate>${escapeHTML(m.provider)}</span>`));
 });
-HARNESS_NAMES.forEach((name, i) => el.harnesses.append(radio('ar-harness', i, `<span data-no-translate>${escapeHTML(name)}</span>`)));
-function drawVersions() {
-  el.versions.replaceChildren(...MODEL_CHARACTERS[load.model].variants.map((v, i) => radio('ar-version', i, `<span data-no-translate>${escapeHTML(v)}</span>`)));
-}
 function syncChoice() {
-  const check = (root, value) => root.querySelectorAll('input').forEach(input => { input.checked = +input.value === value; });
-  check(el.models, load.model); check(el.versions, load.variant); check(el.harnesses, load.harness);
-  const recorded = isRecorded();
-  el.status.classList.toggle('is-recorded', recorded);
-  el.statusTitle.textContent = recorded ? 'This pairing has a recorded run.' : 'This pairing has no recorded run on this task.';
-  el.statusBody.textContent = recorded
-    ? 'Every step that follows is taken from its log.'
-    : 'You will step through the run recorded with Qwen 3.7 Max and Claude Code. Your selection changes how the agent looks, not what it did or how it scored.';
-  el.reset.hidden = recorded;
-  el.startLabel.textContent = recorded ? 'Start the run' : 'Start the recorded run';
-  dressPick();
+  const model = MODELS.find(m => m.key === choice.model), open = harnessesOf(choice.model);
+  if (!open.some(h => h.key === choice.harness)) choice.harness = open[0].key;       // this model was not run in that harness
+  lastVersion.set(model.vendor, model.key);
+  el.versions.replaceChildren(...versionsOf(model.vendor).map(m => radio('ar-version', m.key, `<span data-no-translate>${escapeHTML(m.name)}</span>`)));
+  el.harnesses.replaceChildren(...open.map(h => radio('ar-harness', h.key, `<span data-no-translate>${escapeHTML(h.name)}</span>`)));
+  el.models.querySelectorAll('input').forEach(i => { i.checked = +i.value === model.vendor; });
+  el.versions.querySelectorAll('input').forEach(i => { i.checked = i.value === choice.model; });
+  el.harnesses.querySelectorAll('input').forEach(i => { i.checked = i.value === choice.harness; });
+  const run = RUNS[chosenKey()], replayed = chosenKey() === REPLAYED;
+  el.statusTitle.textContent = `${model.name} · ${HARNESSES.find(h => h.key === choice.harness).name}`;
+  el.reward.textContent = run.reward.toFixed(3); el.requests.textContent = run.requests; el.calls.textContent = run.calls;
+  el.startLabel.textContent = replayed ? 'Start the replay' : 'Watch the full replay';
+  el.replayNote.hidden = replayed;
+  wake();
 }
-el.models.addEventListener('change', e => { load.model = +e.target.value; load.variant = variants[load.model]; drawVersions(); syncChoice(); });
-el.versions.addEventListener('change', e => { load.variant = variants[load.model] = +e.target.value; syncChoice(); });
-el.harnesses.addEventListener('change', e => { load.harness = +e.target.value; syncChoice(); });
-el.reset.addEventListener('click', () => { Object.assign(load, RECORDED); variants[load.model] = load.variant; drawVersions(); syncChoice(); });
+el.models.addEventListener('change', e => { const v = +e.target.value; choice.model = lastVersion.get(v) || versionsOf(v)[0].key; syncChoice(); });
+el.versions.addEventListener('change', e => { choice.model = e.target.value; syncChoice(); });
+el.harnesses.addEventListener('change', e => { choice.harness = e.target.value; syncChoice(); });
+el.record.addEventListener('click', () => { document.dispatchEvent(new CustomEvent('playground:show-run', { detail: { key: chosenKey() } })); void flyToRuns(); });
+$('[data-ar="fly-name"]').textContent = `${RECORDED_LABEL.model} · ${RECORDED_LABEL.harness}`;
+el.replayName.textContent = `${RECORDED_LABEL.model} · ${RECORDED_LABEL.harness}`;
 
 /* ---- the run's panel ---- */
 const ui = {
@@ -73,7 +87,7 @@ const ui = {
   facts: $('[data-ar="facts"]'), log: $('[data-ar="log"]'), logBody: $('[data-ar="log-body"]'), note: $('[data-ar="note"]'),
   back: $('[data-ar="back"]'), next: $('[data-ar="next"]'), nextLabel: $('[data-ar="next-label"]'), rail: $('[data-ar="rail"]'),
   ending: $('[data-ar="ending"]'), again: $('[data-ar="again"]'), repick: [...document.querySelectorAll('[data-ar="repick"]')],
-  pairing: $('[data-ar="pairing"]'), pick: $('[data-ar="your-pick"]'), pickName: $('[data-ar="your-pick-name"]'),
+  pairing: $('[data-ar="pairing"]'),
   stats: { req: $('[data-stat="req"]'), calls: $('[data-stat="calls"]'), files: $('[data-stat="files"]'), tok: $('[data-stat="tok"]'), t: $('[data-stat="t"]') },
 };
 ui.pairing.textContent = `${RECORDED_LABEL.model} · ${RECORDED_LABEL.harness}`;
@@ -137,10 +151,6 @@ function paintStep() {
 function setPhase(next) {
   phase = next;
   app.dataset.phase = next;
-  if (next === 'run') {
-    ui.pick.hidden = isRecorded();
-    ui.pickName.textContent = `${modelName()} · ${HARNESS_NAMES[load.harness]}`;
-  }
   stage?.size();
 }
 
@@ -251,7 +261,7 @@ function dressedRobot(l) {
   const crest = new THREE.Group(); CRESTS[l.model](crest, trim, core); head.add(crest);
   const c = document.createElement('canvas'); c.width = 512; c.height = 320;
   const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 4;
-  const draw = () => { const g = c.getContext('2d'); g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, 512, 320); paintPlate(g, m, l.variant, l.effort); tex.needsUpdate = true; };
+  const draw = () => { const g = c.getContext('2d'); g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, 512, 320); paintPlate(g, l.name ? { ...m, variants: [l.name] } : m, l.name ? 0 : l.variant, l.effort); tex.needsUpdate = true; };
   draw(); document.fonts?.ready.then(draw);
   const plate = new THREE.Mesh(new THREE.PlaneGeometry(.4, .25), new THREE.MeshBasicMaterial({ map: tex, transparent: true }));
   plate.position.set(0, .41, .199); body.add(plate);
@@ -438,7 +448,6 @@ function createStage() {
     },
   };
 }
-function dressPick() { if (stage) stage.pick.place(load); wake(); }
 
 /* ---- building the run's sets for the chosen loadout: ahead of time, and again if it changes ---- */
 let readyKey = null, buildJob = null;
@@ -489,7 +498,7 @@ function frame(ts) {
   const entering = held === null ? clamp(1 - Math.abs(y - track.P) / track.fade) : 0, dark = Math.max(now.dark, entering);
   fade.style.opacity = dark ? String(dark) : '';
   if (stage) {
-    if (phase === 'pick') { stage.pick.place(load); stage.renderPick(dt, clock); }
+    if (phase === 'pick') { stage.pick.place(dressed()); stage.renderPick(dt, clock); }
     else stage.renderRun(dt, clock, now);
     stage.govern(ms);
   }
@@ -498,6 +507,32 @@ function frame(ts) {
 }
 function wake() { if (!raf) { last = performance.now(); raf = requestAnimationFrame(frame); } }
 function resize() { measureTrack(); stage?.size(); wake(); }
+
+/* ---- the glide down to the grid of recorded runs ---- */
+const runsSection = document.querySelector('#runs');
+let fly = null;
+const runsTop = () => runsSection.getBoundingClientRect().top + scrollY - ($('.site-header')?.offsetHeight || 64);
+function endFly() { fly = null; delete app.dataset.fly; }
+async function flyToRuns() {
+  if (!runsSection || fly) return;
+  if (reduced || !stage) { window.scrollTo({ top: runsTop(), behavior: 'instant' }); wake(); return; }
+  const fromPick = phase === 'pick';
+  if (fromPick) await ensureBuilt();                  // the run's sets must exist before it can go past
+  drive = null;
+  const from = scrollY, span = Math.abs(runsTop() - from);
+  fly = { from, start: performance.now(), ms: clamp(span / 4.2, 700, 3400) };
+  if (fromPick && stage) app.dataset.fly = '';
+  const tick = () => {
+    if (!fly) return;
+    const k = clamp((performance.now() - fly.start) / fly.ms), e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+    fly.at = lerp(fly.from, runsTop(), e);
+    window.scrollTo({ top: fly.at, behavior: 'instant' }); wake();
+    if (k >= 1) endFly(); else requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
+['wheel', 'touchstart', 'keydown', 'mousedown'].forEach(type => addEventListener(type, () => { if (fly) endFly(); }, { passive: true }));
+document.querySelectorAll('a[href="#runs"]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); void flyToRuns(); }));
 
 /* ---- actions ---- */
 el.start.addEventListener('click', async () => {
@@ -527,7 +562,7 @@ addEventListener('keydown', e => {
 });
 
 /* ---- start ---- */
-drawVersions();
+syncChoice();
 ui.stats.req.nextElementSibling.textContent = `/ ${TOTALS.requests}`;
 ui.stats.calls.nextElementSibling.textContent = `/ ${TOTALS.calls}`;
 ui.stats.files.nextElementSibling.textContent = `/ ${TOTALS.files}`;
@@ -537,12 +572,11 @@ if (webglAvailable()) {
   catch (error) { console.warn('The stage could not start WebGL.', error); app.dataset.renderer = 'static'; }
 } else app.dataset.renderer = 'static';
 measureTrack();
-syncChoice();
 setPhase('pick');
 armoryPromise.then(wake);
 document.fonts?.ready.then(wake);
 const roomy = window.requestIdleCallback || (fn => setTimeout(fn, 900));
-roomy(() => { void ensureBuilt(); });        // most visitors keep the default: have it ready
+roomy(() => { void ensureBuilt(); });        // have the run's sets ready before the first click
 const resizeWatch = new ResizeObserver(resize); resizeWatch.observe(pin); resizeWatch.observe($('.site-header'));
 addEventListener('resize', resize);
 addEventListener('scroll', wake, { passive: true });
