@@ -1,4 +1,4 @@
-/* agent-run-stage.js — the workshop agent-run.html's run plays in. One long stage along +x: the
+/* agent-run-stage.js — the workshop playground.html's run plays in. One long stage along +x: the
  * agent walks from station to station and each step of the run has its own action there.
  *   archive   -15 … -10   55 files; the scan, and every file the run opens lights up
  *   lectern    -8 … -4    the register's six rows; the letter as raw binary, then decoded

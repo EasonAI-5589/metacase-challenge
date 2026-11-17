@@ -1,4 +1,4 @@
-/* agent-run-data.js — the one run agent-run.html steps through: FIN-T1-003, qwen3.7-max in Claude
+/* agent-run-data.js — the one run playground.html steps through: FIN-T1-003, qwen3.7-max in Claude
  * Code 2.1.114 (trial FIN-T1-003__EUsH44A). Commands, outputs, timings, token counts and scores come
  * from that run's records (video-demo/sources/finance, data/fin.json and fin.requests.jsonl); the
  * outputs are excerpts, in the source's own language.
