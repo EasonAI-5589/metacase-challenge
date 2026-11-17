@@ -107,7 +107,7 @@ of future updates unless explicitly requested again.
 | Page or layer | Files |
 |---|---|
 | Home: two challenges, two agent demos, Initiative priorities and participation | `index.html`, `index.css` |
-| Challenge: research data, Dev100 and its demo within the replication subtrack; business tasks, timeline, awards and participation | `challenge.html`, `challenge.css`, `assets/i18n/challenge.zh.json` |
+| Challenge: the three tracks as tabs (six classes and one recorded run each), how to participate, how runs are scored, the timeline (awards are its last stage) and what to submit | `challenge.html`, `challenge.css`, `challenge.js`, `assets/i18n/challenge.zh.json` |
 | Subtrack 1 overview: econometric replication, Dev100 scope, workflow and research pages | `replication.html`, `assets/i18n/replication.zh.json`; reuses `styles.css`, `site.css` |
 | Playground (the page at `agent-run.html`, called Run Replay until 2026-11-16): configure a model and harness, then advance through the one recorded FIN-T1-003 run by scrolling or clicking; the scroll position is the only progress | `agent-run.html`, `agent-run.js`, `agent-run-stage.js`, `agent-run-data.js`, `agent-run.css`, `assets/i18n/agent-run.zh.json`; reuses `film-grading.js` for the judging steps |
 | Business Analysis & Deliverables: Finance and HR cases, rubric scoring and pilot evidence | `professional-tasks.html`, `professional-tasks.css`, `assets/i18n/professional-tasks.zh.json`, `assets/data/professional-tasks-pilot.json` |
@@ -246,8 +246,20 @@ is CHALLENGE on every page; Home is the first navigation item and Challenge is
 the second. Home keeps
 the hero, the two challenge cards and the status list described under Homepage
 presentation, and links to the Challenge page from the subtrack section and from
-Get involved. After its hero, `challenge.html` goes directly to the subtracks (01),
-followed by the timeline (02), awards (03) and how to take part (04).
+Get involved.
+
+Since 2026-11-17 `challenge.html` follows the homepage's order and the Metacase pages' parts.
+The hero has the challenge's three numbers and the same two buttons as a Metacase page. Then:
+tracks (01), how to participate (02, the homepage's five steps word for word), how a run is
+scored (03, the three-layer model), the timeline (04) and what to submit (05, three ways in the
+homepage's order, worded as on the SFF deck). The three tracks are tabs like the three Metacase
+cases (`challenge.js`; without the script they stand one under another): each track's page has
+its six subfields in the homepage's order and one recorded run, which is the same case and replay
+as that field's Metacase page. Anchors other pages use are kept (`#track-econ|fin|soc`,
+`#replication-demo`, `#replication-data`, `#replication-dev100`, `#subtrack-professional`,
+`#awards`); a link to anything inside a track opens that track first. The bullets below predate
+this layout and are kept for the scope and facts they record; where they describe the page's
+arrangement, this paragraph is the current one.
 
 - **Subtrack 01** is econometric replication: the existing Dev100 set of 100 tasks,
   to be open-sourced, with the task package and rules announced with the release.
@@ -256,7 +268,12 @@ followed by the timeline (02), awards (03) and how to take part (04).
   SUFE. Home labels these Challenge 1 and Challenge 2. The Challenge page keeps the
   same scope and facts, and says once that the official task set for subtrack 02 is
   to be announced.
-- **Each challenge has its own recorded run on the Challenge page**: one video for
+- **Each track has one recorded run on the Challenge page** (since 2026-11-17, the
+  three sample replays of the Metacase pages): econ-0157 (`econ-0157-replay.mp4`),
+  FIN-T1-003 (`finance-story-demo.mp4`) and HR-T3-114
+  (`hr-t3-114-gemini-dsh-replay.mp4`). `agent-replay-task0001.mp4` and
+  `hr-agent-replay.mp4` are no longer embedded on any page; the files remain in
+  `assets/video/`. Before that: one video for
   Subtrack 01 (`agent-replay-task0001.mp4`, research task 0001) and two for
   Subtrack 02 (`finance-story-demo.mp4`, FIN-T1-003, and `hr-agent-replay.mp4`,
   HR-T3-114). All use posters, native controls, `preload="metadata"`, no autoplay and
@@ -281,7 +298,8 @@ followed by the timeline (02), awards (03) and how to take part (04).
   The exact start and end dates, registration, evaluation interface, submission
   process, evaluation schedule and protocol, and result announcement remain TBD.
 - Award categories, prizes and selection criteria are TBD; the page makes no
-  commitment to private dataset access or cash prizes. Tests preserve these
+  commitment to private dataset access or cash prizes. Since 2026-11-17 they are
+  stated in the timeline's last stage (`#awards`) rather than in a section of their own. Tests preserve these
   boundaries while allowing the proposed month and
   approximate duration, and continue to check videos and cross-page consistency.
 - Challenge participation follows the same six routes as Home: explore a

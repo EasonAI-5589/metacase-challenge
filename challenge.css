@@ -1,128 +1,165 @@
-/* Challenge page: status, subtracks with a recorded run each, planned stages and awards. Reuses the shared cards, pills and section headings. */
-.initiative-pillars{--cols:3;--cols-cap:3}
-.open-call{margin:30px 0 0;max-width:760px;font-size:16px;line-height:1.8;color:var(--soft)}
-.open-call-link{margin:6px 0 0}
+/* Challenge page. It follows the homepage's order (tracks, how to participate, how runs are scored,
+ * the timeline, what to submit) and the Metacase pages' parts: the same two buttons under the title,
+ * the three tracks as notebook tabs like the three Metacase cases, and each track's recorded run in
+ * the same replay frame. Loaded after skin.css and subpage-toy.css, so it has the last word here. */
 
 .status{display:inline-flex;align-items:center;white-space:nowrap;border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-family:var(--sans);font-size:11.5px;line-height:1.6;letter-spacing:0;text-transform:none;color:var(--soft);background:var(--tint)}
 .status.is-open{border-color:var(--ink);color:var(--ink);background:var(--surface)}
 .status.is-tbc{border-style:dashed;border-color:var(--strong-line)}
 
-/* One line under the hero says what is open, what is not and what is still to come. */
-.status-strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 32px;margin:30px 0 0;padding:0;list-style:none;max-width:900px}
-.status-strip li{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding-top:14px;border-top:1px solid var(--line)}
-.status-strip p{margin:0;font-size:14px;line-height:1.7;color:var(--soft)}
+/* ---- Hero: the challenge in three numbers, then the buttons ---- */
+.v2-page-challenge .ch-facts{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:10px 40px;max-width:min(780px,54%);margin:30px 0 0;padding:0;list-style:none}
+.v2-page-challenge .ch-facts li{display:flex;align-items:baseline;gap:9px;font-size:14px;line-height:1.4;color:var(--muted)}
+.v2-page-challenge .ch-facts b{font-size:clamp(28px,2.6vw,38px);font-weight:600;line-height:1;letter-spacing:-.035em;color:var(--ink)}
+@media (max-width:1080px){.v2-page-challenge .ch-facts{max-width:none}}
 
-.track{padding:32px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface)}
-.track+.track{margin-top:24px}
-.track{scroll-margin-top:calc(var(--header-offset,78px) + 58px)}
-.track-head{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px}
-.track-tag{font-family:var(--mono);font-size:11px;line-height:1.6;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
-.track h3{font-size:26px;font-weight:600;line-height:1.35;letter-spacing:-.02em;margin:18px 0 0}
-.track-summary{max-width:780px;margin:12px 0 0;font-size:16px;line-height:1.8;color:var(--soft)}
+/* ---- 01 Tracks: three tabs on one rule, the open track's page below ---- */
+.v2-page-challenge .ch-tabs{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch;gap:12px;margin:0;padding:0;border-bottom:1px solid var(--strong-line)}
+.v2-page-challenge .ch-tab{position:relative;z-index:1;overflow:hidden;display:flex;flex-direction:column;gap:6px;min-width:0;margin-top:13px;padding:18px 28px;border:1px solid var(--line);border-bottom:0;border-radius:18px 18px 0 0;background:color-mix(in oklab,var(--surface) 55%,transparent);color:var(--muted);text-decoration:none;transition:color .25s,background .25s,border-color .25s,padding .25s}
+.v2-page-challenge .ch-tab::before{content:"";position:absolute;left:18px;right:18px;top:0;height:3px;border-radius:0 0 3px 3px;background:var(--tc);opacity:.45;transition:opacity .25s,left .25s,right .25s}
+.v2-page-challenge .ch-tab-num{position:absolute;right:20px;bottom:-14px;font:600 92px/1 var(--font-mono);letter-spacing:-.06em;color:var(--tc);opacity:.07;pointer-events:none;transition:opacity .25s}
+.v2-page-challenge .ch-tab-top{position:relative;display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.v2-page-challenge .ch-tab small{font:400 11px/1.4 var(--font-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.v2-page-challenge .ch-tab i{font:400 11.5px/1.4 var(--font-mono);font-style:normal;letter-spacing:.04em;color:var(--muted);opacity:.85;white-space:nowrap}
+.v2-page-challenge .ch-tab i b{font-weight:600;color:inherit}
+.v2-page-challenge .ch-tab > b{position:relative;font-size:clamp(24px,2.5vw,34px);font-weight:600;line-height:1.1;letter-spacing:-.03em;color:inherit;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.v2-page-challenge .ch-tab-desc{position:relative;max-width:calc(100% - 92px);min-height:2.9em;font-size:14px;line-height:1.45;color:var(--muted)}
+.v2-page-challenge .ch-tab:hover{color:var(--ink);border-color:var(--strong-line);background:color-mix(in oklab,var(--tc) 6%,var(--surface))}
+.v2-page-challenge .ch-tab:hover::before{opacity:.85}
+.v2-page-challenge .ch-tab:hover .ch-tab-num{opacity:.13}
+.v2-page-challenge .ch-tab:focus-visible{outline:2px solid var(--tc);outline-offset:3px}
+.v2-page-challenge .ch-tab[aria-selected="true"]{margin-top:0;margin-bottom:-1px;padding-top:26px;padding-bottom:23px;color:var(--ink);border-color:color-mix(in oklab,var(--tc) 45%,var(--strong-line));background:linear-gradient(to bottom,color-mix(in oklab,var(--tc) 20%,var(--surface)),color-mix(in oklab,var(--tc) 7%,var(--surface)))}
+.v2-page-challenge .ch-tab[aria-selected="true"]::before{opacity:1;left:0;right:0;border-radius:18px 18px 0 0;height:4px}
+.v2-page-challenge .ch-tab[aria-selected="true"] small{color:var(--tc)}
+.v2-page-challenge .ch-tab[aria-selected="true"] .ch-tab-desc{color:color-mix(in oklab,var(--ink) 78%,transparent)}
+.v2-page-challenge .ch-tab[aria-selected="true"] .ch-tab-num{opacity:.2}
+html[lang="zh-CN"] .v2-page-challenge .ch-tab small{letter-spacing:.04em}
+html[lang="zh-CN"] .v2-page-challenge .ch-tab > b{letter-spacing:0}
 
-/* Each challenge has its own recorded run: one video for the replication subtrack, two for business analysis. */
-.track-body{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:0 44px;align-items:start;margin-top:26px}
-.track-demos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;margin-top:26px}
-.track-video{display:flex;flex-direction:column;min-width:0;margin:0}
-.track-video video{display:block;width:100%;height:auto;aspect-ratio:16/9;border:1px solid var(--line);border-radius:var(--radius);background:#111}
-.track-video figcaption{display:flex;flex-direction:column;gap:8px;margin-top:16px;font-size:14px;line-height:1.7;color:var(--soft)}
-.track-video figcaption p{margin:0}
-.demo-label{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px}
-.demo-label code{font-size:12px;color:var(--muted)}
-.track-video h4{margin:0;font-size:19px;font-weight:600;line-height:1.4;letter-spacing:-.01em;color:var(--ink)}
-.demo-spec{font-family:var(--mono);font-size:12px;line-height:1.6;color:var(--muted)}
-.demo-meta{display:flex;flex-wrap:wrap;gap:2px 14px;font-size:12px;line-height:1.7;color:var(--muted)}
+/* The open track's page hangs from the tab rule. Without the script the three stand one under another. */
+.v2-page-challenge .ch-panel{position:relative;margin:24px 0 0;padding:clamp(22px,2.8vw,40px);border:1px solid var(--line);border-radius:22px;background:linear-gradient(to bottom,color-mix(in oklab,var(--tc) 7%,var(--surface)),color-mix(in oklab,var(--surface) 62%,transparent) 320px);scroll-margin-top:calc(var(--header-offset,78px) + 58px)}
+.v2-page-challenge .is-tabbed .ch-panel{margin-top:0;border-top:0;border-color:color-mix(in oklab,var(--tc) 28%,var(--line));border-radius:0 0 22px 22px;scroll-margin-top:calc(var(--header-offset,78px) + 240px)}
+.v2-page-challenge .ch-panel[hidden]{display:none}
+html.js .v2-page-challenge #tracks:not(.is-tabbed) .ch-panel ~ .ch-panel{display:none}
+/* the open tab already carries the track's number, name and counts */
+.v2-page-challenge .is-tabbed .ch-panel .track-head,.v2-page-challenge .is-tabbed .ch-panel-title{display:none}
+.v2-page-challenge .ch-panel-title{margin:18px 0 0;font-size:clamp(30px,2.8vw,42px);font-weight:600;line-height:1.06;letter-spacing:-.035em}
+.v2-page-challenge .ch-panel .track-head{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px}
+.v2-page-challenge .ch-panel .track-tag{font-family:var(--font-mono);font-size:11px;line-height:1.6;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.v2-page-challenge .ch-panel .track-summary{max-width:44em;margin:14px 0 0;font-size:17px;line-height:1.7;color:var(--soft)}
+.v2-page-challenge .is-tabbed .ch-panel .track-summary{margin-top:0;font-size:clamp(17px,1.5vw,20px);line-height:1.6;color:color-mix(in oklab,var(--ink) 84%,transparent)}
 
-/* The business cases keep the goal and work product visible, with deeper context on demand. */
-:is(#subtrack-professional,#subtrack-professional-hr) .demo-deliverables{margin:10px 0 0;border-top:1px solid var(--line)}
-:is(#subtrack-professional,#subtrack-professional-hr) .demo-deliverables>div{display:grid;grid-template-columns:48px minmax(0,1fr);gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
-:is(#subtrack-professional,#subtrack-professional-hr) .demo-deliverables dt{font-family:var(--mono);font-size:12px;color:var(--ink)}
-:is(#subtrack-professional,#subtrack-professional-hr) .demo-deliverables dd{margin:0}
-:is(#subtrack-professional,#subtrack-professional-hr) .demo-brief{margin-top:8px}
-:is(#subtrack-professional,#subtrack-professional-hr) .demo-brief summary{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:10px 0;cursor:pointer;list-style:none;font-weight:600;color:var(--ink)}
-:is(#subtrack-professional,#subtrack-professional-hr) .demo-brief summary::-webkit-details-marker{display:none}
-:is(#subtrack-professional,#subtrack-professional-hr) .demo-brief summary::after{content:'+';font-family:var(--mono);font-size:18px;font-weight:400}
-:is(#subtrack-professional,#subtrack-professional-hr) .demo-brief[open] summary::after{content:'−'}
-:is(#subtrack-professional,#subtrack-professional-hr) .demo-brief summary:focus-visible{outline:2px solid var(--ink);outline-offset:4px;border-radius:2px}
-:is(#subtrack-professional,#subtrack-professional-hr) .demo-brief-body{padding:0 0 16px}
-:is(#subtrack-professional,#subtrack-professional-hr) .demo-brief h5{margin:16px 0 6px;font-size:13px;font-weight:600;line-height:1.5;color:var(--ink)}
-:is(#subtrack-professional,#subtrack-professional-hr) .demo-brief h5:first-child{margin-top:4px}
-:is(#subtrack-professional,#subtrack-professional-hr) .demo-brief ul{margin:0;padding-left:19px}
-:is(#subtrack-professional,#subtrack-professional-hr) .demo-brief li+li{margin-top:8px}
-:is(#subtrack-professional,#subtrack-professional-hr) .demo-source-note{margin-top:8px;font-size:12px;line-height:1.7;color:var(--muted)}
+/* Six classes to a track, three to a row: one card each, all on the page's own grid. */
+.v2-page-challenge .ch-classes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:30px 0 0;padding:0;border:0;list-style:none}
+.v2-page-challenge .ch-classes .class-item{display:flex;flex-direction:column;min-width:0;padding:18px 20px 20px;border:1px solid var(--line);border-radius:16px;background:color-mix(in oklab,var(--surface) 72%,transparent);scroll-margin-top:calc(var(--header-offset,78px) + 240px);transition:border-color .25s,background .25s}
+.v2-page-challenge .ch-classes .class-item:hover{border-color:var(--strong-line)}
+.v2-page-challenge .ch-classes .class-item.has-run{border-color:color-mix(in oklab,var(--accent) 38%,var(--line));background:radial-gradient(90% 70% at 100% 0%,var(--accent-soft),transparent 70%),color-mix(in oklab,var(--surface) 72%,transparent)}
+.v2-page-challenge .ch-classes .class-row,.v2-page-challenge .ch-classes .class-row.has-badge{display:flex;align-items:center;gap:12px;min-height:44px}
+.v2-page-challenge .ch-classes .class-row.has-badge .toy-badge{flex:none;width:44px;height:44px;border-radius:12px}
+.v2-page-challenge .ch-classes .class-call{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;letter-spacing:.02em;color:var(--accent)}
+.v2-page-challenge .ch-classes .class-count{flex:none;font-size:12.5px;color:var(--muted);white-space:nowrap}
+.v2-page-challenge .ch-classes .class-count b{margin-right:4px;font-size:16px;font-weight:650;color:var(--ink)}
+.v2-page-challenge .ch-classes .class-name{margin:14px 0 0;font-size:17.5px;font-weight:600;line-height:1.3;letter-spacing:-.012em;color:var(--ink);text-wrap:balance}
+.v2-page-challenge .ch-classes .class-item .class-desc,.v2-page-challenge .ch-classes .class-item:has(.has-badge) .class-desc{max-width:none;margin:8px 0 0;padding:0;font-size:14px;line-height:1.65;color:var(--soft)}
+.v2-page-challenge .ch-class-run{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;margin-top:auto;padding-top:14px;font-size:13px;font-weight:600;color:var(--ink);text-decoration:none}
+.v2-page-challenge .ch-class-run .mono{font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:none;color:var(--accent)}
+.v2-page-challenge .ch-class-run:hover{color:var(--accent)}
+html[lang="zh-CN"] .v2-page-challenge .ch-classes .class-name{letter-spacing:0}
 
-.track-facts{display:grid;grid-template-columns:minmax(0,1fr);margin:0;border-top:1px solid var(--line)}
-.track-body .track-facts{align-self:start}
-.track>.track-facts{margin-top:26px;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 44px}
-.track-facts div{display:grid;grid-template-columns:104px minmax(0,1fr);gap:14px;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--line)}
-.track-facts dt{font-family:var(--mono);font-size:11px;line-height:1.7;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
-.track-facts dd{margin:0;font-size:14px;line-height:1.7;color:var(--soft)}
-.track-links{display:flex;flex-wrap:wrap;gap:6px 28px;margin-top:20px}
-.track-links .text-link{margin-top:6px}
+/* The track's recorded run: the replay on the left, the case on the right, then what goes in, what comes out and how it is checked. */
+.v2-page-challenge .ch-run{display:grid;grid-template-columns:minmax(0,1.32fr) minmax(0,1fr);gap:28px 40px;align-items:start;margin:30px 0 0;padding:30px 0 0;border-top:1px solid var(--line);scroll-margin-top:calc(var(--header-offset,78px) + 72px)}
+.v2-page-challenge .ch-run-video{min-width:0;margin:0;scroll-margin-top:calc(var(--header-offset,78px) + 72px)}
+.v2-page-challenge .ch-run-video video{display:block;width:100%;height:auto;aspect-ratio:16/9;border:1px solid var(--line);border-radius:var(--radius);background:#111}
+.v2-page-challenge .ch-run-copy{display:flex;flex-direction:column;align-items:flex-start;gap:12px;min-width:0}
+.v2-page-challenge .ch-run-label{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin:0}
+.v2-page-challenge .ch-run-label .pill{color:var(--accent);background:var(--accent-soft);border-color:transparent}
+.v2-page-challenge .ch-run-label code{font-size:12px;color:var(--ink)}
+.v2-page-challenge .ch-run-label .track-tag{text-transform:none;letter-spacing:.02em}
+.v2-page-challenge .ch-run-copy h4{margin:2px 0 0;font-size:clamp(21px,1.9vw,27px);font-weight:600;line-height:1.2;letter-spacing:-.022em;color:var(--ink);text-wrap:balance}
+.v2-page-challenge .ch-run-copy > p{margin:0;font-size:15.5px;line-height:1.7;color:var(--soft)}
+.v2-page-challenge .ch-run-copy > .demo-meta{display:flex;flex-wrap:wrap;gap:2px 14px;font-family:var(--font-mono);font-size:12px;line-height:1.7;letter-spacing:.02em;color:var(--muted)}
+.v2-page-challenge .ch-run-actions{display:flex;flex-wrap:wrap;gap:10px 14px;margin-top:8px}
+html[lang="zh-CN"] .v2-page-challenge .ch-run-copy h4{letter-spacing:0;line-height:1.35}
 
-/* Five planned stages in one row; only the first is under way. */
+.v2-page-challenge .ch-run .track-facts{grid-column:1 / -1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 32px;margin:0;border-top:1px solid var(--line)}
+.v2-page-challenge .ch-run .track-facts > div{display:block;padding:16px 0 0;border:0}
+.v2-page-challenge .ch-run .track-facts dt{font-family:var(--font-mono);font-weight:400;font-size:11px;line-height:1.7;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+.v2-page-challenge .ch-run .track-facts dd{margin:8px 0 0;font-size:14px;line-height:1.7;color:var(--soft)}
+.v2-page-challenge .ch-run .track-facts dd p{margin:0}
+.v2-page-challenge .ch-run .track-facts dd p + p{margin-top:8px}
+.v2-page-challenge .ch-file{display:inline-block;margin-right:8px;padding:1px 7px;border:1px solid var(--line);border-radius:6px;font-size:11px;line-height:1.6;letter-spacing:.02em;text-transform:none;color:var(--ink)}
+
+/* Where the class's tasks come from, and where to read more. */
+.v2-page-challenge .ch-run-note{grid-column:1 / -1;display:grid;grid-template-columns:minmax(0,1.32fr) minmax(0,1fr);gap:10px 40px;align-items:start;padding-top:20px;border-top:1px solid var(--line)}
+.v2-page-challenge .ch-run-note p{margin:0;font-size:13.5px;line-height:1.7;color:var(--muted)}
+.v2-page-challenge .ch-run-links{display:flex;flex-direction:column;align-items:flex-start;gap:10px}
+.v2-page-challenge .ch-run-links .text-link{font-size:14px;scroll-margin-top:calc(var(--header-offset,78px) + 240px)}
+.v2-page-challenge .ch-run-note .ch-run-small{grid-column:1 / -1;font-size:12px}
+
+/* ---- 02 Participate: the homepage's five steps, left to right ---- */
+.v2-page-challenge .ch-steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0 28px;margin:0;padding:0;list-style:none}
+.v2-page-challenge .ch-steps > li{position:relative;padding:22px 0 0;border-top:1px solid var(--strong-line)}
+.v2-page-challenge .ch-steps > li::before{content:"";position:absolute;left:0;top:-2px;width:48px;height:3px;border-radius:2px;background:var(--tc)}
+.v2-page-challenge .ch-step-num{display:block;font-size:12px;line-height:1.5;letter-spacing:.12em;color:var(--tc)}
+.v2-page-challenge .ch-steps h3{margin:12px 0 0;font-size:19px;font-weight:600;line-height:1.3;letter-spacing:-.018em;color:var(--ink);text-wrap:balance}
+.v2-page-challenge .ch-steps p{margin:10px 0 0;font-size:14px;line-height:1.72;color:var(--soft)}
+html[lang="zh-CN"] .v2-page-challenge .ch-steps h3{letter-spacing:0}
+
+/* ---- 04 Timeline: five stages in one row; the last carries the awards ---- */
 .plan-stages{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0 24px;margin:0;padding:0;list-style:none}
-.plan-stage{padding-top:18px;border-top:1px solid var(--strong-line)}
-.plan-stage.is-current{border-top-color:var(--ink)}
+.plan-stage{padding-top:18px;border-top:1px solid var(--strong-line);scroll-margin-top:calc(var(--header-offset,78px) + 96px)}
 .plan-meta{display:flex;align-items:center;gap:10px;min-height:26px;margin-bottom:12px}
 .plan-number{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--muted)}
 .plan-stage h3{margin:0;font-size:18px;font-weight:600;line-height:1.4;letter-spacing:-.01em}
 .plan-stage p{margin:8px 0 0;font-size:14px;line-height:1.75;color:var(--soft)}
 
-.award-grid{--cols:2}
-.award h3{margin:0;font-size:24px;font-weight:600;line-height:1.35;letter-spacing:-.02em}
-.award p{margin:12px 0 0;font-size:15px;line-height:1.8;color:var(--soft)}
-.award .card-label{margin-bottom:16px}
-
+/* ---- 05 Submit: three ways in, in the homepage's order ---- */
 .take-part{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px 28px;margin:0;padding:0;list-style:none}
 .take-part li{display:flex;flex-direction:column;padding-top:18px;border-top:1px solid var(--ink)}
 .take-part h3{margin:0;font-size:18px;font-weight:600;line-height:1.45;letter-spacing:-.01em}
 .take-part p{flex:1;margin:8px 0 0;font-size:14px;line-height:1.75;color:var(--soft)}
 .take-part .text-link{margin-top:14px;align-self:flex-start}
-.take-part .soon-tag{margin-top:14px;align-self:flex-start;padding:2px 10px;border:1px dashed var(--line);border-radius:999px;font-size:13px;color:var(--soft)}
 
-@media(max-width:1100px){
+@media (max-width:1100px){
   .plan-stages{grid-template-columns:repeat(3,minmax(0,1fr));gap:28px 24px}
+  .v2-page-challenge .ch-steps{grid-template-columns:repeat(3,minmax(0,1fr));gap:36px 28px}
+  .v2-page-challenge .ch-classes{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
-@media(max-width:1000px){
-  .track-body,.track-demos,.track>.track-facts,.award-grid{grid-template-columns:1fr}
-  .track-body .track-facts{margin-top:24px}
-  .track-demos{gap:32px}
-  .initiative-pillars,.status-strip{grid-template-columns:1fr}
+@media (max-width:1000px){
   .take-part{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .status-strip{gap:14px}
+  .v2-page-challenge .ch-run,.v2-page-challenge .ch-run-note{grid-template-columns:minmax(0,1fr)}
+  .v2-page-challenge .ch-run .track-facts{grid-template-columns:minmax(0,1fr)}
+  .v2-page-challenge .ch-run .track-facts > div{padding:14px 0;border-bottom:1px solid var(--line)}
+  .v2-page-challenge .ch-run .track-facts > div:last-child{border-bottom:0;padding-bottom:0}
 }
-@media(max-width:860px){
+@media (max-width:860px){
   .plan-stages{grid-template-columns:1fr;gap:0}
   .plan-stage{display:grid;grid-template-columns:96px minmax(0,1fr);gap:0 18px;padding:18px 0;border-top:0;border-bottom:1px solid var(--line)}
   .plan-stage:first-child{border-top:1px solid var(--strong-line)}
-  .plan-stage.is-current{border-top:1px solid var(--ink)}
   .plan-meta{grid-row:1/3;flex-direction:column;align-items:flex-start;gap:8px;margin:0}
   .plan-stage h3,.plan-stage p,.plan-stage .text-link{grid-column:2}
-  .track{padding:24px}
-  .track-facts div{grid-template-columns:1fr;gap:2px}
+  .v2-page-challenge .ch-tabs{gap:8px}
+  .v2-page-challenge .ch-tab{margin-top:9px;padding:14px 16px}
+  .v2-page-challenge .ch-tab[aria-selected="true"]{margin-top:0;padding-top:20px;padding-bottom:17px}
+  .v2-page-challenge .ch-tab-desc{max-width:none;min-height:0;font-size:12.5px}
+  .v2-page-challenge .ch-tab-num{font-size:64px;right:12px}
+  .v2-page-challenge .ch-tab-top{flex-direction:column;align-items:flex-start;gap:2px}
 }
-
-@media(max-width:700px){
+@media (max-width:700px){
   .take-part{grid-template-columns:1fr}
+  .v2-page-challenge .ch-steps{grid-template-columns:minmax(0,1fr);gap:28px}
+  .v2-page-challenge .ch-classes{grid-template-columns:minmax(0,1fr)}
 }
-
-/* Econometric subtrack: research data, the Dev100 task set, then a recorded demonstration. */
-#subtrack-econometric .replication-data,
-#subtrack-econometric .replication-task-set{margin-top:28px;padding-top:24px;border-top:1px solid var(--line);scroll-margin-top:calc(var(--header-offset,78px) + 72px)}
-#subtrack-econometric .replication-data h4,
-#subtrack-econometric .replication-task-intro h4{margin:0;font-size:20px;font-weight:600;line-height:1.4;letter-spacing:-.01em}
-#subtrack-econometric .replication-data p,
-#subtrack-econometric .replication-task-intro p{max-width:84ch;margin:12px 0 0;font-size:15px;line-height:1.8;color:var(--soft)}
-#subtrack-econometric .replication-data .text-link,
-#subtrack-econometric .replication-task-intro .text-link{margin-top:14px}
-#subtrack-econometric .replication-data .dataset-access{font-size:12px;color:var(--muted)}
-#subtrack-econometric .replication-task-set{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:28px 36px}
-#subtrack-econometric .replication-task-set .track-facts{border-top:0}
-#subtrack-econometric .replication-task-set .track-facts>div:first-child{padding-top:0}
-#subtrack-econometric .replication-demo{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:24px 36px;margin-top:28px;padding-top:28px;border-top:1px solid var(--line)}
-#subtrack-econometric .replication-demo figcaption{margin-top:0}
-@media(max-width:860px){
-  #subtrack-econometric .replication-task-set,
-  #subtrack-econometric .replication-demo{grid-template-columns:1fr}
+@media (max-width:600px){
+  .v2-page-challenge .ch-tabs{gap:5px}
+  .v2-page-challenge .ch-tab{margin-top:7px;padding:10px 10px 10px 12px;border-radius:12px 12px 0 0}
+  .v2-page-challenge .ch-tab[aria-selected="true"]{margin-top:0;padding-top:14px;padding-bottom:13px}
+  .v2-page-challenge .ch-tab[aria-selected="true"]::before{border-radius:12px 12px 0 0}
+  .v2-page-challenge .ch-tab > b{font-size:16px;white-space:normal}
+  .v2-page-challenge .ch-tab small{font-size:9.5px;letter-spacing:.08em}
+  .v2-page-challenge .ch-tab i,.v2-page-challenge .ch-tab-desc,.v2-page-challenge .ch-tab-num{display:none}
+  .v2-page-challenge .ch-panel{padding:18px 16px 22px;border-radius:16px}
+  .v2-page-challenge .is-tabbed .ch-panel{border-radius:0 0 16px 16px}
+  .v2-page-challenge .ch-facts{gap:8px 26px}
 }
+@media (prefers-reduced-motion:reduce){.v2-page-challenge .ch-tab,.v2-page-challenge .ch-tab::before,.v2-page-challenge .ch-tab-num{transition:none}}

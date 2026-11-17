@@ -20,6 +20,7 @@ export const publicFiles = [
   'film-econ-kit.js', 'film-soc-kit.js', 'film-econ-task.js', 'film-econ-agent.js', 'film-econ-trajectory.js', 'film-econ-grading.js', 'film-econ-metacase.js',
   'film-soc-task.js', 'film-soc-agent.js', 'film-soc-trajectory.js', 'film-soc-grading.js', 'film-soc-metacase.js',
   'agent-run.css', 'agent-run.js', 'agent-run-data.js', 'agent-run-stage.js',
+  'challenge.js',
   '.nojekyll',
 ];
 for (const file of publicFiles) {
