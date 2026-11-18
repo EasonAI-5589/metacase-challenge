@@ -13,7 +13,7 @@ import { clamp, smooth, ramp, lerp, glowSprite } from './mc-stage.js?v=20261105-
 import { MODEL_CHARACTERS, HARNESS_NAMES } from './arena-data.js?v=20261028-cascade';
 import { CRESTS, paintPlate } from './metacase-run.js?v=20261110-agentrun';
 import { RECORDED, RECORDED_LABEL, TOTALS, GROUPS, STEPS } from './agent-run-data.js?v=20261110-agentfacts';
-import { MODELS, HARNESSES, RUNS, REPLAYED } from './playground-runs-data.js?v=20261117-cells';
+import { MODELS, HARNESSES, RUNS, REPLAYED } from './playground-runs-data.js?v=20261117-grid66';
 import { build as buildRunStage, dressJudge } from './agent-run-stage.js?v=20261110-agentfacts';
 
 const $ = (selector, root = document) => root.querySelector(selector);

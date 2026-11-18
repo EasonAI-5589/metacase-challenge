@@ -3,7 +3,7 @@
  * from playground-runs-data.js, which is generated from the runs' replay records. A cell's colour
  * is its reward on one hue; the reward is also printed in the cell, so colour is never the only cue. */
 import { MODEL_CHARACTERS } from './arena-data.js?v=20261028-cascade';
-import { MODELS, HARNESSES, RUNS, REPLAYED, PILOT_REWARD, DIMENSIONS } from './playground-runs-data.js?v=20261117-cells';
+import { MODELS, HARNESSES, RUNS, REPLAYED, PILOT_REWARD, DIMENSIONS } from './playground-runs-data.js?v=20261117-grid66';
 
 const table = document.querySelector('[data-pg="table"]'), card = document.querySelector('[data-pg="card"]');
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));

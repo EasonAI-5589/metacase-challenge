@@ -1,5 +1,5 @@
 /* playground-runs-data.js — the recorded runs of FIN-T1-003 that playground.html compares: one run per
- * pairing of 11 models and 6 harnesses (65 runs), 13, 14 and 17 November 2026, judged by deepseek-v4.1-flash-1017. Generated
+ * pairing of 11 models and 6 harnesses (66 runs), 13, 14 and 17 November 2026, judged by deepseek-v4.1-flash-1017. Generated
  * from the runs' replay records; do not edit by hand. Rewards, counts and points per dimension are
  * the records' own. The three notes per run (how it worked, along the way, where the score came from)
  * were drafted from each run's steps and the judge's verdicts, then checked against them. */
@@ -2955,6 +2955,57 @@ export const RUNS = {
    "It converted the documents to text and read them in batches, then wrote one script for the workbook and one for the report. It recalculated the workbook, which keeps 162 formulas.",
    "The first two tools it tried for reading the PDF standards were not installed, and the third one worked. After the first build it patched the workbook script and built the workbook again.",
    "Full marks for the swap's July loss and HKSub's June comparatives. Points were lost for calling the whole counterparty valuation gap a curve difference and for leaving out the swap's rate sensitivity."
+  ]
+ },
+ "claude-code__anthropic-claude-fable-5-1": {
+  "reward": 0.73,
+  "graded": 0.73,
+  "requests": 32,
+  "calls": 31,
+  "harness": "Claude Code 2.1.280",
+  "model": "claude-fable-5.1",
+  "redlines": [],
+  "met": 14,
+  "partial": 1,
+  "missed": 5,
+  "penalties": 0,
+  "penaltyTotal": 5,
+  "dims": [
+   [
+    37.5,
+    50.0
+   ],
+   [
+    41.0,
+    41.0
+   ],
+   [
+    17.0,
+    27.0
+   ],
+   [
+    20.0,
+    44.0
+   ],
+   [
+    7.0,
+    7.0
+   ],
+   [
+    3.0,
+    3.0
+   ]
+  ],
+  "report": {
+   "chars": 9962
+  },
+  "workbook": {
+   "formulas": 175
+  },
+  "points": [
+   "It read the brief and the small tables first, converted the Word documents to text and read them in batches, then wrote one script for the workbook and one for the report. The workbook keeps 175 formulas.",
+   "After recalculating the workbook it found that notes beginning with an equals sign had been read as formulas. It fixed the script, rebuilt the workbook and checked it again.",
+   "Full marks for the swap's July loss, the dollar loan's loss and HKSub's June comparatives. Points were lost for calling the counterparty valuation gap a curve difference and for not separating the 70% risk target from the accounting hedge ratio."
   ]
  },
  "claude-code__openai-gpt-6-astra": {
